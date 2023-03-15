@@ -1,0 +1,29 @@
+name: Semantic Versioning
+
+on:
+  pull_request:
+    branches: 
+      - master
+      -  dependabot/*
+  push:
+    branches:
+      - master
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 14
+      - name: Install dependencies
+        run: yarn
+      - name: Fix Lint
+        run: yarn lint
+      - name: Build app
+        run: yarn build
+      - name: Semantic Versioning
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: npx semantic-release
