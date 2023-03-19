@@ -1,4 +1,3 @@
-import appleIcon from 'assets/apple-icon.svg';
 import googleIcon from 'assets/google-icon.svg';
 import goFinancesLogo from 'assets/logo.svg';
 
@@ -33,18 +32,6 @@ export function Login() {
               </div>
               <div className="w-52 h-12 flex items-center justify-center">
                 <span>Entrar com Google</span>
-              </div>
-            </button>
-
-            <button
-              type="button"
-              className="bg-white w-64 h-12 rounded-md text-title font-medium text-sm flex items-center dark:bg-backgroundCardDark dark:text-titleDark"
-            >
-              <div className=" w-12 h-12 flex items-center justify-center border-solid border-[1px] border-r-background rounded-l-md dark:border-r-[#34383a] dark:border-l-0 dark:border-t-0 border-b-0">
-                <img src={appleIcon} alt="Google" className="w-5 h-5" />
-              </div>
-              <div className="w-52 h-12 flex items-center justify-center">
-                <span>Entrar com Apple</span>
               </div>
             </button>
           </div>
