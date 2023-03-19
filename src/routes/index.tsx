@@ -1,11 +1,9 @@
-import { Route, Routes } from 'react-router-dom';
+import { useAuth } from 'contexts/Auth';
 
-import { Homepage } from 'pages/Home';
+import { PrivateRoutes } from './PrivateRoutes';
+import { PublicRoutes } from './PublicRoutes';
 
 export function MainRoutes() {
-  return (
-    <Routes>
-      <Route path="/" element={<Homepage />} />
-    </Routes>
-  );
+  const { signed } = useAuth();
+  return signed ? <PrivateRoutes /> : <PublicRoutes />;
 }
