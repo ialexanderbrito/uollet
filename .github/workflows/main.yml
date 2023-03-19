@@ -8,6 +8,11 @@ on:
   push:
     branches:
       - master
+  permissions:
+    contents: read
+    pages: write
+    pull-requests: write
+    id-token: write
 jobs:
   publish:
     runs-on: ubuntu-latest
