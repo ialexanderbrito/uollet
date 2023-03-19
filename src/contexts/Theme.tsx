@@ -1,42 +1,43 @@
-import { createContext, useContext } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 
-import useLocalStorage from 'use-local-storage';
-
-type IThemeContext = {
+interface ThemeContextProps {
   theme: string;
-  switchTheme: () => void;
-};
+  toggleTheme: () => void;
+}
 
-const Theme = createContext({} as IThemeContext);
+const ThemeContext = createContext<ThemeContextProps>({} as ThemeContextProps);
 
-export function ThemeProvider({ children }: any) {
-  const defaultDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-  const [theme, setTheme] = useLocalStorage<string>(
-    'theme',
-    defaultDark ? 'dark' : 'light',
-  );
+export const ThemeProvider = ({ children }: any) => {
+  const themeStorage = localStorage.getItem('@finance:theme');
+  const [theme, setTheme] = useState(themeStorage || 'light');
 
-  function switchTheme() {
-    const newTheme = theme === 'light' ? 'dark' : 'light';
-    setTheme(newTheme);
+  useEffect(() => {
+    if (theme === 'dark') {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  }, [theme]);
+
+  function toggleTheme() {
+    setTheme(theme === 'dark' ? 'light' : 'dark');
+    localStorage.setItem('@finance:theme', theme === 'dark' ? 'light' : 'dark');
   }
 
   return (
-    <Theme.Provider
+    <ThemeContext.Provider
       value={{
         theme,
-        switchTheme,
+        toggleTheme,
       }}
     >
       {children}
-    </Theme.Provider>
+    </ThemeContext.Provider>
   );
-}
+};
 
 export function useTheme() {
-  const context = useContext(Theme);
-  if (!context) {
-    throw new Error('useTheme must be used within a ThemeProvider');
-  }
+  const context = useContext(ThemeContext);
+
   return context;
 }
