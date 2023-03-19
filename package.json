@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/ialexanderbrito/finance"
+    "url": "https://github.com/ialexanderbrito/finance.git"
   },
   "scripts": {
     "dev": "vite",
