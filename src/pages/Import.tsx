@@ -40,6 +40,30 @@ export function Import() {
           user_id: user?.id,
         }));
 
+        const valuesInsertVoid = results.data.map(
+          (data: Record<string, any>) => ({
+            title: data.title,
+            value: data.value,
+            category: data.category,
+            date: data.date,
+            type: data.type,
+          }),
+        );
+
+        if (
+          valuesInsertVoid.some(
+            (value) =>
+              !value.title ||
+              !value.value ||
+              !value.category ||
+              !value.date ||
+              !value.type,
+          )
+        ) {
+          toast.error('Erro ao importar dados!', { id: 'toast' });
+          return;
+        }
+
         try {
           toast.loading('Importando dados...', { id: 'toast' });
           const { error } = await supabase
@@ -102,6 +126,75 @@ export function Import() {
                 />
               </label>
             </div>
+
+            <div className="flex flex-col items-start justify-center w-full">
+              <p className="text-xs text-title dark:text-textDark text-center">
+                <span className="font-semibold ">Atenção!</span> O arquivo deve
+                conter os seguintes campos:
+              </p>
+              <p className="text-xs text-title dark:text-textDark text-center">
+                <span className="font-semibold ">title</span>,{' '}
+                <span className="font-semibold ">value</span>,{' '}
+                <span className="font-semibold ">category</span>,{' '}
+                <span className="font-semibold ">date</span>,{' '}
+                <span className="font-semibold ">type</span>
+              </p>
+
+              <p className="text-xs text-title dark:text-textDark text-center">
+                <span className="font-semibold ">title</span> - Título da
+                transação
+              </p>
+              <p className="text-xs text-title dark:text-textDark text-center">
+                <span className="font-semibold ">value</span> - Valor da
+                transação
+              </p>
+              <p className="text-xs text-title dark:text-textDark text-center">
+                <span className="font-semibold ">category</span> - Categoria da
+                transação
+              </p>
+              <p className="text-xs text-title dark:text-textDark text-center">
+                <span className="font-semibold ">date</span> - Data da transação
+                (YYYY-MM-DD)
+              </p>
+              <p className="text-xs text-title dark:text-textDark text-center">
+                <span className="font-semibold ">type</span> - Tipo da transação
+              </p>
+
+              <p className="text-xs text-title dark:text-textDark text-center">
+                <span className="font-semibold ">Exemplo:</span>
+              </p>
+              <p className="text-xs text-title dark:text-textDark text-center">
+                <span className="font-semibold ">title</span>,{' '}
+                <span className="font-semibold ">value</span>,{' '}
+                <span className="font-semibold ">category</span>,{' '}
+                <span className="font-semibold ">date</span>,{' '}
+                <span className="font-semibold ">type</span>
+              </p>
+
+              <p className="text-xs text-title dark:text-textDark text-center">
+                <span className="font-semibold ">Almoço</span>,{' '}
+                <span className="font-semibold ">50</span>,{' '}
+                <span className="font-semibold ">Alimentação</span>,{' '}
+                <span className="font-semibold ">2021-10-10</span>,{' '}
+                <span className="font-semibold ">outcome</span>
+              </p>
+
+              <p className="text-xs text-title dark:text-textDark text-center">
+                <span className="font-semibold ">Salário</span>,{' '}
+                <span className="font-semibold ">5000</span>,{' '}
+                <span className="font-semibold ">Salário</span>,{' '}
+                <span className="font-semibold ">2021-10-10</span>,{' '}
+                <span className="font-semibold ">income</span>
+              </p>
+            </div>
+
+            <a
+              href="src/assets/modelo.csv"
+              className="flex items-center justify-center w-full h-12 bg-secondary dark:bg-secondaryDark rounded-lg text-white"
+              download
+            >
+              Baixar modelo
+            </a>
           </div>
 
           <BottomNavigator />
