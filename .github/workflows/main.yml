@@ -2,7 +2,7 @@ name: Semantic Versioning
 
 on:
   pull_request:
-    branches: 
+    branches:
       - master
       -  dependabot/*
   push:
@@ -16,7 +16,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 14
+          node-version: 18
       - name: Install dependencies
         run: yarn
       - name: Fix Lint
