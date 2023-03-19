@@ -1,6 +1,6 @@
 {
-  "name": "web",
-  "version": "1.0.7",
+  "name": "finance",
+  "version": "1.0.0",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
