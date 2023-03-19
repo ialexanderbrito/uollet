@@ -52,7 +52,7 @@ export function Import() {
 
         if (
           valuesInsertVoid.some(
-            (value) =>
+            (value: Record<string, any>) =>
               !value.title ||
               !value.value ||
               !value.category ||
