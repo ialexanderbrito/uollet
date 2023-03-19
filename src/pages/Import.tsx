@@ -16,6 +16,18 @@ export function Import() {
   const { loading } = useResume();
   const { user } = useAuth();
 
+  const FILE_URL_CSV = `${window.location.origin}/modelo.csv`;
+
+  function downloadFileAtUrl(url: string) {
+    const a = document.createElement('a');
+    a.href = url;
+    a.setAttribute('download', 'modelo.csv');
+
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+  }
+
   async function handleFileUpload(e: React.ChangeEvent<HTMLInputElement>) {
     if (!e.target.files) return;
 
@@ -188,13 +200,14 @@ export function Import() {
               </p>
             </div>
 
-            <a
-              href="src/assets/modelo.csv"
+            <button
               className="flex items-center justify-center w-full h-12 bg-secondary dark:bg-secondaryDark rounded-lg text-white"
-              download
+              onClick={() => {
+                downloadFileAtUrl(FILE_URL_CSV);
+              }}
             >
               Baixar modelo
-            </a>
+            </button>
           </div>
 
           <BottomNavigator />
