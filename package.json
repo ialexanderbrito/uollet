@@ -1,6 +1,10 @@
 {
   "name": "finance",
   "version": "1.0.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ialexanderbrito/finance"
+  },
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
