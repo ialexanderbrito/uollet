@@ -1,6 +1,7 @@
 import react from '@vitejs/plugin-react';
 import { defineConfig } from 'vite';
 import { VitePWA } from 'vite-plugin-pwa';
+import ViteRadar from 'vite-plugin-radar';
 import tsconfigPaths from 'vite-tsconfig-paths';
 
 import manifest from './manifest.json';
@@ -18,6 +19,11 @@ export default defineConfig({
       },
       workbox: {
         globPatterns: ['**/*.{js,css,html}', '**/*.{svg,png,jpg,gif}'],
+      },
+    }),
+    ViteRadar({
+      analytics: {
+        id: 'G-1JV6ZL1PXF',
       },
     }),
   ],
