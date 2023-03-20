@@ -10,7 +10,7 @@ export function PrivateRoutes() {
   return (
     <Routes>
       <Route path="/" element={<Finances />} />
-      <Route path="/cadastro" element={<Register />} />
+      <Route path="/register" element={<Register />} />
       <Route path="/resume" element={<Resume />} />
       <Route path="/import" element={<Import />} />
       <Route path="*" element={<Error />} />

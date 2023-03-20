@@ -30,15 +30,15 @@ export function BottomNavigator() {
           <span className="tab tab-home block text-sm">Listagem</span>
         </Link>
         <Link
-          to="/cadastro"
+          to="/register"
           className={`flex items-center gap-2 w-full focus:text-secondary hover:text-secondary justify-center pt-2 pb-1 ${
-            isActive('/cadastro') && 'text-secondary'
+            isActive('/register') && 'text-secondary'
           }`}
         >
           <CurrencyDollar
             size={25}
             className="inline-block"
-            color={isActive('/cadastro') ? '#ff872c' : '#363F5F'}
+            color={isActive('/register') ? '#ff872c' : '#363F5F'}
           />
           <span className="tab tab-home block text-sm">Cadastrar</span>
         </Link>
