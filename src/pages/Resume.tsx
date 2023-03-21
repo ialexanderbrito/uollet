@@ -53,8 +53,8 @@ export function Resume() {
                   alt="Entradas"
                   className={
                     type === 'income'
-                      ? 'h-8 w-8 opacity-25'
-                      : 'h-8 w-8 opacity-100'
+                      ? 'h-8 w-8 cursor-pointer opacity-25'
+                      : 'h-8 w-8 cursor-pointer opacity-100'
                   }
                   onClick={() => setType('income')}
                 />
@@ -63,8 +63,8 @@ export function Resume() {
                   alt="Saidas"
                   className={
                     type === 'outcome'
-                      ? 'h-8 w-8 opacity-25'
-                      : 'h-8 w-8 opacity-100'
+                      ? 'h-8 w-8 cursor-pointer opacity-25'
+                      : 'h-8 w-8 cursor-pointer opacity-100'
                   }
                   onClick={() => setType('outcome')}
                 />
