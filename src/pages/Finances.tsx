@@ -1,11 +1,8 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 
-import { FileCsv, Moon, Sun } from '@phosphor-icons/react';
 import defaultAvatar from 'assets/default_user_avatar.png';
 import incomeIcon from 'assets/income.svg';
 import outcomeIcon from 'assets/outcome.svg';
-import powerIcon from 'assets/power.svg';
 import totalIcon from 'assets/total.svg';
 
 import { BottomNavigator } from 'components/BottomNavigator';
@@ -13,6 +10,7 @@ import { Card } from 'components/Card';
 import { CardList } from 'components/CardList';
 import { Filter } from 'components/Filter';
 import { Loading } from 'components/Loading';
+import { Menu } from 'components/Menu';
 import { MyDialog } from 'components/Modal';
 
 import { formatCurrency } from 'utils/formatCurrency';
@@ -34,9 +32,9 @@ export interface FinancesProps {
 }
 
 export function Finances() {
-  const navigate = useNavigate();
-  const { user, logOut } = useAuth();
-  const { toggleTheme, theme } = useTheme();
+  const { user } = useAuth();
+  const { theme } = useTheme();
+
   const {
     finances,
     loading,
@@ -64,7 +62,7 @@ export function Finances() {
       ) : (
         <div className="flex w-full flex-col items-center justify-center bg-background dark:bg-backgroundDark">
           <div className="flex h-52 w-full flex-row bg-primary dark:bg-primaryDark">
-            <div className="mt-4 flex w-full items-start justify-between ">
+            <div className=" mt-4 flex w-full items-start justify-between ">
               <div className="flex w-full items-center justify-between gap-4">
                 <div className="flex items-center justify-between gap-4 ">
                   <img
@@ -78,41 +76,7 @@ export function Finances() {
                   </p>
                 </div>
                 <div className="mr-4 flex items-center justify-between gap-4">
-                  {theme === 'light' ? (
-                    <Moon
-                      size={30}
-                      weight="light"
-                      onClick={() => {
-                        toggleTheme();
-                      }}
-                      className="cursor-pointer  text-secondary"
-                    />
-                  ) : (
-                    <Sun
-                      size={30}
-                      weight="light"
-                      onClick={() => {
-                        toggleTheme();
-                      }}
-                      className="cursor-pointer  text-secondary"
-                    />
-                  )}
-                  <FileCsv
-                    size={30}
-                    weight="light"
-                    className="cursor-pointer  text-secondary"
-                    onClick={() => {
-                      navigate('/import');
-                    }}
-                  />
-                  <img
-                    src={powerIcon}
-                    alt="Deslogar"
-                    className="cursor-pointer "
-                    onClick={() => {
-                      logOut();
-                    }}
-                  />
+                  <Menu />
                 </div>
               </div>
             </div>
