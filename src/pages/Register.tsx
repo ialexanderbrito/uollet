@@ -66,7 +66,13 @@ export function Register() {
               }}
             >
               <img src={incomeIcon} alt="Entrada" className="h-6 w-6" />
-              <p className="text-title dark:text-titleDark">Entrada</p>
+              <p
+                className={`
+                text-text ${formik.values.type === 'income' ? 'text-title' : ''}
+              `}
+              >
+                Entrada
+              </p>
             </div>
 
             <div
@@ -80,7 +86,13 @@ export function Register() {
               }}
             >
               <img src={outcomeIcon} alt="Saída" className="h-6 w-6" />
-              <p className="text-title dark:text-titleDark">Saída</p>
+              <p
+                className={`text-text ${
+                  formik.values.type === 'outcome' ? 'text-title' : ''
+                }`}
+              >
+                Saída
+              </p>
             </div>
           </div>
 
