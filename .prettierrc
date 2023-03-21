@@ -5,5 +5,9 @@
   "printWidth": 120,
   "trailingComma": "all",
   "endOfLine": "auto",
-  "parser": "typescript"
+  "parser": "typescript",
+  "plugins": [
+    "prettier-plugin-tailwindcss"
+  ],
+  "pluginSearchDirs": false
 }
