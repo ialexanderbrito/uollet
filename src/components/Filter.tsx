@@ -23,6 +23,7 @@ export function Filter({
         onClick={() => {
           handlePreviousMonth();
         }}
+        className="cursor-pointer"
       />
 
       <p className={`${textSize} font-medium`}>
@@ -35,6 +36,7 @@ export function Filter({
         onClick={() => {
           handleNextMonth();
         }}
+        className="cursor-pointer"
       />
     </div>
   );
