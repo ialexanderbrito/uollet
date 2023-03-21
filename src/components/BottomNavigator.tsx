@@ -10,15 +10,15 @@ export function BottomNavigator() {
   return (
     <section
       id="bottom-navigation"
-      className="block fixed inset-x-0 bottom-0 z-10 bg-white shadow dark:bg-backgroundCardDark"
+      className="fixed inset-x-0 bottom-0 z-10 block bg-white shadow dark:bg-backgroundCardDark"
     >
       <div
         id="tabs"
-        className="flex justify-between h-16 text-title border-solid border-t-[1px]-background dark:text-titleDark"
+        className="border-t-[1px]-background flex h-16 justify-between border-solid text-title dark:text-titleDark"
       >
         <Link
           to="/"
-          className={`flex items-center gap-2 w-full focus:text-secondary hover:text-secondary justify-center pt-2 pb-1 ${
+          className={`flex w-full items-center justify-center gap-2 pt-2 pb-1 focus:text-secondary hover:text-secondary ${
             isActive('/') && 'text-secondary'
           }`}
         >
@@ -31,7 +31,7 @@ export function BottomNavigator() {
         </Link>
         <Link
           to="/register"
-          className={`flex items-center gap-2 w-full focus:text-secondary hover:text-secondary justify-center pt-2 pb-1 ${
+          className={`flex w-full items-center justify-center gap-2 pt-2 pb-1 focus:text-secondary hover:text-secondary ${
             isActive('/register') && 'text-secondary'
           }`}
         >
@@ -44,7 +44,7 @@ export function BottomNavigator() {
         </Link>
         <Link
           to="/resume"
-          className={`flex items-center gap-2 w-full focus:text-secondary hover:text-secondary justify-center pt-2 pb-1 ${
+          className={`flex w-full items-center justify-center gap-2 pt-2 pb-1 focus:text-secondary hover:text-secondary ${
             isActive('/resume') && 'text-secondary'
           }`}
         >

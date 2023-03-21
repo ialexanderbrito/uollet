@@ -16,7 +16,7 @@ export function Filter({
   textSize,
 }: FilterProps) {
   return (
-    <div className="flex w-full items-center justify-between flex-row gap-2 p-4 text-title dark:text-titleDark">
+    <div className="flex w-full flex-row items-center justify-between gap-2 p-4 text-title dark:text-titleDark">
       <CaretLeft
         size={28}
         weight="light"

@@ -57,7 +57,7 @@ export function MyDialog({
                   <div className="mt-4 flex justify-around">
                     <button
                       type="submit"
-                      className="border-secondary border-solid border-[1.5px] rounded-lg p-4 w-32 h-14 text-secondary dark:text-secondaryDark dark:border-secondaryDark"
+                      className="h-14 w-32 rounded-lg border-[1.5px] border-solid border-secondary p-4 text-secondary dark:border-secondaryDark dark:text-secondaryDark"
                       onClick={closeModal}
                     >
                       Cancelar
@@ -65,7 +65,7 @@ export function MyDialog({
 
                     <button
                       type="submit"
-                      className="bg-secondary text-white rounded-lg p-4 w-32 h-14 dark:bg-secondaryDark"
+                      className="h-14 w-32 rounded-lg bg-secondary p-4 text-white dark:bg-secondaryDark"
                       onClick={deleteTransaction}
                     >
                       Enviar

@@ -63,21 +63,21 @@ export function Finances() {
         <Loading />
       ) : (
         <div className="flex w-full flex-col items-center justify-center bg-background dark:bg-backgroundDark">
-          <div className="bg-primary flex w-full h-52 flex-row dark:bg-primaryDark">
-            <div className="flex mt-4 w-full items-start justify-between ">
-              <div className="flex items-center justify-between gap-4 w-full">
+          <div className="flex h-52 w-full flex-row bg-primary dark:bg-primaryDark">
+            <div className="mt-4 flex w-full items-start justify-between ">
+              <div className="flex w-full items-center justify-between gap-4">
                 <div className="flex items-center justify-between gap-4 ">
                   <img
                     src={user?.user_metadata.avatar_url || defaultAvatar}
                     alt={user?.user_metadata.full_name}
-                    className="w-12 h-12 rounded-lg ml-4"
+                    className="ml-4 h-12 w-12 rounded-lg"
                   />
-                  <p className="text-white font-medium text-sm">
+                  <p className="text-sm font-medium text-white">
                     Olá, <br />
                     <b>{user?.user_metadata.name}</b>
                   </p>
                 </div>
-                <div className="flex items-center justify-between gap-4 mr-4">
+                <div className="mr-4 flex items-center justify-between gap-4">
                   {theme === 'light' ? (
                     <Moon
                       size={30}
@@ -118,7 +118,7 @@ export function Finances() {
             </div>
           </div>
 
-          <div className="flex gap-4 absolute top-20 w-full min-w-full overflow-x-scroll snap-x scrollbar-hide p-4 md:justify-center">
+          <div className="absolute top-20 flex w-full min-w-full snap-x gap-4 overflow-x-scroll p-4 scrollbar-hide md:justify-center">
             <Card
               title="Entradas"
               icon={incomeIcon}
@@ -154,11 +154,11 @@ export function Finances() {
 
           <div className="h-20" />
 
-          <div className="flex w-full flex-col gap-4 p-4 min-h-screen">
-            <div className="text-black font-normal text-lg flex justify-between items-center dark:text-textDark">
+          <div className="flex min-h-screen w-full flex-col gap-4 p-4">
+            <div className="flex items-center justify-between text-lg font-normal text-black dark:text-textDark">
               <span>Listagem</span>
 
-              <div className="flex flex-col gap-4 w-56">
+              <div className="flex w-56 flex-col gap-4">
                 <Filter
                   newMonthLong={newMonthLong}
                   actualYear={actualYear}

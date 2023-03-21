@@ -33,10 +33,10 @@ export function CardList({
 
   return (
     <li
-      className={`flex flex-col p-4 justify-center gap-4 w-full h-32 rounded-md bg-backgroundCard ${className} dark:bg-backgroundCardDark`}
+      className={`flex h-32 w-full flex-col justify-center gap-4 rounded-md bg-backgroundCard p-4 ${className} dark:bg-backgroundCardDark`}
     >
       <div className="flex flex-row justify-between">
-        <span className="text-title font-normal text-sm dark:text-titleDark">
+        <span className="text-sm font-normal text-title dark:text-titleDark">
           {title}
         </span>
         <TrashSimple
@@ -50,20 +50,20 @@ export function CardList({
       <span
         className={`${
           income ? 'text-success' : 'text-danger'
-        } font-normal text-xl`}
+        } text-xl font-normal`}
       >
         {formatCurrency(value)}
       </span>
       <div className="flex flex-row justify-between">
-        <span className="text-text font-normal text-sm flex gap-2">
+        <span className="flex gap-2 text-sm font-normal text-text">
           <img
             src={verifyIcon(category)}
             alt={category}
-            className="w-5 h-5 fill-text"
+            className="h-5 w-5 fill-text"
           />
           {category}
         </span>
-        <span className="text-text font-normal text-sm gap-2">
+        <span className="gap-2 text-sm font-normal text-text">
           {format(new Date(newDate), 'dd/MM/yyyy')}
         </span>
       </div>

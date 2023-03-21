@@ -24,17 +24,17 @@ export function Register() {
 
   return (
     <div className="flex w-full flex-col items-center bg-background dark:bg-backgroundDark">
-      <div className="bg-primary flex w-full h-24 flex-row">
+      <div className="flex h-24 w-full flex-row bg-primary">
         <div className="flex w-full items-center justify-center">
-          <p className="text-white font-normal text-lg">Cadastro</p>
+          <p className="text-lg font-normal text-white">Cadastro</p>
         </div>
       </div>
 
-      <form className="flex flex-col w-full" onSubmit={formik.handleSubmit}>
-        <div className="flex w-full flex-col gap-4 p-4 min-h-[85vh]">
+      <form className="flex w-full flex-col" onSubmit={formik.handleSubmit}>
+        <div className="flex min-h-[85vh] w-full flex-col gap-4 p-4">
           <input
             type="text"
-            className={`bg-white rounded-lg p-4 w-full h-14 outline-none dark:bg-backgroundCardDark text-title dark:text-titleDark ${
+            className={`h-14 w-full rounded-lg bg-white p-4 text-title outline-none dark:bg-backgroundCardDark dark:text-titleDark ${
               formik.errors.title && formik.touched.title
                 ? 'border-[1.5px] border-red-500'
                 : ''
@@ -47,52 +47,52 @@ export function Register() {
             id="value"
             setValor={setValor}
             {...formik.getFieldProps('value')}
-            className={`bg-white rounded-lg p-4 w-full h-14 outline-none dark:bg-backgroundCardDark text-title dark:text-titleDark ${
+            className={`h-14 w-full rounded-lg bg-white p-4 text-title outline-none dark:bg-backgroundCardDark dark:text-titleDark ${
               !valor && formik.errors.value && formik.touched.value
                 ? 'border-[1.5px] border-red-500'
                 : ''
             }`}
           />
 
-          <div className="flex flex-row w-full justify-around gap-4 p-1">
+          <div className="flex w-full flex-row justify-around gap-4 p-1">
             <div
-              className={`flex flex-row w-full h-16 items-center justify-evenly rounded-md border-solid border-text border-[1.5px] ${
+              className={`flex h-16 w-full flex-row items-center justify-evenly rounded-md border-[1.5px] border-solid border-text ${
                 formik.values.type === 'income'
-                  ? 'bg-[#e7f5e7] border-none'
+                  ? 'border-none bg-[#e7f5e7]'
                   : ''
               }`}
               onClick={() => {
                 formik.setFieldValue('type', 'income');
               }}
             >
-              <img src={incomeIcon} alt="Entrada" className="w-6 h-6" />
+              <img src={incomeIcon} alt="Entrada" className="h-6 w-6" />
               <p className="text-title dark:text-titleDark">Entrada</p>
             </div>
 
             <div
-              className={`flex flex-row  w-full h-16 items-center justify-evenly rounded-md border-solid border-text border-[1.5px] ${
+              className={`flex h-16  w-full flex-row items-center justify-evenly rounded-md border-[1.5px] border-solid border-text ${
                 formik.values.type === 'outcome'
-                  ? 'bg-[#fddede] border-none'
+                  ? 'border-none bg-[#fddede]'
                   : ''
               }`}
               onClick={() => {
                 formik.setFieldValue('type', 'outcome');
               }}
             >
-              <img src={outcomeIcon} alt="Saída" className="w-6 h-6" />
+              <img src={outcomeIcon} alt="Saída" className="h-6 w-6" />
               <p className="text-title dark:text-titleDark">Saída</p>
             </div>
           </div>
 
-          <div className="flex flex-col w-full gap-4 pl-2 mt-[-1rem]">
+          <div className="mt-[-1rem] flex w-full flex-col gap-4 pl-2">
             {formik.errors.type && formik.touched.type ? (
-              <span className="text-red-500 text-xs">{formik.errors.type}</span>
+              <span className="text-xs text-red-500">{formik.errors.type}</span>
             ) : null}
           </div>
 
           <select
             id="category"
-            className={`bg-white rounded-lg p-4 w-full h-14 outline-none dark:bg-backgroundCardDark text-title dark:text-titleDark ${
+            className={`h-14 w-full rounded-lg bg-white p-4 text-title outline-none dark:bg-backgroundCardDark dark:text-titleDark ${
               formik.errors.category && formik.touched.category
                 ? 'border-[1.5px] border-red-500'
                 : ''
@@ -102,7 +102,7 @@ export function Register() {
             <option
               value=""
               disabled
-              className="bg-white rounded-lg p-4 w-full h-14 dark:bg-backgroundCardDark text-title dark:text-titleDark"
+              className="h-14 w-full rounded-lg bg-white p-4 text-title dark:bg-backgroundCardDark dark:text-titleDark"
             >
               Categoria
             </option>
@@ -110,7 +110,7 @@ export function Register() {
               <option
                 key={item.name}
                 value={item.name}
-                className="bg-white rounded-lg p-4 w-full h-14 dark:bg-backgroundCardDark text-title dark:text-titleDark"
+                className="h-14 w-full rounded-lg bg-white p-4 text-title dark:bg-backgroundCardDark dark:text-titleDark"
               >
                 {item.name}
               </option>
@@ -119,7 +119,7 @@ export function Register() {
 
           <input
             type="date"
-            className={`bg-white rounded-lg p-4 w-full h-14 outline-none dark:bg-backgroundCardDark text-title dark:text-titleDark ${
+            className={`h-14 w-full rounded-lg bg-white p-4 text-title outline-none dark:bg-backgroundCardDark dark:text-titleDark ${
               formik.errors.date && formik.touched.date
                 ? 'border-[1.5px] border-red-500'
                 : ''
@@ -128,10 +128,10 @@ export function Register() {
             {...formik.getFieldProps('date')}
           />
 
-          <div className="flex flex-col gap-4 items-center justify-end">
+          <div className="flex flex-col items-center justify-end gap-4">
             <button
               type="submit"
-              className="bg-secondary text-white rounded-lg p-4 w-full h-14 dark:bg-secondaryDark"
+              className="h-14 w-full rounded-lg bg-secondary p-4 text-white dark:bg-secondaryDark"
             >
               Enviar
             </button>

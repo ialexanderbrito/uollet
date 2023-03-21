@@ -6,19 +6,19 @@ export function Error() {
   const navigate = useNavigate();
 
   return (
-    <div className="flex flex-col items-center justify-center w-full h-screen bg-background p-4 dark:bg-backgroundDark">
-      <img src={errorIcon} alt="Erro 404" className="w-96 h-96" />
-      <h1 className="font-normal text-sm text-title dark:text-titleDark">
+    <div className="flex h-screen w-full flex-col items-center justify-center bg-background p-4 dark:bg-backgroundDark">
+      <img src={errorIcon} alt="Erro 404" className="h-96 w-96" />
+      <h1 className="text-sm font-normal text-title dark:text-titleDark">
         Infelizmente a página não foi encontrada!
       </h1>
 
-      <div className="flex flex-col gap-4 w-full mt-10">
+      <div className="mt-10 flex w-full flex-col gap-4">
         <button
           onClick={() => {
             navigate('/');
           }}
           type="button"
-          className="bg-secondary text-white rounded-lg p-4 w-full h-14 dark:bg-secondaryDark"
+          className="h-14 w-full rounded-lg bg-secondary p-4 text-white dark:bg-secondaryDark"
         >
           Voltar para página inicial
         </button>

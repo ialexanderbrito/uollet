@@ -100,26 +100,26 @@ export function Import() {
       {loading ? (
         <Loading />
       ) : (
-        <div className="flex w-full flex-col items-center bg-background h-screen dark:bg-backgroundDark">
-          <div className="bg-primary flex w-full h-24 flex-row">
+        <div className="flex h-screen w-full flex-col items-center bg-background dark:bg-backgroundDark">
+          <div className="flex h-24 w-full flex-row bg-primary">
             <div className="flex w-full items-center justify-center">
-              <p className="text-white font-normal text-lg">Importar dados</p>
+              <p className="text-lg font-normal text-white">Importar dados</p>
             </div>
           </div>
 
-          <div className="flex w-full items-center justify-center flex-col gap-2 p-4">
-            <div className="flex items-center justify-center w-full">
+          <div className="flex w-full flex-col items-center justify-center gap-2 p-4">
+            <div className="flex w-full items-center justify-center">
               <label
                 htmlFor="dropzone-file"
-                className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-backgroundCard dark:hover:bg-bray-800 dark:bg-backgroundCardDark hover:bg-background dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-backgroundDark"
+                className="dark:hover:bg-bray-800 flex h-64 w-full cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-gray-300 bg-backgroundCard hover:bg-background dark:border-gray-600 dark:bg-backgroundCardDark dark:hover:border-gray-500 dark:hover:bg-backgroundDark"
               >
                 <div className="flex flex-col items-center justify-center pt-5 pb-6">
                   <FileArrowUp
                     size={64}
                     weight="light"
-                    className="dark:text-titleDark mb-3"
+                    className="mb-3 dark:text-titleDark"
                   />
-                  <p className="mb-2 text-sm text-gray-500 dark:text-textDark text-center">
+                  <p className="mb-2 text-center text-sm text-gray-500 dark:text-textDark">
                     <span className="font-semibold ">
                       Clique para adicionar um arquivo
                     </span>{' '}
@@ -139,12 +139,12 @@ export function Import() {
               </label>
             </div>
 
-            <div className="flex flex-col items-start justify-center w-full">
-              <p className="text-xs text-title dark:text-textDark text-center">
+            <div className="flex w-full flex-col items-start justify-center">
+              <p className="text-center text-xs text-title dark:text-textDark">
                 <span className="font-semibold ">Atenção!</span> O arquivo deve
                 conter os seguintes campos:
               </p>
-              <p className="text-xs text-title dark:text-textDark text-center">
+              <p className="text-center text-xs text-title dark:text-textDark">
                 <span className="font-semibold ">title</span>,{' '}
                 <span className="font-semibold ">value</span>,{' '}
                 <span className="font-semibold ">category</span>,{' '}
@@ -152,30 +152,30 @@ export function Import() {
                 <span className="font-semibold ">type</span>
               </p>
 
-              <p className="text-xs text-title dark:text-textDark text-center">
+              <p className="text-center text-xs text-title dark:text-textDark">
                 <span className="font-semibold ">title</span> - Título da
                 transação
               </p>
-              <p className="text-xs text-title dark:text-textDark text-center">
+              <p className="text-center text-xs text-title dark:text-textDark">
                 <span className="font-semibold ">value</span> - Valor da
                 transação
               </p>
-              <p className="text-xs text-title dark:text-textDark text-center">
+              <p className="text-center text-xs text-title dark:text-textDark">
                 <span className="font-semibold ">category</span> - Categoria da
                 transação
               </p>
-              <p className="text-xs text-title dark:text-textDark text-center">
+              <p className="text-center text-xs text-title dark:text-textDark">
                 <span className="font-semibold ">date</span> - Data da transação
                 (YYYY-MM-DD)
               </p>
-              <p className="text-xs text-title dark:text-textDark text-center">
+              <p className="text-center text-xs text-title dark:text-textDark">
                 <span className="font-semibold ">type</span> - Tipo da transação
               </p>
 
-              <p className="text-xs text-title dark:text-textDark text-center">
+              <p className="text-center text-xs text-title dark:text-textDark">
                 <span className="font-semibold ">Exemplo:</span>
               </p>
-              <p className="text-xs text-title dark:text-textDark text-center">
+              <p className="text-center text-xs text-title dark:text-textDark">
                 <span className="font-semibold ">title</span>,{' '}
                 <span className="font-semibold ">value</span>,{' '}
                 <span className="font-semibold ">category</span>,{' '}
@@ -183,7 +183,7 @@ export function Import() {
                 <span className="font-semibold ">type</span>
               </p>
 
-              <p className="text-xs text-title dark:text-textDark text-center">
+              <p className="text-center text-xs text-title dark:text-textDark">
                 <span className="font-semibold ">Almoço</span>,{' '}
                 <span className="font-semibold ">50</span>,{' '}
                 <span className="font-semibold ">Alimentação</span>,{' '}
@@ -191,7 +191,7 @@ export function Import() {
                 <span className="font-semibold ">outcome</span>
               </p>
 
-              <p className="text-xs text-title dark:text-textDark text-center">
+              <p className="text-center text-xs text-title dark:text-textDark">
                 <span className="font-semibold ">Salário</span>,{' '}
                 <span className="font-semibold ">5000</span>,{' '}
                 <span className="font-semibold ">Salário</span>,{' '}
@@ -201,7 +201,7 @@ export function Import() {
             </div>
 
             <button
-              className="flex items-center justify-center w-full h-12 bg-secondary dark:bg-secondaryDark rounded-lg text-white"
+              className="flex h-12 w-full items-center justify-center rounded-lg bg-secondary text-white dark:bg-secondaryDark"
               onClick={() => {
                 downloadFileAtUrl(FILE_URL_CSV);
               }}

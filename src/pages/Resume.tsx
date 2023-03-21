@@ -37,24 +37,24 @@ export function Resume() {
       ) : (
         <>
           <div className="flex w-full flex-col items-center justify-center bg-background dark:bg-backgroundDark">
-            <div className="bg-primary flex w-full h-24 flex-row">
+            <div className="flex h-24 w-full flex-row bg-primary">
               <div className="flex w-full items-center justify-center">
-                <p className="text-white font-normal text-lg">
+                <p className="text-lg font-normal text-white">
                   Resumo por categoria -{' '}
                   {type === 'income' ? 'Entradas' : 'Saídas'}
                 </p>
               </div>
             </div>
 
-            <div className="flex w-full items-center justify-start flex-col gap-2 p-4 h-screen">
-              <div className="flex items-center w-full justify-end gap-2 ">
+            <div className="flex h-screen w-full flex-col items-center justify-start gap-2 p-4">
+              <div className="flex w-full items-center justify-end gap-2 ">
                 <img
                   src={incomeIcon}
                   alt="Entradas"
                   className={
                     type === 'income'
-                      ? 'w-8 h-8 opacity-25'
-                      : 'w-8 h-8 opacity-100'
+                      ? 'h-8 w-8 opacity-25'
+                      : 'h-8 w-8 opacity-100'
                   }
                   onClick={() => setType('income')}
                 />
@@ -63,8 +63,8 @@ export function Resume() {
                   alt="Saidas"
                   className={
                     type === 'outcome'
-                      ? 'w-8 h-8 opacity-25'
-                      : 'w-8 h-8 opacity-100'
+                      ? 'h-8 w-8 opacity-25'
+                      : 'h-8 w-8 opacity-100'
                   }
                   onClick={() => setType('outcome')}
                 />
@@ -76,10 +76,10 @@ export function Resume() {
                 handlePreviousMonth={handlePreviousMonth}
                 handleNextMonth={handleNextMonth}
               />
-              <div className="w-64 h-64 mb-8">
+              <div className="mb-8 h-64 w-64">
                 {categories.length === 0 ? (
-                  <div className="flex w-full h-full items-center justify-center">
-                    <p className="text-title font-medium text-lg text-center dark:text-titleDark">
+                  <div className="flex h-full w-full items-center justify-center">
+                    <p className="text-center text-lg font-medium text-title dark:text-titleDark">
                       Nenhum registro encontrado
                     </p>
                   </div>
@@ -108,20 +108,20 @@ export function Resume() {
                   />
                 )}
               </div>
-              <div className="flex flex-col w-full gap-2">
+              <div className="flex w-full flex-col gap-2">
                 {categories.map((category, index) => (
                   <div
                     key={index}
-                    className="flex items-center bg-backgroundCard gap-2 w-full h-12 rounded-md dark:bg-backgroundCardDark"
+                    className="flex h-12 w-full items-center gap-2 rounded-md bg-backgroundCard dark:bg-backgroundCardDark"
                   >
                     <div
-                      className="w-2 rounded-l-md h-full"
+                      className="h-full w-2 rounded-l-md"
                       style={{ backgroundColor: colors[index] }}
                     />
-                    <p className="font-normal text-left text-base w-full text-title dark:text-titleDark">
+                    <p className="w-full text-left text-base font-normal text-title dark:text-titleDark">
                       {category}
                     </p>
-                    <p className="font-medium text-right text-lg mr-4 w-full text-title dark:text-titleDark">
+                    <p className="mr-4 w-full text-right text-lg font-medium text-title dark:text-titleDark">
                       {formatCurrency(values[index])}
                     </p>
                   </div>

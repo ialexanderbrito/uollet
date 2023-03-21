@@ -19,19 +19,19 @@ export function Card({
 }: CardProps) {
   return (
     <div
-      className={`flex bg-${bgColor} min-w-[300px] h-48 relative snap-center rounded-md flex-col md:w-full dark:bg-${bgColor}`}
+      className={`flex bg-${bgColor} relative h-48 min-w-[300px] snap-center flex-col rounded-md md:w-full dark:bg-${bgColor}`}
     >
-      <div className="flex flex-row items-start justify-between p-4 w-full h-full">
+      <div className="flex h-full w-full flex-row items-start justify-between p-4">
         <p
-          className={`text-${textColor} font-normal text-sm mt-2 dark:text-${textColor}`}
+          className={`text-${textColor} mt-2 text-sm font-normal dark:text-${textColor}`}
         >
           {title}
         </p>
         <img src={icon} alt={title} />
       </div>
-      <div className="flex flex-col items-start justify-between p-4 w-full h-full">
+      <div className="flex h-full w-full flex-col items-start justify-between p-4">
         <b
-          className={`text-${textColor} font-medium text-3xl dark:text-${textColor}`}
+          className={`text-${textColor} text-3xl font-medium dark:text-${textColor}`}
         >
           {value}
         </b>
