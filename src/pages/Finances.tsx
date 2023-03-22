@@ -1,5 +1,6 @@
 import { useState } from 'react';
 
+import { Eye, EyeSlash } from '@phosphor-icons/react';
 import defaultAvatar from 'assets/default_user_avatar.png';
 import incomeIcon from 'assets/income.svg';
 import outcomeIcon from 'assets/outcome.svg';
@@ -55,6 +56,7 @@ export function Finances() {
   } = useTransactions();
 
   const [idTransaction, setIdTransaction] = useState(0);
+  const [visible, setVisible] = useState(false);
 
   return (
     <>
@@ -77,6 +79,21 @@ export function Finances() {
                   </p>
                 </div>
                 <div className="mr-4 flex items-center justify-between gap-4">
+                  {visible ? (
+                    <Eye
+                      size={30}
+                      weight="light"
+                      onClick={() => setVisible(false)}
+                      className="cursor-pointer text-secondary"
+                    />
+                  ) : (
+                    <EyeSlash
+                      size={30}
+                      weight="light"
+                      onClick={() => setVisible(true)}
+                      className="cursor-pointer text-secondary"
+                    />
+                  )}
                   <Menu />
                 </div>
               </div>
@@ -87,7 +104,7 @@ export function Finances() {
             <Card
               title="Entradas"
               icon={incomeIcon}
-              value={formatCurrency(totalIncome)}
+              value={visible ? formatCurrency(totalIncome) : '*****'}
               lastEntry={`De 01/${actualMonth}/${actualYear} até ${endOfDays}/${actualMonth}/${actualYear}`}
               bgColor={
                 theme === 'light' ? 'backgroundCard' : 'backgroundCardDark'
@@ -98,7 +115,7 @@ export function Finances() {
             <Card
               title="Saidas"
               icon={outcomeIcon}
-              value={formatCurrency(totalOutcome)}
+              value={visible ? formatCurrency(totalOutcome) : '*****'}
               lastEntry={`De 01/${actualMonth}/${actualYear} até ${endOfDays}/${actualMonth}/${actualYear}`}
               bgColor={
                 theme === 'light' ? 'backgroundCard' : 'backgroundCardDark'
@@ -109,7 +126,7 @@ export function Finances() {
             <Card
               title="Total"
               icon={totalIcon}
-              value={formatCurrency(allTotal)}
+              value={visible ? formatCurrency(allTotal) : '*****'}
               lastEntry={allTotal > 0 ? 'Saldo Positivo' : 'Saldo Negativo'}
               bgColor={theme === 'light' ? 'secondary' : 'secondaryDark'}
               textColor={theme === 'light' ? 'white' : 'white'}
