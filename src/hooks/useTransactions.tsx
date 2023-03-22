@@ -26,7 +26,7 @@ export function useTransactions() {
   const newMonthLong = format(new Date(actualYear, actualMonth - 1), 'MMM', {
     locale: pt,
   });
-
+  const [search, setSearch] = useState('');
   const [openModal, setOpenModal] = useState(false);
 
   const [loading, setLoading] = useState(true);
@@ -241,6 +241,29 @@ export function useTransactions() {
     }
   }
 
+  async function searchTransaction() {
+    try {
+      const { data, error } = await supabase
+        .from('finances_db')
+        .select('*')
+        .eq('user_id', user?.id)
+        .ilike('title', `%${search}%`)
+        .order('created_at', { ascending: false });
+
+      if (error) {
+        toast.error('Erro ao buscar transações', { id: 'error' });
+        setLoading(false);
+        return;
+      }
+
+      if (!data) return;
+
+      setFinances(data);
+    } catch (error) {
+      toast.error('Erro ao buscar transações', { id: 'error' });
+    }
+  }
+
   useEffect(() => {
     getAllTransactions();
   }, []);
@@ -251,9 +274,20 @@ export function useTransactions() {
     getAllTransactionsPerMonth();
   }, [actualMonth, actualYear]);
 
+  useEffect(() => {
+    if (search.length >= 2) {
+      searchTransaction();
+    }
+
+    if (search.length === 0) {
+      searchTransaction();
+    }
+  }, [search]);
+
   return {
     getAllTransactions,
     finances,
+    setFinances,
     loading,
     totalIncome,
     lastDateIncome,
@@ -272,5 +306,6 @@ export function useTransactions() {
     actualMonth,
     endOfDays,
     allTotal,
+    setSearch,
   };
 }
