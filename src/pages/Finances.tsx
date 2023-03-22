@@ -51,6 +51,7 @@ export function Finances() {
     handleNextMonth,
     actualMonth,
     endOfDays,
+    setSearch,
   } = useTransactions();
 
   const [idTransaction, setIdTransaction] = useState(0);
@@ -119,6 +120,13 @@ export function Finances() {
           <div className="h-20" />
 
           <div className="flex min-h-screen w-full flex-col gap-4 p-4">
+            <input
+              type="text"
+              placeholder="Pesquisar por alguma transação"
+              className="h-14 w-full rounded-lg bg-white p-4 text-title outline-none dark:bg-backgroundCardDark dark:text-titleDark"
+              onChange={(e) => setSearch(e.target.value)}
+            />
+
             <div className="flex items-center justify-between text-lg font-normal text-black dark:text-textDark">
               <span>Listagem</span>
 
