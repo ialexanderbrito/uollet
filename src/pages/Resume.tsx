@@ -37,7 +37,7 @@ export function Resume() {
       ) : (
         <>
           <div className="flex w-full flex-col items-center justify-center bg-background dark:bg-backgroundDark">
-            <div className="flex h-24 w-full flex-row bg-primary">
+            <div className="flex h-24 w-full flex-row bg-primary dark:bg-primaryDark">
               <div className="flex w-full items-center justify-center">
                 <p className="text-lg font-normal text-white">
                   Resumo por categoria -{' '}
