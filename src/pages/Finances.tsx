@@ -158,6 +158,13 @@ export function Finances() {
               </div>
             </div>
             <ul className="flex flex-col gap-4">
+              {finances.length === 0 && (
+                <div className="flex flex-col items-center justify-center">
+                  <p className="text-lg font-medium text-black dark:text-textDark">
+                    Nenhuma transação encontrada
+                  </p>
+                </div>
+              )}
               {finances.map((item) => (
                 <>
                   {item === finances[finances.length - 1] ? (

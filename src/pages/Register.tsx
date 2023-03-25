@@ -136,7 +136,7 @@ export function Register() {
                 ? 'border-[1.5px] border-red-500'
                 : ''
             }`}
-            placeholder="Data"
+            placeholder="DD/MM/AAAA"
             {...formik.getFieldProps('date')}
           />
 
