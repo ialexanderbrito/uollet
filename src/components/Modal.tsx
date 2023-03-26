@@ -68,7 +68,7 @@ export function MyDialog({
                       className="h-14 w-32 rounded-lg bg-secondary p-4 text-white dark:bg-secondaryDark"
                       onClick={deleteTransaction}
                     >
-                      Deletar
+                      Excluir
                     </button>
                   </div>
                 </Dialog.Panel>
