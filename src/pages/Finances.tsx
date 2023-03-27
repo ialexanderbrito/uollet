@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { Eye, EyeSlash } from '@phosphor-icons/react';
 import defaultAvatar from 'assets/default_user_avatar.png';
@@ -33,6 +34,7 @@ export interface FinancesProps {
 }
 
 export function Finances() {
+  const navigate = useNavigate();
   const { user } = useAuth();
   const { theme } = useTheme();
 
@@ -180,6 +182,9 @@ export function Finances() {
                         setIdTransaction(item.id);
                         handleOpenModal();
                       }}
+                      onEdit={() => {
+                        navigate(`/edit/${item.id}`);
+                      }}
                     />
                   ) : (
                     <CardList
@@ -192,6 +197,9 @@ export function Finances() {
                       onClick={() => {
                         setIdTransaction(item.id);
                         handleOpenModal();
+                      }}
+                      onEdit={() => {
+                        navigate(`/edit/${item.id}`);
                       }}
                     />
                   )}
