@@ -1,4 +1,4 @@
-import { TrashSimple } from '@phosphor-icons/react';
+import { TrashSimple, Pencil } from '@phosphor-icons/react';
 import { format } from 'date-fns';
 
 import { category as categoryList } from 'utils/category';
@@ -12,6 +12,7 @@ interface CardListProps {
   className?: string;
   income?: boolean;
   onClick?: () => void;
+  onEdit?: () => void;
 }
 
 export function CardList({
@@ -22,6 +23,7 @@ export function CardList({
   className,
   income,
   onClick,
+  onEdit,
 }: CardListProps) {
   function verifyIcon(category: string) {
     const icon = categoryList.find((item) => item.name === category);
@@ -39,13 +41,21 @@ export function CardList({
         <span className="text-sm font-normal text-title dark:text-titleDark">
           {title}
         </span>
-        <TrashSimple
-          size={18}
-          weight="light"
-          color="#e83f5b"
-          onClick={onClick}
-          className="cursor-pointer"
-        />
+        <div className="flex flex-row gap-2">
+          <Pencil
+            size={18}
+            weight="light"
+            onClick={onEdit}
+            className="cursor-pointer text-secondary dark:text-secondaryDark"
+          />
+          <TrashSimple
+            size={18}
+            weight="light"
+            color="#e83f5b"
+            onClick={onClick}
+            className="cursor-pointer"
+          />
+        </div>
       </div>
       <span
         className={`${
