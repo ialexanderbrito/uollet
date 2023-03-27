@@ -159,6 +159,36 @@ export function useResume() {
             return '#ebb42e';
           case 'Inter':
             return '#f77601';
+          case 'Banco do Brasil':
+            return '#f5f430';
+          case 'Santander':
+            return '#e30000';
+          case 'Itaú':
+            return '#ec7000';
+          case 'Caixa':
+            return '#0070b0';
+          case 'BTG Pactual':
+            return '#051229';
+          case 'C6 Investimentos':
+            return '#1f1f1f';
+          case 'Inter Investimentos':
+            return '#f77601';
+          case 'XP Investimentos':
+            return '#0d0e10';
+          case 'Clear':
+            return '#0100f2';
+          case 'BTG Investimentos':
+            return '#051229';
+          case 'Rico':
+            return '#f74f00';
+          case 'Ágora Investimentos':
+            return '#01444b';
+          case 'Órama Investimentos':
+            return '#34991d';
+          case 'Mercado Bitcoin':
+            return '#e84522';
+          case 'Foxbit':
+            return '#f77100';
           default:
             return '#000000';
         }
