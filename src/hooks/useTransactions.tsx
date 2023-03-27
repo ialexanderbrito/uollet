@@ -280,7 +280,7 @@ export function useTransactions() {
     }
 
     if (search.length === 0) {
-      searchTransaction();
+      getAllTransactions();
     }
   }, [search]);
 
