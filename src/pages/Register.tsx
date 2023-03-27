@@ -1,8 +1,9 @@
+import CurrencyInput from 'react-currency-input-field';
+
 import incomeIcon from 'assets/income.svg';
 import outcomeIcon from 'assets/outcome.svg';
 
 import { BottomNavigator } from 'components/BottomNavigator';
-import { InputMask } from 'components/InputMask';
 
 import { category } from 'utils/category';
 
@@ -20,7 +21,7 @@ export interface FinancesProps {
 }
 
 export function Register() {
-  const { formik, setValor, valor } = useRegister();
+  const { formik } = useRegister();
 
   return (
     <div className="flex w-full flex-col items-center bg-background dark:bg-backgroundDark">
@@ -42,13 +43,18 @@ export function Register() {
             placeholder="Nome"
             {...formik.getFieldProps('title')}
           />
-
-          <InputMask
-            id="value"
-            setValor={setValor}
-            {...formik.getFieldProps('value')}
+          <CurrencyInput
+            prefix="R$ "
+            placeholder="R$ 0,00"
+            decimalsLimit={2}
+            decimalSeparator=","
+            groupSeparator="."
+            value={formik.values.value}
+            onValueChange={(value) => {
+              formik.setFieldValue('value', value);
+            }}
             className={`h-14 w-full rounded-lg bg-white p-4 text-title outline-none dark:bg-backgroundCardDark dark:text-titleDark ${
-              !valor && formik.errors.value && formik.touched.value
+              formik.errors.value && formik.touched.value
                 ? 'border-[1.5px] border-red-500'
                 : ''
             }`}
@@ -56,7 +62,7 @@ export function Register() {
 
           <div className="flex w-full flex-row justify-around gap-4 p-1">
             <div
-              className={`flex h-16 w-full flex-row items-center justify-evenly rounded-md border-[1.5px] border-solid border-text ${
+              className={`flex h-16 w-full cursor-pointer flex-row items-center justify-evenly rounded-md border-[1.5px] border-solid border-text ${
                 formik.values.type === 'income'
                   ? 'border-none bg-[#e7f5e7]'
                   : ''
@@ -76,7 +82,7 @@ export function Register() {
             </div>
 
             <div
-              className={`flex h-16  w-full flex-row items-center justify-evenly rounded-md border-[1.5px] border-solid border-text ${
+              className={`flex h-16  w-full cursor-pointer flex-row items-center justify-evenly rounded-md border-[1.5px] border-solid border-text ${
                 formik.values.type === 'outcome'
                   ? 'border-none bg-[#fddede]'
                   : ''
@@ -95,13 +101,11 @@ export function Register() {
               </p>
             </div>
           </div>
-
           <div className="mt-[-1rem] flex w-full flex-col gap-4 pl-2">
             {formik.errors.type && formik.touched.type ? (
               <span className="text-xs text-red-500">{formik.errors.type}</span>
             ) : null}
           </div>
-
           <select
             id="category"
             className={`h-14 w-full rounded-lg bg-white p-4 text-title outline-none dark:bg-backgroundCardDark dark:text-titleDark ${
@@ -128,7 +132,6 @@ export function Register() {
               </option>
             ))}
           </select>
-
           <input
             type="date"
             className={`h-14 w-full rounded-lg bg-white p-4 text-title outline-none dark:bg-backgroundCardDark dark:text-titleDark ${
@@ -139,7 +142,6 @@ export function Register() {
             placeholder="DD/MM/AAAA"
             {...formik.getFieldProps('date')}
           />
-
           <div className="flex flex-col items-center justify-end gap-4">
             <button
               type="submit"
