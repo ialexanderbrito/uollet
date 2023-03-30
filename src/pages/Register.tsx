@@ -4,6 +4,7 @@ import incomeIcon from 'assets/income.svg';
 import outcomeIcon from 'assets/outcome.svg';
 
 import { BottomNavigator } from 'components/BottomNavigator';
+import { Select } from 'components/Select';
 
 import { category } from 'utils/category';
 
@@ -106,34 +107,25 @@ export function Register() {
               <span className="text-xs text-red-500">{formik.errors.type}</span>
             ) : null}
           </div>
-          <select
-            id="category"
-            className={`h-14 w-full rounded-lg bg-white p-4 text-title outline-none dark:bg-backgroundCardDark dark:text-titleDark ${
+
+          <Select
+            selected={formik.values.category}
+            setSelected={(value) => {
+              formik.setFieldValue('category', value);
+            }}
+            options={category}
+            className={`${
               formik.errors.category && formik.touched.category
                 ? 'border-[1.5px] border-red-500'
                 : ''
             }`}
-            {...formik.getFieldProps('category')}
-          >
-            <option
-              value=""
-              disabled
-              className="h-14 w-full rounded-lg bg-white p-4 text-title dark:bg-backgroundCardDark dark:text-titleDark"
-            >
-              Categoria
-            </option>
-            {category.map((item) => (
-              <option
-                key={item.name}
-                value={item.name}
-                className="h-14 w-full rounded-lg bg-white p-4 text-title dark:bg-backgroundCardDark dark:text-titleDark"
-              >
-                {item.name}
-              </option>
-            ))}
-          </select>
+          />
+
           <input
-            type="date"
+            type="text"
+            onFocus={(e) => {
+              e.currentTarget.type = 'date';
+            }}
             className={`h-14 w-full rounded-lg bg-white p-4 text-title outline-none dark:bg-backgroundCardDark dark:text-titleDark ${
               formik.errors.date && formik.touched.date
                 ? 'border-[1.5px] border-red-500'

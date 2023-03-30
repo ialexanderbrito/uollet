@@ -31,7 +31,9 @@ export function useRegister() {
 
   const schema = Yup.object({
     title: Yup.string().required('Campo obrigatório'),
-    category: Yup.string().required('Campo obrigatório'),
+    category: Yup.object().shape({
+      name: Yup.string().required('Campo obrigatório'),
+    }),
     date: Yup.string().required('Selecione uma data válida'),
     type: Yup.string()
       .required('Campo obrigatório')
@@ -42,7 +44,10 @@ export function useRegister() {
     initialValues: {
       title: '',
       value: '',
-      category: '',
+      category: {
+        name: '',
+        icon: '',
+      },
       date: '',
       type: '',
       user_id: '',
@@ -62,7 +67,7 @@ export function useRegister() {
               value: verifyIfIsNumber(values.value)
                 ? values.value
                 : convertVirgulaToPonto(values.value),
-              category: values.category,
+              category: values.category.name,
               date: values.date,
               type: values.type,
               user_id: storageUser?.id,
@@ -88,7 +93,7 @@ export function useRegister() {
               value: verifyIfIsNumber(values.value)
                 ? values.value
                 : convertVirgulaToPonto(values.value),
-              category: values.category,
+              category: values.category.name,
               date: values.date,
               type: values.type,
               user_id: storageUser?.id,
