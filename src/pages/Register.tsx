@@ -122,10 +122,7 @@ export function Register() {
           />
 
           <input
-            type="text"
-            onFocus={(e) => {
-              e.currentTarget.type = 'date';
-            }}
+            type="date"
             className={`h-14 w-full rounded-lg bg-white p-4 text-title outline-none dark:bg-backgroundCardDark dark:text-titleDark ${
               formik.errors.date && formik.touched.date
                 ? 'border-[1.5px] border-red-500'
