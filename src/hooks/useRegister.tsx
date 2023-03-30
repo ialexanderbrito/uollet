@@ -132,8 +132,13 @@ export function useRegister() {
       }
 
       if (data) {
+        const newCategory = {
+          name: data[0].category,
+          icon: '',
+        };
+
         formik.setFieldValue('title', data[0].title);
-        formik.setFieldValue('category', data[0].category);
+        formik.setFieldValue('category', newCategory);
         formik.setFieldValue('date', data[0].date);
         formik.setFieldValue('type', data[0].type);
         formik.setFieldValue('value', data[0].value);
