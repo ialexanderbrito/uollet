@@ -1,4 +1,5 @@
 import { Pie } from 'react-chartjs-2';
+import { Link } from 'react-router-dom';
 
 import incomeIcon from 'assets/income.svg';
 import outcomeIcon from 'assets/outcome.svg';
@@ -110,9 +111,10 @@ export function Resume() {
               </div>
               <div className="flex w-full flex-col gap-2">
                 {categories.map((category, index) => (
-                  <div
+                  <Link
                     key={index}
-                    className="flex h-12 w-full items-center gap-2 rounded-md bg-backgroundCard dark:bg-backgroundCardDark"
+                    className="flex h-12 w-full cursor-pointer items-center gap-2 rounded-md bg-backgroundCard dark:bg-backgroundCardDark"
+                    to={`/category/${category}`}
                   >
                     <div
                       className="h-full w-2 rounded-l-md"
@@ -124,7 +126,7 @@ export function Resume() {
                     <p className="mr-4 w-full text-right text-lg font-medium text-title dark:text-titleDark">
                       {formatCurrency(values[index])}
                     </p>
-                  </div>
+                  </Link>
                 ))}
               </div>
             </div>
