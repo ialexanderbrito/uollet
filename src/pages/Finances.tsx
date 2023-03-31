@@ -55,6 +55,7 @@ export function Finances() {
     actualMonth,
     endOfDays,
     setSearch,
+    totalMessage,
   } = useTransactions();
 
   const [idTransaction, setIdTransaction] = useState(0);
@@ -129,7 +130,7 @@ export function Finances() {
               title="Total"
               icon={totalIcon}
               value={visible ? formatCurrency(allTotal) : '*****'}
-              lastEntry={allTotal > 0 ? 'Saldo Positivo' : 'Saldo Negativo'}
+              lastEntry={totalMessage()}
               bgColor={theme === 'light' ? 'secondary' : 'secondaryDark'}
               textColor={theme === 'light' ? 'white' : 'white'}
               alternativeTextColor={theme === 'light' ? 'title' : 'textDark'}
