@@ -2,6 +2,7 @@ import bank from 'assets/categories/bank.svg';
 import chartLineUp from 'assets/categories/chart-line-up.svg';
 import btc from 'assets/categories/currency-btc.svg';
 import money from 'assets/categories/money.svg';
+import piggyBank from 'assets/categories/piggy-bank.svg';
 
 export const category = [
   {
@@ -91,5 +92,9 @@ export const category = [
   {
     icon: btc,
     name: 'Foxbit',
+  },
+  {
+    icon: piggyBank,
+    name: 'Rendimentos',
   },
 ];
