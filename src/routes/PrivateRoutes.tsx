@@ -11,6 +11,7 @@ export function PrivateRoutes() {
   return (
     <Routes>
       <Route path="/" element={<Finances />} />
+      <Route path="/category/:id" element={<Finances />} />
       <Route path="/register" element={<Register />} />
       <Route path="/edit/:id" element={<Register />} />
       <Route path="/resume" element={<Resume />} />
