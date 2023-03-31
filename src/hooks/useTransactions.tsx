@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 
 import { format } from 'date-fns';
 import { pt } from 'date-fns/locale';
@@ -11,6 +12,7 @@ import { useToast } from 'contexts/Toast';
 import { supabase } from 'services/supabase';
 
 export function useTransactions() {
+  const { id } = useParams();
   const { toast } = useToast();
   const { user } = useAuth();
 
@@ -57,6 +59,16 @@ export function useTransactions() {
     } else {
       setActualMonth(actualMonth + 1);
     }
+  }
+
+  function totalMessage() {
+    if (allTotal > 0) {
+      return 'Saldo Positivo';
+    }
+    if (allTotal < 0) {
+      return 'Saldo Negativo';
+    }
+    return 'Saldo Neutro';
   }
 
   async function getAllTransactions() {
@@ -241,14 +253,15 @@ export function useTransactions() {
     }
   }
 
-  async function searchTransaction() {
+  async function getTransactionsByCategory(category: string) {
     try {
       const { data, error } = await supabase
         .from('finances_db')
         .select('*')
         .eq('user_id', user?.id)
-        .ilike('title', `%${search}%`)
-        .order('created_at', { ascending: false });
+        .eq('category', category)
+        .gte('date', `${actualYear}-${actualMonth}-01`)
+        .lte('date', `${actualYear}-${actualMonth}-${endOfDays}`);
 
       if (error) {
         toast.error('Erro ao buscar transações', { id: 'error' });
@@ -256,31 +269,115 @@ export function useTransactions() {
         return;
       }
 
+      const newData = data.sort(
+        (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
+      );
+
+      const totalIncome = data
+        .filter((item) => item.type === 'income')
+        .reduce((acc, curr) => acc + curr.value, 0);
+
+      const totalOutcome = data
+        .filter((item) => item.type === 'outcome')
+        .reduce((acc, curr) => acc + curr.value, 0);
+
+      const allTotalTransactions = totalIncome - totalOutcome;
+
       if (!data) return;
 
-      setFinances(data);
+      setFinances(newData);
+      setAllTotal(allTotalTransactions);
+      setTotalIncome(totalIncome);
+      setTotalOutcome(totalOutcome);
+
+      if (!data) return;
+
+      setFinances(newData);
+      setLoading(false);
     } catch (error) {
       toast.error('Erro ao buscar transações', { id: 'error' });
+      setLoading(false);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  async function searchTransaction(category?: string) {
+    if (category) {
+      try {
+        const { data, error } = await supabase
+          .from('finances_db')
+          .select('*')
+          .eq('user_id', user?.id)
+          .eq('category', category)
+          .ilike('title', `%${search}%`)
+          .order('created_at', { ascending: false });
+
+        if (error) {
+          toast.error('Erro ao buscar transações', { id: 'error' });
+          setLoading(false);
+          return;
+        }
+
+        if (!data) return;
+
+        setFinances(data);
+      } catch (error) {
+        toast.error('Erro ao buscar transações', { id: 'error' });
+      }
+    } else {
+      try {
+        const { data, error } = await supabase
+          .from('finances_db')
+          .select('*')
+          .eq('user_id', user?.id)
+          .ilike('title', `%${search}%`)
+          .order('created_at', { ascending: false });
+
+        if (error) {
+          toast.error('Erro ao buscar transações', { id: 'error' });
+          setLoading(false);
+          return;
+        }
+
+        if (!data) return;
+
+        setFinances(data);
+      } catch (error) {
+        toast.error('Erro ao buscar transações', { id: 'error' });
+      }
     }
   }
 
   useEffect(() => {
-    getAllTransactions();
-  }, []);
+    if (id !== undefined) {
+      getTransactionsByCategory(id);
+    } else {
+      getAllTransactions();
+    }
+  }, [id]);
 
   useEffect(() => {
-    getIncomesAndTotalIncomes();
-    getOutcomesAndTotalOutcomes();
-    getAllTransactionsPerMonth();
+    if (id !== undefined) {
+      getTransactionsByCategory(id);
+    } else {
+      getIncomesAndTotalIncomes();
+      getOutcomesAndTotalOutcomes();
+      getAllTransactionsPerMonth();
+    }
   }, [actualMonth, actualYear]);
 
   useEffect(() => {
-    if (search.length >= 2) {
-      searchTransaction();
-    }
+    if (id !== undefined) {
+      searchTransaction(id);
+    } else {
+      if (search.length >= 2) {
+        searchTransaction();
+      }
 
-    if (search.length === 0) {
-      getAllTransactions();
+      if (search.length === 0) {
+        getAllTransactions();
+      }
     }
   }, [search]);
 
@@ -307,5 +404,6 @@ export function useTransactions() {
     endOfDays,
     allTotal,
     setSearch,
+    totalMessage,
   };
 }
