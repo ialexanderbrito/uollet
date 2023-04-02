@@ -353,7 +353,7 @@ export function useTransactions() {
     if (id !== undefined) {
       getTransactionsByCategory(id);
     } else {
-      getAllTransactions();
+      getAllTransactionsPerMonth();
     }
   }, [id]);
 
@@ -376,7 +376,7 @@ export function useTransactions() {
       }
 
       if (search.length === 0) {
-        getAllTransactions();
+        getAllTransactionsPerMonth();
       }
     }
   }, [search]);
