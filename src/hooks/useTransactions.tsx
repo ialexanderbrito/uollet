@@ -110,6 +110,40 @@ export function useTransactions() {
     }
   }
 
+  async function getTotal() {
+    try {
+      const { data, error } = await supabase
+        .from('finances_db')
+        .select('*')
+        .eq('user_id', user?.id);
+
+      if (error) {
+        toast.error('Erro ao buscar transações', { id: 'error' });
+        setLoading(false);
+        return;
+      }
+      if (!data) return;
+
+      const totalIncome = data
+        .filter((item) => item.type === 'income')
+        .reduce((acc, curr) => acc + curr.value, 0);
+
+      const totalOutcome = data
+        .filter((item) => item.type === 'outcome')
+        .reduce((acc, curr) => acc + curr.value, 0);
+
+      const allTotalTransactions = totalIncome - totalOutcome;
+
+      setAllTotal(allTotalTransactions);
+      setLoading(false);
+    } catch (error) {
+      toast.error('Erro ao buscar transações', { id: 'error' });
+      setLoading(false);
+    } finally {
+      setLoading(false);
+    }
+  }
+
   async function getIncomesAndTotalIncomes() {
     try {
       const { data, error } = await supabase
@@ -353,6 +387,7 @@ export function useTransactions() {
     if (id !== undefined) {
       getTransactionsByCategory(id);
     } else {
+      getTotal();
       getAllTransactionsPerMonth();
     }
   }, [id]);
@@ -363,6 +398,7 @@ export function useTransactions() {
     } else {
       getIncomesAndTotalIncomes();
       getOutcomesAndTotalOutcomes();
+      getTotal();
       getAllTransactionsPerMonth();
     }
   }, [actualMonth, actualYear]);
