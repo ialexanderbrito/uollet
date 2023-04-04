@@ -9,6 +9,7 @@ import {
   Moon,
   Power,
   Sun,
+  User,
 } from '@phosphor-icons/react';
 
 import { useAuth } from 'contexts/Auth';
@@ -42,6 +43,21 @@ export function Menu() {
         >
           <MenuComponent.Items className="absolute right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-backgroundCard shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none dark:bg-backgroundCardDark dark:text-textDark">
             <div className="px-1 py-1 ">
+              <MenuComponent.Item>
+                <button
+                  className="group flex w-full items-center rounded-md px-2 py-2 text-sm"
+                  onClick={() => {
+                    navigate('/profile');
+                  }}
+                >
+                  <User
+                    size={20}
+                    weight="light"
+                    className="mr-2 h-5 w-5 text-secondary"
+                  />
+                  Perfil
+                </button>
+              </MenuComponent.Item>
               <MenuComponent.Item>
                 <button
                   className="group flex w-full items-center rounded-md px-2 py-2 text-sm"
