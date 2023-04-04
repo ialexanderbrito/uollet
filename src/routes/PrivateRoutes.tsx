@@ -4,6 +4,7 @@ import { Error } from 'pages/Error';
 import { Export } from 'pages/Export';
 import { Finances } from 'pages/Finances';
 import { Import } from 'pages/Import';
+import { Profile } from 'pages/Profile';
 import { Register } from 'pages/Register';
 import { Resume } from 'pages/Resume';
 
@@ -17,6 +18,7 @@ export function PrivateRoutes() {
       <Route path="/resume" element={<Resume />} />
       <Route path="/import" element={<Import />} />
       <Route path="/export" element={<Export />} />
+      <Route path="/profile" element={<Profile />} />
       <Route path="*" element={<Error />} />
     </Routes>
   );
