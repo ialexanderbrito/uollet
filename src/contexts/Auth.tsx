@@ -9,11 +9,12 @@ import { useToast } from './Toast';
 
 type AuthContextProps = {
   user: UserProps | null;
-  setUser: (user: UserProps | null) => void;
+  setUser: (user: any) => void;
   loginWithGoogle: () => Promise<void>;
   logOut: () => Promise<void>;
   storageUser: UserProps | null;
   signed: boolean;
+  hasOtp: boolean;
 };
 
 const AuthContext = createContext({} as AuthContextProps);
@@ -26,6 +27,16 @@ export function AuthProvider({ children }: any) {
 
   function isSignedIn() {
     if (user) {
+      return true;
+    }
+
+    return false;
+  }
+
+  function hasOtp() {
+    if (!user) return false;
+
+    if (user.user_metadata?.otp) {
       return true;
     }
 
@@ -92,6 +103,7 @@ export function AuthProvider({ children }: any) {
     navigate('/');
 
     localStorage.removeItem('@finance:user');
+    localStorage.removeItem('@finance:hasOtp');
   }
 
   return (
@@ -103,6 +115,7 @@ export function AuthProvider({ children }: any) {
         setUser,
         storageUser,
         signed: isSignedIn(),
+        hasOtp: hasOtp(),
       }}
     >
       {children}
