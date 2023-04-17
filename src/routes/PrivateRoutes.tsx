@@ -4,14 +4,33 @@ import { Error } from 'pages/Error';
 import { Export } from 'pages/Export';
 import { Finances } from 'pages/Finances';
 import { Import } from 'pages/Import';
+import { Otp } from 'pages/Otp';
 import { Profile } from 'pages/Profile';
 import { Register } from 'pages/Register';
 import { Resume } from 'pages/Resume';
 
+import { useAuth } from 'contexts/Auth';
+
 export function PrivateRoutes() {
+  const { hasOtp } = useAuth();
+  const hasOtpStorage = localStorage.getItem('@finance:hasOtp');
+
+  function handleOtp() {
+    if (!hasOtpStorage && !hasOtp) {
+      return <Route path="/" element={<Finances />} />;
+    }
+
+    if (hasOtp && hasOtpStorage === null) {
+      return <Route path="/" element={<Otp />} />;
+    }
+
+    return <Route path="/" element={<Finances />} />;
+  }
+
   return (
     <Routes>
-      <Route path="/" element={<Finances />} />
+      {handleOtp()}
+      <Route path="/otp" element={<Otp />} />
       <Route path="/category/:id" element={<Finances />} />
       <Route path="/register" element={<Register />} />
       <Route path="/edit/:id" element={<Register />} />
