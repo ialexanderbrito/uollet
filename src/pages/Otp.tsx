@@ -106,6 +106,7 @@ export function Otp() {
               <input
                 {...props}
                 style={{}}
+                type="number"
                 className="mr-2 ml-2 h-12 w-12 rounded-md border border-gray-300 text-center text-2xl focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
               />
             )}
