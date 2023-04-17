@@ -103,7 +103,7 @@ export function AuthProvider({ children }: any) {
     navigate('/');
 
     localStorage.removeItem('@finance:user');
-    localStorage.removeItem('@finance:hasOtp');
+    sessionStorage.removeItem('@finance:hasOtp');
   }
 
   return (

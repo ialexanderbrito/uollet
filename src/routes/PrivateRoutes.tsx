@@ -13,7 +13,7 @@ import { useAuth } from 'contexts/Auth';
 
 export function PrivateRoutes() {
   const { hasOtp } = useAuth();
-  const hasOtpStorage = localStorage.getItem('@finance:hasOtp');
+  const hasOtpStorage = sessionStorage.getItem('@finance:hasOtp');
 
   function handleOtp() {
     if (!hasOtpStorage && !hasOtp) {

@@ -37,7 +37,7 @@ export function Otp() {
     if (hasOtp) {
       const verify = await verifyPassword(otp, user.user_metadata.otp);
 
-      localStorage.setItem('@finance:hasOtp', 'true');
+      sessionStorage.setItem('@finance:hasOtp', 'true');
 
       if (verify === true) {
         window.location.reload();
@@ -76,7 +76,7 @@ export function Otp() {
 
     setUser(data.user);
 
-    localStorage.setItem('@finance:hasOtp', 'false');
+    sessionStorage.setItem('@finance:hasOtp', 'false');
 
     toast.success('Senha de acesso apagada com sucesso', {
       id: 'success',
