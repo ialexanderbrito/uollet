@@ -13,6 +13,7 @@ export interface UserMetadata {
   picture: string;
   provider_id: string;
   sub: string;
+  otp?: string;
 }
 
 export interface IdentityData {
