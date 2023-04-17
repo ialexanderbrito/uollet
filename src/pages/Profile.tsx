@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { Eye, EyeSlash } from '@phosphor-icons/react';
 import defaultAvatar from 'assets/default_user_avatar.png';
@@ -26,6 +27,7 @@ export interface FinancesProps {
 }
 
 export function Profile() {
+  const navigate = useNavigate();
   const { user, logOut } = useAuth();
   const { deleteUser } = useProfile();
 
@@ -88,14 +90,14 @@ export function Profile() {
               </span>
 
               <span className="flex flex-row items-center justify-center gap-2">
-                Entradas:
+                Entradas do mês:
                 <span className="font-medium">
                   {visible ? formatCurrency(totalIncome) : '*****'}
                 </span>
               </span>
 
               <span className="flex flex-row items-center justify-center gap-2">
-                Saídas:
+                Saídas do mês:
                 <span className="font-medium">
                   {visible ? formatCurrency(totalOutcome) : '*****'}
                 </span>
@@ -110,6 +112,13 @@ export function Profile() {
             </div>
 
             <div className="flex flex-col items-center justify-end gap-4">
+              <button
+                onClick={() => navigate('/otp')}
+                type="button"
+                className="h-14 w-full rounded-lg bg-secondary p-4 text-white dark:bg-secondaryDark"
+              >
+                Adicionar senha de acesso
+              </button>
               <button
                 onClick={() => logOut()}
                 type="button"
