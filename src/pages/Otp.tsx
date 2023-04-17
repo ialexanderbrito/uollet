@@ -106,14 +106,14 @@ export function Otp() {
               <input
                 {...props}
                 style={{}}
-                type="number"
+                type="password"
                 className="mr-2 ml-2 h-12 w-12 rounded-md border border-gray-300 text-center text-2xl focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
               />
             )}
             value={otp}
             onChange={handleChangeOtp}
             numInputs={4}
-            inputType="password"
+            inputType="number"
           />
         </div>
 
