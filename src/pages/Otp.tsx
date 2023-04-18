@@ -107,7 +107,7 @@ export function Otp() {
                 {...props}
                 style={{}}
                 type="password"
-                className="mr-2 ml-2 h-12 w-12 rounded-md border border-gray-300 text-center text-2xl focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
+                className="mr-2 ml-2 h-12 w-12 rounded-md border border-background bg-backgroundCard text-center text-2xl focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary dark:border-backgroundDark dark:bg-backgroundCardDark dark:text-textDark"
               />
             )}
             value={otp}
