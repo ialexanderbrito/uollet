@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import OTPInput from 'react-otp-input';
+import AuthCode from 'react-auth-code-input';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import { BottomNavigator } from 'components/BottomNavigator';
@@ -41,6 +41,10 @@ export function Otp() {
 
       if (verify === true) {
         window.location.reload();
+      } else {
+        toast.error('Senha de acesso incorreta', {
+          id: 'error',
+        });
       }
     }
 
@@ -101,19 +105,13 @@ export function Otp() {
         </div>
 
         <div className="mb-4 flex w-full justify-around">
-          <OTPInput
-            renderInput={(props) => (
-              <input
-                {...props}
-                style={{}}
-                type="password"
-                className="mr-2 ml-2 h-12 w-12 rounded-md border border-background bg-backgroundCard text-center text-2xl focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary dark:border-backgroundDark dark:bg-backgroundCardDark dark:text-textDark"
-              />
-            )}
-            value={otp}
+          <AuthCode
             onChange={handleChangeOtp}
-            numInputs={4}
-            inputType="number"
+            allowedCharacters="numeric"
+            length={4}
+            isPassword
+            inputClassName="mr-2 ml-2 h-12 w-12 rounded-md border border-background bg-backgroundCard text-center text-2xl focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary dark:border-backgroundDark dark:bg-backgroundCardDark dark:text-textDark"
+            placeholder="*"
           />
         </div>
 
