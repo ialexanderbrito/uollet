@@ -55,7 +55,7 @@ export function Menu() {
                     weight="light"
                     className="mr-2 h-5 w-5 text-secondary"
                   />
-                  Perfil
+                  Minha conta
                 </button>
               </MenuComponent.Item>
               <MenuComponent.Item>
