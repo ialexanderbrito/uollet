@@ -2,6 +2,8 @@ import { useState } from 'react';
 import AuthCode from 'react-auth-code-input';
 import { useLocation, useNavigate } from 'react-router-dom';
 
+import { CaretLeft } from '@phosphor-icons/react';
+
 import { BottomNavigator } from 'components/BottomNavigator';
 
 import { useAuth } from 'contexts/Auth';
@@ -19,8 +21,24 @@ export function Otp() {
   const [otp, setOtp] = useState('');
   const { hashPassword, verifyPassword } = usePasswordCrypto();
 
-  function handleChangeOtp(otp: string) {
+  async function handleChangeOtp(otp: string) {
+    if (!user) return;
+
     setOtp(otp);
+
+    if (otp.length === 4 && !pageLocation(location.pathname)) {
+      const verify = await verifyPassword(otp, user?.user_metadata.otp);
+
+      sessionStorage.setItem('@finance:hasOtp', 'true');
+
+      if (verify === true) {
+        window.location.reload();
+      } else {
+        toast.error('Senha de acesso incorreta', {
+          id: 'error',
+        });
+      }
+    }
   }
 
   function pageLocation(page: string) {
@@ -92,7 +110,15 @@ export function Otp() {
   return (
     <div className="flex h-screen w-full flex-col items-center bg-background dark:bg-backgroundDark">
       <div className="flex h-24 w-full flex-row bg-primary dark:bg-primaryDark">
-        <div className="flex w-full items-center justify-center">
+        <div className="flex w-1/4 items-center justify-center">
+          <CaretLeft
+            size={20}
+            weight="light"
+            className="cursor-pointer text-white"
+            onClick={() => navigate(-1)}
+          />
+        </div>
+        <div className="flex w-2/4 items-center justify-center">
           <p className="text-lg font-normal text-white">Senha de acesso</p>
         </div>
       </div>
@@ -130,7 +156,7 @@ export function Otp() {
               deleteOtp();
             }}
           >
-            Apagar
+            Remover senha de acesso
           </button>
         )}
       </div>
