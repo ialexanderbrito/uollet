@@ -1,6 +1,7 @@
 import { Pie } from 'react-chartjs-2';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
+import { CaretLeft } from '@phosphor-icons/react';
 import incomeIcon from 'assets/income.svg';
 import outcomeIcon from 'assets/outcome.svg';
 import { Chart as ChartJS, ArcElement, Tooltip } from 'chart.js';
@@ -30,6 +31,7 @@ export function Resume() {
     type,
     setType,
   } = useResume();
+  const navigate = useNavigate();
 
   return (
     <>
@@ -39,10 +41,17 @@ export function Resume() {
         <>
           <div className="flex w-full flex-col items-center justify-center bg-background dark:bg-backgroundDark">
             <div className="flex h-24 w-full flex-row bg-primary dark:bg-primaryDark">
-              <div className="flex w-full items-center justify-center">
+              <div className="flex w-1/4 items-center justify-center">
+                <CaretLeft
+                  size={20}
+                  weight="light"
+                  className="cursor-pointer text-white"
+                  onClick={() => navigate(-1)}
+                />
+              </div>
+              <div className="flex w-2/4 items-center justify-center">
                 <p className="text-lg font-normal text-white">
-                  Resumo por categoria -{' '}
-                  {type === 'income' ? 'Entradas' : 'Saídas'}
+                  Resumos - {type === 'income' ? 'Entradas' : 'Saídas'}
                 </p>
               </div>
             </div>

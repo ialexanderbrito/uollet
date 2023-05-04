@@ -1,3 +1,6 @@
+import { useNavigate } from 'react-router-dom';
+
+import { CaretLeft } from '@phosphor-icons/react';
 import { ptBR } from 'date-fns/locale';
 
 import { BottomNavigator } from 'components/BottomNavigator';
@@ -11,6 +14,7 @@ import { useResume } from 'hooks/useResume';
 export function Export() {
   const { loading } = useResume();
   const { pastMonth, range, setRange, exportToExcel } = useExport();
+  const navigate = useNavigate();
 
   return (
     <>
@@ -19,7 +23,15 @@ export function Export() {
       ) : (
         <div className="flex h-screen w-full flex-col items-center bg-background dark:bg-backgroundDark">
           <div className="flex h-24 w-full flex-row bg-primary dark:bg-primaryDark">
-            <div className="flex w-full items-center justify-center">
+            <div className="flex w-1/4 items-center justify-center">
+              <CaretLeft
+                size={20}
+                weight="light"
+                className="cursor-pointer text-white"
+                onClick={() => navigate(-1)}
+              />
+            </div>
+            <div className="flex w-2/4 items-center justify-center">
               <p className="text-lg font-normal text-white">Exportar dados</p>
             </div>
           </div>
