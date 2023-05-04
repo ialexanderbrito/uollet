@@ -1,6 +1,8 @@
-import { Fragment } from 'react';
+import { Fragment, useState } from 'react';
 
 import { Dialog, Transition } from '@headlessui/react';
+
+import { useToast } from 'contexts/Toast';
 
 interface MyDialogProps {
   closeModal: () => void;
@@ -8,6 +10,7 @@ interface MyDialogProps {
   title: string;
   description?: string;
   deleteTransaction?: () => void;
+  terms?: boolean;
 }
 
 export function MyDialog({
@@ -16,7 +19,14 @@ export function MyDialog({
   title,
   description,
   deleteTransaction,
+  terms,
 }: MyDialogProps) {
+  const { toast } = useToast();
+  const [confirmTerms, setConfirmTerms] = useState({
+    action: false,
+    data: false,
+  });
+
   return (
     <>
       <Transition appear show={isOpen} as={Fragment}>
@@ -54,10 +64,46 @@ export function MyDialog({
                     </p>
                   </div>
 
+                  {terms && (
+                    <div className="mt-4 flex flex-col gap-2">
+                      <div className="flex items-center gap-2">
+                        <input
+                          type="checkbox"
+                          className="h-4 w-4 rounded-md border-[1.5px] border-solid border-secondary accent-secondary dark:border-secondaryDark dark:accent-secondaryDark"
+                          onChange={() =>
+                            setConfirmTerms({
+                              ...confirmTerms,
+                              action: !confirmTerms.action,
+                            })
+                          }
+                        />
+                        <p className="text-sm text-text dark:text-textDark">
+                          Eu entendo que essa ação não pode ser desfeita.
+                        </p>
+                      </div>
+
+                      <div className="flex items-center gap-2">
+                        <input
+                          type="checkbox"
+                          className="h-4 w-4 rounded-md border-[1.5px] border-solid border-secondary accent-secondary dark:border-secondaryDark dark:accent-secondaryDark"
+                          onChange={() =>
+                            setConfirmTerms({
+                              ...confirmTerms,
+                              data: !confirmTerms.data,
+                            })
+                          }
+                        />
+                        <p className="text-sm text-text dark:text-textDark">
+                          Eu entendo que todos os meus dados serão perdidos.
+                        </p>
+                      </div>
+                    </div>
+                  )}
+
                   <div className="mt-4 flex justify-around">
                     <button
                       type="submit"
-                      className="h-14 w-32 rounded-lg border-[1.5px] border-solid border-secondary p-4 text-secondary dark:border-secondaryDark dark:text-secondaryDark"
+                      className="h-14 w-32 rounded-lg border-[1.5px] border-solid border-secondary p-4 text-secondary  dark:border-secondaryDark dark:text-secondaryDark"
                       onClick={closeModal}
                     >
                       Cancelar
@@ -66,7 +112,15 @@ export function MyDialog({
                     <button
                       type="submit"
                       className="h-14 w-32 rounded-lg bg-secondary p-4 text-white dark:bg-secondaryDark"
-                      onClick={deleteTransaction}
+                      onClick={
+                        terms && confirmTerms.action && confirmTerms.data
+                          ? deleteTransaction
+                          : () =>
+                              toast.error(
+                                'Você precisa confirmar todos os checkboxs para continuar.',
+                                { id: 'error' },
+                              )
+                      }
                     >
                       Excluir
                     </button>
