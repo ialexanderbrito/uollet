@@ -11,6 +11,7 @@ interface MyDialogProps {
   description?: string;
   deleteTransaction?: () => void;
   terms?: boolean;
+  support?: boolean;
 }
 
 export function MyDialog({
@@ -20,12 +21,20 @@ export function MyDialog({
   description,
   deleteTransaction,
   terms,
+  support,
 }: MyDialogProps) {
   const { toast } = useToast();
   const [confirmTerms, setConfirmTerms] = useState({
     action: false,
     data: false,
   });
+
+  function copyToClipboard() {
+    navigator.clipboard.writeText('eu@ialexanderbrito.dev');
+    toast.success('Email copiado com sucesso!', {
+      id: 'success',
+    });
+  }
 
   return (
     <>
@@ -103,27 +112,43 @@ export function MyDialog({
                   <div className="mt-4 flex justify-around">
                     <button
                       type="submit"
-                      className="h-14 w-32 rounded-lg border-[1.5px] border-solid border-secondary p-4 text-secondary  dark:border-secondaryDark dark:text-secondaryDark"
+                      className="h-14 w-32 rounded-lg border-[1.5px] border-solid border-secondary p-4 text-sm  text-secondary dark:border-secondaryDark dark:text-secondaryDark"
                       onClick={closeModal}
                     >
-                      Cancelar
+                      Fechar
                     </button>
 
-                    <button
-                      type="submit"
-                      className="h-14 w-32 rounded-lg bg-secondary p-4 text-white dark:bg-secondaryDark"
-                      onClick={
-                        terms && confirmTerms.action && confirmTerms.data
-                          ? deleteTransaction
-                          : () =>
-                              toast.error(
-                                'Você precisa confirmar todos os checkboxs para continuar.',
-                                { id: 'error' },
-                              )
-                      }
-                    >
-                      Excluir
-                    </button>
+                    {deleteTransaction && (
+                      <button
+                        type="submit"
+                        className="h-14 w-32 rounded-lg bg-secondary p-4 text-sm text-white dark:bg-secondaryDark"
+                        onClick={
+                          terms && confirmTerms.action && confirmTerms.data
+                            ? deleteTransaction
+                            : () =>
+                                toast.error(
+                                  'Você precisa confirmar todos os checkboxs para continuar.',
+                                  {
+                                    id: 'error',
+                                  },
+                                )
+                        }
+                      >
+                        Excluir
+                      </button>
+                    )}
+
+                    {support && (
+                      <button
+                        type="button"
+                        className="h-14 w-32 rounded-lg bg-secondary p-4 text-sm text-white dark:bg-secondaryDark"
+                        onClick={() => {
+                          copyToClipboard();
+                        }}
+                      >
+                        Copiar email
+                      </button>
+                    )}
                   </div>
                 </Dialog.Panel>
               </Transition.Child>
