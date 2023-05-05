@@ -8,8 +8,9 @@ interface BannerProps {
 export function Banner({ img, title, color, onClick }: BannerProps) {
   return (
     <div
-      className={`relative flex h-56 min-w-[208px] snap-center flex-col items-center justify-center rounded-md bg-[${color}] md:w-full`}
+      className={`relative flex h-56 min-w-[208px] snap-center flex-col items-center justify-center rounded-md  md:w-full`}
       onClick={onClick}
+      style={{ background: color }}
     >
       <div className="mt-4 flex h-full w-full flex-row items-center justify-center">
         <img src={img} alt={title} className="w-36" />
