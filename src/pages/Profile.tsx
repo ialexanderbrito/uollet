@@ -1,4 +1,6 @@
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { RWebShare } from 'react-web-share';
 
 import {
   CaretLeft,
@@ -10,8 +12,12 @@ import {
   Sun,
   UserMinus,
 } from '@phosphor-icons/react';
+import connectionImg from 'assets/connection.svg';
 import defaultAvatar from 'assets/default_user_avatar.png';
+import savingsImg from 'assets/savings.svg';
+import welcomeImg from 'assets/welcome.svg';
 
+import { Banner } from 'components/Banner';
 import { BottomNavigator } from 'components/BottomNavigator';
 import { Loading } from 'components/Loading';
 import { MyDialog } from 'components/Modal';
@@ -42,6 +48,12 @@ export function Profile() {
 
   const { loading, handleCloseModal, openModal, handleOpenModal } =
     useTransactions();
+
+  const [openModalSuport, setOpenModalSuport] = useState(false);
+
+  function handleOpenModalSuport() {
+    setOpenModalSuport(true);
+  }
 
   return (
     <>
@@ -75,10 +87,39 @@ export function Profile() {
                 <span className="font-medium text-title dark:text-titleDark">
                   {user?.user_metadata.full_name}
                 </span>
-                <p className="text-xs font-normal text-text dark:text-textDark">
+                <p className="text-sm font-normal text-text dark:text-textDark">
                   Perfil
                 </p>
               </div>
+            </div>
+
+            <div className="flex w-full min-w-full snap-x gap-4 overflow-x-scroll p-1 scrollbar-hide md:flex-row md:justify-center md:gap-4 md:overflow-x-auto md:overflow-y-hidden md:pb-4">
+              <Banner
+                title="Seja bem vindo(a) ao Finances!"
+                color="#1da1f3"
+                img={welcomeImg}
+              />
+
+              <Banner
+                title="Comece a controlar suas finanças agora mesmo!"
+                color="#01eefe"
+                img={savingsImg}
+                onClick={() => navigate('/register')}
+              />
+
+              <RWebShare
+                data={{
+                  text: 'Conheça o Finances, um app para controle de finanças pessoais!',
+                  url: 'https://finance-oficial.netlify.app/',
+                  title: 'Finances',
+                }}
+              >
+                <Banner
+                  title=" Convide seus amigos para usar o Finances!"
+                  color="#fbbb02"
+                  img={connectionImg}
+                />
+              </RWebShare>
             </div>
 
             <div className="mt-4 flex flex-col items-start justify-center gap-4 text-title dark:text-titleDark">
@@ -104,14 +145,9 @@ export function Profile() {
 
               <Submenu
                 icon={<Info size={20} weight="light" />}
-                title="Ajuda"
+                title="Suporte"
                 onClick={() => {
-                  toast.error(
-                    'Em breve você poderá entrar em contato com o suporte!',
-                    {
-                      id: 'toast',
-                    },
-                  );
+                  handleOpenModalSuport();
                 }}
                 arrow
                 divider
@@ -152,6 +188,8 @@ export function Profile() {
                 title="Sair"
                 onClick={() => logOut()}
               />
+
+              <div className="mb-14 flex h-6" />
             </div>
 
             <MyDialog
@@ -161,6 +199,14 @@ export function Profile() {
               description="Tem certeza que deseja deletar sua conta? Essa ação não poderá ser desfeita e todos os seus dados serão perdidos."
               deleteTransaction={() => deleteUser(user?.id || '')}
               terms
+            />
+
+            <MyDialog
+              isOpen={openModalSuport}
+              closeModal={() => setOpenModalSuport(false)}
+              title="Suporte"
+              description="Email para contato: eu@ialexanderbrito.dev"
+              support
             />
           </div>
 
