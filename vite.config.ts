@@ -17,6 +17,7 @@ export default defineConfig({
       devOptions: {
         enabled: true,
       },
+      registerType: 'autoUpdate',
       workbox: {
         globPatterns: ['**/*.{js,css,html}', '**/*.{svg,png,jpg,gif}'],
       },
