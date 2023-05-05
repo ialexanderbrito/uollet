@@ -13,7 +13,7 @@ export function Banner({ img, title, color, onClick }: BannerProps) {
       style={{ background: color }}
     >
       <div className="mt-4 flex h-full w-full flex-row items-center justify-center">
-        <img src={img} alt={title} className="w-36" />
+        <img src={img} alt={title} className="h-36 w-36" />
       </div>
       <div className="flex w-full flex-col items-start justify-between p-4">
         <span
