@@ -39,7 +39,7 @@ export function Import() {
                 htmlFor="dropzone-file"
                 className="dark:hover:bg-bray-800 flex h-64 w-full cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-gray-300 bg-backgroundCard hover:bg-background dark:border-gray-600 dark:bg-backgroundCardDark dark:hover:border-gray-500 dark:hover:bg-backgroundDark"
               >
-                <div className="flex flex-col items-center justify-center pt-5 pb-6">
+                <div className="flex flex-col items-center justify-center pb-6 pt-5">
                   <FileArrowUp
                     size={64}
                     weight="light"
