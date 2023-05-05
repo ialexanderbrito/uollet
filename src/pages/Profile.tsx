@@ -14,6 +14,7 @@ import {
 } from '@phosphor-icons/react';
 import connectionImg from 'assets/connection.svg';
 import defaultAvatar from 'assets/default_user_avatar.png';
+import puzzleImg from 'assets/quiz.svg';
 import savingsImg from 'assets/savings.svg';
 import welcomeImg from 'assets/welcome.svg';
 
@@ -120,6 +121,17 @@ export function Profile() {
                   img={connectionImg}
                 />
               </RWebShare>
+
+              <Banner
+                title="Tutorial"
+                color="#01e59a"
+                img={puzzleImg}
+                onClick={() =>
+                  toast.error('Em breve você poderá ver o tutorial!', {
+                    id: 'toast',
+                  })
+                }
+              />
             </div>
 
             <div className="mt-4 flex flex-col items-start justify-center gap-4 text-title dark:text-titleDark">
