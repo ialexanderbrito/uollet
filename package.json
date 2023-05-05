@@ -36,6 +36,7 @@
     "react-dom": "^18.2.0",
     "react-hot-toast": "^2.4.0",
     "react-router-dom": "^6.9.0",
+    "react-web-share": "^2.0.2",
     "tailwind-scrollbar-hide": "^1.1.7",
     "xlsx": "^0.18.5",
     "yup": "^1.0.2"
