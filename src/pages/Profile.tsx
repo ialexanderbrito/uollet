@@ -123,7 +123,7 @@ export function Profile() {
               </RWebShare>
 
               <Banner
-                title="Tutorial"
+                title="Aprenda a mexer no app!"
                 color="#01e59a"
                 img={puzzleImg}
                 onClick={() =>
