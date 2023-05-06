@@ -8,7 +8,9 @@ interface BannerProps {
 export function Banner({ img, title, color, onClick }: BannerProps) {
   return (
     <div
-      className={`relative flex h-56 min-w-[208px] snap-center flex-col items-center justify-center rounded-md  md:w-full`}
+      className={`relative flex h-56 min-w-[208px]  snap-center flex-col items-center justify-center  rounded-md md:w-full ${
+        onClick ? 'cursor-pointer' : ''
+      }`}
       onClick={onClick}
       style={{ background: color }}
     >
