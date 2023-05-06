@@ -12,6 +12,7 @@ interface MyDialogProps {
   deleteTransaction?: () => void;
   terms?: boolean;
   support?: boolean;
+  email?: string;
 }
 
 export function MyDialog({
@@ -22,6 +23,7 @@ export function MyDialog({
   deleteTransaction,
   terms,
   support,
+  email,
 }: MyDialogProps) {
   const { toast } = useToast();
   const [confirmTerms, setConfirmTerms] = useState({
@@ -70,6 +72,13 @@ export function MyDialog({
                   <div className="mt-2">
                     <p className="text-sm text-text dark:text-textDark">
                       {description}
+                      {email && (
+                        <a href="mailto:eu@ialexanderbrito.dev">
+                          <span className="text-sm text-text underline dark:text-textDark">
+                            {email}
+                          </span>
+                        </a>
+                      )}
                     </p>
                   </div>
 

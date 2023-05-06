@@ -217,7 +217,8 @@ export function Profile() {
               isOpen={openModalSuport}
               closeModal={() => setOpenModalSuport(false)}
               title="Suporte"
-              description="Email para contato: eu@ialexanderbrito.dev"
+              description="Email para contato: "
+              email="eu@ialexanderbrito.dev"
               support
             />
           </div>
