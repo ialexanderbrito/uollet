@@ -7,6 +7,7 @@ import { Import } from 'pages/Import';
 import { Otp } from 'pages/Otp';
 import { Profile } from 'pages/Profile';
 import { Register } from 'pages/Register';
+import { ResetPassword } from 'pages/ResetPassword';
 import { Resume } from 'pages/Resume';
 
 import { useAuth } from 'contexts/Auth';
@@ -38,6 +39,7 @@ export function PrivateRoutes() {
       <Route path="/import" element={<Import />} />
       <Route path="/export" element={<Export />} />
       <Route path="/profile" element={<Profile />} />
+      <Route path="/reset-password" element={<ResetPassword />} />
       <Route path="*" element={<Error />} />
     </Routes>
   );
