@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { Eye, EyeSlash } from '@phosphor-icons/react';
@@ -60,6 +60,23 @@ export function Finances() {
 
   const [idTransaction, setIdTransaction] = useState(0);
   const [visible, setVisible] = useState(false);
+  const [openModalName, setOpenModalName] = useState(false);
+
+  function handleCloseModalName() {
+    setOpenModalName(false);
+  }
+
+  function handleOpenModalName() {
+    setOpenModalName(true);
+  }
+
+  useEffect(() => {
+    if (!user.user_metadata.name || !user.user_metadata.full_name) {
+      console.log('user', user.user_metadata);
+      console.log('openModalName', openModalName);
+      handleOpenModalName();
+    }
+  }, []);
 
   return (
     <>
@@ -218,6 +235,14 @@ export function Finances() {
               ))}
             </ul>
           </div>
+
+          <MyDialog
+            closeModal={handleCloseModalName}
+            isOpen={openModalName}
+            title="Seja bem-vindo(a)"
+            description="Antes de começar, queria saber como podemos te chamar?"
+            name
+          />
 
           <BottomNavigator />
         </div>
