@@ -71,9 +71,9 @@ export function Finances() {
   }
 
   useEffect(() => {
+    if (!user) return;
+
     if (!user.user_metadata.name || !user.user_metadata.full_name) {
-      console.log('user', user.user_metadata);
-      console.log('openModalName', openModalName);
       handleOpenModalName();
     }
   }, []);
