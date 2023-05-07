@@ -2,7 +2,10 @@ import { Fragment, useState } from 'react';
 
 import { Dialog, Transition } from '@headlessui/react';
 
+import { useAuth } from 'contexts/Auth';
 import { useToast } from 'contexts/Toast';
+
+import { supabase } from 'services/supabase';
 
 interface MyDialogProps {
   closeModal: () => void;
@@ -13,6 +16,7 @@ interface MyDialogProps {
   terms?: boolean;
   support?: boolean;
   email?: string;
+  name?: boolean;
 }
 
 export function MyDialog({
@@ -24,12 +28,15 @@ export function MyDialog({
   terms,
   support,
   email,
+  name,
 }: MyDialogProps) {
+  const { user, setUser } = useAuth();
   const { toast } = useToast();
   const [confirmTerms, setConfirmTerms] = useState({
     action: false,
     data: false,
   });
+  const [username, setUsername] = useState('');
 
   function copyToClipboard() {
     navigator.clipboard.writeText('eu@ialexanderbrito.dev');
@@ -38,10 +45,37 @@ export function MyDialog({
     });
   }
 
+  async function handleSubmitName() {
+    if (username.length <= 2) {
+      toast.error('Nome deve ter mais de 2 caracteres', {
+        id: 'error',
+      });
+      return;
+    }
+
+    const { data } = await supabase.auth.updateUser({
+      data: {
+        name: username,
+        full_name: username,
+        email: user?.email,
+      },
+    });
+
+    if (!data.user) return;
+
+    setUser(data.user);
+
+    closeModal();
+  }
+
   return (
     <>
       <Transition appear show={isOpen} as={Fragment}>
-        <Dialog as="div" className="relative z-10" onClose={closeModal}>
+        <Dialog
+          as="div"
+          className="relative z-10"
+          onClose={name ? () => {} : closeModal}
+        >
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"
@@ -82,6 +116,23 @@ export function MyDialog({
                     </p>
                   </div>
 
+                  {name && (
+                    <div className="mt-2 flex items-center gap-2">
+                      <input
+                        type="text"
+                        className={`h-14 w-full rounded-lg bg-background p-4 text-title outline-none dark:bg-backgroundCardDark dark:text-titleDark ${
+                          username.length <= 2
+                            ? 'border-[1.5px] border-red-500'
+                            : ''
+                        }`}
+                        placeholder="Digite seu nome"
+                        value={username}
+                        onChange={(e) => setUsername(e.target.value)}
+                        maxLength={50}
+                      />
+                    </div>
+                  )}
+
                   {terms && (
                     <div className="mt-4 flex flex-col gap-2">
                       <div className="flex items-center gap-2">
@@ -118,14 +169,30 @@ export function MyDialog({
                     </div>
                   )}
 
+                  <div className="mt-4 flex justify-end">
+                    {name && (
+                      <button
+                        type="button"
+                        className="h-14 w-32 rounded-lg bg-secondary p-4 text-sm text-white dark:bg-secondaryDark"
+                        onClick={() => {
+                          handleSubmitName();
+                        }}
+                      >
+                        Salvar
+                      </button>
+                    )}
+                  </div>
+
                   <div className="mt-4 flex justify-around">
-                    <button
-                      type="submit"
-                      className="h-14 w-32 rounded-lg border-[1.5px] border-solid border-secondary p-4 text-sm  text-secondary dark:border-secondaryDark dark:text-secondaryDark"
-                      onClick={closeModal}
-                    >
-                      Fechar
-                    </button>
+                    {(deleteTransaction || support) && (
+                      <button
+                        type="submit"
+                        className="h-14 w-32 rounded-lg border-[1.5px] border-solid border-secondary p-4 text-sm  text-secondary dark:border-secondaryDark dark:text-secondaryDark"
+                        onClick={closeModal}
+                      >
+                        Fechar
+                      </button>
+                    )}
 
                     {deleteTransaction && (
                       <button
