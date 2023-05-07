@@ -1,10 +1,23 @@
+import { useState } from 'react';
+
 import googleIcon from 'assets/google-icon.svg';
 import goFinancesLogo from 'assets/logo.svg';
+
+import { ModalLogin } from 'components/ModalLogin';
 
 import { useAuth } from 'contexts/Auth';
 
 export function Login() {
   const { loginWithGoogle } = useAuth();
+  const [openModal, setOpenModal] = useState(false);
+
+  function handleOpenModal() {
+    setOpenModal(true);
+  }
+
+  function handleCloseModal() {
+    setOpenModal(false);
+  }
 
   return (
     <>
@@ -21,7 +34,7 @@ export function Login() {
           </p>
         </div>
         <div className="flex h-96 w-full flex-col items-center bg-secondary dark:bg-secondaryDark">
-          <div className="flex h-40 w-full flex-col items-center justify-center gap-4">
+          <div className="flex h-60 w-full flex-col items-center justify-center gap-4">
             <button
               type="button"
               className="flex h-12 w-64 items-center rounded-md bg-white text-sm font-medium text-title dark:bg-backgroundCardDark dark:text-titleDark"
@@ -34,7 +47,17 @@ export function Login() {
                 <span>Entrar com Google</span>
               </div>
             </button>
+            <div className="mx-0 my-3 flex items-center text-sm text-white before:mr-4 before:h-[1px] before:w-28 before:flex-1 before:bg-white after:ml-4 after:h-[1px] after:w-28 after:flex-1 after:bg-white dark:text-textDark before:dark:bg-textDark after:dark:bg-textDark">
+              ou
+            </div>
+            <span
+              className="cursor-pointer text-sm font-normal text-white underline dark:text-titleDark"
+              onClick={() => handleOpenModal()}
+            >
+              Entre com seu e-mail e senha
+            </span>
           </div>
+          <ModalLogin closeModal={handleCloseModal} isOpen={openModal} />
         </div>
       </div>
     </>
