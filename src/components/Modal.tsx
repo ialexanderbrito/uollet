@@ -13,6 +13,7 @@ interface MyDialogProps {
   title: string;
   description?: string;
   deleteTransaction?: () => void;
+  deleteAccount?: () => void;
   terms?: boolean;
   support?: boolean;
   email?: string;
@@ -25,6 +26,7 @@ export function MyDialog({
   title,
   description,
   deleteTransaction,
+  deleteAccount,
   terms,
   support,
   email,
@@ -184,7 +186,7 @@ export function MyDialog({
                   </div>
 
                   <div className="mt-4 flex justify-around">
-                    {(deleteTransaction || support) && (
+                    {(deleteTransaction || support || terms) && (
                       <button
                         type="submit"
                         className="h-14 w-32 rounded-lg border-[1.5px] border-solid border-secondary p-4 text-sm  text-secondary dark:border-secondaryDark dark:text-secondaryDark"
@@ -194,13 +196,13 @@ export function MyDialog({
                       </button>
                     )}
 
-                    {deleteTransaction && (
+                    {deleteAccount && (
                       <button
                         type="submit"
                         className="h-14 w-32 rounded-lg bg-secondary p-4 text-sm text-white dark:bg-secondaryDark"
                         onClick={
                           terms && confirmTerms.action && confirmTerms.data
-                            ? deleteTransaction
+                            ? deleteAccount
                             : () =>
                                 toast.error(
                                   'Você precisa confirmar todos os checkboxs para continuar.',
@@ -209,6 +211,16 @@ export function MyDialog({
                                   },
                                 )
                         }
+                      >
+                        Excluir
+                      </button>
+                    )}
+
+                    {deleteTransaction && (
+                      <button
+                        type="submit"
+                        className="h-14 w-32 rounded-lg bg-secondary p-4 text-sm text-white dark:bg-secondaryDark"
+                        onClick={deleteTransaction}
                       >
                         Excluir
                       </button>
