@@ -16,6 +16,10 @@ interface AutocompleteProps {
   className?: string;
 }
 
+interface Option {
+  name: string;
+}
+
 export function Autocomplete({
   selected,
   setSelected,
@@ -42,7 +46,7 @@ export function Autocomplete({
         >
           <Combobox.Input
             className="w-full border-none bg-backgroundCard py-2 pl-3 pr-10 text-sm leading-5 text-title focus:ring-0 dark:bg-backgroundCardDark dark:text-titleDark"
-            displayValue={(value) => value.name}
+            displayValue={(value: Option) => value.name}
             onChange={(event) => setQuery(event.target.value)}
             placeholder="Digite uma categoria: Ex: Bradesco"
           />
