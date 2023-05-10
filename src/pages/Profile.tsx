@@ -209,7 +209,7 @@ export function Profile() {
               closeModal={handleCloseModal}
               title="Deletar Conta"
               description="Tem certeza que deseja deletar sua conta? Essa ação não poderá ser desfeita e todos os seus dados serão perdidos."
-              deleteTransaction={() => deleteUser(user?.id || '')}
+              deleteAccount={() => deleteUser(user?.id || '')}
               terms
             />
 
