@@ -8,6 +8,8 @@ import { AuthProvider } from 'contexts/Auth';
 import { ThemeProvider } from 'contexts/Theme';
 import { ToastProvider } from 'contexts/Toast';
 
+import 'react-tooltip/dist/react-tooltip.css';
+
 export function App() {
   return (
     <BrowserRouter>
