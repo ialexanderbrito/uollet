@@ -5,8 +5,8 @@ import { CaretLeft } from '@phosphor-icons/react';
 import incomeIcon from 'assets/income.svg';
 import outcomeIcon from 'assets/outcome.svg';
 
+import { Autocomplete } from 'components/Autocomplete';
 import { BottomNavigator } from 'components/BottomNavigator';
-import { Select } from 'components/Select';
 
 import { category } from 'utils/category';
 
@@ -119,7 +119,7 @@ export function Register() {
             ) : null}
           </div>
 
-          <Select
+          <Autocomplete
             selected={formik.values.category}
             setSelected={(value) => {
               formik.setFieldValue('category', value);
