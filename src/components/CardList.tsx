@@ -1,3 +1,5 @@
+import { Tooltip } from 'react-tooltip';
+
 import { TrashSimple, Pencil } from '@phosphor-icons/react';
 import { format } from 'date-fns';
 
@@ -46,14 +48,26 @@ export function CardList({
             size={18}
             weight="light"
             onClick={onEdit}
-            className="cursor-pointer text-secondary dark:text-secondaryDark"
+            className="edit cursor-pointer text-secondary dark:text-secondaryDark"
+          />
+          <Tooltip
+            content="Editar transação"
+            anchorSelect=".edit"
+            className="rounded-md bg-backgroundCard p-2 text-title dark:bg-backgroundCardDark dark:text-titleDark"
+            noArrow
           />
           <TrashSimple
             size={18}
             weight="light"
             color="#e83f5b"
             onClick={onClick}
-            className="cursor-pointer"
+            className="delete cursor-pointer"
+          />
+          <Tooltip
+            content="Excluir transação"
+            anchorSelect=".delete"
+            className="rounded-md bg-backgroundCard p-2 text-title dark:bg-backgroundCardDark dark:text-titleDark"
+            noArrow
           />
         </div>
       </div>
