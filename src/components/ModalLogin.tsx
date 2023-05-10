@@ -33,6 +33,8 @@ export function ModalLogin({ closeModal, isOpen }: MyDialogProps) {
     captchaRef,
     captchaToken,
     onLoadCaptcha,
+    magicLink,
+    setMagicLink,
   } = useLogin();
 
   return (
@@ -94,7 +96,7 @@ export function ModalLogin({ closeModal, isOpen }: MyDialogProps) {
                         />
                       </div>
 
-                      {!forgetPassword && (
+                      {!forgetPassword && !magicLink && (
                         <div className="flex items-center gap-2">
                           <input
                             type={passwordType}
@@ -137,6 +139,17 @@ export function ModalLogin({ closeModal, isOpen }: MyDialogProps) {
                       )}
                     </div>
 
+                    {!magicLink && (
+                      <div
+                        className="mt-4 flex items-center justify-center"
+                        onClick={() => setMagicLink(true)}
+                      >
+                        <p className="cursor-pointer text-xs font-bold text-text underline hover:text-secondary dark:text-textDark hover:dark:text-secondaryDark">
+                          Entrar com link mágico
+                        </p>
+                      </div>
+                    )}
+
                     <div className="mt-4 flex items-center justify-center">
                       <HCaptcha
                         ref={captchaRef}
@@ -156,6 +169,32 @@ export function ModalLogin({ closeModal, isOpen }: MyDialogProps) {
                           className="h-14 w-32 rounded-lg border-[1.5px] border-solid border-secondary p-4 text-sm  text-secondary dark:border-secondaryDark dark:text-secondaryDark"
                           onClick={() => {
                             setForgetPassword(false);
+                          }}
+                        >
+                          Voltar
+                        </button>
+
+                        <button
+                          type="submit"
+                          className="flex h-14 w-32 items-center justify-center rounded-lg bg-secondary p-4 text-center text-sm text-white disabled:cursor-not-allowed disabled:opacity-25 dark:bg-secondaryDark"
+                          disabled={!captchaToken}
+                        >
+                          {loading ? (
+                            <Ring size={20} color="#fff" />
+                          ) : (
+                            'Enviar email'
+                          )}
+                        </button>
+                      </div>
+                    )}
+
+                    {magicLink && (
+                      <div className="mt-4 flex justify-between">
+                        <button
+                          type="button"
+                          className="h-14 w-32 rounded-lg border-[1.5px] border-solid border-secondary p-4 text-sm  text-secondary dark:border-secondaryDark dark:text-secondaryDark"
+                          onClick={() => {
+                            setMagicLink(false);
                           }}
                         >
                           Voltar
@@ -201,7 +240,7 @@ export function ModalLogin({ closeModal, isOpen }: MyDialogProps) {
                       </div>
                     )}
 
-                    {!register && !forgetPassword && (
+                    {!register && !forgetPassword && !magicLink && (
                       <div className="mt-4 flex justify-between">
                         <div className="flex flex-col items-start justify-center">
                           <p

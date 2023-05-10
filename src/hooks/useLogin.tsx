@@ -17,6 +17,7 @@ export function useLogin() {
 
   const [register, setRegister] = useState(false);
   const [forgetPassword, setForgetPassword] = useState(false);
+  const [magicLink, setMagicLink] = useState(false);
   const [loading, setLoading] = useState(false);
   const [passwordType, setPasswordType] = useState('password');
   const [captchaToken, setCaptchaToken] = useState('');
@@ -183,6 +184,64 @@ export function useLogin() {
     },
   });
 
+  const formikMagicLink = useFormik({
+    initialValues: {
+      email: '',
+    },
+    onSubmit: async (values) => {
+      if (!captchaRef.current) return;
+
+      setLoading(true);
+
+      const { email } = values;
+
+      const { error } = await supabase.auth.signInWithOtp({
+        email,
+        options: {
+          captchaToken,
+        },
+      });
+
+      captchaRef.current.resetCaptcha();
+
+      if (error?.status === 422) {
+        toast.error('A recuperação de senha requer um e-mail', {
+          id: 'error',
+        });
+        return;
+      }
+
+      if (error?.status === 429) {
+        toast.error(
+          'Por motivos de segurança, você só pode solicitar isso uma vez a cada 60 segundos',
+          {
+            id: 'error',
+          },
+        );
+        setLoading(false);
+
+        return;
+      }
+
+      if (error) {
+        toast.error('Erro ao enviar link para o email, tente novamente!', {
+          id: 'error',
+        });
+        setLoading(false);
+
+        return;
+      }
+
+      setLoading(false);
+
+      toast.success(
+        'Email enviado com sucesso! Verifique sua caixa de entrada ou SPAM',
+        { id: 'success' },
+      );
+      handleCloseModal();
+    },
+  });
+
   function selectSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
@@ -192,6 +251,10 @@ export function useLogin() {
 
     if (forgetPassword) {
       return formikForgetPassword.handleSubmit;
+    }
+
+    if (magicLink) {
+      return formikMagicLink.handleSubmit;
     }
 
     return formikLogin.handleSubmit;
@@ -206,6 +269,10 @@ export function useLogin() {
       return formikForgetPassword.getFieldProps('email');
     }
 
+    if (magicLink) {
+      return formikMagicLink.getFieldProps('email');
+    }
+
     return formikLogin.getFieldProps('email');
   }
 
@@ -215,9 +282,11 @@ export function useLogin() {
     }
     setRegister(false);
     setForgetPassword(false);
+    setMagicLink(false);
     formikLogin.resetForm();
     formikRegister.resetForm();
     formikForgetPassword.resetForm();
+    formikMagicLink.resetForm();
   }
 
   return {
@@ -238,5 +307,7 @@ export function useLogin() {
     captchaRef,
     captchaToken,
     onLoadCaptcha,
+    magicLink,
+    setMagicLink,
   };
 }
