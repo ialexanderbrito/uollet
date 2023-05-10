@@ -1,8 +1,11 @@
 import { Fragment } from 'react';
 
+import HCaptcha from '@hcaptcha/react-hcaptcha';
 import { Dialog, Transition } from '@headlessui/react';
 import { Eye, EyeClosed } from '@phosphor-icons/react';
 import { Ring } from '@uiball/loaders';
+
+import { useTheme } from 'contexts/Theme';
 
 import { useLogin } from 'hooks/useLogin';
 
@@ -12,6 +15,7 @@ interface MyDialogProps {
 }
 
 export function ModalLogin({ closeModal, isOpen }: MyDialogProps) {
+  const { theme } = useTheme();
   const {
     passwordType,
     togglePassword,
@@ -25,6 +29,10 @@ export function ModalLogin({ closeModal, isOpen }: MyDialogProps) {
     setForgetPassword,
     setRegister,
     loading,
+    setCaptchaToken,
+    captchaRef,
+    captchaToken,
+    onLoadCaptcha,
   } = useLogin();
 
   return (
@@ -129,6 +137,18 @@ export function ModalLogin({ closeModal, isOpen }: MyDialogProps) {
                       )}
                     </div>
 
+                    <div className="mt-4 flex items-center justify-center">
+                      <HCaptcha
+                        ref={captchaRef}
+                        sitekey={import.meta.env.VITE_HCAPTCHA_SITEKEY}
+                        onVerify={(token) => setCaptchaToken(token)}
+                        onLoad={onLoadCaptcha}
+                        theme={theme === 'dark' ? 'dark' : 'light'}
+                        onExpire={() => setCaptchaToken('')}
+                        onChalExpired={() => setCaptchaToken('')}
+                      />
+                    </div>
+
                     {forgetPassword && (
                       <div className="mt-4 flex justify-between">
                         <button
@@ -143,7 +163,8 @@ export function ModalLogin({ closeModal, isOpen }: MyDialogProps) {
 
                         <button
                           type="submit"
-                          className="flex h-14 w-32 items-center justify-center rounded-lg bg-secondary p-4 text-center text-sm text-white dark:bg-secondaryDark"
+                          className="flex h-14 w-32 items-center justify-center rounded-lg bg-secondary p-4 text-center text-sm text-white disabled:cursor-not-allowed disabled:opacity-25 dark:bg-secondaryDark"
+                          disabled={!captchaToken}
                         >
                           {loading ? (
                             <Ring size={20} color="#fff" />
@@ -168,7 +189,8 @@ export function ModalLogin({ closeModal, isOpen }: MyDialogProps) {
 
                         <button
                           type="submit"
-                          className="flex h-14 w-32 items-center justify-center rounded-lg bg-secondary p-4 text-center text-sm text-white dark:bg-secondaryDark"
+                          className="flex h-14 w-32 items-center justify-center rounded-lg bg-secondary p-4 text-center text-sm text-white disabled:cursor-not-allowed disabled:opacity-25 dark:bg-secondaryDark"
+                          disabled={!captchaToken}
                         >
                           {loading ? (
                             <Ring size={20} color="#fff" />
@@ -199,7 +221,8 @@ export function ModalLogin({ closeModal, isOpen }: MyDialogProps) {
 
                         <button
                           type="submit"
-                          className="flex h-14 w-32 items-center justify-center rounded-lg bg-secondary p-4 text-center text-sm text-white dark:bg-secondaryDark"
+                          className="flex h-14 w-32 items-center justify-center rounded-lg bg-secondary p-4 text-center text-sm text-white disabled:cursor-not-allowed disabled:opacity-25 dark:bg-secondaryDark"
+                          disabled={!captchaToken}
                         >
                           {loading ? <Ring size={20} color="#fff" /> : 'Entrar'}
                         </button>

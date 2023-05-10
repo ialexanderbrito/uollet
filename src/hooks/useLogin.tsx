@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import HCaptcha from '@hcaptcha/react-hcaptcha';
 import { useFormik } from 'formik';
 
 import { useAuth } from 'contexts/Auth';
@@ -18,6 +19,13 @@ export function useLogin() {
   const [forgetPassword, setForgetPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [passwordType, setPasswordType] = useState('password');
+  const [captchaToken, setCaptchaToken] = useState('');
+
+  const captchaRef = useRef<HCaptcha>(null);
+
+  function onLoadCaptcha() {
+    captchaRef.current?.execute();
+  }
 
   function togglePassword() {
     if (passwordType === 'password') {
@@ -33,6 +41,8 @@ export function useLogin() {
       password: '',
     },
     onSubmit: async (values) => {
+      if (!captchaRef.current) return;
+
       setLoading(true);
 
       const { email, password } = values;
@@ -40,7 +50,12 @@ export function useLogin() {
       const { error, data } = await supabase.auth.signInWithPassword({
         email,
         password,
+        options: {
+          captchaToken,
+        },
       });
+
+      captchaRef.current.resetCaptcha();
 
       if (!data) return;
 
@@ -68,6 +83,8 @@ export function useLogin() {
       confirmPassword: '',
     },
     onSubmit: async (values) => {
+      if (!captchaRef.current) return;
+
       setLoading(true);
       const { email, password, confirmPassword } = values;
 
@@ -79,7 +96,12 @@ export function useLogin() {
       const { error, data } = await supabase.auth.signUp({
         email,
         password,
+        options: {
+          captchaToken,
+        },
       });
+
+      captchaRef.current.resetCaptcha();
 
       if (!data) return;
 
@@ -212,5 +234,9 @@ export function useLogin() {
     setForgetPassword,
     setRegister,
     loading,
+    setCaptchaToken,
+    captchaRef,
+    captchaToken,
+    onLoadCaptcha,
   };
 }
