@@ -68,6 +68,21 @@ export function useLogin() {
 
       setUser(data.user);
 
+      const { data: dataImage } = supabase.storage
+        .from('avatars')
+        .getPublicUrl(`${data.user?.id}`, {
+          download: true,
+        });
+
+      const { data: updateUser } = await supabase.auth.updateUser({
+        data: {
+          picture: dataImage?.publicUrl,
+          avatar_url: dataImage?.publicUrl,
+        },
+      });
+
+      setUser(updateUser.user);
+
       setLoading(false);
 
       toast.success('Login feito com sucesso!', { id: 'success' });
