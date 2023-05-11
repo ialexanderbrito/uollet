@@ -97,34 +97,42 @@ export function ModalLogin({ closeModal, isOpen }: MyDialogProps) {
                       </div>
 
                       {!forgetPassword && !magicLink && (
-                        <div className="flex items-center gap-2">
-                          <input
-                            type={passwordType}
-                            className="h-14 w-full rounded-lg bg-white p-4 text-title outline-none dark:bg-backgroundCardDark dark:text-titleDark"
-                            placeholder="Senha"
-                            {...(register
-                              ? formikRegister.getFieldProps('password')
-                              : formikLogin.getFieldProps('password'))}
-                          />
+                        <>
+                          <div className="flex items-center gap-2">
+                            <input
+                              type={passwordType}
+                              className="h-14 w-full rounded-lg bg-white p-4 text-title outline-none dark:bg-backgroundCardDark dark:text-titleDark"
+                              placeholder="Senha"
+                              {...(register
+                                ? formikRegister.getFieldProps('password')
+                                : formikLogin.getFieldProps('password'))}
+                            />
 
-                          <button
-                            type="button"
-                            className="h-14 w-14 rounded-lg bg-white p-4 text-title outline-none dark:bg-backgroundCardDark dark:text-titleDark"
-                            onClick={togglePassword}
-                          >
-                            {passwordType === 'password' ? (
-                              <EyeClosed
-                                size={20}
-                                className="text-title dark:text-titleDark"
-                              />
-                            ) : (
-                              <Eye
-                                size={20}
-                                className="text-title dark:text-titleDark"
-                              />
-                            )}
-                          </button>
-                        </div>
+                            <button
+                              type="button"
+                              className="h-14 w-14 rounded-lg bg-white p-4 text-title outline-none dark:bg-backgroundCardDark dark:text-titleDark"
+                              onClick={togglePassword}
+                            >
+                              {passwordType === 'password' ? (
+                                <EyeClosed
+                                  size={20}
+                                  className="text-title dark:text-titleDark"
+                                />
+                              ) : (
+                                <Eye
+                                  size={20}
+                                  className="text-title dark:text-titleDark"
+                                />
+                              )}
+                            </button>
+                          </div>
+                          {register && (
+                            <p className="ml-1 text-xs text-text dark:text-textDark">
+                              Por favor, certifique-se de inserir pelo menos 8
+                              caracteres
+                            </p>
+                          )}
+                        </>
                       )}
 
                       {register && (
@@ -139,7 +147,7 @@ export function ModalLogin({ closeModal, isOpen }: MyDialogProps) {
                       )}
                     </div>
 
-                    {!magicLink && (
+                    {!magicLink && !register && !forgetPassword && (
                       <div
                         className="mt-4 flex items-center justify-center"
                         onClick={() => setMagicLink(true)}
