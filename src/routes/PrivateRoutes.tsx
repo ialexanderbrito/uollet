@@ -4,6 +4,7 @@ import { Error } from 'pages/Error';
 import { Export } from 'pages/Export';
 import { Finances } from 'pages/Finances';
 import { Import } from 'pages/Import';
+import { MyProfile } from 'pages/MyProfile';
 import { Otp } from 'pages/Otp';
 import { Profile } from 'pages/Profile';
 import { Register } from 'pages/Register';
@@ -39,6 +40,7 @@ export function PrivateRoutes() {
       <Route path="/import" element={<Import />} />
       <Route path="/export" element={<Export />} />
       <Route path="/profile" element={<Profile />} />
+      <Route path="/profile/:id" element={<MyProfile />} />
       <Route path="/reset-password" element={<ResetPassword />} />
       <Route path="*" element={<Error />} />
     </Routes>
