@@ -18,7 +18,7 @@ export function BottomNavigator() {
       >
         <Link
           to="/"
-          className={`flex w-full items-center justify-center gap-2 pb-1 pt-2 focus:text-secondary hover:text-secondary ${
+          className={`flex w-full items-center justify-center gap-2 pb-1 pt-2 hover:text-secondary focus:text-secondary ${
             isActive('/') && 'text-secondary'
           }`}
         >
@@ -31,7 +31,7 @@ export function BottomNavigator() {
         </Link>
         <Link
           to="/register"
-          className={`flex w-full items-center justify-center gap-2 pb-1 pt-2 focus:text-secondary hover:text-secondary ${
+          className={`flex w-full items-center justify-center gap-2 pb-1 pt-2 hover:text-secondary focus:text-secondary ${
             isActive('/register') && 'text-secondary'
           }`}
         >
@@ -44,7 +44,7 @@ export function BottomNavigator() {
         </Link>
         <Link
           to="/resume"
-          className={`flex w-full items-center justify-center gap-2 pb-1 pt-2 focus:text-secondary hover:text-secondary ${
+          className={`flex w-full items-center justify-center gap-2 pb-1 pt-2 hover:text-secondary focus:text-secondary ${
             isActive('/resume') && 'text-secondary'
           }`}
         >
