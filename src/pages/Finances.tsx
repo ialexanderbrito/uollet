@@ -56,6 +56,7 @@ export function Finances() {
     endOfDays,
     setSearch,
     totalMessage,
+    duplicateTransaction,
   } = useTransactions();
 
   const [idTransaction, setIdTransaction] = useState(0);
@@ -91,7 +92,8 @@ export function Finances() {
                   <img
                     src={user?.user_metadata.avatar_url || defaultAvatar}
                     alt={user?.user_metadata.full_name}
-                    className="ml-4 h-12 w-12 rounded-lg"
+                    className="ml-4 h-12 w-12 cursor-pointer rounded-lg object-cover"
+                    onClick={() => navigate(`/profile/${user?.id}`)}
                   />
                   <p className="text-sm font-medium text-white">
                     Olá, <br />
@@ -203,6 +205,9 @@ export function Finances() {
                       onEdit={() => {
                         navigate(`/edit/${item.id}`);
                       }}
+                      onDuplicate={() => {
+                        duplicateTransaction(item.id);
+                      }}
                     />
                   ) : (
                     <CardList
@@ -218,6 +223,9 @@ export function Finances() {
                       }}
                       onEdit={() => {
                         navigate(`/edit/${item.id}`);
+                      }}
+                      onDuplicate={() => {
+                        duplicateTransaction(item.id);
                       }}
                     />
                   )}
