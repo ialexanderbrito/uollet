@@ -1,6 +1,6 @@
 import { Tooltip } from 'react-tooltip';
 
-import { TrashSimple, Pencil } from '@phosphor-icons/react';
+import { TrashSimple, Pencil, Copy } from '@phosphor-icons/react';
 import { format } from 'date-fns';
 
 import { category as categoryList } from 'utils/category';
@@ -15,6 +15,7 @@ interface CardListProps {
   income?: boolean;
   onClick?: () => void;
   onEdit?: () => void;
+  onDuplicate?: () => void;
 }
 
 export function CardList({
@@ -26,6 +27,7 @@ export function CardList({
   income,
   onClick,
   onEdit,
+  onDuplicate,
 }: CardListProps) {
   function verifyIcon(category: string) {
     const icon = categoryList.find((item) => item.name === category);
@@ -44,6 +46,18 @@ export function CardList({
           {title}
         </span>
         <div className="flex flex-row gap-2">
+          <Copy
+            size={18}
+            weight="light"
+            onClick={onDuplicate}
+            className="duplicate cursor-pointer text-secondary dark:text-secondaryDark"
+          />
+          <Tooltip
+            content="Duplicar transação"
+            anchorSelect=".duplicate"
+            className="rounded-md bg-backgroundCard p-2 text-title dark:bg-backgroundCardDark dark:text-titleDark"
+            noArrow
+          />
           <Pencil
             size={18}
             weight="light"
