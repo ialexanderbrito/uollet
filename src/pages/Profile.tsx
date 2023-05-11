@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { RWebShare } from 'react-web-share';
 
 import {
@@ -25,28 +25,18 @@ import { MyDialog } from 'components/Modal';
 import { Submenu } from 'components/Submenu';
 
 import { useAuth } from 'contexts/Auth';
+import { useTheme } from 'contexts/Theme';
 import { useToast } from 'contexts/Toast';
 
 import { useProfile } from 'hooks/useProfile';
 import { useTransactions } from 'hooks/useTransactions';
 
-export interface FinancesProps {
-  id: number;
-  created_at: Date;
-  title: string;
-  value: number;
-  category: string;
-  user_id: string;
-  type: string;
-  date: string;
-}
-
 export function Profile() {
   const navigate = useNavigate();
+  const { toggleTheme } = useTheme();
   const { toast } = useToast();
   const { user, logOut } = useAuth();
   const { deleteUser } = useProfile();
-
   const { loading, handleCloseModal, openModal, handleOpenModal } =
     useTransactions();
 
@@ -77,11 +67,14 @@ export function Profile() {
           </div>
 
           <div className="flex min-h-[85vh] w-full flex-col gap-4 p-4">
-            <div className="flex h-16 flex-row items-center justify-start gap-4 rounded-lg bg-backgroundCard dark:bg-backgroundCardDark">
+            <Link
+              to={`/profile/${user?.id}`}
+              className="flex h-16 cursor-pointer flex-row items-center justify-start gap-4 rounded-lg bg-backgroundCard dark:bg-backgroundCardDark"
+            >
               <img
                 src={user?.user_metadata.avatar_url || defaultAvatar}
                 alt={user?.user_metadata.name}
-                className="ml-3 h-10 w-10 rounded-lg"
+                className="ml-3 h-10 w-10 rounded-lg object-cover"
               />
 
               <div>
@@ -92,7 +85,7 @@ export function Profile() {
                   Perfil
                 </p>
               </div>
-            </div>
+            </Link>
 
             <div className="flex w-full min-w-full snap-x gap-4 overflow-x-scroll p-1 scrollbar-hide md:flex-row md:justify-center md:gap-4 md:overflow-x-auto md:overflow-y-hidden md:pb-4">
               <Banner
@@ -147,9 +140,7 @@ export function Profile() {
                 icon={<Key size={20} weight="light" />}
                 title="Senha"
                 onClick={() => {
-                  toast.error('Em breve você poderá alterar sua senha!', {
-                    id: 'toast',
-                  });
+                  navigate(`/profile/${user?.id}`);
                 }}
                 arrow
                 divider
@@ -181,6 +172,9 @@ export function Profile() {
               />
 
               <Submenu
+                onClick={() => {
+                  toggleTheme();
+                }}
                 icon={<Sun size={20} weight="light" />}
                 title="Tema do app"
                 divider
