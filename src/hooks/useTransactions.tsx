@@ -256,6 +256,48 @@ export function useTransactions() {
     }
   }
 
+  async function duplicateTransaction(id: string) {
+    const transaction = finances.find((transaction) => transaction.id === id);
+
+    if (!transaction) return;
+
+    const { title, value, category, type, date } = transaction;
+
+    const newTransaction = {
+      title,
+      value,
+      category,
+      type,
+      date,
+      user_id: user?.id,
+    };
+
+    try {
+      const { error, status } = await supabase
+        .from('finances_db')
+        .insert(newTransaction);
+
+      if (error) {
+        toast.error('Erro ao duplicar transação!', { id: 'error' });
+        return;
+      }
+
+      if (status === 201) {
+        toast.success('Transação duplicada com sucesso!', { id: 'success' });
+        setLoading(false);
+      }
+
+      getAllTransactions();
+
+      getIncomesAndTotalIncomes();
+      getOutcomesAndTotalOutcomes();
+    } catch (error) {
+      toast.error('Erro ao duplicar transação!', { id: 'error' });
+    } finally {
+      setLoading(false);
+    }
+  }
+
   async function getAllTransactionsPerMonth() {
     try {
       const { data, error } = await supabase
@@ -441,5 +483,6 @@ export function useTransactions() {
     allTotal,
     setSearch,
     totalMessage,
+    duplicateTransaction,
   };
 }
