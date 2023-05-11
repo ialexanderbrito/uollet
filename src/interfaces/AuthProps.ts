@@ -14,6 +14,7 @@ export interface UserMetadata {
   provider_id: string;
   sub: string;
   otp: string;
+  phone: string;
 }
 
 export interface IdentityData {
