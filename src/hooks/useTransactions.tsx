@@ -264,7 +264,7 @@ export function useTransactions() {
     const { title, value, category, type, date } = transaction;
 
     const newTransaction = {
-      title,
+      title: `${title} (cópia)`,
       value,
       category,
       type,
