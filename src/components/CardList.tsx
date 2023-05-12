@@ -1,5 +1,3 @@
-import { Tooltip } from 'react-tooltip';
-
 import { TrashSimple, Pencil, Copy } from '@phosphor-icons/react';
 import { format } from 'date-fns';
 
@@ -46,42 +44,28 @@ export function CardList({
           {title}
         </span>
         <div className="flex flex-row gap-2">
-          <Copy
-            size={18}
-            weight="light"
-            onClick={onDuplicate}
-            className="duplicate cursor-pointer text-secondary dark:text-secondaryDark"
-          />
-          <Tooltip
-            content="Duplicar transação"
-            anchorSelect=".duplicate"
-            className="rounded-md bg-backgroundCard p-2 text-title dark:bg-backgroundCardDark dark:text-titleDark"
-            noArrow
-          />
+          {onDuplicate && (
+            <Copy
+              size={18}
+              weight="light"
+              onClick={onDuplicate}
+              className="cursor-pointer text-secondary dark:text-secondaryDark"
+            />
+          )}
+
           <Pencil
             size={18}
             weight="light"
             onClick={onEdit}
-            className="edit cursor-pointer text-secondary dark:text-secondaryDark"
+            className="cursor-pointer text-secondary dark:text-secondaryDark"
           />
-          <Tooltip
-            content="Editar transação"
-            anchorSelect=".edit"
-            className="rounded-md bg-backgroundCard p-2 text-title dark:bg-backgroundCardDark dark:text-titleDark"
-            noArrow
-          />
+
           <TrashSimple
             size={18}
             weight="light"
             color="#e83f5b"
             onClick={onClick}
-            className="delete cursor-pointer"
-          />
-          <Tooltip
-            content="Excluir transação"
-            anchorSelect=".delete"
-            className="rounded-md bg-backgroundCard p-2 text-title dark:bg-backgroundCardDark dark:text-titleDark"
-            noArrow
+            className="cursor-pointer"
           />
         </div>
       </div>
