@@ -291,6 +291,8 @@ export function useTransactions() {
 
       getIncomesAndTotalIncomes();
       getOutcomesAndTotalOutcomes();
+
+      setLoading(false);
     } catch (error) {
       toast.error('Erro ao duplicar transação!', { id: 'error' });
     } finally {
