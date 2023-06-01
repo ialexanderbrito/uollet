@@ -122,8 +122,8 @@ export function Resume() {
                 {categories.map((category, index) => (
                   <Link
                     key={index}
-                    className="flex h-12 w-full cursor-pointer items-center gap-2 rounded-md bg-backgroundCard dark:bg-backgroundCardDark"
-                    to={`/category/${category}`}
+                    className="flex h-12 w-full cursor-pointer items-center gap-2 rounded-md border-[1px] border-transparent bg-backgroundCard hover:border-current hover:border-secondary hover:transition-all dark:bg-backgroundCardDark dark:hover:border-secondaryDark"
+                    to={`/category/${category}&type=${type}`}
                   >
                     <div
                       className="h-full w-2 rounded-l-md"
