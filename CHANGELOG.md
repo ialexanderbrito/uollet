@@ -1,3 +1,11 @@
+# [1.1.0](https://github.com/ialexanderbrito/finance/compare/v1.0.0...v1.1.0) (2023-06-01)
+
+
+### Features
+
+* add hover categories ([530a164](https://github.com/ialexanderbrito/finance/commit/530a16426d556e25159f25e5246b9699cbd073ce))
+* add type in get transaction by category ([0f9c172](https://github.com/ialexanderbrito/finance/commit/0f9c1724dfe2155f7dd61dcc28264078114fb364))
+
 # 1.0.0 (2023-06-01)
 
 
