@@ -331,13 +331,14 @@ export function useTransactions() {
     }
   }
 
-  async function getTransactionsByCategory(category: string) {
+  async function getTransactionsByCategory(category: string, type: string) {
     try {
       const { data, error } = await supabase
         .from('finances_db')
         .select('*')
         .eq('user_id', user?.id)
         .eq('category', category)
+        .eq('type', type)
         .gte('date', `${actualYear}-${actualMonth}-01`)
         .lte('date', `${actualYear}-${actualMonth}-${endOfDays}`);
 
@@ -429,7 +430,10 @@ export function useTransactions() {
 
   useEffect(() => {
     if (id !== undefined) {
-      getTransactionsByCategory(id);
+      const category = id.split('&')[0];
+      const type = id.split('&')[1].split('=')[1];
+
+      getTransactionsByCategory(category, type);
     } else {
       getTotal();
       getAllTransactionsPerMonth();
@@ -438,7 +442,10 @@ export function useTransactions() {
 
   useEffect(() => {
     if (id !== undefined) {
-      getTransactionsByCategory(id);
+      const category = id.split('&')[0];
+      const type = id.split('&')[1].split('=')[1];
+
+      getTransactionsByCategory(category, type);
     } else {
       getIncomesAndTotalIncomes();
       getOutcomesAndTotalOutcomes();
