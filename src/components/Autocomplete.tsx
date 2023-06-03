@@ -61,7 +61,7 @@ export function Autocomplete({
           leaveTo="opacity-0"
           afterLeave={() => setQuery('')}
         >
-          <Combobox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-backgroundCard py-1 text-base text-title shadow-lg ring-1 ring-black ring-opacity-5 scrollbar scrollbar-thin scrollbar-track-backgroundCard scrollbar-thumb-secondary focus:outline-none dark:bg-backgroundCardDark dark:text-titleDark dark:scrollbar-track-backgroundDark sm:text-sm">
+          <Combobox.Options className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-backgroundCard py-1 text-base text-title shadow-lg ring-1 ring-black ring-opacity-5 scrollbar scrollbar-thin scrollbar-track-backgroundCard scrollbar-thumb-secondary focus:outline-none dark:bg-backgroundCardDark dark:text-titleDark dark:scrollbar-track-backgroundDark sm:text-sm">
             {filteredPeople.length === 0 && query !== '' ? (
               <div className="relative cursor-default select-none px-4 py-2 text-title dark:text-titleDark">
                 Nenhum resultado encontrado
