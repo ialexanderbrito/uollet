@@ -34,6 +34,7 @@
     "react-dropzone": "^14.2.3",
     "react-hot-toast": "^2.4.1",
     "react-router-dom": "^6.11.1",
+    "react-spring-bottom-sheet": "^3.4.1",
     "react-tooltip": "^5.11.2",
     "react-web-share": "^2.0.2",
     "tailwind-scrollbar-hide": "^1.1.7",
