@@ -1,3 +1,10 @@
+## [1.1.1](https://github.com/ialexanderbrito/finance/compare/v1.1.0...v1.1.1) (2023-06-03)
+
+
+### Bug Fixes
+
+* toast message email ([173eb77](https://github.com/ialexanderbrito/finance/commit/173eb77494ca1f36b3fb8ef40299f23e9aff12a7))
+
 # [1.1.0](https://github.com/ialexanderbrito/finance/compare/v1.0.0...v1.1.0) (2023-06-01)
 
 
