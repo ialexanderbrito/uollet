@@ -60,6 +60,14 @@ export function useLogin() {
 
       if (!data) return;
 
+      if (error?.message === 'Email not confirmed') {
+        toast.error('Email não confirmado, verifique sua caixa de entrada!', {
+          id: 'error',
+        });
+        setLoading(false);
+        return;
+      }
+
       if (error) {
         toast.error('Erro ao fazer login, tente novamente!', { id: 'error' });
         setLoading(false);
