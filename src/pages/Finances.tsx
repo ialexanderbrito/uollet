@@ -196,7 +196,7 @@ export function Finances() {
                       value={item.value}
                       category={item.category}
                       date={item.date}
-                      className="mb-20"
+                      className="mb-10"
                       income={item.type === 'income'}
                       onClick={() => {
                         setIdTransaction(item.id);
