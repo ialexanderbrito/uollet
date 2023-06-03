@@ -66,7 +66,7 @@ export function Profile() {
             </div>
           </div>
 
-          <div className="flex min-h-[85vh] w-full flex-col gap-4 p-4">
+          <div className="flex min-h-[90vh] w-full flex-col gap-4 p-4">
             <Link
               to={`/profile/${user?.id}`}
               className="flex h-16 cursor-pointer flex-row items-center justify-start gap-4 rounded-lg bg-backgroundCard dark:bg-backgroundCardDark"
