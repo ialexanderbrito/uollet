@@ -1,3 +1,12 @@
+# [1.2.0](https://github.com/ialexanderbrito/finance/compare/v1.1.1...v1.2.0) (2023-06-03)
+
+
+### Features
+
+* add new navigator floating and new icons ([3c05af6](https://github.com/ialexanderbrito/finance/commit/3c05af6744144c3fe6d410741e1bac672ca24a3b))
+* add react spring bottom sheet ([ed8f94a](https://github.com/ialexanderbrito/finance/commit/ed8f94a734b8f90cc9d2344249e6bc810f2374ce))
+* add recurrency register ([fd70e11](https://github.com/ialexanderbrito/finance/commit/fd70e11774e5a0fbddf1869410693d3898ed4975))
+
 ## [1.1.1](https://github.com/ialexanderbrito/finance/compare/v1.1.0...v1.1.1) (2023-06-03)
 
 
