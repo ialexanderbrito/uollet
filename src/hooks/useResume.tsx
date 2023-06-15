@@ -120,7 +120,8 @@ export function useResume() {
         .eq('type', type)
         .eq('user_id', user?.id)
         .gte('date', `${actualYear}-${actualMonth}-01`)
-        .lte('date', `${actualYear}-${actualMonth}-${endOfDays}`);
+        .lte('date', `${actualYear}-${actualMonth}-${endOfDays}`)
+        .not('category', 'ilike', '%Cartão%');
 
       if (error) {
         toast.error('Erro ao carregar os dados', { id: 'error' });

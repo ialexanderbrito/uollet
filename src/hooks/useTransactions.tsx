@@ -76,7 +76,8 @@ export function useTransactions() {
       const { data, error } = await supabase
         .from('finances_db')
         .select('*')
-        .eq('user_id', user?.id);
+        .eq('user_id', user?.id)
+        .not('category', 'ilike', '%Cartão%');
 
       if (error) {
         toast.error('Erro ao buscar transações', { id: 'error' });
@@ -256,7 +257,7 @@ export function useTransactions() {
     }
   }
 
-  async function duplicateTransaction(id: string) {
+  async function duplicateTransaction(id: number) {
     const transaction = finances.find((transaction) => transaction.id === id);
 
     if (!transaction) return;
@@ -307,7 +308,8 @@ export function useTransactions() {
         .select('*')
         .eq('user_id', user?.id)
         .gte('date', `${actualYear}-${actualMonth}-01`)
-        .lte('date', `${actualYear}-${actualMonth}-${endOfDays}`);
+        .lte('date', `${actualYear}-${actualMonth}-${endOfDays}`)
+        .not('category', 'ilike', '%Cartão%');
 
       if (error) {
         toast.error('Erro ao buscar transações', { id: 'error' });
@@ -340,7 +342,8 @@ export function useTransactions() {
         .eq('category', category)
         .eq('type', type)
         .gte('date', `${actualYear}-${actualMonth}-01`)
-        .lte('date', `${actualYear}-${actualMonth}-${endOfDays}`);
+        .lte('date', `${actualYear}-${actualMonth}-${endOfDays}`)
+        .not('category', 'ilike', '%Cartão%');
 
       if (error) {
         toast.error('Erro ao buscar transações', { id: 'error' });
@@ -390,7 +393,8 @@ export function useTransactions() {
           .eq('user_id', user?.id)
           .eq('category', category)
           .ilike('title', `%${search}%`)
-          .order('created_at', { ascending: false });
+          .order('created_at', { ascending: false })
+          .not('category', 'ilike', '%Cartão%');
 
         if (error) {
           toast.error('Erro ao buscar transações', { id: 'error' });
@@ -411,7 +415,8 @@ export function useTransactions() {
           .select('*')
           .eq('user_id', user?.id)
           .ilike('title', `%${search}%`)
-          .order('created_at', { ascending: false });
+          .order('created_at', { ascending: false })
+          .not('category', 'ilike', '%Cartão%');
 
         if (error) {
           toast.error('Erro ao buscar transações', { id: 'error' });
