@@ -30,7 +30,7 @@ export function MyProfile() {
         className="flex w-full flex-col"
         onSubmit={formikUpdateUser.handleSubmit}
       >
-        <div className="flex min-h-[90vh] w-full flex-col gap-4 p-4">
+        <div className="flex h-screen w-full flex-col gap-4 p-4">
           {loadingImage ? (
             <div className="flex h-full animate-pulse flex-row items-center justify-center space-x-5">
               <div className="h-40 w-40 rounded-lg bg-gray-300 "></div>

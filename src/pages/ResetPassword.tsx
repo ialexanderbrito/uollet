@@ -18,7 +18,7 @@ export function ResetPassword() {
         className="flex w-full flex-col"
         onSubmit={formikResetPassword.handleSubmit}
       >
-        <div className="flex h-[90vh] w-full flex-col gap-4 p-4">
+        <div className="flex h-screen w-full flex-col gap-4 p-4">
           <div className="flex items-center gap-2">
             <input
               type={passwordType}
