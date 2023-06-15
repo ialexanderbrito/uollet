@@ -2,14 +2,13 @@ import { useState } from 'react';
 import AuthCode from 'react-auth-code-input';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { CaretLeft } from '@phosphor-icons/react';
-
 import { BottomNavigator } from 'components/BottomNavigator';
+import { Header } from 'components/Header';
 
 import { useAuth } from 'contexts/Auth';
 import { useToast } from 'contexts/Toast';
 
-import { usePasswordCrypto } from 'hooks/usePassowordCrypto';
+import { useCrypto } from 'hooks/useCrypto';
 
 import { supabase } from 'services/supabase';
 
@@ -18,8 +17,9 @@ export function Otp() {
   const navigate = useNavigate();
   const location = useLocation();
   const { setUser, hasOtp, user } = useAuth();
+
   const [otp, setOtp] = useState('');
-  const { hashPassword, verifyPassword } = usePasswordCrypto();
+  const { hashPassword, verifyPassword } = useCrypto();
 
   async function handleChangeOtp(otp: string) {
     if (!user) return;
@@ -109,19 +109,10 @@ export function Otp() {
 
   return (
     <div className="flex h-screen w-full flex-col items-center bg-background dark:bg-backgroundDark">
-      <div className="flex h-24 w-full flex-row bg-primary dark:bg-primaryDark">
-        <div className="flex w-1/4 items-center justify-center">
-          <CaretLeft
-            size={20}
-            weight="light"
-            className="cursor-pointer text-white"
-            onClick={() => navigate(-1)}
-          />
-        </div>
-        <div className="flex w-2/4 items-center justify-center">
-          <p className="text-lg font-normal text-white">Senha de acesso</p>
-        </div>
-      </div>
+      <Header
+        title="Senha de acesso"
+        showIcon={pageLocation(location.pathname)}
+      />
 
       <div className="flex w-full flex-col items-center justify-center gap-2 p-4">
         <div className="mb-4 flex w-full flex-col items-center justify-center">

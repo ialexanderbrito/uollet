@@ -1,8 +1,7 @@
-import { useNavigate } from 'react-router-dom';
-
-import { CaretLeft, FileArrowUp } from '@phosphor-icons/react';
+import { FileArrowUp } from '@phosphor-icons/react';
 
 import { BottomNavigator } from 'components/BottomNavigator';
+import { Header } from 'components/Header';
 import { Loading } from 'components/Loading';
 
 import { useImport } from 'hooks/useImport';
@@ -11,7 +10,6 @@ import { useResume } from 'hooks/useResume';
 export function Import() {
   const { loading } = useResume();
   const { handleFileUpload, downloadFileAtUrl, FILE_URL_CSV } = useImport();
-  const navigate = useNavigate();
 
   return (
     <>
@@ -19,19 +17,7 @@ export function Import() {
         <Loading />
       ) : (
         <div className="flex h-screen w-full flex-col items-center bg-background dark:bg-backgroundDark">
-          <div className="flex h-24 w-full flex-row bg-primary dark:bg-primaryDark">
-            <div className="flex w-1/4 items-center justify-center">
-              <CaretLeft
-                size={20}
-                weight="light"
-                className="cursor-pointer text-white"
-                onClick={() => navigate(-1)}
-              />
-            </div>
-            <div className="flex w-2/4 items-center justify-center">
-              <p className="text-lg font-normal text-white">Importar dados</p>
-            </div>
-          </div>
+          <Header title="Importar dados" />
 
           <div className="flex w-full flex-col items-center justify-center gap-2 p-4">
             <div className="flex w-full items-center justify-center">

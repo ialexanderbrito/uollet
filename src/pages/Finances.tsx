@@ -1,18 +1,17 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { Eye, EyeSlash } from '@phosphor-icons/react';
-import defaultAvatar from 'assets/default_user_avatar.png';
 import incomeIcon from 'assets/income.svg';
 import outcomeIcon from 'assets/outcome.svg';
 import totalIcon from 'assets/total.svg';
+import { FinancesProps } from 'interfaces/FinancesProps';
 
 import { BottomNavigator } from 'components/BottomNavigator';
 import { Card } from 'components/Card';
 import { CardList } from 'components/CardList';
 import { Filter } from 'components/Filter';
+import { Header } from 'components/Header';
 import { Loading } from 'components/Loading';
-import { Menu } from 'components/Menu';
 import { MyDialog } from 'components/Modal';
 
 import { formatCurrency } from 'utils/formatCurrency';
@@ -21,17 +20,6 @@ import { useAuth } from 'contexts/Auth';
 import { useTheme } from 'contexts/Theme';
 
 import { useTransactions } from 'hooks/useTransactions';
-
-export interface FinancesProps {
-  id: number;
-  created_at: Date;
-  title: string;
-  value: number;
-  category: string;
-  user_id: string;
-  type: string;
-  date: string;
-}
 
 export function Finances() {
   const navigate = useNavigate();
@@ -85,42 +73,12 @@ export function Finances() {
         <Loading />
       ) : (
         <div className="flex w-full flex-col items-center justify-center bg-background dark:bg-backgroundDark">
-          <div className="flex h-52 w-full flex-row bg-primary dark:bg-primaryDark">
-            <div className=" mt-4 flex w-full items-start justify-between ">
-              <div className="flex w-full items-center justify-between gap-4">
-                <div className="flex items-center justify-between gap-4 ">
-                  <img
-                    src={user?.user_metadata.avatar_url || defaultAvatar}
-                    alt={user?.user_metadata.full_name}
-                    className="ml-4 h-12 w-12 cursor-pointer rounded-lg object-cover"
-                    onClick={() => navigate(`/profile/${user?.id}`)}
-                  />
-                  <p className="text-sm font-medium text-white">
-                    Olá, <br />
-                    <b>{user?.user_metadata.name}</b>
-                  </p>
-                </div>
-                <div className="mr-4 flex items-center justify-between gap-4">
-                  {visible ? (
-                    <Eye
-                      size={30}
-                      weight="light"
-                      onClick={() => setVisible(false)}
-                      className="cursor-pointer text-secondary"
-                    />
-                  ) : (
-                    <EyeSlash
-                      size={30}
-                      weight="light"
-                      onClick={() => setVisible(true)}
-                      className="cursor-pointer text-secondary"
-                    />
-                  )}
-                  <Menu />
-                </div>
-              </div>
-            </div>
-          </div>
+          <Header
+            primary={true}
+            user={user}
+            visible={visible}
+            setVisible={() => setVisible(!visible)}
+          />
 
           <div className="absolute top-20 flex w-full min-w-full snap-x gap-4 overflow-x-scroll p-4 scrollbar-hide md:justify-center">
             <Card
@@ -187,7 +145,7 @@ export function Finances() {
                   </p>
                 </div>
               )}
-              {finances.map((item) => (
+              {finances.map((item: FinancesProps) => (
                 <>
                   {item === finances[finances.length - 1] ? (
                     <CardList

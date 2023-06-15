@@ -1,10 +1,9 @@
-import { useNavigate } from 'react-router-dom';
-
-import { CaretLeft, Eye, EyeClosed } from '@phosphor-icons/react';
+import { Eye, EyeClosed } from '@phosphor-icons/react';
 import { Ring } from '@uiball/loaders';
 
 import { BottomNavigator } from 'components/BottomNavigator';
 import { Dropzone } from 'components/Dropzone';
+import { Header } from 'components/Header';
 
 import { formatCellPhone } from 'utils/formatCellPhone';
 
@@ -13,7 +12,6 @@ import { useAuth } from 'contexts/Auth';
 import { useProfile } from 'hooks/useProfile';
 
 export function MyProfile() {
-  const navigate = useNavigate();
   const { user } = useAuth();
   const {
     formikUpdateUser,
@@ -26,21 +24,7 @@ export function MyProfile() {
 
   return (
     <div className="flex w-full flex-col items-center justify-center bg-background dark:bg-backgroundDark">
-      <div className="flex h-24 w-full flex-row bg-primary dark:bg-primaryDark">
-        <div className="flex w-1/4 items-center justify-center">
-          <CaretLeft
-            size={20}
-            weight="light"
-            className="cursor-pointer text-white"
-            onClick={() => navigate(-1)}
-          />
-        </div>
-        <div className="flex w-2/4 items-center justify-center">
-          <p className="text-lg font-normal text-white">
-            Olá, {user?.user_metadata.name}
-          </p>
-        </div>
-      </div>
+      <Header title={`Olá, ${user?.user_metadata.name}`} />
 
       <form
         className="flex w-full flex-col"
