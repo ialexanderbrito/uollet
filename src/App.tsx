@@ -9,6 +9,7 @@ import { ThemeProvider } from 'contexts/Theme';
 import { ToastProvider } from 'contexts/Toast';
 
 import 'react-tooltip/dist/react-tooltip.css';
+import 'react-spring-bottom-sheet/dist/style.css';
 
 export function App() {
   return (
