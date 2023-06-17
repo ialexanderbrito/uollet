@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { Menu as MenuComponent, Transition } from '@headlessui/react';
 import {
+  CreditCard,
   DotsThreeVertical,
   FileCsv,
   FileXls,
@@ -56,6 +57,21 @@ export function Menu() {
                     className="mr-2 h-5 w-5 text-secondary"
                   />
                   Minha conta
+                </button>
+              </MenuComponent.Item>
+              <MenuComponent.Item>
+                <button
+                  className="group flex w-full items-center rounded-md px-2 py-2 text-sm"
+                  onClick={() => {
+                    navigate('/credit-card');
+                  }}
+                >
+                  <CreditCard
+                    size={20}
+                    weight="light"
+                    className="mr-2 h-5 w-5 text-secondary"
+                  />
+                  Adicionar cartão
                 </button>
               </MenuComponent.Item>
               <MenuComponent.Item>
