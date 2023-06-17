@@ -11,7 +11,7 @@ import { supabase } from 'services/supabase';
 
 interface TotalCreditCardCategoriesProps {
   category: string;
-  value: number;
+  value: number | any;
 }
 
 export function useCards() {
@@ -120,7 +120,7 @@ export function useCards() {
       );
 
       const totalPerCategoryArraySorted = totalPerCategoryArray.sort(
-        (a, b) => b.value - a.value,
+        (a, b) => Number(b.value) - Number(a.value),
       );
 
       setTotalCreditCardCategories(totalPerCategoryArraySorted);
@@ -177,7 +177,7 @@ export function useCards() {
       );
 
       const totalPerCategoryArraySorted = totalPerCategoryArray.sort(
-        (a, b) => b.value - a.value,
+        (a, b) => Number(b.value) - Number(a.value),
       );
 
       setFinances(newData);
@@ -235,7 +235,7 @@ export function useCards() {
       );
 
       const totalPerCategoryArraySorted = totalPerCategoryArray.sort(
-        (a, b) => b.value - a.value,
+        (a, b) => Number(b.value) - Number(a.value),
       );
 
       setFinances(newData);

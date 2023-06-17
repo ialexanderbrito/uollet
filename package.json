@@ -51,9 +51,12 @@
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/git": "^10.0.1",
     "@types/bcryptjs": "^2.4.2",
+    "@types/crypto-js": "^4.1.1",
+    "@types/hoist-non-react-statics": "^3.3.1",
     "@types/node": "^20.3.1",
     "@types/papaparse": "^5.3.7",
     "@types/react": "^18.2.12",
+    "@types/react-color": "^3.0.6",
     "@types/react-dom": "^18.2.5",
     "@types/react-dropzone": "^5.1.0",
     "@vitejs/plugin-react": "^3.1.0",
@@ -71,9 +74,7 @@
     "vite": "^4.3.9",
     "vite-plugin-pwa": "^0.16.4",
     "vite-plugin-radar": "^0.9.0",
-    "vite-tsconfig-paths": "^4.2.0",
-    "@types/crypto-js": "^4.1.1",
-    "@types/react-color": "^3.0.6"
+    "vite-tsconfig-paths": "^4.2.0"
   },
   "config": {
     "commitizen": {
