@@ -1,16 +1,31 @@
 import { Link } from 'react-router-dom';
 
-import { CurrencyDollar, ChartPie, House } from '@phosphor-icons/react';
+import { ChartPie, House, CreditCard, Coins } from '@phosphor-icons/react';
+
+import { useTheme } from 'contexts/Theme';
 
 export function BottomNavigator() {
+  const { theme } = useTheme();
   function isActive(path: string) {
     return window.location.pathname === path;
+  }
+
+  function darkColorIcon(link: string) {
+    if (isActive(link)) {
+      return '#ff872c';
+    }
+
+    if (theme === 'dark') {
+      return '#a5b7cc';
+    }
+
+    return '#363F5F';
   }
 
   return (
     <section
       id="bottom-navigation"
-      className="fixed bottom-5 z-10 w-72 rounded-2xl border border-secondary/40 bg-white shadow dark:border-secondaryDark/40 dark:bg-backgroundDark sm:w-96"
+      className="fixed bottom-5 z-10 w-72 rounded-full border border-secondary/40 bg-white shadow dark:border-secondaryDark/40 dark:bg-backgroundDark sm:w-[32rem]"
     >
       <div
         id="tabs"
@@ -20,47 +35,67 @@ export function BottomNavigator() {
           to="/"
           className={`flex w-full items-center justify-center gap-2 pb-1 pt-2 hover:text-secondary focus:text-secondary ${
             isActive('/') &&
-            'h-16 rounded-2xl bg-secondary/10 text-secondary dark:bg-secondaryDark/10'
+            'h-16 rounded-full bg-secondary/10 text-secondary dark:bg-secondaryDark/10'
           }`}
         >
           <House
             size={25}
             className="inline-block"
-            color={isActive('/') ? '#ff872c' : '#363F5F'}
+            color={darkColorIcon('/')}
             weight={isActive('/') ? 'fill' : 'light'}
           />
           <span className="tab tab-explore hidden text-sm sm:block">
             Início
           </span>
         </Link>
+
         <Link
           to="/register"
           className={`flex w-full items-center justify-center gap-2 pb-1 pt-2 hover:text-secondary focus:text-secondary  ${
             isActive('/register') &&
-            'h-16 rounded-2xl bg-secondary/10 text-secondary dark:bg-secondaryDark/10'
+            'h-16 rounded-full bg-secondary/10 text-secondary dark:bg-secondaryDark/10'
           }`}
         >
-          <CurrencyDollar
+          <Coins
             size={25}
             className="inline-block"
-            color={isActive('/register') ? '#ff872c' : '#363F5F'}
+            color={darkColorIcon('/register')}
             weight={isActive('/register') ? 'fill' : 'light'}
           />
           <span className="tab tab-explore hidden text-sm sm:block">
             Cadastrar
           </span>
         </Link>
+
+        <Link
+          to="/cards"
+          className={`flex w-full items-center justify-center gap-2 pb-1 pt-2 hover:text-secondary focus:text-secondary ${
+            isActive('/cards') &&
+            'h-16 rounded-full bg-secondary/10 text-secondary dark:bg-secondaryDark/10'
+          }`}
+        >
+          <CreditCard
+            size={25}
+            className="inline-block"
+            color={darkColorIcon('/cards')}
+            weight={isActive('/cards') ? 'fill' : 'light'}
+          />
+          <span className="tab tab-explore hidden text-sm sm:block">
+            Cartões
+          </span>
+        </Link>
+
         <Link
           to="/resume"
           className={`flex w-full items-center justify-center gap-2 pb-1 pt-2 hover:text-secondary focus:text-secondary  ${
             isActive('/resume') &&
-            'h-16 rounded-2xl bg-secondary/10 text-secondary dark:bg-secondaryDark/10'
+            'h-16 rounded-full bg-secondary/10 text-secondary dark:bg-secondaryDark/10'
           }`}
         >
           <ChartPie
             size={25}
             className="inline-block"
-            color={isActive('/resume') ? '#ff872c' : '#363F5F'}
+            color={darkColorIcon('/resume')}
             weight={isActive('/resume') ? 'fill' : 'light'}
           />
           <span className="tab tab-explore hidden text-sm sm:block">
