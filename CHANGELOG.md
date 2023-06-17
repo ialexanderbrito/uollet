@@ -1,3 +1,41 @@
+# [1.3.0](https://github.com/ialexanderbrito/finance/compare/v1.2.0...v1.3.0) (2023-06-17)
+
+
+### Bug Fixes
+
+* api not category initial cartao ([5f646c9](https://github.com/ialexanderbrito/finance/commit/5f646c90938db2b0196c29428fedb9bc473b7108))
+* error typescript build ([7cdc16f](https://github.com/ialexanderbrito/finance/commit/7cdc16f62d7fd6159fe57a2789057af2288cc0bd))
+* import dafault styles spring bottom sheet ([395fd47](https://github.com/ialexanderbrito/finance/commit/395fd4761d13274804a6b3341d68f193fc8e0d21))
+* remove hook password crypto ([4c4a53e](https://github.com/ialexanderbrito/finance/commit/4c4a53e839856df8585682b9aa86fe83b59ecb39))
+
+
+### Features
+
+* add component credit card ([3cee4df](https://github.com/ialexanderbrito/finance/commit/3cee4df3a63990b89158558c978eb1018feb0ea0))
+* add component header ([86297ae](https://github.com/ialexanderbrito/finance/commit/86297aeede8266260301b767a1060e7fafc59488))
+* add component recurrency transactions ([5f166a0](https://github.com/ialexanderbrito/finance/commit/5f166a09b45065c03624be9e25a74bdd126980f7))
+* add global style root ([7e09c75](https://github.com/ialexanderbrito/finance/commit/7e09c75aea6697ccc0b57d3063791e8f357b50c0))
+* add hook credit card ([b7f6a82](https://github.com/ialexanderbrito/finance/commit/b7f6a82565394c101ed6d143030daadfd0b2b5a1))
+* add hook use credit card list ([d8d4f1a](https://github.com/ialexanderbrito/finance/commit/d8d4f1a262a8598a7b8ad800e41e858390988d7f))
+* add hook use otp ([b66c79a](https://github.com/ialexanderbrito/finance/commit/b66c79a653b33e844e58a0a4f41beb85c41c94cc))
+* add hook use register ([20ef07b](https://github.com/ialexanderbrito/finance/commit/20ef07b9f16a40a06586106291b5310158b69758))
+* add icon credit card in card list ([4390d2b](https://github.com/ialexanderbrito/finance/commit/4390d2b5888c7bda0b2b50f9a8b77444f6945c1a))
+* add new assets ([dc34b38](https://github.com/ialexanderbrito/finance/commit/dc34b386d5aa11a3ad27a41df4a9cbee61676c37))
+* add new assets credit card ([fccc371](https://github.com/ialexanderbrito/finance/commit/fccc371a94fe59273e79419e948a1751587b5731))
+* add new banner ([8f8c482](https://github.com/ialexanderbrito/finance/commit/8f8c482725225e76a23fb1df68292ecf74007e92))
+* add new env example ([e1ddae7](https://github.com/ialexanderbrito/finance/commit/e1ddae7e1c08e7f05f7102d6180478ea0f03986a))
+* add new hook use crypto ([1123d7c](https://github.com/ialexanderbrito/finance/commit/1123d7ce55ee8c292b61fda6ef82e0bba4e75b9d))
+* add new item menu ([c7a3c3f](https://github.com/ialexanderbrito/finance/commit/c7a3c3f1720005d3be685d9275c627b492b078e2))
+* add new item menu ([38d2738](https://github.com/ialexanderbrito/finance/commit/38d2738fe44c4698e3abe5f944a6e0561a848c1b))
+* add new libs crypto.js, react-color and credit-card-type ([31a05a4](https://github.com/ialexanderbrito/finance/commit/31a05a406ab504be7b9e00025126e2fa4648d810))
+* add new routes ([547a60f](https://github.com/ialexanderbrito/finance/commit/547a60fdf3720824a37f3e37390b5d81219fb0be))
+* add new types ([6ab74bb](https://github.com/ialexanderbrito/finance/commit/6ab74bb3361daa5172d2797247e03916b7c01e04))
+* add page buy credit card ([d870046](https://github.com/ialexanderbrito/finance/commit/d8700462177288e08d4357e53b2eaa787e7f219c))
+* add page credit card register ([6d6d5a1](https://github.com/ialexanderbrito/finance/commit/6d6d5a17310f4b15d2a0d0e6acfd05341a0ff3e2))
+* add use new header in pages ([69abc3d](https://github.com/ialexanderbrito/finance/commit/69abc3d5d6906425ed4ceb74942267c9a8a2a8f9))
+* add validation 3 chances and other improvements ([dadc465](https://github.com/ialexanderbrito/finance/commit/dadc465e55454a076388936cd6ce5652c57637c4))
+* update libs ([6515a20](https://github.com/ialexanderbrito/finance/commit/6515a2055814be00a5d555274945fcf10c6aad8d))
+
 # [1.2.0](https://github.com/ialexanderbrito/finance/compare/v1.1.1...v1.2.0) (2023-06-03)
 
 
