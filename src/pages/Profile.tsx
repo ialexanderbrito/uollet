@@ -3,7 +3,6 @@ import { useNavigate, Link } from 'react-router-dom';
 import { RWebShare } from 'react-web-share';
 
 import {
-  CaretLeft,
   Info,
   Key,
   LockKey,
@@ -13,13 +12,14 @@ import {
   UserMinus,
 } from '@phosphor-icons/react';
 import connectionImg from 'assets/connection.svg';
+import creditCardImg from 'assets/credit_card.svg';
 import defaultAvatar from 'assets/default_user_avatar.png';
-import puzzleImg from 'assets/quiz.svg';
 import savingsImg from 'assets/savings.svg';
 import welcomeImg from 'assets/welcome.svg';
 
 import { Banner } from 'components/Banner';
 import { BottomNavigator } from 'components/BottomNavigator';
+import { Header } from 'components/Header';
 import { Loading } from 'components/Loading';
 import { MyDialog } from 'components/Modal';
 import { Submenu } from 'components/Submenu';
@@ -52,21 +52,9 @@ export function Profile() {
         <Loading />
       ) : (
         <div className="flex w-full flex-col items-center justify-center bg-background dark:bg-backgroundDark">
-          <div className="flex h-24 w-full flex-row bg-primary dark:bg-primaryDark">
-            <div className="flex w-1/4 items-center justify-center">
-              <CaretLeft
-                size={20}
-                weight="light"
-                className="cursor-pointer text-white"
-                onClick={() => navigate(-1)}
-              />
-            </div>
-            <div className="flex w-2/4 items-center justify-center">
-              <p className="text-lg font-normal text-white">Minha conta</p>
-            </div>
-          </div>
+          <Header title="Minha conta" />
 
-          <div className="flex min-h-[90vh] w-full flex-col gap-4 p-4">
+          <div className="flex h-screen w-full flex-col gap-4 p-4">
             <Link
               to={`/profile/${user?.id}`}
               className="flex h-16 cursor-pointer flex-row items-center justify-start gap-4 rounded-lg bg-backgroundCard dark:bg-backgroundCardDark"
@@ -86,7 +74,6 @@ export function Profile() {
                 </p>
               </div>
             </Link>
-
             <div className="flex w-full min-w-full snap-x gap-4 overflow-x-scroll p-1 scrollbar-hide md:flex-row md:justify-center md:gap-4 md:overflow-x-auto md:overflow-y-hidden md:pb-4">
               <Banner
                 title="Seja bem vindo(a) ao Finances!"
@@ -116,17 +103,12 @@ export function Profile() {
               </RWebShare>
 
               <Banner
-                title="Aprenda a mexer no app!"
+                title="Adicione seus cartões de crédito!"
                 color="#01e59a"
-                img={puzzleImg}
-                onClick={() =>
-                  toast.error('Em breve você poderá ver o tutorial!', {
-                    id: 'toast',
-                  })
-                }
+                img={creditCardImg}
+                onClick={() => navigate('/credit-card')}
               />
             </div>
-
             <div className="mt-4 flex flex-col items-start justify-center gap-4 text-title dark:text-titleDark">
               <Submenu
                 icon={<LockKey size={20} weight="light" />}
@@ -197,7 +179,6 @@ export function Profile() {
 
               <div className="mb-14 flex h-6" />
             </div>
-
             <MyDialog
               isOpen={openModal}
               closeModal={handleCloseModal}
@@ -206,7 +187,6 @@ export function Profile() {
               deleteAccount={() => deleteUser(user?.id || '')}
               terms
             />
-
             <MyDialog
               isOpen={openModalSuport}
               closeModal={() => setOpenModalSuport(false)}
