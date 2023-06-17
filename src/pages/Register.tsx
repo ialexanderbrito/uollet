@@ -1,69 +1,37 @@
 import CurrencyInput from 'react-currency-input-field';
-import { useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { BottomSheet } from 'react-spring-bottom-sheet';
 
-import { RadioGroup, Switch } from '@headlessui/react';
-import { CaretLeft, CheckCircle } from '@phosphor-icons/react';
+import { Switch } from '@headlessui/react';
 import incomeIcon from 'assets/income.svg';
 import outcomeIcon from 'assets/outcome.svg';
 
 import { Autocomplete } from 'components/Autocomplete';
 import { BottomNavigator } from 'components/BottomNavigator';
-
-import { category } from 'utils/category';
-
-import { useToast } from 'contexts/Toast';
+import { Header } from 'components/Header';
+import { Recurrency } from 'components/Recurrency';
 
 import { useRegister } from 'hooks/useRegister';
 
-import 'react-spring-bottom-sheet/dist/style.css';
-
-export interface FinancesProps {
-  id: number;
-  created_at: Date;
-  title: string;
-  value: number;
-  category: string;
-  user_id: string;
-  type: string;
-  date: string;
-}
-
 export function Register() {
-  const { toast } = useToast();
+  const { id } = useParams();
   const {
     formik,
     isRecurring,
     handleSwitch,
     openBottomSheet,
     setOpenBottomSheet,
+    categories,
+    isCategoryCreditCard,
+    verifyOpenBottomSheet,
   } = useRegister();
-  const navigate = useNavigate();
-
-  function openToastAlert() {
-    toast.error('Em breve, você poderá cadastrar transações recorrentes!', {
-      id: 'recurring',
-    });
-  }
 
   return (
     <div className="flex w-full flex-col items-center bg-background dark:bg-backgroundDark">
-      <div className="flex h-24 w-full flex-row bg-primary dark:bg-primaryDark">
-        <div className="flex w-1/4 items-center justify-center">
-          <CaretLeft
-            size={20}
-            weight="light"
-            className="cursor-pointer text-white"
-            onClick={() => navigate(-1)}
-          />
-        </div>
-        <div className="flex w-2/4 items-center justify-center">
-          <p className="text-lg font-normal text-white">Cadastro</p>
-        </div>
-      </div>
+      <Header title="Cadastro" />
 
       <form className="flex w-full flex-col" onSubmit={formik.handleSubmit}>
-        <div className="flex min-h-[90vh] w-full flex-col gap-4 p-4">
+        <div className="flex h-screen w-full flex-col gap-4 p-4">
           <input
             type="text"
             className={`h-14 w-full rounded-lg bg-white p-4 text-title outline-none dark:bg-backgroundCardDark dark:text-titleDark ${
@@ -141,7 +109,7 @@ export function Register() {
             setSelected={(value) => {
               formik.setFieldValue('category', value);
             }}
-            options={category}
+            options={categories}
             className={`${
               formik.errors.category && formik.touched.category
                 ? 'border-[1.5px] border-red-500'
@@ -159,13 +127,9 @@ export function Register() {
             {...formik.getFieldProps('date')}
           />
 
-          <div
-            className="switch flex w-full flex-row items-center justify-end"
-            onClick={() => openToastAlert()}
-          >
+          <div className="switch flex w-full flex-row items-center justify-end">
             <Switch
-              disabled
-              checked={isRecurring}
+              checked={Boolean(formik.values.recurrency)}
               onChange={() => handleSwitch()}
               className={`${
                 isRecurring ? 'bg-success' : 'bg-danger'
@@ -180,158 +144,51 @@ export function Register() {
 
             <span
               className="switch ml-2 cursor-pointer text-sm text-text"
-              onClick={() => {}}
+              onClick={() => {
+                setOpenBottomSheet(!openBottomSheet);
+              }}
             >
-              Receita recorrente
+              {!isCategoryCreditCard(formik.values.category.name)
+                ? 'Compra parcelada'
+                : 'Receita recorrente'}
             </span>
           </div>
 
           <BottomSheet
             open={openBottomSheet}
             defaultSnap={0}
-            onDismiss={() => setOpenBottomSheet(false)}
-            snapPoints={({ maxHeight }) => [maxHeight - 400, maxHeight - 400]}
-            className="bg-backgroundCard dark:bg-backgroundCardDark"
+            onDismiss={() => {
+              verifyOpenBottomSheet(formik.values.category.name);
+              setOpenBottomSheet(false);
+            }}
+            snapPoints={({ maxHeight }) =>
+              isCategoryCreditCard(formik.values.category.name)
+                ? [maxHeight - 480]
+                : [maxHeight - 540]
+            }
           >
-            <div className="flex flex-col items-center justify-center gap-4 bg-backgroundCard dark:bg-backgroundCardDark">
-              <p className="ml-4 text-lg font-normal text-text">
-                A receita se repete a cada quanto tempo?
-              </p>
-              <div className="flex w-full flex-row items-center justify-evenly gap-4">
-                <RadioGroup
-                  onChange={(value) => {
-                    formik.setFieldValue('recurrency', value);
-                    setOpenBottomSheet(false);
-                  }}
-                  className={`mb-1 mt-1 flex w-full flex-col items-center justify-center gap-4`}
-                  value={formik.values.recurrency}
-                >
-                  <RadioGroup.Option
-                    value="day"
-                    className={({ active, checked }) => `${
-                      active
-                        ? 'ring-2 ring-white ring-opacity-60 ring-offset-2 ring-offset-secondary'
-                        : ''
-                    } ${
-                      checked
-                        ? 'bg-secondary bg-opacity-75 text-white'
-                        : 'bg-white'
-                    }
-                    relative flex w-11/12 cursor-pointer rounded-lg px-5 py-4 shadow-md focus:outline-none
-                  `}
-                  >
-                    {({ active, checked }) => (
-                      <>
-                        <div className="flex w-full items-center justify-between">
-                          <div className="flex items-center">
-                            <div className="text-sm">
-                              <RadioGroup.Label
-                                as="p"
-                                className={`font-medium  ${
-                                  checked ? 'text-white' : 'text-gray-900'
-                                }`}
-                              >
-                                Diariamente
-                              </RadioGroup.Label>
-                            </div>
-                          </div>
-                          {checked && (
-                            <div className="flex-shrink-0 text-white">
-                              <CheckCircle className="h-6 w-6" />
-                            </div>
-                          )}
-                        </div>
-                      </>
-                    )}
-                  </RadioGroup.Option>
-
-                  <RadioGroup.Option
-                    value="week"
-                    className={({ active, checked }) => `${
-                      active
-                        ? 'ring-2 ring-white ring-opacity-60 ring-offset-2 ring-offset-secondary'
-                        : ''
-                    } ${
-                      checked
-                        ? 'bg-secondary bg-opacity-75 text-white'
-                        : 'bg-white'
-                    }
-                    relative flex w-11/12 cursor-pointer rounded-lg px-5 py-4 shadow-md focus:outline-none
-                  `}
-                  >
-                    {({ active, checked }) => (
-                      <>
-                        <div className="flex w-full items-center justify-between">
-                          <div className="flex items-center">
-                            <div className="text-sm">
-                              <RadioGroup.Label
-                                as="p"
-                                className={`font-medium  ${
-                                  checked ? 'text-white' : 'text-gray-900'
-                                }`}
-                              >
-                                Semanalmente
-                              </RadioGroup.Label>
-                            </div>
-                          </div>
-                          {checked && (
-                            <div className="flex-shrink-0 text-white">
-                              <CheckCircle className="h-6 w-6" />
-                            </div>
-                          )}
-                        </div>
-                      </>
-                    )}
-                  </RadioGroup.Option>
-
-                  <RadioGroup.Option
-                    value="month"
-                    className={({ active, checked }) => `${
-                      active
-                        ? 'ring-2 ring-white ring-opacity-60 ring-offset-2 ring-offset-secondary'
-                        : ''
-                    } ${
-                      checked
-                        ? 'bg-secondary bg-opacity-75 text-white'
-                        : 'bg-white'
-                    }
-                    relative flex w-11/12 cursor-pointer rounded-lg px-5 py-4 shadow-md focus:outline-none
-                  `}
-                  >
-                    {({ active, checked }) => (
-                      <>
-                        <div className="flex w-full items-center justify-between">
-                          <div className="flex items-center">
-                            <div className="text-sm">
-                              <RadioGroup.Label
-                                as="p"
-                                className={`font-medium  ${
-                                  checked ? 'text-white' : 'text-gray-900'
-                                }`}
-                              >
-                                Mensalmente
-                              </RadioGroup.Label>
-                            </div>
-                          </div>
-                          {checked && (
-                            <div className="flex-shrink-0 text-white">
-                              <CheckCircle className="h-6 w-6" />
-                            </div>
-                          )}
-                        </div>
-                      </>
-                    )}
-                  </RadioGroup.Option>
-                </RadioGroup>
-              </div>
-            </div>
+            {!isCategoryCreditCard(formik.values.category.name) ? (
+              <>
+                <Recurrency
+                  formik={formik}
+                  setOpenBottomSheet={setOpenBottomSheet}
+                  isParcel={true}
+                />
+              </>
+            ) : (
+              <Recurrency
+                formik={formik}
+                setOpenBottomSheet={setOpenBottomSheet}
+                isRecurring={true}
+              />
+            )}
           </BottomSheet>
           <div className="flex flex-col items-center justify-end gap-4">
             <button
               type="submit"
               className="h-14 w-full rounded-lg bg-secondary p-4 text-white dark:bg-secondaryDark"
             >
-              Enviar
+              {id ? 'Editar' : 'Cadastrar'}
             </button>
           </div>
         </div>
