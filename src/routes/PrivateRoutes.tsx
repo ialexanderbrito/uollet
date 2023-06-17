@@ -1,5 +1,7 @@
 import { Route, Routes } from 'react-router-dom';
 
+import { Cards } from 'pages/Cards';
+import { CreditCard } from 'pages/CreditCard';
 import { Error } from 'pages/Error';
 import { Export } from 'pages/Export';
 import { Finances } from 'pages/Finances';
@@ -41,6 +43,8 @@ export function PrivateRoutes() {
       <Route path="/export" element={<Export />} />
       <Route path="/profile" element={<Profile />} />
       <Route path="/profile/:id" element={<MyProfile />} />
+      <Route path="/cards" element={<Cards />} />
+      <Route path="/credit-card" element={<CreditCard />} />
       <Route path="/reset-password" element={<ResetPassword />} />
       <Route path="*" element={<Error />} />
     </Routes>
