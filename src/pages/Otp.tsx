@@ -1,111 +1,24 @@
-import { useState } from 'react';
 import AuthCode from 'react-auth-code-input';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 import { BottomNavigator } from 'components/BottomNavigator';
 import { Header } from 'components/Header';
 
 import { useAuth } from 'contexts/Auth';
-import { useToast } from 'contexts/Toast';
 
-import { useCrypto } from 'hooks/useCrypto';
-
-import { supabase } from 'services/supabase';
+import { useOtp } from 'hooks/useOtp';
 
 export function Otp() {
-  const { toast } = useToast();
-  const navigate = useNavigate();
   const location = useLocation();
-  const { setUser, hasOtp, user } = useAuth();
-
-  const [otp, setOtp] = useState('');
-  const { hashPassword, verifyPassword } = useCrypto();
-
-  async function handleChangeOtp(otp: string) {
-    if (!user) return;
-
-    setOtp(otp);
-
-    if (otp.length === 4 && !pageLocation(location.pathname)) {
-      const verify = await verifyPassword(otp, user?.user_metadata.otp);
-
-      sessionStorage.setItem('@finance:hasOtp', 'true');
-
-      if (verify === true) {
-        window.location.reload();
-      } else {
-        toast.error('Senha de acesso incorreta', {
-          id: 'error',
-        });
-      }
-    }
-  }
-
-  function pageLocation(page: string) {
-    if (page === '/otp') {
-      return true;
-    }
-
-    return false;
-  }
-
-  async function savePasswordOtp() {
-    if (!user) return;
-
-    if (hasOtp) {
-      const verify = await verifyPassword(otp, user.user_metadata.otp);
-
-      sessionStorage.setItem('@finance:hasOtp', 'true');
-
-      if (verify === true) {
-        window.location.reload();
-      } else {
-        toast.error('Senha de acesso incorreta', {
-          id: 'error',
-        });
-      }
-    }
-
-    if (pageLocation(location.pathname)) {
-      const hash = await hashPassword(otp);
-
-      const { data } = await supabase.auth.updateUser({
-        data: {
-          otp: hash,
-        },
-      });
-
-      if (!data.user) return;
-
-      setUser(data.user);
-
-      toast.success('Senha de acesso salva com sucesso', {
-        id: 'success',
-      });
-
-      navigate('/profile');
-    }
-  }
-
-  async function deleteOtp() {
-    const { data } = await supabase.auth.updateUser({
-      data: {
-        otp: null,
-      },
-    });
-
-    if (!data.user) return;
-
-    setUser(data.user);
-
-    sessionStorage.setItem('@finance:hasOtp', 'false');
-
-    toast.success('Senha de acesso apagada com sucesso', {
-      id: 'success',
-    });
-
-    navigate('/profile');
-  }
+  const { hasOtp } = useAuth();
+  const {
+    handleChangeOtp,
+    savePasswordOtp,
+    deleteOtp,
+    timeOut,
+    verifyButton,
+    pageLocation,
+  } = useOtp();
 
   return (
     <div className="flex h-screen w-full flex-col items-center bg-background dark:bg-backgroundDark">
@@ -128,6 +41,7 @@ export function Otp() {
             length={4}
             isPassword
             inputClassName="mr-2 ml-2 h-12 w-12 rounded-md border border-background bg-backgroundCard text-center text-2xl focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary dark:border-backgroundDark dark:bg-backgroundCardDark dark:text-textDark"
+            disabled={timeOut > 0}
           />
         </div>
 
@@ -136,8 +50,15 @@ export function Otp() {
           onClick={() => {
             savePasswordOtp();
           }}
+          disabled={timeOut > 0}
         >
-          {pageLocation(location.pathname) ? 'Salvar' : 'Entrar'}
+          {timeOut > 0 ? (
+            <p className="text-center text-lg text-title dark:text-textDark">
+              Aguarde {timeOut}s
+            </p>
+          ) : (
+            <>{verifyButton()}</>
+          )}
         </button>
 
         {hasOtp && pageLocation(location.pathname) && (
