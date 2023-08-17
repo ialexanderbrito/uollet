@@ -1,3 +1,17 @@
+# [1.4.0](https://github.com/ialexanderbrito/finance/compare/v1.3.0...v1.4.0) (2023-08-17)
+
+
+### Features
+
+* add component kbar and header icon kbar ([7b86a76](https://github.com/ialexanderbrito/finance/commit/7b86a76c6b57193d8902763e0e901aa86d93e37a))
+* add lib kbar ([c21055c](https://github.com/ialexanderbrito/finance/commit/c21055c48b85c735637cfb639eeff55b0b30f979))
+* function remove dark mode using document ([9598a46](https://github.com/ialexanderbrito/finance/commit/9598a46056e0953fba1d75b2c99efc25b8466717))
+
+
+### Performance Improvements
+
+* react new render version react 18 ([f9f954d](https://github.com/ialexanderbrito/finance/commit/f9f954d05fbc3bf73e11e3dba8ded07ffa7be347))
+
 # [1.3.0](https://github.com/ialexanderbrito/finance/compare/v1.2.0...v1.3.0) (2023-06-17)
 
 
