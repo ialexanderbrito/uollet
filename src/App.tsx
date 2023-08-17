@@ -3,6 +3,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { MainRoutes } from 'routes';
 
 import { CheckConnection } from 'components/CheckConnection';
+import { KBar } from 'components/KBarComponent';
 
 import { AuthProvider } from 'contexts/Auth';
 import { ThemeProvider } from 'contexts/Theme';
@@ -18,7 +19,9 @@ export function App() {
         <AuthProvider>
           <ToastProvider>
             <CheckConnection>
-              <MainRoutes />
+              <KBar>
+                <MainRoutes />
+              </KBar>
             </CheckConnection>
           </ToastProvider>
         </AuthProvider>
