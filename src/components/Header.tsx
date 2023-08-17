@@ -1,8 +1,9 @@
 import { useNavigate } from 'react-router-dom';
 
-import { CaretLeft, Eye, EyeSlash } from '@phosphor-icons/react';
+import { CaretLeft, Command, Eye, EyeSlash } from '@phosphor-icons/react';
 import defaultAvatar from 'assets/default_user_avatar.png';
 import { UserProps } from 'interfaces/AuthProps';
+import { useKBar } from 'kbar';
 
 import { Menu } from './Menu';
 
@@ -24,6 +25,7 @@ export function Header({
   setVisible,
 }: HeaderProps) {
   const navigate = useNavigate();
+  const { query } = useKBar();
 
   function greetings() {
     const hours = new Date().getHours();
@@ -71,6 +73,14 @@ export function Header({
                     className="cursor-pointer text-secondary"
                   />
                 )}
+
+                <Command
+                  size={30}
+                  weight="light"
+                  className="cursor-pointer text-secondary"
+                  onClick={query?.toggle}
+                />
+
                 <Menu />
               </div>
             </div>
