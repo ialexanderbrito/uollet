@@ -3,6 +3,7 @@ import { createContext, useContext, useEffect, useState } from 'react';
 interface ThemeContextProps {
   theme: string;
   toggleTheme: () => void;
+  removeDarkTheme: () => void;
 }
 
 const ThemeContext = createContext<ThemeContextProps>({} as ThemeContextProps);
@@ -24,11 +25,18 @@ export const ThemeProvider = ({ children }: any) => {
     localStorage.setItem('@finance:theme', theme === 'dark' ? 'light' : 'dark');
   }
 
+  function removeDarkTheme() {
+    setTheme('light');
+    localStorage.setItem('@finance:theme', 'light');
+    document.documentElement.classList.remove('dark');
+  }
+
   return (
     <ThemeContext.Provider
       value={{
         theme,
         toggleTheme,
+        removeDarkTheme,
       }}
     >
       {children}
