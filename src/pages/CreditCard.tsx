@@ -28,6 +28,7 @@ export function CreditCard() {
           limit={formatCurrency(Number(formik.values.limit) || 0)}
           closure={Number(formik.values.dayClosure.name) || 1}
           maturity={Number(formik.values.dayMaturity.name) || 1}
+          visible={false}
         />
       </div>
 

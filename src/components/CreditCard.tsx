@@ -24,6 +24,7 @@ interface CreditCardProps {
   onCreate?: () => void;
   maturity?: number;
   closure?: number;
+  visible?: boolean;
 }
 
 function iconCreditCard(creditCardType: string) {
@@ -65,6 +66,7 @@ export function CreditCard({
   onCreate,
   maturity,
   closure,
+  visible = true,
 }: CreditCardProps) {
   let maturityDate = `${maturity}/${
     new Date().getMonth() + 1
@@ -142,7 +144,9 @@ export function CreditCard({
                     Limite atual
                   </p>
                   <p
-                    className="text-sm font-bold tracking-wider"
+                    className={`text-sm font-bold tracking-wider ${
+                      visible && 'select-none blur-md'
+                    }`}
                     style={{ color: textColor }}
                   >
                     {limit}

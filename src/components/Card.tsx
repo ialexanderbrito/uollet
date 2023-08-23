@@ -6,6 +6,7 @@ interface CardProps {
   bgColor?: string;
   textColor?: string;
   alternativeTextColor?: string;
+  visible?: boolean;
 }
 
 export function Card({
@@ -16,6 +17,7 @@ export function Card({
   bgColor = 'backgroundCard',
   textColor = 'title',
   alternativeTextColor = 'text',
+  visible = true,
 }: CardProps) {
   return (
     <div
@@ -31,7 +33,9 @@ export function Card({
       </div>
       <div className="flex h-full w-full flex-col items-start justify-between p-4">
         <b
-          className={`text-${textColor} text-3xl font-medium dark:text-${textColor}`}
+          className={`text-${textColor} text-3xl font-medium dark:text-${textColor} ${
+            visible && 'select-none blur-md'
+          }`}
         >
           {value}
         </b>
