@@ -1,4 +1,10 @@
-import { createContext, useContext, useState, useEffect } from 'react';
+import {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  useCallback,
+} from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { UserProps } from 'interfaces/AuthProps';
@@ -7,7 +13,7 @@ import { supabase } from 'services/supabase';
 
 import { useToast } from './Toast';
 
-type AuthContextProps = {
+interface AuthContextProps {
   user: UserProps | null;
   setUser: (user: any) => void;
   loginWithGoogle: () => Promise<void>;
@@ -15,7 +21,9 @@ type AuthContextProps = {
   storageUser: UserProps | null;
   signed: boolean;
   hasOtp: boolean;
-};
+  areValueVisible: boolean;
+  toggleValueVisibility: () => void;
+}
 
 const AuthContext = createContext({} as AuthContextProps);
 
@@ -23,7 +31,22 @@ export function AuthProvider({ children }: any) {
   const { toast } = useToast();
   const navigate = useNavigate();
   const [user, setUser] = useState<any>();
+  const [areValueVisible, setAreValueVisible] = useState<boolean>(() => {
+    const areValuesVisibleStorage = localStorage.getItem(
+      '@finance:areValuesVisible',
+    );
+
+    return areValuesVisibleStorage !== 'false';
+  });
   const storageUser = JSON.parse(localStorage.getItem('@finance:user') || '{}');
+
+  const toggleValueVisibility = useCallback(() => {
+    setAreValueVisible((prevState) => {
+      localStorage.setItem('@finance:areValuesVisible', String(!prevState));
+
+      return !prevState;
+    });
+  }, []);
 
   function isSignedIn() {
     if (user) {
@@ -103,7 +126,7 @@ export function AuthProvider({ children }: any) {
     navigate('/');
 
     localStorage.removeItem('@finance:user');
-    sessionStorage.removeItem('@finance:hasOtp');
+    sessionStorage.clear();
   }
 
   return (
@@ -116,6 +139,8 @@ export function AuthProvider({ children }: any) {
         storageUser,
         signed: isSignedIn(),
         hasOtp: hasOtp(),
+        areValueVisible,
+        toggleValueVisibility,
       }}
     >
       {children}
