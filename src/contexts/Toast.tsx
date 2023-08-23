@@ -3,11 +3,11 @@ import toast, { Toaster } from 'react-hot-toast';
 
 import { useTheme } from './Theme';
 
-type IToastProps = {
+interface ToastProps {
   toast: any;
-};
+}
 
-const ToastContext = createContext<IToastProps>({} as any);
+const ToastContext = createContext<ToastProps>({} as any);
 
 export const ToastProvider = ({ children }: any) => {
   const { theme } = useTheme();
@@ -25,7 +25,7 @@ export const ToastProvider = ({ children }: any) => {
               background: theme === 'dark' ? '#333' : '#fff',
               color: theme === 'dark' ? '#fff' : '#333',
             },
-            duration: 3000,
+            duration: 1000,
           }}
         />
       </div>
