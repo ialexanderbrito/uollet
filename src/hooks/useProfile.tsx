@@ -81,6 +81,16 @@ export function useProfile() {
         .delete()
         .match({ user_id: id });
 
+      const { error: errorDeleteRowsCreditCard } = await supabase
+        .from('credit_card_db')
+        .delete()
+        .match({ user_id: id });
+
+      const { error: errorDeleteRowsRecurrency } = await supabase
+        .from('finances_recurrency')
+        .delete()
+        .match({ user_id: id });
+
       const { error } = await supabase.auth.admin.deleteUser(id);
 
       if (errorImage) {
@@ -88,7 +98,11 @@ export function useProfile() {
         return;
       }
 
-      if (errorDeleteRows) {
+      if (
+        errorDeleteRows ||
+        errorDeleteRowsCreditCard ||
+        errorDeleteRowsRecurrency
+      ) {
         toast.error('Erro ao deletar registros do usuário', { id: 'error' });
         return;
       }
