@@ -1,8 +1,6 @@
-import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useState } from 'react';
 
-import { format } from 'date-fns';
-import { pt } from 'date-fns/locale';
+import { useModal } from 'components/Modal/useModal';
 
 import { useAuth } from 'contexts/Auth';
 import { useToast } from 'contexts/Toast';
@@ -15,47 +13,28 @@ interface TotalCreditCardCategoriesProps {
 }
 
 export function useCards() {
-  const { id } = useParams();
+  const { selectedYear } = useModal();
   const { toast } = useToast();
   const { user } = useAuth();
 
   const [finances, setFinances] = useState<any[]>([]);
+  const [creditCards, setCreditCards] = useState<any[]>([]);
+
   const [openModal, setOpenModal] = useState(false);
   const [openModalCreditCard, setOpenModalCreditCard] = useState(false);
-  const [creditCards, setCreditCards] = useState<any[]>([]);
+  const [openModalFilter, setOpenModalFilter] = useState(false);
 
   const [totalCreditCardCategories, setTotalCreditCardCategories] = useState<
     TotalCreditCardCategoriesProps[]
   >([]);
 
-  const [actualMonth, setActualMonth] = useState(new Date().getMonth() + 1);
-  const [actualYear, setActualYear] = useState(new Date().getFullYear());
-  const endOfDays = new Date(actualYear, actualMonth, 0).getDate();
-  const newMonthLong = format(new Date(actualYear, actualMonth - 1), 'MMM', {
-    locale: pt,
-  });
   const [search, setSearch] = useState('');
   const [loading, setLoading] = useState(true);
 
-  function handlePreviousMonth() {
-    if (actualMonth === 1) {
-      setActualMonth(12);
-
-      setActualYear(actualYear - 1);
-    } else {
-      setActualMonth(actualMonth - 1);
-    }
-  }
-
-  function handleNextMonth() {
-    if (actualMonth === 12) {
-      setActualMonth(1);
-
-      setActualYear(actualYear + 1);
-    } else {
-      setActualMonth(actualMonth + 1);
-    }
-  }
+  const [currentMonth, setCurrentMonth] = useState(new Date().getMonth() + 1);
+  const [lastDayOfTheMonth, setLastDayOfTheMonth] = useState(
+    new Date(new Date().getFullYear(), currentMonth, 0).getDate(),
+  );
 
   function handleOpenModal() {
     setOpenModal(true);
@@ -81,12 +60,46 @@ export function useCards() {
     return total;
   }
 
-  async function getAllTransactions() {
+  function handleCloseModalFilter() {
+    setOpenModalFilter(false);
+  }
+
+  function handleOpenModalFilter() {
+    setOpenModalFilter(true);
+  }
+
+  async function getAllCreditCard() {
+    try {
+      setLoading(true);
+      const { data, error } = await supabase
+        .from('credit_card_db')
+        .select('*')
+        .eq('user_id', user?.id);
+
+      if (error) {
+        toast.error('Erro ao buscar cartões de crédito', { id: 'error' });
+        return;
+      }
+
+      if (!data) return;
+
+      setCreditCards(data);
+      setLoading(false);
+    } catch (error) {
+      toast.error('Erro ao buscar cartões de crédito', { id: 'error' });
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  async function getAllTransactionsCreditCardForTheCurrentMonth(year: number) {
     try {
       const { data, error } = await supabase
         .from('finances_db')
         .select('*')
         .eq('user_id', user?.id)
+        .gte('date', `${year}-${currentMonth}-01`)
+        .lte('date', `${year}-${currentMonth}-${lastDayOfTheMonth}`)
         .ilike('category', '%Cartão%');
 
       if (error) {
@@ -94,6 +107,7 @@ export function useCards() {
         setLoading(false);
         return;
       }
+
       if (!data) return;
 
       const newData = data.sort(
@@ -129,81 +143,24 @@ export function useCards() {
       setLoading(false);
     } catch (error) {
       toast.error('Erro ao buscar transações', { id: 'error' });
-      setLoading(false);
     } finally {
       setLoading(false);
     }
   }
 
-  async function getAllTransactionsPerMonth() {
+  async function getAllTransactionsCreditCardForTheMonthAndYear(
+    year: number,
+    month: number,
+    day: number,
+  ) {
     try {
       const { data, error } = await supabase
         .from('finances_db')
         .select('*')
         .eq('user_id', user?.id)
-        .gte('date', `${actualYear}-${actualMonth}-01`)
-        .lte('date', `${actualYear}-${actualMonth}-${endOfDays}`)
+        .gte('date', `${year}-${month}-01`)
+        .lte('date', `${year}-${month}-${day}`)
         .ilike('category', '%Cartão%');
-
-      if (error) {
-        toast.error('Erro ao buscar compras', { id: 'error' });
-        setLoading(false);
-        return;
-      }
-
-      if (!data) return;
-
-      const newData = data.sort(
-        (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
-      );
-
-      const totalPerCategory = data.reduce((acc, curr) => {
-        const { category, value } = curr;
-
-        if (!acc[category]) {
-          acc[category] = 0;
-        }
-
-        acc[category] += value;
-
-        return acc;
-      }, {});
-
-      const totalPerCategoryArray = Object.entries(totalPerCategory).map(
-        ([key, value]) => ({
-          category: key,
-          value,
-        }),
-      );
-
-      const totalPerCategoryArraySorted = totalPerCategoryArray.sort(
-        (a, b) => Number(b.value) - Number(a.value),
-      );
-
-      setFinances(newData);
-      setTotalCreditCardCategories(totalPerCategoryArraySorted);
-      setLoading(false);
-    } catch (error) {
-      toast.error('Erro ao buscar compras', { id: 'error' });
-      setLoading(false);
-    } finally {
-      setLoading(false);
-    }
-  }
-
-  async function getTransactionsByCategory(category: string, type: string) {
-    try {
-      const { data, error } = await supabase
-        .from('finances_db')
-        .select('*')
-        .eq('user_id', user?.id)
-        .eq('category', category)
-        .eq('type', type)
-        .gte('date', `${actualYear}-${actualMonth}-01`)
-        .lte('date', `${actualYear}-${actualMonth}-${endOfDays}`)
-        .ilike('category', '%Cartão%');
-
-      if (!data) return;
 
       if (error) {
         toast.error('Erro ao buscar transações', { id: 'error' });
@@ -211,6 +168,8 @@ export function useCards() {
         return;
       }
 
+      if (!data) return;
+
       const newData = data.sort(
         (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
       );
@@ -238,44 +197,42 @@ export function useCards() {
         (a, b) => Number(b.value) - Number(a.value),
       );
 
-      setFinances(newData);
       setTotalCreditCardCategories(totalPerCategoryArraySorted);
+
       setFinances(newData);
       setLoading(false);
     } catch (error) {
       toast.error('Erro ao buscar transações', { id: 'error' });
-      setLoading(false);
     } finally {
       setLoading(false);
     }
   }
 
-  async function deleteTransaction(id: number) {
+  async function searchAllTransactionsCreditCard() {
     try {
-      const { status, error } = await supabase
+      const { data, error } = await supabase
         .from('finances_db')
-        .delete()
-        .eq('id', id);
+        .select('*')
+        .eq('user_id', user?.id)
+        .ilike('title', `%${search}%`)
+        .order('created_at', { ascending: false })
+        .ilike('category', '%Cartão%');
 
       if (error) {
-        toast.error('Erro ao deletar transação!', { id: 'error' });
+        toast.error('Erro ao pesquisar por transações de cartão de crédito', {
+          id: 'error',
+        });
         setLoading(false);
         return;
       }
 
-      if (status === 204) {
-        handleCloseModal();
-        toast.success('Transação deletada com sucesso!', { id: 'success' });
-        setLoading(false);
-      }
+      if (!data) return;
 
-      getAllTransactions();
-
-      setLoading(false);
+      setFinances(data);
     } catch (error) {
-      toast.error('Erro ao deletar transação!', { id: 'error' });
-    } finally {
-      setLoading(false);
+      toast.error('Erro ao pesquisar por transações de cartão de crédito', {
+        id: 'error',
+      });
     }
   }
 
@@ -310,7 +267,13 @@ export function useCards() {
         setLoading(false);
       }
 
-      getAllTransactions();
+      if (search.length >= 2) {
+        searchAllTransactionsCreditCard();
+      }
+
+      const year = Number(sessionStorage.getItem('@finance:selectedYear'));
+
+      getAllTransactionsCreditCardForTheCurrentMonth(year);
 
       setLoading(false);
     } catch (error) {
@@ -320,52 +283,38 @@ export function useCards() {
     }
   }
 
-  async function searchTransaction(category?: string) {
-    if (category) {
-      try {
-        const { data, error } = await supabase
-          .from('finances_db')
-          .select('*')
-          .eq('user_id', user?.id)
-          .eq('category', category)
-          .ilike('title', `%${search}%`)
-          .order('created_at', { ascending: false })
-          .ilike('category', '%Cartão%');
+  async function deleteTransaction(id: number) {
+    try {
+      const { status, error } = await supabase
+        .from('finances_db')
+        .delete()
+        .eq('id', id);
 
-        if (error) {
-          toast.error('Erro ao buscar transações', { id: 'error' });
-          setLoading(false);
-          return;
-        }
-
-        if (!data) return;
-
-        setFinances(data);
-      } catch (error) {
-        toast.error('Erro ao buscar transações', { id: 'error' });
+      if (error) {
+        toast.error('Erro ao deletar transação!', { id: 'error' });
+        setLoading(false);
+        return;
       }
-    } else {
-      try {
-        const { data, error } = await supabase
-          .from('finances_db')
-          .select('*')
-          .eq('user_id', user?.id)
-          .ilike('title', `%${search}%`)
-          .order('created_at', { ascending: false })
-          .ilike('category', '%Cartão%');
 
-        if (error) {
-          toast.error('Erro ao buscar transações', { id: 'error' });
-          setLoading(false);
-          return;
-        }
-
-        if (!data) return;
-
-        setFinances(data);
-      } catch (error) {
-        toast.error('Erro ao buscar transações', { id: 'error' });
+      if (status === 204) {
+        handleCloseModal();
+        toast.success('Transação deletada com sucesso!', { id: 'success' });
+        setLoading(false);
       }
+
+      if (search.length >= 2) {
+        searchAllTransactionsCreditCard();
+      }
+
+      const year = Number(sessionStorage.getItem('@finance:selectedYear'));
+
+      getAllTransactionsCreditCardForTheCurrentMonth(year);
+
+      setLoading(false);
+    } catch (error) {
+      toast.error('Erro ao deletar transação!', { id: 'error' });
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -402,9 +351,14 @@ export function useCards() {
 
       const newCreditCards = creditCards.filter((item) => item.id !== id);
 
-      setCreditCards(newCreditCards);
+      if (search.length >= 2) {
+        searchAllTransactionsCreditCard();
+      }
 
-      getAllTransactions();
+      const year = Number(sessionStorage.getItem('@finance:selectedYear'));
+
+      getAllTransactionsCreditCardForTheCurrentMonth(year);
+      setCreditCards(newCreditCards);
     } catch (error) {
       toast.error('Erro ao deletar cartão de crédito', { id: 'error' });
     } finally {
@@ -412,84 +366,95 @@ export function useCards() {
     }
   }
 
-  async function getAllCreditCard() {
+  async function filterTransactionsCreditCardByYear(
+    year: number,
+    month: number,
+  ) {
     try {
-      setLoading(true);
       const { data, error } = await supabase
-        .from('credit_card_db')
+        .from('finances_db')
         .select('*')
-        .eq('user_id', user?.id);
+        .eq('user_id', user?.id)
+        .gte('date', `${year}-${month}-01`)
+        .lte('date', `${year}-${month}-${lastDayOfTheMonth}`)
+        .ilike('category', '%Cartão%');
 
       if (error) {
-        toast.error('Erro ao buscar cartões de crédito', { id: 'error' });
+        toast.error('Erro ao buscar transações', { id: 'error' });
+        setLoading(false);
         return;
       }
 
       if (!data) return;
 
-      setCreditCards(data);
+      const newData = data.sort(
+        (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
+      );
+
+      const totalPerCategory = data.reduce((acc, curr) => {
+        const { category, value } = curr;
+
+        if (!acc[category]) {
+          acc[category] = 0;
+        }
+
+        acc[category] += value;
+
+        return acc;
+      }, {});
+
+      const totalPerCategoryArray = Object.entries(totalPerCategory).map(
+        ([key, value]) => ({
+          category: key,
+          value,
+        }),
+      );
+
+      const totalPerCategoryArraySorted = totalPerCategoryArray.sort(
+        (a, b) => Number(b.value) - Number(a.value),
+      );
+
+      setTotalCreditCardCategories(totalPerCategoryArraySorted);
+      setFinances(newData);
+      handleCloseModalFilter();
       setLoading(false);
     } catch (error) {
-      toast.error('Erro ao buscar cartões de crédito', { id: 'error' });
-      setLoading(false);
+      toast.error('Erro ao buscar transações', { id: 'error' });
     } finally {
       setLoading(false);
     }
   }
 
-  useEffect(() => {
-    if (id !== undefined) {
-      const category = id.split('&')[0];
-      const type = id.split('&')[1].split('=')[1];
+  async function handleChangeFilterMonthCreditCard(month: number) {
+    if (selectedYear) {
+      const year = Number(sessionStorage.getItem('@finance:selectedYear'));
+      setCurrentMonth(month);
+      const lastDayOfMonth = new Date(year, month, 0).getDate();
+      setLastDayOfTheMonth(lastDayOfMonth);
 
-      getTransactionsByCategory(category, type);
+      getAllTransactionsCreditCardForTheMonthAndYear(
+        year,
+        month,
+        lastDayOfMonth,
+      );
     } else {
-      getAllTransactionsPerMonth();
+      setCurrentMonth(month);
+      const lastDayOfMonth = new Date(selectedYear, month, 0).getDate();
+      setLastDayOfTheMonth(lastDayOfMonth);
+
+      getAllTransactionsCreditCardForTheMonthAndYear(
+        selectedYear,
+        month,
+        lastDayOfMonth,
+      );
     }
-  }, [id]);
-
-  useEffect(() => {
-    if (id !== undefined) {
-      const category = id.split('&')[0];
-      const type = id.split('&')[1].split('=')[1];
-
-      getTransactionsByCategory(category, type);
-    } else {
-      getAllTransactionsPerMonth();
-    }
-  }, [actualMonth, actualYear]);
-
-  useEffect(() => {
-    if (id !== undefined) {
-      searchTransaction(id);
-    } else {
-      if (search.length >= 2) {
-        searchTransaction();
-      }
-
-      if (search.length === 0) {
-        getAllTransactionsPerMonth();
-      }
-    }
-  }, [search]);
-
-  useEffect(() => {
-    getAllCreditCard();
-  }, []);
+  }
 
   return {
-    getAllTransactions,
     finances,
-    setFinances,
     loading,
-    newMonthLong,
-    actualYear,
-    handlePreviousMonth,
-    handleNextMonth,
-    actualMonth,
-    endOfDays,
+    search,
     setSearch,
-    totalCreditCardCategories,
     duplicateTransaction,
     deleteTransaction,
     openModal,
@@ -501,5 +466,13 @@ export function useCards() {
     handleOpenModalCreditCard,
     handleCloseModalCreditCard,
     openModalCreditCard,
+    getAllCreditCard,
+    searchAllTransactionsCreditCard,
+    filterTransactionsCreditCardByYear,
+    currentMonth,
+    handleCloseModalFilter,
+    openModalFilter,
+    handleOpenModalFilter,
+    handleChangeFilterMonthCreditCard,
   };
 }

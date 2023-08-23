@@ -1,7 +1,5 @@
 import { useEffect, useState } from 'react';
-
-import { format } from 'date-fns';
-import { pt } from 'date-fns/locale';
+import { useSearchParams } from 'react-router-dom';
 
 import { useAuth } from 'contexts/Auth';
 import { useToast } from 'contexts/Toast';
@@ -61,6 +59,8 @@ export function useResume() {
   const { user } = useAuth();
   const { toast } = useToast();
 
+  const [searchParams, setSearchParams] = useSearchParams();
+
   const [dataChart, setDataChart] = useState<DataProps>(database);
 
   const [categories, setCategories] = useState<string[]>([]);
@@ -68,14 +68,22 @@ export function useResume() {
   const [colors, setColors] = useState<string[]>([]);
   const [type, setType] = useState<'income' | 'outcome'>('outcome');
 
-  const [actualMonth, setActualMonth] = useState(new Date().getMonth() + 1);
-  const [actualYear, setActualYear] = useState(new Date().getFullYear());
-  const endOfDays = new Date(actualYear, actualMonth, 0).getDate();
-  const newMonthLong = format(new Date(actualYear, actualMonth - 1), 'MMMM', {
-    locale: pt,
-  });
+  const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
+  const [currentMonth, setCurrentMonth] = useState(new Date().getMonth() + 1);
+  const [lastDayOfTheMonth, setLastDayOfTheMonth] = useState(
+    new Date(new Date().getFullYear(), currentMonth, 0).getDate(),
+  );
 
   const [loading, setLoading] = useState(true);
+  const [openModalFilter, setOpenModalFilter] = useState(false);
+
+  function handleCloseModalFilter() {
+    setOpenModalFilter(false);
+  }
+
+  function handleOpenModalFilter() {
+    setOpenModalFilter(true);
+  }
 
   function removeDuplicateCategories(categories: string[]) {
     const uniqueCategories = categories.filter(
@@ -92,35 +100,68 @@ export function useResume() {
     return sumValues;
   }
 
-  function handlePreviousMonth() {
-    if (actualMonth === 1) {
-      setActualMonth(12);
-
-      setActualYear(actualYear - 1);
-    } else {
-      setActualMonth(actualMonth - 1);
-    }
+  function getColorsBanks(uniqueCategories: string[]) {
+    return uniqueCategories.map((category) => {
+      switch (category) {
+        case 'Dinheiro':
+          return '#12A454';
+        case 'NuConta':
+          return '#7e0aca';
+        case 'Bradesco':
+          return '#cc092f';
+        case 'NuInvest':
+          return '#43126e';
+        case 'C6Bank':
+          return '#2b2a29';
+        case 'Binance':
+          return '#ebb42e';
+        case 'Inter':
+          return '#f77601';
+        case 'Banco do Brasil':
+          return '#f5f430';
+        case 'Santander':
+          return '#e30000';
+        case 'Itaú':
+          return '#ec7000';
+        case 'Caixa':
+          return '#0070b0';
+        case 'BTG Pactual':
+          return '#051229';
+        case 'C6 Investimentos':
+          return '#1f1f1f';
+        case 'Inter Investimentos':
+          return '#f77601';
+        case 'XP Investimentos':
+          return '#0d0e10';
+        case 'Clear':
+          return '#0100f2';
+        case 'BTG Investimentos':
+          return '#051229';
+        case 'Rico':
+          return '#f74f00';
+        case 'Ágora Investimentos':
+          return '#01444b';
+        case 'Órama Investimentos':
+          return '#34991d';
+        case 'Mercado Bitcoin':
+          return '#e84522';
+        case 'Foxbit':
+          return '#f77100';
+        default:
+          return '#000000';
+      }
+    });
   }
 
-  function handleNextMonth() {
-    if (actualMonth === 12) {
-      setActualMonth(1);
-
-      setActualYear(actualYear + 1);
-    } else {
-      setActualMonth(actualMonth + 1);
-    }
-  }
-
-  async function getValuesCategory() {
+  async function getValuesCategory(month: number, endOfDays: number) {
     try {
       const { data, error } = await supabase
         .from('finances_db')
         .select('category, value, date')
         .eq('type', type)
         .eq('user_id', user?.id)
-        .gte('date', `${actualYear}-${actualMonth}-01`)
-        .lte('date', `${actualYear}-${actualMonth}-${endOfDays}`)
+        .gte('date', `${currentYear}-${month}-01`)
+        .lte('date', `${currentYear}-${month}-${endOfDays}`)
         .not('category', 'ilike', '%Cartão%');
 
       if (error) {
@@ -144,56 +185,7 @@ export function useResume() {
         Math.round(value),
       );
 
-      const colors = uniqueCategories.map((category) => {
-        switch (category) {
-          case 'Dinheiro':
-            return '#12A454';
-          case 'NuConta':
-            return '#7e0aca';
-          case 'Bradesco':
-            return '#cc092f';
-          case 'NuInvest':
-            return '#43126e';
-          case 'C6Bank':
-            return '#2b2a29';
-          case 'Binance':
-            return '#ebb42e';
-          case 'Inter':
-            return '#f77601';
-          case 'Banco do Brasil':
-            return '#f5f430';
-          case 'Santander':
-            return '#e30000';
-          case 'Itaú':
-            return '#ec7000';
-          case 'Caixa':
-            return '#0070b0';
-          case 'BTG Pactual':
-            return '#051229';
-          case 'C6 Investimentos':
-            return '#1f1f1f';
-          case 'Inter Investimentos':
-            return '#f77601';
-          case 'XP Investimentos':
-            return '#0d0e10';
-          case 'Clear':
-            return '#0100f2';
-          case 'BTG Investimentos':
-            return '#051229';
-          case 'Rico':
-            return '#f74f00';
-          case 'Ágora Investimentos':
-            return '#01444b';
-          case 'Órama Investimentos':
-            return '#34991d';
-          case 'Mercado Bitcoin':
-            return '#e84522';
-          case 'Foxbit':
-            return '#f77100';
-          default:
-            return '#000000';
-        }
-      });
+      const colors = getColorsBanks(uniqueCategories);
 
       setCategories(uniqueCategories);
       setValues(valuesCategory);
@@ -223,22 +215,163 @@ export function useResume() {
     }
   }
 
+  async function getAllTransactionsForTheMonthAndYearByCategory(
+    year: number,
+    month: number,
+    day: number,
+  ) {
+    try {
+      const { data, error } = await supabase
+        .from('finances_db')
+        .select('*')
+        .eq('user_id', user?.id)
+        .eq('type', type)
+        .gte('date', `${year}-${month}-01`)
+        .lte('date', `${year}-${month}-${day}`)
+        .not('category', 'ilike', '%Cartão%');
+
+      if (error) {
+        toast.error('Erro ao carregar os dados', { id: 'error' });
+        return;
+      }
+
+      if (!data) return;
+
+      const categories = data.map((item) => item.category);
+      const uniqueCategories = removeDuplicateCategories(categories);
+      const valuesCategory = uniqueCategories.map((category) =>
+        sumValuesCategory(category, data),
+      );
+
+      const sumValues = valuesCategory.reduce((acc, value) => acc + value, 0);
+      const percentageValues = valuesCategory.map(
+        (value) => (value / sumValues) * 100,
+      );
+      const percentageValuesRounded = percentageValues.map((value) =>
+        Math.round(value),
+      );
+
+      const colors = getColorsBanks(uniqueCategories);
+
+      setCategories(uniqueCategories);
+      setValues(valuesCategory);
+      setColors(colors);
+
+      const newDataChart = {
+        labels: uniqueCategories,
+        datasets: [
+          {
+            label: 'Gastos por categoria',
+            data: percentageValuesRounded,
+            backgroundColor: colors,
+            borderColor: colors,
+            borderWidth: 1,
+          },
+        ],
+      };
+
+      setLoading(false);
+
+      setDataChart(newDataChart);
+    } catch (error) {
+      toast.error('Erro ao carregar os dados', { id: 'error' });
+      setLoading(false);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  async function filterTransactionsByYearByCategory(
+    year: number,
+    month: number,
+  ) {
+    try {
+      const { data, error } = await supabase
+        .from('finances_db')
+        .select('category, value, date')
+        .eq('type', type)
+        .eq('user_id', user?.id)
+        .gte('date', `${year}-${month}-01`)
+        .lte('date', `${year}-${month}-${lastDayOfTheMonth}`)
+        .not('category', 'ilike', '%Cartão%');
+
+      if (error) {
+        toast.error('Erro ao carregar os dados', { id: 'error' });
+        return;
+      }
+
+      if (!data) return;
+
+      const categories = data.map((item) => item.category);
+      const uniqueCategories = removeDuplicateCategories(categories);
+      const valuesCategory = uniqueCategories.map((category) =>
+        sumValuesCategory(category, data),
+      );
+
+      const sumValues = valuesCategory.reduce((acc, value) => acc + value, 0);
+      const percentageValues = valuesCategory.map(
+        (value) => (value / sumValues) * 100,
+      );
+      const percentageValuesRounded = percentageValues.map((value) =>
+        Math.round(value),
+      );
+
+      const colors = getColorsBanks(uniqueCategories);
+
+      setCategories(uniqueCategories);
+      setValues(valuesCategory);
+      setColors(colors);
+
+      const newDataChart = {
+        labels: uniqueCategories,
+        datasets: [
+          {
+            label: 'Gastos por categoria',
+            data: percentageValuesRounded,
+            backgroundColor: colors,
+            borderColor: colors,
+            borderWidth: 1,
+          },
+        ],
+      };
+
+      setDataChart(newDataChart);
+      handleCloseModalFilter();
+
+      setLoading(false);
+    } catch (error) {
+      toast.error('Erro ao carregar os dados', { id: 'error' });
+      setLoading(false);
+    } finally {
+      setLoading(false);
+    }
+  }
+
   useEffect(() => {
-    getValuesCategory();
-  }, [actualMonth, actualYear, type]);
+    getValuesCategory(currentMonth, lastDayOfTheMonth);
+  }, [type, currentYear, currentMonth]);
 
   return {
     dataChart,
     categories,
     values,
     colors,
-    actualMonth,
-    actualYear,
-    newMonthLong,
-    handlePreviousMonth,
-    handleNextMonth,
+    currentYear,
+    setCurrentYear,
+    currentMonth,
+    setCurrentMonth,
+    lastDayOfTheMonth,
+    setLastDayOfTheMonth,
     loading,
     type,
     setType,
+    searchParams,
+    setSearchParams,
+    openModalFilter,
+    handleCloseModalFilter,
+    handleOpenModalFilter,
+    filterTransactionsByYearByCategory,
+    getAllTransactionsForTheMonthAndYearByCategory,
+    getColorsBanks,
   };
 }

@@ -1,37 +1,38 @@
-import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useState } from 'react';
 
-import { format } from 'date-fns';
-import { pt } from 'date-fns/locale';
-
-import { formatDate } from 'utils/formatDate';
+import { useModal } from 'components/Modal/useModal';
 
 import { useAuth } from 'contexts/Auth';
 import { useToast } from 'contexts/Toast';
 
 import { supabase } from 'services/supabase';
 
+import { useResume } from './useResume';
+
 export function useTransactions() {
-  const { id } = useParams();
   const { toast } = useToast();
   const { user } = useAuth();
+  const { searchParams } = useResume();
+  const { selectedYear } = useModal();
 
   const [finances, setFinances] = useState<any[]>([]);
   const [allTotal, setAllTotal] = useState(0);
   const [totalIncome, setTotalIncome] = useState(0);
-  const [lastDateIncome, setLastDateIncome] = useState('');
   const [totalOutcome, setTotalOutcome] = useState(0);
-  const [lastDateOutcome, setLastDateOutcome] = useState('');
-  const [actualMonth, setActualMonth] = useState(new Date().getMonth() + 1);
-  const [actualYear, setActualYear] = useState(new Date().getFullYear());
-  const endOfDays = new Date(actualYear, actualMonth, 0).getDate();
-  const newMonthLong = format(new Date(actualYear, actualMonth - 1), 'MMM', {
-    locale: pt,
-  });
+
   const [search, setSearch] = useState('');
   const [openModal, setOpenModal] = useState(false);
+  const [openModalFilter, setOpenModalFilter] = useState(false);
+
+  const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
+  const [currentMonth, setCurrentMonth] = useState(new Date().getMonth() + 1);
+  const [lastDayOfTheMonth, setLastDayOfTheMonth] = useState(
+    new Date(new Date().getFullYear(), currentMonth, 0).getDate(),
+  );
 
   const [loading, setLoading] = useState(true);
+  const typeParams = searchParams.get('type');
+  const categoryParams = searchParams.get('category');
 
   function handleOpenModal() {
     setOpenModal(true);
@@ -41,42 +42,122 @@ export function useTransactions() {
     setOpenModal(false);
   }
 
-  function handlePreviousMonth() {
-    if (actualMonth === 1) {
-      setActualMonth(12);
-
-      setActualYear(actualYear - 1);
-    } else {
-      setActualMonth(actualMonth - 1);
-    }
+  function handleCloseModalFilter() {
+    setOpenModalFilter(false);
   }
 
-  function handleNextMonth() {
-    if (actualMonth === 12) {
-      setActualMonth(1);
-
-      setActualYear(actualYear + 1);
-    } else {
-      setActualMonth(actualMonth + 1);
-    }
+  function handleOpenModalFilter() {
+    setOpenModalFilter(true);
   }
 
-  function totalMessage() {
+  function balanceMessage(allTotal: number): string {
     if (allTotal > 0) {
       return 'Saldo Positivo';
-    }
-    if (allTotal < 0) {
+    } else if (allTotal < 0) {
       return 'Saldo Negativo';
+    } else {
+      return 'Saldo Neutro';
     }
-    return 'Saldo Neutro';
   }
 
-  async function getAllTransactions() {
+  async function getTransactionsValuesTotal() {
+    try {
+      const { data: dataTotal, error: errorTotal } = await supabase
+        .from('finances_db')
+        .select('*')
+        .eq('user_id', user?.id)
+        .not('category', 'ilike', '%Cartão%');
+
+      if (errorTotal) {
+        toast.error('Erro ao buscar valor total das transações', {
+          id: 'error',
+        });
+        setLoading(false);
+        return;
+      }
+
+      if (!dataTotal) return;
+
+      const totalGeralIncomes = dataTotal
+        .filter((item) => item.type === 'income')
+        .reduce((acc, curr) => acc + curr.value, 0);
+
+      const totalGeralOutcomes = dataTotal
+        .filter((item) => item.type === 'outcome')
+        .reduce((acc, curr) => acc + curr.value, 0);
+
+      const allTotalTransactions = totalGeralIncomes - totalGeralOutcomes;
+
+      setAllTotal(allTotalTransactions);
+    } catch (error) {
+      toast.error('Erro ao buscar valor total das transações', { id: 'error' });
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  async function getTransactionsValues(
+    year: number,
+    month: number,
+    endOfDays: number,
+  ) {
+    try {
+      const { data: dataIncomes, error: errorIncomes } = await supabase
+        .from('finances_db')
+        .select('value, created_at')
+        .eq('user_id', user?.id)
+        .eq('type', 'income')
+        .gte('date', `${year}-${month}-01`)
+        .lte('date', `${year}-${month}-${endOfDays}`)
+        .not('category', 'ilike', '%Cartão%');
+
+      const { data: dataOutcomes, error: errorOutcomes } = await supabase
+        .from('finances_db')
+        .select('value, created_at')
+        .eq('user_id', user?.id)
+        .eq('type', 'outcome')
+        .gte('date', `${year}-${month}-01`)
+        .lte('date', `${year}-${month}-${endOfDays}`)
+        .not('category', 'ilike', '%Cartão%');
+
+      if (errorIncomes || errorOutcomes) {
+        toast.error('Erro ao buscar valores das transações', { id: 'error' });
+        setLoading(false);
+        return;
+      }
+
+      if (!dataIncomes) return;
+      if (!dataOutcomes) return;
+
+      const totalIncomes = dataIncomes.reduce(
+        (acc, curr) => acc + curr.value,
+        0,
+      );
+
+      const totalOutcomes = dataOutcomes.reduce(
+        (acc, curr) => acc + curr.value,
+        0,
+      );
+
+      setTotalIncome(totalIncomes);
+      setTotalOutcome(totalOutcomes);
+
+      setLoading(false);
+    } catch (error) {
+      toast.error('Erro ao buscar transações', { id: 'error' });
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  async function getAllTransactionsForTheCurrentMonth(year: number) {
     try {
       const { data, error } = await supabase
         .from('finances_db')
         .select('*')
         .eq('user_id', user?.id)
+        .gte('date', `${year}-${currentMonth}-01`)
+        .lte('date', `${year}-${currentMonth}-${lastDayOfTheMonth}`)
         .not('category', 'ilike', '%Cartão%');
 
       if (error) {
@@ -84,6 +165,118 @@ export function useTransactions() {
         setLoading(false);
         return;
       }
+
+      if (!data) return;
+
+      const newData = data.sort(
+        (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
+      );
+
+      setFinances(newData);
+      setLoading(false);
+    } catch (error) {
+      toast.error('Erro ao buscar transações', { id: 'error' });
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  async function getAllTransactionsForTheMonthAndYear(
+    year: number,
+    month: number,
+    day: number,
+  ) {
+    try {
+      const { data, error } = await supabase
+        .from('finances_db')
+        .select('*')
+        .eq('user_id', user?.id)
+        .gte('date', `${year}-${month}-01`)
+        .lte('date', `${year}-${month}-${day}`)
+        .not('category', 'ilike', '%Cartão%');
+
+      if (error) {
+        toast.error('Erro ao buscar transações', { id: 'error' });
+        setLoading(false);
+        return;
+      }
+
+      if (!data) return;
+
+      const newData = data.sort(
+        (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
+      );
+
+      setFinances(newData);
+      setLoading(false);
+    } catch (error) {
+      toast.error('Erro ao buscar transações', { id: 'error' });
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  async function getTransactionsValuesTotalByCategory(category: string) {
+    try {
+      const { data: dataTotal, error: errorTotal } = await supabase
+        .from('finances_db')
+        .select('*')
+        .eq('user_id', user?.id)
+        .eq('category', category)
+        .not('category', 'ilike', '%Cartão%');
+
+      if (errorTotal) {
+        toast.error('Erro ao buscar valor total das transações', {
+          id: 'error',
+        });
+        setLoading(false);
+        return;
+      }
+
+      if (!dataTotal) return;
+
+      const totalGeralIncomes = dataTotal
+        .filter((item) => item.type === 'income')
+        .reduce((acc, curr) => acc + curr.value, 0);
+
+      const totalGeralOutcomes = dataTotal
+        .filter((item) => item.type === 'outcome')
+        .reduce((acc, curr) => acc + curr.value, 0);
+
+      const allTotalTransactions = totalGeralIncomes - totalGeralOutcomes;
+
+      setAllTotal(allTotalTransactions);
+    } catch (error) {
+      toast.error('Erro ao buscar valor total das transações', { id: 'error' });
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  async function getAllTransactionsForTheCurrentMonthByCategory(
+    category: string,
+    type: string,
+    year: number,
+    month: number,
+    day: number,
+  ) {
+    try {
+      const { data, error } = await supabase
+        .from('finances_db')
+        .select('*')
+        .eq('user_id', user?.id)
+        .eq('category', category)
+        .eq('type', type)
+        .gte('date', `${year}-${month}-01`)
+        .lte('date', `${year}-${month}-${day}`)
+        .not('category', 'ilike', '%Cartão%');
+
+      if (error) {
+        toast.error('Erro ao buscar transações', { id: 'error' });
+        setLoading(false);
+        return;
+      }
+
       if (!data) return;
 
       const newData = data.sort(
@@ -98,166 +291,26 @@ export function useTransactions() {
         .filter((item) => item.type === 'outcome')
         .reduce((acc, curr) => acc + curr.value, 0);
 
-      const allTotalTransactions = totalIncome - totalOutcome;
+      setFinances(newData);
+      setTotalIncome(totalIncome);
+      setTotalOutcome(totalOutcome);
+
+      if (!data) return;
 
       setFinances(newData);
-      setAllTotal(allTotalTransactions);
       setLoading(false);
     } catch (error) {
       toast.error('Erro ao buscar transações', { id: 'error' });
-      setLoading(false);
     } finally {
       setLoading(false);
     }
   }
 
-  async function getTotal() {
-    try {
-      const { data, error } = await supabase
-        .from('finances_db')
-        .select('*')
-        .eq('user_id', user?.id);
-
-      if (error) {
-        toast.error('Erro ao buscar transações', { id: 'error' });
-        setLoading(false);
-        return;
-      }
-      if (!data) return;
-
-      const totalIncome = data
-        .filter((item) => item.type === 'income')
-        .reduce((acc, curr) => acc + curr.value, 0);
-
-      const totalOutcome = data
-        .filter((item) => item.type === 'outcome')
-        .reduce((acc, curr) => acc + curr.value, 0);
-
-      const allTotalTransactions = totalIncome - totalOutcome;
-
-      setAllTotal(allTotalTransactions);
-      setLoading(false);
-    } catch (error) {
-      toast.error('Erro ao buscar transações', { id: 'error' });
-      setLoading(false);
-    } finally {
-      setLoading(false);
-    }
-  }
-
-  async function getIncomesAndTotalIncomes() {
-    try {
-      const { data, error } = await supabase
-        .from('finances_db')
-        .select('value, created_at')
-        .eq('user_id', user?.id)
-        .eq('type', 'income')
-        .gte('date', `${actualYear}-${actualMonth}-01`)
-        .lte('date', `${actualYear}-${actualMonth}-${endOfDays}`);
-
-      if (error) {
-        toast.error('Erro ao buscar transações', { id: 'error' });
-        setLoading(false);
-        return;
-      }
-
-      if (!data) return;
-
-      const total = data.reduce((acc, curr) => acc + curr.value, 0);
-
-      const lastDate = data.reduce(
-        (acc, curr) => (acc > curr.created_at ? acc : curr.created_at),
-        0,
-      );
-
-      const formattedDate = formatDate(new Date(lastDate));
-
-      setLastDateIncome(formattedDate);
-      setTotalIncome(total);
-      setLoading(false);
-    } catch (error) {
-      toast.error('Erro ao buscar transações', { id: 'error' });
-      setLoading(false);
-    } finally {
-      setLoading(false);
-    }
-  }
-
-  async function getOutcomesAndTotalOutcomes() {
-    try {
-      const { data, error } = await supabase
-        .from('finances_db')
-        .select('value, created_at, date, category')
-        .eq('user_id', user?.id)
-        .eq('type', 'outcome')
-        .gte('date', `${actualYear}-${actualMonth}-01`)
-        .lte('date', `${actualYear}-${actualMonth}-${endOfDays}`);
-
-      if (error) {
-        toast.error('Erro ao buscar transações', { id: 'error' });
-        setLoading(false);
-        return;
-      }
-
-      if (!data) return;
-
-      const newData = data.filter(
-        (item) => item.category !== 'NuInvest' && item.category !== 'Inter',
-      );
-
-      const total = newData.reduce((acc, curr) => acc + curr.value, 0);
-
-      const lastDate = newData.reduce(
-        (acc, curr) => (acc > curr.created_at ? acc : curr.created_at),
-        0,
-      );
-
-      const formattedDate = formatDate(new Date(lastDate));
-
-      setLastDateOutcome(formattedDate);
-      setTotalOutcome(total);
-      setLoading(false);
-    } catch (error) {
-      toast.error('Erro ao buscar transações', { id: 'error' });
-      setLoading(false);
-    } finally {
-      setLoading(false);
-    }
-  }
-
-  async function deleteTransaction(id: number) {
-    try {
-      const { status, error } = await supabase
-        .from('finances_db')
-        .delete()
-        .eq('id', id);
-
-      if (error) {
-        toast.error('Erro ao deletar transação!', { id: 'error' });
-        setLoading(false);
-        return;
-      }
-
-      if (status === 204) {
-        handleCloseModal();
-        toast.success('Transação deletada com sucesso!', { id: 'success' });
-        setLoading(false);
-      }
-
-      getAllTransactions();
-
-      getIncomesAndTotalIncomes();
-      getOutcomesAndTotalOutcomes();
-
-      setLoading(false);
-    } catch (error) {
-      toast.error('Erro ao deletar transação!', { id: 'error' });
-    } finally {
-      setLoading(false);
-    }
-  }
-
-  async function duplicateTransaction(id: number) {
+  async function duplicateTransaction(
+    id: number,
+    month: number,
+    endOfDays: number,
+  ) {
     const transaction = finances.find((transaction) => transaction.id === id);
 
     if (!transaction) return;
@@ -288,11 +341,15 @@ export function useTransactions() {
         setLoading(false);
       }
 
-      getAllTransactions();
+      if (search.length >= 2) {
+        searchAllTransactions();
+      }
 
-      getIncomesAndTotalIncomes();
-      getOutcomesAndTotalOutcomes();
+      const year = Number(sessionStorage.getItem('@finance:selectedYear'));
 
+      getAllTransactionsForTheCurrentMonth(year);
+      getTransactionsValues(currentYear, month, endOfDays);
+      getTransactionsValuesTotal();
       setLoading(false);
     } catch (error) {
       toast.error('Erro ao duplicar transação!', { id: 'error' });
@@ -301,202 +358,161 @@ export function useTransactions() {
     }
   }
 
-  async function getAllTransactionsPerMonth() {
+  async function deleteTransaction(
+    id: number,
+    month: number,
+    endOfDays: number,
+  ) {
     try {
-      const { data, error } = await supabase
+      const { status, error } = await supabase
         .from('finances_db')
-        .select('*')
-        .eq('user_id', user?.id)
-        .gte('date', `${actualYear}-${actualMonth}-01`)
-        .lte('date', `${actualYear}-${actualMonth}-${endOfDays}`)
-        .not('category', 'ilike', '%Cartão%');
+        .delete()
+        .eq('id', id);
 
       if (error) {
-        toast.error('Erro ao buscar transações', { id: 'error' });
+        toast.error('Erro ao deletar transação!', { id: 'error' });
         setLoading(false);
         return;
       }
 
-      const newData = data.sort(
-        (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
-      );
-
-      if (!data) return;
-
-      setFinances(newData);
-      setLoading(false);
-    } catch (error) {
-      toast.error('Erro ao buscar transações', { id: 'error' });
-      setLoading(false);
-    } finally {
-      setLoading(false);
-    }
-  }
-
-  async function getTransactionsByCategory(category: string, type: string) {
-    try {
-      const { data, error } = await supabase
-        .from('finances_db')
-        .select('*')
-        .eq('user_id', user?.id)
-        .eq('category', category)
-        .eq('type', type)
-        .gte('date', `${actualYear}-${actualMonth}-01`)
-        .lte('date', `${actualYear}-${actualMonth}-${endOfDays}`)
-        .not('category', 'ilike', '%Cartão%');
-
-      if (error) {
-        toast.error('Erro ao buscar transações', { id: 'error' });
+      if (status === 204) {
+        handleCloseModal();
+        toast.success('Transação deletada com sucesso!', { id: 'success' });
         setLoading(false);
-        return;
       }
 
-      const newData = data.sort(
-        (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
-      );
-
-      const totalIncome = data
-        .filter((item) => item.type === 'income')
-        .reduce((acc, curr) => acc + curr.value, 0);
-
-      const totalOutcome = data
-        .filter((item) => item.type === 'outcome')
-        .reduce((acc, curr) => acc + curr.value, 0);
-
-      const allTotalTransactions = totalIncome - totalOutcome;
-
-      if (!data) return;
-
-      setFinances(newData);
-      setAllTotal(allTotalTransactions);
-      setTotalIncome(totalIncome);
-      setTotalOutcome(totalOutcome);
-
-      if (!data) return;
-
-      setFinances(newData);
-      setLoading(false);
-    } catch (error) {
-      toast.error('Erro ao buscar transações', { id: 'error' });
-      setLoading(false);
-    } finally {
-      setLoading(false);
-    }
-  }
-
-  async function searchTransaction(category?: string) {
-    if (category) {
-      try {
-        const { data, error } = await supabase
-          .from('finances_db')
-          .select('*')
-          .eq('user_id', user?.id)
-          .eq('category', category)
-          .ilike('title', `%${search}%`)
-          .order('created_at', { ascending: false })
-          .not('category', 'ilike', '%Cartão%');
-
-        if (error) {
-          toast.error('Erro ao buscar transações', { id: 'error' });
-          setLoading(false);
-          return;
-        }
-
-        if (!data) return;
-
-        setFinances(data);
-      } catch (error) {
-        toast.error('Erro ao buscar transações', { id: 'error' });
-      }
-    } else {
-      try {
-        const { data, error } = await supabase
-          .from('finances_db')
-          .select('*')
-          .eq('user_id', user?.id)
-          .ilike('title', `%${search}%`)
-          .order('created_at', { ascending: false })
-          .not('category', 'ilike', '%Cartão%');
-
-        if (error) {
-          toast.error('Erro ao buscar transações', { id: 'error' });
-          setLoading(false);
-          return;
-        }
-
-        if (!data) return;
-
-        setFinances(data);
-      } catch (error) {
-        toast.error('Erro ao buscar transações', { id: 'error' });
-      }
-    }
-  }
-
-  useEffect(() => {
-    if (id !== undefined) {
-      const category = id.split('&')[0];
-      const type = id.split('&')[1].split('=')[1];
-
-      getTransactionsByCategory(category, type);
-    } else {
-      getTotal();
-      getAllTransactionsPerMonth();
-    }
-  }, [id]);
-
-  useEffect(() => {
-    if (id !== undefined) {
-      const category = id.split('&')[0];
-      const type = id.split('&')[1].split('=')[1];
-
-      getTransactionsByCategory(category, type);
-    } else {
-      getIncomesAndTotalIncomes();
-      getOutcomesAndTotalOutcomes();
-      getTotal();
-      getAllTransactionsPerMonth();
-    }
-  }, [actualMonth, actualYear]);
-
-  useEffect(() => {
-    if (id !== undefined) {
-      searchTransaction(id);
-    } else {
       if (search.length >= 2) {
-        searchTransaction();
+        searchAllTransactions();
       }
 
-      if (search.length === 0) {
-        getAllTransactionsPerMonth();
-      }
+      const year = Number(sessionStorage.getItem('@finance:selectedYear'));
+
+      getAllTransactionsForTheCurrentMonth(year);
+      getTransactionsValues(currentYear, month, endOfDays);
+      getTransactionsValuesTotal();
+      setLoading(false);
+    } catch (error) {
+      toast.error('Erro ao deletar transação!', { id: 'error' });
+    } finally {
+      setLoading(false);
     }
-  }, [search]);
+  }
+
+  async function searchAllTransactions() {
+    try {
+      const { data, error } = await supabase
+        .from('finances_db')
+        .select('*')
+        .eq('user_id', user?.id)
+        .ilike('title', `%${search}%`)
+        .order('created_at', { ascending: false })
+        .not('category', 'ilike', '%Cartão%');
+
+      if (error) {
+        toast.error('Erro ao buscar transações', { id: 'error' });
+        setLoading(false);
+        return;
+      }
+
+      if (!data) return;
+
+      setFinances(data);
+    } catch (error) {
+      toast.error('Erro ao pesquisar transações', { id: 'error' });
+    }
+  }
+
+  async function filterTransactionsByYear(year: number, month: number) {
+    try {
+      const { data, error } = await supabase
+        .from('finances_db')
+        .select('*')
+        .eq('user_id', user?.id)
+        .gte('date', `${year}-${month}-01`)
+        .lte('date', `${year}-${month}-${lastDayOfTheMonth}`)
+        .not('category', 'ilike', '%Cartão%');
+
+      if (error) {
+        toast.error('Erro ao buscar transações', { id: 'error' });
+        setLoading(false);
+        return;
+      }
+
+      if (!data) return;
+
+      const newData = data.sort(
+        (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
+      );
+
+      setFinances(newData);
+      handleCloseModalFilter();
+      getTransactionsValues(year, month, lastDayOfTheMonth);
+      setLoading(false);
+    } catch (error) {
+      toast.error('Erro ao buscar transações', { id: 'error' });
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  async function handleChangeFilterMonth(month: number) {
+    const year = Number(sessionStorage.getItem('@finance:selectedYear'));
+    const lastDayOfMonth = new Date(year, month, 0).getDate();
+    setLastDayOfTheMonth(lastDayOfMonth);
+
+    if (typeParams && categoryParams) {
+      getAllTransactionsForTheCurrentMonthByCategory(
+        categoryParams,
+        typeParams,
+        year,
+        month,
+        lastDayOfMonth,
+      );
+
+      getTransactionsValuesTotalByCategory(categoryParams);
+      return;
+    }
+
+    if (selectedYear) {
+      setCurrentYear(year);
+      setCurrentMonth(month);
+
+      getTransactionsValues(year, month, lastDayOfMonth);
+      getAllTransactionsForTheMonthAndYear(year, month, lastDayOfMonth);
+    } else {
+      setCurrentMonth(month);
+      const lastDayOfMonth = new Date(selectedYear, month, 0).getDate();
+      setLastDayOfTheMonth(lastDayOfMonth);
+
+      getTransactionsValues(selectedYear, month, lastDayOfMonth);
+      getAllTransactionsForTheMonthAndYear(selectedYear, month, lastDayOfMonth);
+    }
+  }
 
   return {
-    getAllTransactions,
     finances,
-    setFinances,
     loading,
+    setLoading,
     totalIncome,
-    lastDateIncome,
-    getIncomesAndTotalIncomes,
     totalOutcome,
-    lastDateOutcome,
-    getOutcomesAndTotalOutcomes,
     handleCloseModal,
     openModal,
+    openModalFilter,
     handleOpenModal,
-    deleteTransaction,
-    newMonthLong,
-    actualYear,
-    handlePreviousMonth,
-    handleNextMonth,
-    actualMonth,
-    endOfDays,
     allTotal,
+    search,
     setSearch,
-    totalMessage,
+    balanceMessage,
+    handleCloseModalFilter,
+    handleOpenModalFilter,
     duplicateTransaction,
+    deleteTransaction,
+    filterTransactionsByYear,
+    handleChangeFilterMonth,
+    searchAllTransactions,
+    currentMonth,
+    lastDayOfTheMonth,
+    getTransactionsValuesTotal,
+    getAllTransactionsForTheCurrentMonthByCategory,
   };
 }
