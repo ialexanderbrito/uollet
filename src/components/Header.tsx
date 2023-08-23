@@ -1,9 +1,11 @@
 import { useNavigate } from 'react-router-dom';
 
-import { CaretLeft, Command, Eye, EyeSlash } from '@phosphor-icons/react';
+import { CaretLeft, Command, Eye, EyeClosed } from '@phosphor-icons/react';
 import defaultAvatar from 'assets/default_user_avatar.png';
 import { UserProps } from 'interfaces/AuthProps';
 import { useKBar } from 'kbar';
+
+import { useDetectDevice } from 'hooks/useDetectDevice';
 
 import { Menu } from './Menu';
 
@@ -14,6 +16,8 @@ interface HeaderProps {
   user?: UserProps | null;
   visible?: boolean;
   setVisible?: () => void;
+  className?: string;
+  size?: number;
 }
 
 export function Header({
@@ -23,9 +27,11 @@ export function Header({
   user,
   visible,
   setVisible,
+  size,
 }: HeaderProps) {
   const navigate = useNavigate();
   const { query } = useKBar();
+  const { isDesktop } = useDetectDevice();
 
   function greetings() {
     const hours = new Date().getHours();
@@ -42,7 +48,11 @@ export function Header({
   return (
     <>
       {primary ? (
-        <div className="flex h-52 w-full flex-row bg-primary dark:bg-primaryDark">
+        <div
+          className={`flex w-full flex-row bg-primary dark:bg-primaryDark ${
+            size ? `h-${size}` : 'h-52'
+          }`}
+        >
           <div className=" mt-4 flex w-full items-start justify-between ">
             <div className="flex w-full items-center justify-between gap-4">
               <div className="flex items-center justify-between gap-4 ">
@@ -59,14 +69,14 @@ export function Header({
               </div>
               <div className="mr-4 flex items-center justify-between gap-4">
                 {visible ? (
-                  <Eye
+                  <EyeClosed
                     size={30}
                     weight="light"
                     onClick={setVisible}
                     className="cursor-pointer text-secondary"
                   />
                 ) : (
-                  <EyeSlash
+                  <Eye
                     size={30}
                     weight="light"
                     onClick={setVisible}
@@ -74,12 +84,14 @@ export function Header({
                   />
                 )}
 
-                <Command
-                  size={30}
-                  weight="light"
-                  className="cursor-pointer text-secondary"
-                  onClick={query?.toggle}
-                />
+                {isDesktop && (
+                  <Command
+                    size={30}
+                    weight="light"
+                    className="cursor-pointer text-secondary"
+                    onClick={query?.toggle}
+                  />
+                )}
 
                 <Menu />
               </div>
