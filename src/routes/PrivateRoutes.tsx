@@ -12,6 +12,7 @@ import { Profile } from 'pages/Profile';
 import { Register } from 'pages/Register';
 import { ResetPassword } from 'pages/ResetPassword';
 import { Resume } from 'pages/Resume';
+import { Wallet } from 'pages/Wallet';
 
 import { useAuth } from 'contexts/Auth';
 
@@ -35,7 +36,6 @@ export function PrivateRoutes() {
     <Routes>
       {handleOtp()}
       <Route path="/otp" element={<Otp />} />
-      <Route path="/category/:id" element={<Finances />} />
       <Route path="/register" element={<Register />} />
       <Route path="/edit/:id" element={<Register />} />
       <Route path="/resume" element={<Resume />} />
@@ -44,6 +44,7 @@ export function PrivateRoutes() {
       <Route path="/profile" element={<Profile />} />
       <Route path="/profile/:id" element={<MyProfile />} />
       <Route path="/cards" element={<Cards />} />
+      <Route path="/wallet" element={<Wallet />} />
       <Route path="/credit-card" element={<CreditCard />} />
       <Route path="/reset-password" element={<ResetPassword />} />
       <Route path="*" element={<Error />} />
