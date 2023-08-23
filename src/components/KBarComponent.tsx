@@ -178,7 +178,7 @@ export function KBar({ children }: { children: React.ReactNode }) {
     {
       section: '',
       id: 'dark-theme',
-      name: 'TemaEscuro',
+      name: 'Tema Escuro',
       keywords: 'tema, escuro, dark, mode, theme',
       parent: 'set-theme',
       perform: () => {
