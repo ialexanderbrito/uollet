@@ -8,7 +8,7 @@ import {
   ChartPie,
 } from '@phosphor-icons/react';
 
-import {} from 'pages/Wallet';
+import { cn } from 'utils/cn';
 
 import { useTheme } from 'contexts/Theme';
 
@@ -33,7 +33,7 @@ export function BottomNavigator() {
   return (
     <section
       id="bottom-navigation"
-      className="fixed bottom-5 z-10 w-72 rounded-full  bg-backgroundCard shadow-lg dark:bg-backgroundCardDark dark:shadow-xl sm:w-[40rem]"
+      className="fixed bottom-5 z-10 w-80 rounded-full bg-backgroundCard shadow-lg dark:bg-backgroundCardDark dark:shadow-xl sm:w-[40rem]"
     >
       <div
         id="tabs"
@@ -41,10 +41,11 @@ export function BottomNavigator() {
       >
         <Link
           to="/"
-          className={`flex w-full items-center justify-center gap-2 pb-1 pt-2 hover:text-secondary focus:text-secondary ${
+          className={cn(
+            'flex w-full items-center justify-center gap-2 pb-1 pt-2 hover:text-secondary focus:text-secondary',
             isActive('/') &&
-            'h-16 rounded-full bg-secondary/10 text-secondary dark:bg-secondaryDark/10'
-          }`}
+              'h-16 rounded-full bg-secondary/10 text-secondary dark:bg-secondaryDark/10',
+          )}
         >
           <House
             size={25}
@@ -59,10 +60,11 @@ export function BottomNavigator() {
 
         <Link
           to="/wallet"
-          className={`flex w-full items-center justify-center gap-2 pb-1 pt-2 hover:text-secondary focus:text-secondary  ${
+          className={cn(
+            'flex w-full items-center justify-center gap-2 pb-1 pt-2 hover:text-secondary focus:text-secondary',
             isActive('/wallet') &&
-            'h-16 rounded-full bg-secondary/10 text-secondary dark:bg-secondaryDark/10'
-          }`}
+              'h-16 rounded-full bg-secondary/10 text-secondary dark:bg-secondaryDark/10',
+          )}
         >
           <Wallet
             size={25}
@@ -77,10 +79,11 @@ export function BottomNavigator() {
 
         <Link
           to="/register"
-          className={`flex w-full items-center justify-center gap-2 pb-1 pt-2 hover:text-secondary focus:text-secondary  ${
+          className={cn(
+            'flex w-full items-center justify-center gap-2 pb-1 pt-2 hover:text-secondary focus:text-secondary',
             isActive('/register') &&
-            'h-16 rounded-full bg-secondary/10 text-secondary dark:bg-secondaryDark/10'
-          }`}
+              'h-16 rounded-full bg-secondary/10 text-secondary dark:bg-secondaryDark/10',
+          )}
         >
           <Coins
             size={25}
@@ -95,10 +98,11 @@ export function BottomNavigator() {
 
         <Link
           to="/cards"
-          className={`flex w-full items-center justify-center gap-2 pb-1 pt-2 hover:text-secondary focus:text-secondary ${
+          className={cn(
+            'flex w-full items-center justify-center gap-2 pb-1 pt-2 hover:text-secondary focus:text-secondary',
             isActive('/cards') &&
-            'h-16 rounded-full bg-secondary/10 text-secondary dark:bg-secondaryDark/10'
-          }`}
+              'h-16 rounded-full bg-secondary/10 text-secondary dark:bg-secondaryDark/10',
+          )}
         >
           <CreditCard
             size={25}
@@ -113,10 +117,11 @@ export function BottomNavigator() {
 
         <Link
           to="/resume"
-          className={`flex w-full items-center justify-center gap-2 pb-1 pt-2 hover:text-secondary focus:text-secondary  ${
+          className={cn(
+            'flex w-full items-center justify-center gap-2 pb-1 pt-2 hover:text-secondary focus:text-secondary',
             isActive('/resume') &&
-            'h-16 rounded-full bg-secondary/10 text-secondary dark:bg-secondaryDark/10'
-          }`}
+              'h-16 rounded-full bg-secondary/10 text-secondary dark:bg-secondaryDark/10',
+          )}
         >
           <ChartPie
             size={25}
