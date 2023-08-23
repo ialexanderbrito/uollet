@@ -23,7 +23,15 @@ module.exports = {
         backgroundDark: '#1f2223',
         backgroundCardDark: '#181a1b',
       },
+      zIndex: {
+        '100': '100',
+      },
     },
   },
-  plugins: [require('tailwind-scrollbar'), require('tailwind-scrollbar-hide'), require('prettier-plugin-tailwindcss')],
+  plugins: [
+    require('tailwind-scrollbar'),
+    require('tailwind-scrollbar-hide'),
+    require('prettier-plugin-tailwindcss'),
+    require('@tailwindcss/typography'),
+  ],
 };
