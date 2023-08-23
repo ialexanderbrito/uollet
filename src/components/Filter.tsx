@@ -1,43 +1,61 @@
-import { CaretLeft, CaretRight } from '@phosphor-icons/react';
+import { Funnel } from '@phosphor-icons/react';
+import { Swiper, SwiperSlide } from 'swiper/react';
+
+import { MONTHS } from 'utils/month';
+
+import { SliderNavigation } from './SliderNavigation';
+import { SliderOption } from './SliderOption';
 
 interface FilterProps {
-  handlePreviousMonth: () => void;
-  handleNextMonth: () => void;
-  newMonthLong: string;
-  actualYear: number;
-  textSize?: string;
+  handleChangeFilterMonth: (month: number) => void;
+  actualMonth: number;
+  disabledFunnel?: boolean;
+  handleOpenModalFilter?: () => void;
 }
 
 export function Filter({
-  handlePreviousMonth,
-  handleNextMonth,
-  newMonthLong,
-  actualYear,
-  textSize,
+  handleChangeFilterMonth,
+  actualMonth,
+  disabledFunnel = true,
+  handleOpenModalFilter,
 }: FilterProps) {
   return (
-    <div className="flex w-full flex-row items-center justify-between gap-2 p-4 text-title dark:text-titleDark">
-      <CaretLeft
-        size={28}
-        weight="light"
-        onClick={() => {
-          handlePreviousMonth();
-        }}
-        className="cursor-pointer"
-      />
+    <>
+      <div className="flex w-full items-center justify-center">
+        <Swiper
+          spaceBetween={8}
+          slidesPerView={3}
+          centeredSlides
+          initialSlide={actualMonth - 1}
+          onSlideChange={(swiper) => {
+            handleChangeFilterMonth(swiper.realIndex + 1);
+          }}
+        >
+          <SliderNavigation />
 
-      <p className={`${textSize} font-medium`}>
-        {newMonthLong} de {actualYear}
-      </p>
+          {MONTHS.map((month, monthIndex) => (
+            <SwiperSlide key={month}>
+              {({ isActive }) => (
+                <SliderOption
+                  isActive={isActive}
+                  month={month}
+                  index={monthIndex}
+                />
+              )}
+            </SwiperSlide>
+          ))}
+        </Swiper>
 
-      <CaretRight
-        size={28}
-        weight="light"
-        onClick={() => {
-          handleNextMonth();
-        }}
-        className="cursor-pointer"
-      />
-    </div>
+        {disabledFunnel && (
+          <div className="flex flex-1 justify-end">
+            <Funnel
+              className="ml-8 cursor-pointer text-secondary dark:text-secondaryDark"
+              size={26}
+              onClick={handleOpenModalFilter}
+            />
+          </div>
+        )}
+      </div>
+    </>
   );
 }
