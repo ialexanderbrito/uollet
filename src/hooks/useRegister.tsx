@@ -290,6 +290,7 @@ export function useRegister() {
     const newCategories = data.map((item) => ({
       name: `Cartão ${item.card_name}`,
       icon: 'CreditCard',
+      category: 'credit_card',
     }));
 
     const allCategories = [...categories, ...newCategories];
