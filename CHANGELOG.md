@@ -1,3 +1,15 @@
+# [2.2.0](https://github.com/ialexanderbrito/finance/compare/v2.1.0...v2.2.0) (2023-08-23)
+
+
+### Bug Fixes
+
+* size navigation and implementation cn ([3f181b3](https://github.com/ialexanderbrito/finance/commit/3f181b35c9f593794256477a4e39cb71f5645b0b))
+
+
+### Features
+
+* add utils cn ([a3ff9c6](https://github.com/ialexanderbrito/finance/commit/a3ff9c6dd9e6be9a3584d4a0883374768b6c4746))
+
 # [2.1.0](https://github.com/ialexanderbrito/finance/compare/v2.0.0...v2.1.0) (2023-08-23)
 
 
