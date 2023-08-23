@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import emptyImg from 'assets/empty.svg';
 import { CreditCardProps } from 'interfaces/CreditCardProps';
 import { FinancesProps } from 'interfaces/FinancesProps';
 
@@ -11,6 +12,8 @@ import { Filter } from 'components/Filter';
 import { Header } from 'components/Header';
 import { Loading } from 'components/Loading';
 import { MyDialog } from 'components/Modal';
+import { ModalFilter } from 'components/Modal/Filter';
+import { useModal } from 'components/Modal/useModal';
 
 import { formatCurrency } from 'utils/formatCurrency';
 
@@ -21,49 +24,48 @@ import { useCrypto } from 'hooks/useCrypto';
 
 export function Cards() {
   const navigate = useNavigate();
-  const { user } = useAuth();
+  const { user, areValueVisible, toggleValueVisibility } = useAuth();
   const { decryptNumberCreditCard } = useCrypto();
+  const { openModalName, handleCloseModalName, selectedYear, setSelectedYear } =
+    useModal();
 
   const {
     finances,
     loading,
-    newMonthLong,
-    actualYear,
-    handlePreviousMonth,
-    handleNextMonth,
+    search,
     setSearch,
-    limitCreditCard,
     duplicateTransaction,
     deleteTransaction,
     openModal,
     handleOpenModal,
     handleCloseModal,
     deleteCreditCard,
+    limitCreditCard,
     creditCards,
     handleOpenModalCreditCard,
     handleCloseModalCreditCard,
     openModalCreditCard,
+    getAllCreditCard,
+    searchAllTransactionsCreditCard,
+    filterTransactionsCreditCardByYear,
+    currentMonth,
+    handleCloseModalFilter,
+    openModalFilter,
+    handleOpenModalFilter,
+    handleChangeFilterMonthCreditCard,
   } = useCards();
 
   const [idTransaction, setIdTransaction] = useState(0);
-  const [visible, setVisible] = useState(false);
-  const [openModalName, setOpenModalName] = useState(false);
-
-  function handleCloseModalName() {
-    setOpenModalName(false);
-  }
-
-  function handleOpenModalName() {
-    setOpenModalName(true);
-  }
 
   useEffect(() => {
-    if (!user) return;
-
-    if (!user.user_metadata.name || !user.user_metadata.full_name) {
-      handleOpenModalName();
-    }
+    getAllCreditCard();
   }, []);
+
+  useEffect(() => {
+    if (search.length > 2) {
+      searchAllTransactionsCreditCard();
+    }
+  }, [search]);
 
   return (
     <>
@@ -74,8 +76,8 @@ export function Cards() {
           <Header
             user={user}
             primary={true}
-            visible={visible}
-            setVisible={() => setVisible(!visible)}
+            visible={areValueVisible}
+            setVisible={toggleValueVisibility}
           />
 
           <div className="absolute top-20 flex w-full min-w-full snap-x gap-4 overflow-x-scroll p-4 scrollbar-hide md:justify-center">
@@ -85,13 +87,9 @@ export function Cards() {
                   key={card.id}
                   creditNumber={decryptNumberCreditCard(card.card_number)}
                   cardName={card.card_name}
-                  limit={
-                    visible
-                      ? formatCurrency(
-                          card.limit - limitCreditCard(card.card_name),
-                        )
-                      : '*****'
-                  }
+                  limit={formatCurrency(
+                    card.limit - limitCreditCard(card.card_name),
+                  )}
                   maturity={card.maturity}
                   closure={card.closure}
                   isDeletable={true}
@@ -101,6 +99,7 @@ export function Cards() {
                   }}
                   bgColor={card.background}
                   textColor={card.color}
+                  visible={areValueVisible}
                 />
 
                 <MyDialog
@@ -108,7 +107,10 @@ export function Cards() {
                   isOpen={openModalCreditCard}
                   title="Deseja realmente excluir o cartão?"
                   description='Ao clicar em "Excluir" o cartão e todos os seus registros serão excluídos permanentemente e não poderão ser recuperados.'
-                  deleteTransaction={() => {
+                  buttonPrimary
+                  buttonSecondary
+                  textButtonSecondary="Excluir"
+                  handleChangeButtonSecondary={() => {
                     deleteCreditCard(card.id, card.card_name);
                   }}
                 />
@@ -133,77 +135,52 @@ export function Cards() {
               className="h-14 w-full rounded-lg bg-white p-4 text-title outline-none dark:bg-backgroundCardDark dark:text-titleDark"
               onChange={(e) => setSearch(e.target.value)}
             />
+            <Filter
+              actualMonth={currentMonth}
+              handleChangeFilterMonth={handleChangeFilterMonthCreditCard}
+              handleOpenModalFilter={handleOpenModalFilter}
+            />
 
-            <div className="flex items-center justify-between text-lg font-normal text-black dark:text-textDark">
-              <span>Compras</span>
-
-              <div className="flex w-56 flex-col gap-4">
-                <Filter
-                  newMonthLong={newMonthLong}
-                  actualYear={actualYear}
-                  handlePreviousMonth={handlePreviousMonth}
-                  handleNextMonth={handleNextMonth}
-                  textSize="text-xs"
-                />
-              </div>
-            </div>
             <ul className="flex flex-col gap-4">
               {finances.length === 0 && (
-                <div className="flex flex-col items-center justify-center">
-                  <p className="text-lg font-medium text-black dark:text-textDark">
-                    Nenhuma compra cadastrada
+                <div className="mt-4 flex flex-col items-center justify-center">
+                  <img src={emptyImg} alt="Empty" className="mb-2 w-28" />
+                  <p className="text-center text-lg font-medium text-black dark:text-textDark">
+                    Não encontramos nenhuma compra
                   </p>
                 </div>
               )}
-              {finances.map((item: FinancesProps) => (
+              {finances.map((item: FinancesProps, index) => (
                 <>
-                  {item === finances[finances.length - 1] ? (
-                    <CardList
-                      key={item.id}
-                      title={item.title}
-                      value={item.value}
-                      category={item.category}
-                      date={item.date}
-                      className="mb-10"
-                      income={item.type === 'income'}
-                      onClick={() => {
-                        setIdTransaction(item.id);
-                        handleOpenModal();
-                      }}
-                      onEdit={() => {
-                        navigate(`/edit/${item.id}`);
-                      }}
-                      onDuplicate={() => {
-                        duplicateTransaction(item.id);
-                      }}
-                    />
-                  ) : (
-                    <CardList
-                      key={item.id}
-                      title={item.title}
-                      value={item.value}
-                      category={item.category}
-                      date={item.date}
-                      income={item.type === 'income'}
-                      onClick={() => {
-                        setIdTransaction(item.id);
-                        handleOpenModal();
-                      }}
-                      onEdit={() => {
-                        navigate(`/edit/${item.id}`);
-                      }}
-                      onDuplicate={() => {
-                        duplicateTransaction(item.id);
-                      }}
-                    />
-                  )}
+                  <CardList
+                    key={item.id}
+                    title={item.title}
+                    value={item.value}
+                    category={item.category}
+                    date={item.date}
+                    className={index === finances.length - 1 ? 'mb-10' : ''}
+                    income={item.type === 'income'}
+                    onClick={() => {
+                      setIdTransaction(item.id);
+                      handleOpenModal();
+                    }}
+                    onEdit={() => {
+                      navigate(`/edit/${item.id}`);
+                    }}
+                    onDuplicate={() => {
+                      duplicateTransaction(item.id);
+                    }}
+                  />
 
                   <MyDialog
                     closeModal={handleCloseModal}
                     isOpen={openModal}
                     title="Deseja realmente excluir registro?"
                     description='Ao clicar em "Excluir" o registro será excluído permanentemente e não poderá ser recuperado. '
-                    deleteTransaction={() => {
+                    buttonPrimary
+                    buttonSecondary
+                    textButtonSecondary="Excluir"
+                    handleChangeButtonSecondary={() => {
                       deleteTransaction(idTransaction);
                     }}
                   />
@@ -211,6 +188,29 @@ export function Cards() {
               ))}
             </ul>
           </div>
+
+          <MyDialog
+            closeModal={handleCloseModalFilter}
+            isOpen={openModalFilter}
+            title="Filtros"
+            description="Aqui você pode filtrar suas transações por categorias e anos."
+            buttonSecondary
+            textButtonSecondary="Filtrar"
+            handleChangeButtonSecondary={() => {
+              sessionStorage.setItem(
+                '@finance:selectedYear',
+                selectedYear.toString(),
+              );
+              filterTransactionsCreditCardByYear(selectedYear, currentMonth);
+            }}
+          >
+            <ModalFilter
+              handleChangeYear={(step: number) => {
+                setSelectedYear((prevState) => prevState + step);
+              }}
+              selectedYear={selectedYear}
+            />
+          </MyDialog>
 
           <MyDialog
             closeModal={handleCloseModalName}

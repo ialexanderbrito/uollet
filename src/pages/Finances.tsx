@@ -1,6 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import emptyImg from 'assets/empty.svg';
 import incomeIcon from 'assets/income.svg';
 import outcomeIcon from 'assets/outcome.svg';
 import totalIcon from 'assets/total.svg';
@@ -13,6 +14,8 @@ import { Filter } from 'components/Filter';
 import { Header } from 'components/Header';
 import { Loading } from 'components/Loading';
 import { MyDialog } from 'components/Modal';
+import { ModalFilter } from 'components/Modal/Filter';
+import { useModal } from 'components/Modal/useModal';
 
 import { formatCurrency } from 'utils/formatCurrency';
 
@@ -23,8 +26,11 @@ import { useTransactions } from 'hooks/useTransactions';
 
 export function Finances() {
   const navigate = useNavigate();
-  const { user } = useAuth();
   const { theme } = useTheme();
+  const { user, areValueVisible, toggleValueVisibility } = useAuth();
+
+  const { openModalName, handleCloseModalName, selectedYear, setSelectedYear } =
+    useModal();
 
   const {
     finances,
@@ -35,37 +41,37 @@ export function Finances() {
     handleCloseModal,
     openModal,
     handleOpenModal,
-    deleteTransaction,
-    newMonthLong,
-    actualYear,
-    handlePreviousMonth,
-    handleNextMonth,
-    actualMonth,
-    endOfDays,
+    search,
     setSearch,
-    totalMessage,
+    balanceMessage,
+    deleteTransaction,
     duplicateTransaction,
+    handleChangeFilterMonth,
+    searchAllTransactions,
+    currentMonth,
+    lastDayOfTheMonth,
+    openModalFilter,
+    handleCloseModalFilter,
+    handleOpenModalFilter,
+    filterTransactionsByYear,
+    getTransactionsValuesTotal,
   } = useTransactions();
 
   const [idTransaction, setIdTransaction] = useState(0);
-  const [visible, setVisible] = useState(false);
-  const [openModalName, setOpenModalName] = useState(false);
-
-  function handleCloseModalName() {
-    setOpenModalName(false);
-  }
-
-  function handleOpenModalName() {
-    setOpenModalName(true);
-  }
 
   useEffect(() => {
-    if (!user) return;
-
-    if (!user.user_metadata.name || !user.user_metadata.full_name) {
-      handleOpenModalName();
-    }
+    getTransactionsValuesTotal();
   }, []);
+
+  useEffect(() => {
+    if (search.length > 2) {
+      searchAllTransactions();
+    }
+
+    if (search.length === 0) {
+      handleChangeFilterMonth(currentMonth);
+    }
+  }, [search]);
 
   return (
     <>
@@ -76,41 +82,44 @@ export function Finances() {
           <Header
             primary={true}
             user={user}
-            visible={visible}
-            setVisible={() => setVisible(!visible)}
+            visible={areValueVisible}
+            setVisible={toggleValueVisibility}
           />
 
           <div className="absolute top-20 flex w-full min-w-full snap-x gap-4 overflow-x-scroll p-4 scrollbar-hide md:justify-center">
             <Card
               title="Entradas"
               icon={incomeIcon}
-              value={visible ? formatCurrency(totalIncome) : '*****'}
-              lastEntry={`De 01/${actualMonth}/${actualYear} até ${endOfDays}/${actualMonth}/${actualYear}`}
+              value={formatCurrency(totalIncome)}
+              lastEntry={`De 01/${currentMonth}/${selectedYear} até ${lastDayOfTheMonth}/${currentMonth}/${selectedYear}`}
               bgColor={
                 theme === 'light' ? 'backgroundCard' : 'backgroundCardDark'
               }
               textColor={theme === 'light' ? 'title' : 'textDark'}
+              visible={areValueVisible}
             />
 
             <Card
               title="Saidas"
               icon={outcomeIcon}
-              value={visible ? formatCurrency(totalOutcome) : '*****'}
-              lastEntry={`De 01/${actualMonth}/${actualYear} até ${endOfDays}/${actualMonth}/${actualYear}`}
+              value={formatCurrency(totalOutcome)}
+              lastEntry={`De 01/${currentMonth}/${selectedYear} até ${lastDayOfTheMonth}/${currentMonth}/${selectedYear}`}
               bgColor={
                 theme === 'light' ? 'backgroundCard' : 'backgroundCardDark'
               }
               textColor={theme === 'light' ? 'title' : 'textDark'}
+              visible={areValueVisible}
             />
 
             <Card
               title="Total"
               icon={totalIcon}
-              value={visible ? formatCurrency(allTotal) : '*****'}
-              lastEntry={totalMessage()}
+              value={formatCurrency(allTotal)}
+              lastEntry={balanceMessage(allTotal)}
               bgColor={theme === 'light' ? 'secondary' : 'secondaryDark'}
               textColor={theme === 'light' ? 'white' : 'white'}
               alternativeTextColor={theme === 'light' ? 'title' : 'textDark'}
+              visible={areValueVisible}
             />
           </div>
 
@@ -119,82 +128,67 @@ export function Finances() {
           <div className="flex min-h-screen w-full flex-col gap-4 p-4">
             <input
               type="text"
+              value={search}
               placeholder="Pesquisar por alguma transação"
               className="h-14 w-full rounded-lg bg-white p-4 text-title outline-none dark:bg-backgroundCardDark dark:text-titleDark"
               onChange={(e) => setSearch(e.target.value)}
             />
 
-            <div className="flex items-center justify-between text-lg font-normal text-black dark:text-textDark">
-              <span>Listagem</span>
+            <Filter
+              actualMonth={currentMonth}
+              handleChangeFilterMonth={handleChangeFilterMonth}
+              handleOpenModalFilter={handleOpenModalFilter}
+            />
 
-              <div className="flex w-56 flex-col gap-4">
-                <Filter
-                  newMonthLong={newMonthLong}
-                  actualYear={actualYear}
-                  handlePreviousMonth={handlePreviousMonth}
-                  handleNextMonth={handleNextMonth}
-                  textSize="text-xs"
-                />
-              </div>
-            </div>
             <ul className="flex flex-col gap-4">
               {finances.length === 0 && (
-                <div className="flex flex-col items-center justify-center">
-                  <p className="text-lg font-medium text-black dark:text-textDark">
-                    Nenhuma transação encontrada
+                <div className="mt-4 flex flex-col items-center justify-center">
+                  <img src={emptyImg} alt="Empty" className="mb-2 w-28" />
+                  <p className="text-center text-lg font-medium text-black dark:text-textDark">
+                    Não encontramos nenhuma transação
                   </p>
                 </div>
               )}
-              {finances.map((item: FinancesProps) => (
+              {finances.map((item: FinancesProps, index) => (
                 <>
-                  {item === finances[finances.length - 1] ? (
-                    <CardList
-                      key={item.id}
-                      title={item.title}
-                      value={item.value}
-                      category={item.category}
-                      date={item.date}
-                      className="mb-10"
-                      income={item.type === 'income'}
-                      onClick={() => {
-                        setIdTransaction(item.id);
-                        handleOpenModal();
-                      }}
-                      onEdit={() => {
-                        navigate(`/edit/${item.id}`);
-                      }}
-                      onDuplicate={() => {
-                        duplicateTransaction(item.id);
-                      }}
-                    />
-                  ) : (
-                    <CardList
-                      key={item.id}
-                      title={item.title}
-                      value={item.value}
-                      category={item.category}
-                      date={item.date}
-                      income={item.type === 'income'}
-                      onClick={() => {
-                        setIdTransaction(item.id);
-                        handleOpenModal();
-                      }}
-                      onEdit={() => {
-                        navigate(`/edit/${item.id}`);
-                      }}
-                      onDuplicate={() => {
-                        duplicateTransaction(item.id);
-                      }}
-                    />
-                  )}
+                  <CardList
+                    key={item.id}
+                    title={item.title}
+                    value={item.value}
+                    category={item.category}
+                    date={item.date}
+                    className={index === finances.length - 1 ? 'mb-10' : ''}
+                    income={item.type === 'income'}
+                    onClick={() => {
+                      setIdTransaction(item.id);
+                      handleOpenModal();
+                    }}
+                    onEdit={() => {
+                      navigate(`/edit/${item.id}`);
+                    }}
+                    onDuplicate={() => {
+                      duplicateTransaction(
+                        item.id,
+                        currentMonth,
+                        lastDayOfTheMonth,
+                      );
+                    }}
+                  />
 
                   <MyDialog
                     closeModal={handleCloseModal}
                     isOpen={openModal}
                     title="Deseja realmente excluir registro?"
                     description='Ao clicar em "Excluir" o registro será excluído permanentemente e não poderá ser recuperado. '
-                    deleteTransaction={() => {
-                      deleteTransaction(idTransaction);
+                    buttonPrimary
+                    buttonSecondary
+                    textButtonSecondary="Excluir"
+                    handleChangeButtonSecondary={() => {
+                      deleteTransaction(
+                        idTransaction,
+                        currentMonth,
+                        lastDayOfTheMonth,
+                      );
                     }}
                   />
                 </>
@@ -209,6 +203,29 @@ export function Finances() {
             description="Antes de começar, queria saber como podemos te chamar?"
             name
           />
+
+          <MyDialog
+            closeModal={handleCloseModalFilter}
+            isOpen={openModalFilter}
+            title="Filtros"
+            description="Aqui você pode filtrar suas transações por categorias e anos."
+            buttonSecondary
+            textButtonSecondary="Filtrar"
+            handleChangeButtonSecondary={() => {
+              sessionStorage.setItem(
+                '@finance:selectedYear',
+                selectedYear.toString(),
+              );
+              filterTransactionsByYear(selectedYear, currentMonth);
+            }}
+          >
+            <ModalFilter
+              handleChangeYear={(step: number) => {
+                setSelectedYear((prevState) => prevState + step);
+              }}
+              selectedYear={selectedYear}
+            />
+          </MyDialog>
 
           <BottomNavigator />
         </div>
