@@ -1,3 +1,15 @@
+# [2.1.0](https://github.com/ialexanderbrito/finance/compare/v2.0.0...v2.1.0) (2023-08-23)
+
+
+### Bug Fixes
+
+* pre-commit husky bug ([af22151](https://github.com/ialexanderbrito/finance/commit/af221516912d21b2b1a4bab940ac5f99ed6a8d0c))
+
+
+### Features
+
+* add clsx and tailwind-merge ([295d8c1](https://github.com/ialexanderbrito/finance/commit/295d8c1352808c1add3b269001c56335340dfaee))
+
 # [1.4.0](https://github.com/ialexanderbrito/finance/compare/v1.3.0...v1.4.0) (2023-08-17)
 
 
