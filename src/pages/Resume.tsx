@@ -1,6 +1,6 @@
 import { Pie } from 'react-chartjs-2';
-import { Link } from 'react-router-dom';
 
+import emptyImg from 'assets/empty.svg';
 import incomeIcon from 'assets/income.svg';
 import outcomeIcon from 'assets/outcome.svg';
 import { Chart as ChartJS, ArcElement, Tooltip } from 'chart.js';
@@ -10,27 +10,71 @@ import { BottomNavigator } from 'components/BottomNavigator';
 import { Filter } from 'components/Filter';
 import { Header } from 'components/Header';
 import { Loading } from 'components/Loading';
+import { MyDialog } from 'components/Modal';
+import { ModalFilter } from 'components/Modal/Filter';
+import { useModal } from 'components/Modal/useModal';
 
 import { formatCurrency } from 'utils/formatCurrency';
 
 import { useResume } from 'hooks/useResume';
 
+import { Finances } from './Finances';
+
 ChartJS.register(ArcElement, Tooltip, ChartDataLabels);
 
 export function Resume() {
+  const { selectedYear, setSelectedYear } = useModal();
   const {
     dataChart,
     categories,
     values,
     colors,
-    actualYear,
-    newMonthLong,
-    handlePreviousMonth,
-    handleNextMonth,
     loading,
     type,
     setType,
+    searchParams,
+    setSearchParams,
+    openModalFilter,
+    handleCloseModalFilter,
+    handleOpenModalFilter,
+    currentMonth,
+    setCurrentMonth,
+    setCurrentYear,
+    setLastDayOfTheMonth,
+    filterTransactionsByYearByCategory,
+    getAllTransactionsForTheMonthAndYearByCategory,
   } = useResume();
+
+  async function handleChangeGraph(month: number) {
+    const year = Number(sessionStorage.getItem('@finance:selectedYear'));
+    const lastDayOfMonth = new Date(year, month, 0).getDate();
+    setLastDayOfTheMonth(lastDayOfMonth);
+
+    if (selectedYear) {
+      setCurrentYear(year);
+      setCurrentMonth(month);
+
+      getAllTransactionsForTheMonthAndYearByCategory(
+        year,
+        month,
+        lastDayOfMonth,
+      );
+    } else {
+      setCurrentMonth(month);
+      getAllTransactionsForTheMonthAndYearByCategory(
+        selectedYear,
+        month,
+        lastDayOfMonth,
+      );
+    }
+  }
+
+  const typeParams = searchParams.get('type');
+  const categoryParams = searchParams.get('category');
+
+  if (typeParams && categoryParams) {
+    return <Finances />;
+  }
 
   return (
     <>
@@ -39,45 +83,59 @@ export function Resume() {
       ) : (
         <>
           <div className="flex w-full flex-col items-center justify-center bg-background dark:bg-backgroundDark">
-            <Header
-              title={`Resumos - ${type === 'income' ? 'Entradas' : 'Saídas'}`}
-            />
+            <Header title="Resumo" />
 
             <div className="flex h-screen w-full flex-col items-center justify-start gap-2 p-4">
-              <div className="flex w-full items-center justify-end gap-2 ">
-                <img
-                  src={incomeIcon}
-                  alt="Entradas"
-                  className={
-                    type === 'income'
-                      ? 'h-8 w-8 cursor-pointer opacity-25'
-                      : 'h-8 w-8 cursor-pointer opacity-100'
-                  }
-                  onClick={() => setType('income')}
-                />
-                <img
-                  src={outcomeIcon}
-                  alt="Saidas"
-                  className={
-                    type === 'outcome'
-                      ? 'h-8 w-8 cursor-pointer opacity-25'
-                      : 'h-8 w-8 cursor-pointer opacity-100'
-                  }
-                  onClick={() => setType('outcome')}
-                />
+              <div className="mb-2 flex w-full items-center justify-center gap-2 sm:justify-end">
+                <div className="mb-2 flex h-9 w-full items-center justify-around rounded-md border border-secondary dark:border-secondaryDark sm:w-64">
+                  <span
+                    onClick={() => setType('income')}
+                    className={
+                      type === 'income'
+                        ? 'flex h-9 w-full cursor-pointer items-center justify-center gap-1 rounded-md rounded-r-none border-r border-secondary bg-secondary text-background dark:border-secondaryDark dark:bg-secondaryDark'
+                        : 'flex w-full cursor-pointer items-center justify-center gap-1 text-title opacity-25 dark:text-titleDark'
+                    }
+                  >
+                    <img
+                      src={incomeIcon}
+                      alt="Entradas"
+                      className="h-6 w-6 cursor-pointer"
+                    />
+                    Entrada
+                  </span>
+
+                  <span
+                    onClick={() => setType('outcome')}
+                    className={
+                      type === 'outcome'
+                        ? 'flex h-9 w-full cursor-pointer items-center justify-center gap-1 rounded-md rounded-l-none border-r border-secondary bg-secondary text-background dark:border-secondaryDark dark:bg-secondaryDark'
+                        : 'flex w-full cursor-pointer items-center justify-center gap-1 text-title opacity-25 dark:text-titleDark'
+                    }
+                  >
+                    <img
+                      src={outcomeIcon}
+                      alt="Saidas"
+                      className="h-6 w-6 cursor-pointer"
+                    />
+                    Saída
+                  </span>
+                </div>
               </div>
 
               <Filter
-                newMonthLong={newMonthLong}
-                actualYear={actualYear}
-                handlePreviousMonth={handlePreviousMonth}
-                handleNextMonth={handleNextMonth}
+                actualMonth={currentMonth}
+                handleChangeFilterMonth={handleChangeGraph}
+                handleOpenModalFilter={() => {
+                  handleOpenModalFilter();
+                }}
               />
-              <div className="mb-8 h-64 w-64">
+
+              <div className="mb-8 mt-8 flex h-64 items-center justify-center">
                 {categories.length === 0 ? (
-                  <div className="flex h-full w-full items-center justify-center">
-                    <p className="text-center text-lg font-medium text-title dark:text-titleDark">
-                      Nenhum registro encontrado
+                  <div className="mt-4 flex flex-col items-center justify-center">
+                    <img src={emptyImg} alt="Empty" className="mb-2 w-28" />
+                    <p className="text-center text-lg font-medium text-black dark:text-textDark">
+                      Não encontramos nenhum dado para esse mês
                     </p>
                   </div>
                 ) : (
@@ -107,10 +165,15 @@ export function Resume() {
               </div>
               <div className="flex w-full flex-col gap-2">
                 {categories.map((category, index) => (
-                  <Link
+                  <div
                     key={index}
                     className="flex h-12 w-full cursor-pointer items-center gap-2 rounded-md border-[1px] border-transparent bg-backgroundCard hover:border-current hover:border-secondary hover:transition-all dark:bg-backgroundCardDark dark:hover:border-secondaryDark"
-                    to={`/category/${category}&type=${type}`}
+                    onClick={() => {
+                      setSearchParams({
+                        category,
+                        type,
+                      });
+                    }}
                   >
                     <div
                       className="h-full w-2 rounded-l-md"
@@ -122,10 +185,33 @@ export function Resume() {
                     <p className="mr-4 w-full text-right text-lg font-medium text-title dark:text-titleDark">
                       {formatCurrency(values[index])}
                     </p>
-                  </Link>
+                  </div>
                 ))}
               </div>
             </div>
+
+            <MyDialog
+              closeModal={handleCloseModalFilter}
+              isOpen={openModalFilter}
+              title="Filtros"
+              description="Aqui você pode filtrar suas transações por categorias e anos."
+              buttonSecondary
+              textButtonSecondary="Filtrar"
+              handleChangeButtonSecondary={() => {
+                sessionStorage.setItem(
+                  '@finance:selectedYear',
+                  selectedYear.toString(),
+                );
+                filterTransactionsByYearByCategory(selectedYear, currentMonth);
+              }}
+            >
+              <ModalFilter
+                handleChangeYear={(step: number) => {
+                  setSelectedYear((prevState) => prevState + step);
+                }}
+                selectedYear={selectedYear}
+              />
+            </MyDialog>
 
             <BottomNavigator />
           </div>
