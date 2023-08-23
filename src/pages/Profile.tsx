@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { RWebShare } from 'react-web-share';
 
@@ -22,11 +22,12 @@ import { BottomNavigator } from 'components/BottomNavigator';
 import { Header } from 'components/Header';
 import { Loading } from 'components/Loading';
 import { MyDialog } from 'components/Modal';
+import { About } from 'components/Modal/About';
+import { useModal } from 'components/Modal/useModal';
 import { Submenu } from 'components/Submenu';
 
 import { useAuth } from 'contexts/Auth';
 import { useTheme } from 'contexts/Theme';
-import { useToast } from 'contexts/Toast';
 
 import { useProfile } from 'hooks/useProfile';
 import { useTransactions } from 'hooks/useTransactions';
@@ -34,17 +35,29 @@ import { useTransactions } from 'hooks/useTransactions';
 export function Profile() {
   const navigate = useNavigate();
   const { toggleTheme } = useTheme();
-  const { toast } = useToast();
   const { user, logOut } = useAuth();
   const { deleteUser } = useProfile();
-  const { loading, handleCloseModal, openModal, handleOpenModal } =
+  const { copyToClipboard } = useModal();
+  const { loading, handleCloseModal, openModal, handleOpenModal, setLoading } =
     useTransactions();
 
   const [openModalSuport, setOpenModalSuport] = useState(false);
+  const [openModalAbout, setOpenModalAbout] = useState(false);
 
   function handleOpenModalSuport() {
     setOpenModalSuport(true);
   }
+
+  function handleOpenModalAbout() {
+    setOpenModalAbout(true);
+  }
+
+  useEffect(() => {
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+    }, 1000);
+  }, []);
 
   return (
     <>
@@ -142,12 +155,7 @@ export function Profile() {
                 icon={<Question size={20} weight="light" />}
                 title="Sobre"
                 onClick={() => {
-                  toast.error(
-                    'Em breve você poderá ver informações sobre o app!',
-                    {
-                      id: 'toast',
-                    },
-                  );
+                  handleOpenModalAbout();
                 }}
                 arrow
                 divider
@@ -184,17 +192,39 @@ export function Profile() {
               closeModal={handleCloseModal}
               title="Deletar Conta"
               description="Tem certeza que deseja deletar sua conta? Essa ação não poderá ser desfeita e todos os seus dados serão perdidos."
-              deleteAccount={() => deleteUser(user?.id || '')}
+              buttonPrimary
+              deleteAccount={() => {
+                if (!user) return;
+                deleteUser(user.id);
+              }}
               terms
             />
+
             <MyDialog
               isOpen={openModalSuport}
               closeModal={() => setOpenModalSuport(false)}
               title="Suporte"
               description="Email para contato: "
               email="eu@ialexanderbrito.dev"
-              support
+              buttonPrimary
+              buttonSecondary
+              textButtonSecondary="Copiar email"
+              handleChangeButtonSecondary={() => {
+                copyToClipboard();
+              }}
             />
+
+            <MyDialog
+              isOpen={openModalAbout}
+              closeModal={() => setOpenModalAbout(false)}
+              title="Finance App"
+              about
+              buttonSecondary
+              textButtonSecondary="Fechar"
+              handleChangeButtonSecondary={() => setOpenModalAbout(false)}
+            >
+              <About />
+            </MyDialog>
           </div>
 
           <BottomNavigator />
