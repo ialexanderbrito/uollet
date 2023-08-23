@@ -1,23 +1,26 @@
-import { Fragment, useState } from 'react';
+import { Fragment } from 'react';
 
 import { Dialog, Transition } from '@headlessui/react';
 
-import { useAuth } from 'contexts/Auth';
 import { useToast } from 'contexts/Toast';
 
-import { supabase } from 'services/supabase';
+import { useModal } from './useModal';
 
 interface MyDialogProps {
+  children?: React.ReactNode;
   closeModal: () => void;
   isOpen: boolean;
   title: string;
   description?: string;
-  deleteTransaction?: () => void;
-  deleteAccount?: () => void;
-  terms?: boolean;
-  support?: boolean;
   email?: string;
   name?: boolean;
+  about?: boolean;
+  buttonPrimary?: boolean;
+  buttonSecondary?: boolean;
+  textButtonSecondary?: string;
+  handleChangeButtonSecondary?: () => void;
+  terms?: boolean;
+  deleteAccount?: () => void | Promise<void>;
 }
 
 export function MyDialog({
@@ -25,49 +28,36 @@ export function MyDialog({
   isOpen,
   title,
   description,
-  deleteTransaction,
-  deleteAccount,
-  terms,
-  support,
+  children,
   email,
   name,
+  about,
+  buttonPrimary,
+  buttonSecondary,
+  textButtonSecondary,
+  handleChangeButtonSecondary,
+  terms,
+  deleteAccount,
 }: MyDialogProps) {
-  const { user, setUser } = useAuth();
   const { toast } = useToast();
-  const [confirmTerms, setConfirmTerms] = useState({
-    action: false,
-    data: false,
-  });
-  const [username, setUsername] = useState('');
+  const {
+    username,
+    setUsername,
+    handleSubmitName,
+    confirmTerms,
+    setConfirmTerms,
+  } = useModal();
 
-  function copyToClipboard() {
-    navigator.clipboard.writeText('eu@ialexanderbrito.dev');
-    toast.success('Email copiado com sucesso!', {
-      id: 'success',
-    });
-  }
+  function deleteAccountVerify() {
+    if (!deleteAccount) return;
 
-  async function handleSubmitName() {
-    if (username.length <= 2) {
-      toast.error('Nome deve ter mais de 2 caracteres', {
+    if (terms && confirmTerms.action && confirmTerms.data) {
+      deleteAccount();
+    } else {
+      toast.error('Você precisa confirmar todos os checkboxs para continuar.', {
         id: 'error',
       });
-      return;
     }
-
-    const { data } = await supabase.auth.updateUser({
-      data: {
-        name: username,
-        full_name: username,
-        email: user?.email,
-      },
-    });
-
-    if (!data.user) return;
-
-    setUser(data.user);
-
-    closeModal();
   }
 
   return (
@@ -101,8 +91,16 @@ export function MyDialog({
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-md bg-white p-6 text-left align-middle shadow-xl transition-all dark:bg-backgroundCardDark">
-                  <h3 className="text-lg font-medium leading-6 text-title dark:text-titleDark">
+                <Dialog.Panel
+                  className={`w-full max-w-md transform overflow-hidden rounded-md bg-white p-6 text-left align-middle shadow-xl transition-all dark:bg-backgroundCardDark ${
+                    about && 'max-w-xs'
+                  }`}
+                >
+                  <h3
+                    className={`text-lg font-medium leading-6 text-title dark:text-titleDark ${
+                      about && 'text-center'
+                    }`}
+                  >
                     {title}
                   </h3>
                   <div className="mt-2">
@@ -117,6 +115,8 @@ export function MyDialog({
                       )}
                     </p>
                   </div>
+
+                  {children}
 
                   {name && (
                     <div className="mt-2 flex items-center gap-2">
@@ -178,6 +178,7 @@ export function MyDialog({
                         className="h-14 w-32 rounded-lg bg-secondary p-4 text-sm text-white dark:bg-secondaryDark"
                         onClick={() => {
                           handleSubmitName();
+                          closeModal();
                         }}
                       >
                         Salvar
@@ -186,7 +187,7 @@ export function MyDialog({
                   </div>
 
                   <div className="mt-4 flex justify-around">
-                    {(deleteTransaction || support || terms) && (
+                    {buttonPrimary && (
                       <button
                         type="submit"
                         className="h-14 w-32 rounded-lg border-[1.5px] border-solid border-secondary p-4 text-sm  text-secondary dark:border-secondaryDark dark:text-secondaryDark"
@@ -196,45 +197,23 @@ export function MyDialog({
                       </button>
                     )}
 
+                    {buttonSecondary && (
+                      <button
+                        type="submit"
+                        className="h-14 w-32 rounded-lg bg-secondary p-4 text-sm text-white dark:bg-secondaryDark"
+                        onClick={handleChangeButtonSecondary}
+                      >
+                        {textButtonSecondary}
+                      </button>
+                    )}
+
                     {deleteAccount && (
                       <button
                         type="submit"
                         className="h-14 w-32 rounded-lg bg-secondary p-4 text-sm text-white dark:bg-secondaryDark"
-                        onClick={
-                          terms && confirmTerms.action && confirmTerms.data
-                            ? deleteAccount
-                            : () =>
-                                toast.error(
-                                  'Você precisa confirmar todos os checkboxs para continuar.',
-                                  {
-                                    id: 'error',
-                                  },
-                                )
-                        }
+                        onClick={deleteAccountVerify}
                       >
                         Excluir
-                      </button>
-                    )}
-
-                    {deleteTransaction && (
-                      <button
-                        type="submit"
-                        className="h-14 w-32 rounded-lg bg-secondary p-4 text-sm text-white dark:bg-secondaryDark"
-                        onClick={deleteTransaction}
-                      >
-                        Excluir
-                      </button>
-                    )}
-
-                    {support && (
-                      <button
-                        type="button"
-                        className="h-14 w-32 rounded-lg bg-secondary p-4 text-sm text-white dark:bg-secondaryDark"
-                        onClick={() => {
-                          copyToClipboard();
-                        }}
-                      >
-                        Copiar email
                       </button>
                     )}
                   </div>
