@@ -1,6 +1,14 @@
 import { Link } from 'react-router-dom';
 
-import { ChartPie, House, CreditCard, Coins } from '@phosphor-icons/react';
+import {
+  House,
+  CreditCard,
+  Coins,
+  Wallet,
+  ChartPie,
+} from '@phosphor-icons/react';
+
+import {} from 'pages/Wallet';
 
 import { useTheme } from 'contexts/Theme';
 
@@ -25,7 +33,7 @@ export function BottomNavigator() {
   return (
     <section
       id="bottom-navigation"
-      className="fixed bottom-5 z-10 w-72 rounded-full border border-secondary/40 bg-white shadow dark:border-secondaryDark/40 dark:bg-backgroundDark sm:w-[32rem]"
+      className="fixed bottom-5 z-10 w-72 rounded-full  bg-backgroundCard shadow-lg dark:bg-backgroundCardDark dark:shadow-xl sm:w-[40rem]"
     >
       <div
         id="tabs"
@@ -46,6 +54,24 @@ export function BottomNavigator() {
           />
           <span className="tab tab-explore hidden text-sm sm:block">
             Início
+          </span>
+        </Link>
+
+        <Link
+          to="/wallet"
+          className={`flex w-full items-center justify-center gap-2 pb-1 pt-2 hover:text-secondary focus:text-secondary  ${
+            isActive('/wallet') &&
+            'h-16 rounded-full bg-secondary/10 text-secondary dark:bg-secondaryDark/10'
+          }`}
+        >
+          <Wallet
+            size={25}
+            className="inline-block"
+            color={darkColorIcon('/wallet')}
+            weight={isActive('/wallet') ? 'fill' : 'light'}
+          />
+          <span className="tab tab-explore hidden text-sm sm:block">
+            Carteira
           </span>
         </Link>
 
