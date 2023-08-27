@@ -66,6 +66,7 @@ export function useTransactions() {
         .from('finances_db')
         .select('*')
         .eq('user_id', user?.id)
+        .not('category', 'ilike', '%Invest%')
         .not('category', 'ilike', '%Cartão%');
 
       if (errorTotal) {
@@ -109,6 +110,7 @@ export function useTransactions() {
         .eq('type', 'income')
         .gte('date', `${year}-${month}-01`)
         .lte('date', `${year}-${month}-${endOfDays}`)
+        .not('category', 'ilike', '%Invest%')
         .not('category', 'ilike', '%Cartão%');
 
       const { data: dataOutcomes, error: errorOutcomes } = await supabase
@@ -118,6 +120,7 @@ export function useTransactions() {
         .eq('type', 'outcome')
         .gte('date', `${year}-${month}-01`)
         .lte('date', `${year}-${month}-${endOfDays}`)
+        .not('category', 'ilike', '%Invest%')
         .not('category', 'ilike', '%Cartão%');
 
       if (errorIncomes || errorOutcomes) {
@@ -158,6 +161,7 @@ export function useTransactions() {
         .eq('user_id', user?.id)
         .gte('date', `${year}-${currentMonth}-01`)
         .lte('date', `${year}-${currentMonth}-${lastDayOfTheMonth}`)
+        .not('category', 'ilike', '%Invest%')
         .not('category', 'ilike', '%Cartão%');
 
       if (error) {
@@ -193,6 +197,7 @@ export function useTransactions() {
         .eq('user_id', user?.id)
         .gte('date', `${year}-${month}-01`)
         .lte('date', `${year}-${month}-${day}`)
+        .not('category', 'ilike', '%Invest%')
         .not('category', 'ilike', '%Cartão%');
 
       if (error) {
@@ -406,6 +411,7 @@ export function useTransactions() {
         .eq('user_id', user?.id)
         .ilike('title', `%${search}%`)
         .order('created_at', { ascending: false })
+        .not('category', 'ilike', '%Invest%')
         .not('category', 'ilike', '%Cartão%');
 
       if (error) {
@@ -430,6 +436,7 @@ export function useTransactions() {
         .eq('user_id', user?.id)
         .gte('date', `${year}-${month}-01`)
         .lte('date', `${year}-${month}-${lastDayOfTheMonth}`)
+        .not('category', 'ilike', '%Invest%')
         .not('category', 'ilike', '%Cartão%');
 
       if (error) {
