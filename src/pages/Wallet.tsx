@@ -19,16 +19,15 @@ export function Wallet() {
       {loading ? (
         <Loading />
       ) : (
-        <div className="flex w-full flex-col items-center justify-center bg-background dark:bg-backgroundDark">
+        <div className="flex  w-full flex-col items-center justify-center bg-background dark:bg-backgroundDark">
           <Header
             user={user}
-            primary
+            variant="secondary"
             visible={areValueVisible}
             setVisible={toggleValueVisibility}
-            size={24}
           />
 
-          <div className="flex w-full flex-col items-center justify-start gap-3 p-4">
+          <div className="flex min-h-screen w-full flex-col items-center justify-start gap-3 p-4">
             {wallets.length === 0 ? (
               <div className="mt-4 flex flex-col items-center justify-center">
                 <img src={emptyImg} alt="Empty" className="mb-2 w-28" />

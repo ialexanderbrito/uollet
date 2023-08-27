@@ -75,7 +75,7 @@ export function Cards() {
         <div className="flex w-full flex-col items-center justify-center bg-background dark:bg-backgroundDark">
           <Header
             user={user}
-            primary={true}
+            variant="primary"
             visible={areValueVisible}
             setVisible={toggleValueVisibility}
           />

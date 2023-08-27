@@ -17,6 +17,7 @@ import { MyDialog } from 'components/Modal';
 import { ModalFilter } from 'components/Modal/Filter';
 import { useModal } from 'components/Modal/useModal';
 
+import { cn } from 'utils/cn';
 import { formatCurrency } from 'utils/formatCurrency';
 
 import { useAuth } from 'contexts/Auth';
@@ -80,7 +81,7 @@ export function Finances() {
       ) : (
         <div className="flex w-full flex-col items-center justify-center bg-background dark:bg-backgroundDark">
           <Header
-            primary={true}
+            variant="primary"
             user={user}
             visible={areValueVisible}
             setVisible={toggleValueVisibility}
@@ -92,11 +93,11 @@ export function Finances() {
               icon={incomeIcon}
               value={formatCurrency(totalIncome)}
               lastEntry={`De 01/${currentMonth}/${selectedYear} até ${lastDayOfTheMonth}/${currentMonth}/${selectedYear}`}
-              bgColor={
-                theme === 'light' ? 'backgroundCard' : 'backgroundCardDark'
-              }
-              textColor={theme === 'light' ? 'title' : 'textDark'}
               visible={areValueVisible}
+              className={cn(
+                theme === 'light' && 'bg-backgroundCard text-title',
+                theme === 'dark' && 'bg-backgroundCardDark text-textDark',
+              )}
             />
 
             <Card
@@ -104,11 +105,11 @@ export function Finances() {
               icon={outcomeIcon}
               value={formatCurrency(totalOutcome)}
               lastEntry={`De 01/${currentMonth}/${selectedYear} até ${lastDayOfTheMonth}/${currentMonth}/${selectedYear}`}
-              bgColor={
-                theme === 'light' ? 'backgroundCard' : 'backgroundCardDark'
-              }
-              textColor={theme === 'light' ? 'title' : 'textDark'}
               visible={areValueVisible}
+              className={cn(
+                theme === 'light' && 'bg-backgroundCard text-title',
+                theme === 'dark' && 'bg-backgroundCardDark text-textDark',
+              )}
             />
 
             <Card
@@ -116,10 +117,12 @@ export function Finances() {
               icon={totalIcon}
               value={formatCurrency(allTotal)}
               lastEntry={balanceMessage(allTotal)}
-              bgColor={theme === 'light' ? 'secondary' : 'secondaryDark'}
               textColor={theme === 'light' ? 'white' : 'white'}
-              alternativeTextColor={theme === 'light' ? 'title' : 'textDark'}
               visible={areValueVisible}
+              className={cn(
+                theme === 'light' && 'bg-secondary text-white',
+                theme === 'dark' && 'bg-secondaryDark text-titleDark',
+              )}
             />
           </div>
 
@@ -173,6 +176,7 @@ export function Finances() {
                         lastDayOfTheMonth,
                       );
                     }}
+                    visible={areValueVisible}
                   />
 
                   <MyDialog
