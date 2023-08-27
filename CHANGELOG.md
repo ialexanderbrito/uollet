@@ -1,3 +1,28 @@
+# [2.3.0](https://github.com/ialexanderbrito/finance/compare/v2.2.0...v2.3.0) (2023-08-27)
+
+
+### Bug Fixes
+
+* add variants ([3b46d89](https://github.com/ialexanderbrito/finance/commit/3b46d896d05deddb0a017543280009dd3c01637e))
+* imports ([56fa559](https://github.com/ialexanderbrito/finance/commit/56fa559a23249f5949c501f27b3e90d77ec90525))
+* lint index html ([ead9459](https://github.com/ialexanderbrito/finance/commit/ead9459d70d6d6347d3b7b3da07f05026867492e))
+* request category invest ([ce7ee04](https://github.com/ialexanderbrito/finance/commit/ce7ee04df56682d65bc362615dcbf1bdfb52cf6d))
+
+
+### Features
+
+* add cn and props is investiments ([3d5807d](https://github.com/ialexanderbrito/finance/commit/3d5807d23ee6c564016473be7f04f4bbfdfbb46b))
+* add cn, verify profile and props investiments ([359243c](https://github.com/ialexanderbrito/finance/commit/359243ce6d4af88e03acd557473c7f53e9e1d320))
+* add new assets ([b5319e8](https://github.com/ialexanderbrito/finance/commit/b5319e875a98a07b0280adefc21c6bf8fd6442da))
+* add new header page resume ([f280749](https://github.com/ialexanderbrito/finance/commit/f280749426f65dc47f9e23705d30a73510995d9a))
+* add new hook use investiments ([ede765f](https://github.com/ialexanderbrito/finance/commit/ede765f922acdb1ee0797947991f840009111b63))
+* add new page investiments ([5335fca](https://github.com/ialexanderbrito/finance/commit/5335fcad9300620439277567ae25ad2c1f6c13c4))
+* add new routes investiments ([7c38796](https://github.com/ialexanderbrito/finance/commit/7c38796b2c8c0cbc6bf5016010a1e8d221104059))
+* add new utils verify account ([2dcb3a6](https://github.com/ialexanderbrito/finance/commit/2dcb3a6c99b5e30e3d9df2dadb52862de7b74406))
+* add option investiments ([e7f42d9](https://github.com/ialexanderbrito/finance/commit/e7f42d98dac1f214c417ad049c29e1c06fc328b4))
+* add tooltip ([0f6b49c](https://github.com/ialexanderbrito/finance/commit/0f6b49c9c37b30fc6b929f11711ba65ecc5dc31d))
+* add total value and verify account ([788d547](https://github.com/ialexanderbrito/finance/commit/788d547b8aaa7c2098579c5925c4d47b996e5367))
+
 # [2.2.0](https://github.com/ialexanderbrito/finance/compare/v2.1.0...v2.2.0) (2023-08-23)
 
 
