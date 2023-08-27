@@ -57,7 +57,7 @@ export function Profile() {
     getTransactionsValuesTotal,
   } = useTransactions();
   const {
-    allTotal: allTotalInvestiments,
+    allTotalInvestiments,
     getTransactionsValuesTotal: getTransactionsValuesTotalInvestiments,
   } = useInvestiments();
 
