@@ -1,7 +1,14 @@
 import { forwardRef, Fragment, useMemo, Ref } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { CreditCard, House, User, Moon, Sun } from '@phosphor-icons/react';
+import {
+  CreditCard,
+  House,
+  User,
+  Moon,
+  Sun,
+  ChartLineUp,
+} from '@phosphor-icons/react';
 import {
   KBarProvider,
   KBarPortal,
@@ -126,6 +133,17 @@ export function KBar({ children }: { children: React.ReactNode }) {
       keywords: 'home, inicio, pagina principal',
       perform: () => {
         navigate('/');
+      },
+      section: 'Acesso Rápido',
+    },
+    {
+      id: 'investments',
+      name: 'Investimentos',
+      icon: <ChartLineUp size={18} weight="regular" />,
+      shortcut: ['i'],
+      keywords: 'investimentos, invest, investimento',
+      perform: () => {
+        navigate('/investments');
       },
       section: 'Acesso Rápido',
     },
