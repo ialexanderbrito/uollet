@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
+import { Tooltip } from 'react-tooltip';
 import { RWebShare } from 'react-web-share';
 
 import {
@@ -103,9 +104,18 @@ export function Profile() {
                     user?.updated_at,
                     user?.user_metadata.phone,
                   ) && (
-                    <span className="ml-1 text-xs font-normal text-blue-500 dark:text-blue-400">
-                      <SealCheck size={16} weight="fill" />
-                    </span>
+                    <>
+                      <Tooltip
+                        content="Seu número de telefone foi verificado e você logou nos últimos 7 dias"
+                        anchorSelect=".verify"
+                        className="rounded-md bg-backgroundCard p-2 text-title dark:bg-backgroundCardDark dark:text-titleDark"
+                        noArrow
+                        place="right"
+                      />
+                      <span className="verify ml-1 text-xs font-normal text-blue-500 dark:text-blue-400">
+                        <SealCheck size={16} weight="fill" />
+                      </span>
+                    </>
                   )}
                 </span>
                 <p className="text-sm font-normal text-text dark:text-textDark">
