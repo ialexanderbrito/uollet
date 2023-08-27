@@ -14,15 +14,20 @@ import { MyDialog } from 'components/Modal';
 import { ModalFilter } from 'components/Modal/Filter';
 import { useModal } from 'components/Modal/useModal';
 
+import { cn } from 'utils/cn';
 import { formatCurrency } from 'utils/formatCurrency';
+
+import { useAuth } from 'contexts/Auth';
 
 import { useResume } from 'hooks/useResume';
 
 import { Finances } from './Finances';
+import { Investiments } from './Investiments';
 
 ChartJS.register(ArcElement, Tooltip, ChartDataLabels);
 
 export function Resume() {
+  const { areValueVisible, user, toggleValueVisibility } = useAuth();
   const { selectedYear, setSelectedYear } = useModal();
   const {
     dataChart,
@@ -71,6 +76,11 @@ export function Resume() {
 
   const typeParams = searchParams.get('type');
   const categoryParams = searchParams.get('category');
+  const categoryParamsIncludes = categoryParams?.includes('Invest');
+
+  if (categoryParamsIncludes && typeParams) {
+    return <Investiments />;
+  }
 
   if (typeParams && categoryParams) {
     return <Finances />;
@@ -83,7 +93,12 @@ export function Resume() {
       ) : (
         <>
           <div className="flex w-full flex-col items-center justify-center bg-background dark:bg-backgroundDark">
-            <Header title="Resumo" />
+            <Header
+              user={user}
+              variant="secondary"
+              setVisible={toggleValueVisibility}
+              visible={areValueVisible}
+            />
 
             <div className="flex h-screen w-full flex-col items-center justify-start gap-2 p-4">
               <div className="mb-2 flex w-full items-center justify-center gap-2 sm:justify-end">
@@ -182,7 +197,12 @@ export function Resume() {
                     <p className="w-full text-left text-base font-normal text-title dark:text-titleDark">
                       {category}
                     </p>
-                    <p className="mr-4 w-full text-right text-lg font-medium text-title dark:text-titleDark">
+                    <p
+                      className={cn(
+                        'mr-4 w-full text-right text-lg font-medium text-title dark:text-titleDark',
+                        areValueVisible && 'select-none blur-md',
+                      )}
+                    >
                       {formatCurrency(values[index])}
                     </p>
                   </div>
