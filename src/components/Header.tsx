@@ -1,9 +1,18 @@
 import { useNavigate } from 'react-router-dom';
 
-import { CaretLeft, Command, Eye, EyeClosed } from '@phosphor-icons/react';
+import {
+  CaretLeft,
+  Command,
+  Eye,
+  EyeClosed,
+  SealCheck,
+} from '@phosphor-icons/react';
 import defaultAvatar from 'assets/default_user_avatar.png';
 import { UserProps } from 'interfaces/AuthProps';
 import { useKBar } from 'kbar';
+
+import { cn } from 'utils/cn';
+import { verifyLoginLastSevenDays } from 'utils/verifyLoginLastSevenDays';
 
 import { useDetectDevice } from 'hooks/useDetectDevice';
 
@@ -12,22 +21,23 @@ import { Menu } from './Menu';
 interface HeaderProps {
   title?: string;
   showIcon?: boolean;
-  primary?: boolean;
+  variant?: 'primary' | 'secondary';
   user?: UserProps | null;
   visible?: boolean;
   setVisible?: () => void;
   className?: string;
-  size?: number;
+  isInvestiment?: boolean;
 }
 
 export function Header({
   title,
   showIcon = true,
-  primary = false,
+  variant = 'primary',
   user,
   visible,
   setVisible,
-  size,
+  className,
+  isInvestiment,
 }: HeaderProps) {
   const navigate = useNavigate();
   const { query } = useKBar();
@@ -47,11 +57,14 @@ export function Header({
 
   return (
     <>
-      {primary ? (
+      {user ? (
         <div
-          className={`flex w-full flex-row bg-primary dark:bg-primaryDark ${
-            size ? `h-${size}` : 'h-52'
-          }`}
+          className={cn(
+            'flex w-full flex-row bg-primary dark:bg-primaryDark',
+            variant === 'primary' && 'h-52',
+            variant === 'secondary' && 'h-24',
+            className,
+          )}
         >
           <div className=" mt-4 flex w-full items-start justify-between ">
             <div className="flex w-full items-center justify-between gap-4">
@@ -64,7 +77,18 @@ export function Header({
                 />
                 <p className="text-sm font-medium text-white">
                   {greetings()}, <br />
-                  <b>{user?.user_metadata.name}</b>
+                  <b className="flex items-center">
+                    {user?.user_metadata.name}
+
+                    {verifyLoginLastSevenDays(
+                      user?.updated_at,
+                      user.user_metadata.phone,
+                    ) && (
+                      <span className="ml-1 text-xs font-normal text-white">
+                        <SealCheck size={16} weight="fill" />
+                      </span>
+                    )}
+                  </b>
                 </p>
               </div>
               <div className="mr-4 flex items-center justify-between gap-4">
@@ -73,14 +97,20 @@ export function Header({
                     size={30}
                     weight="light"
                     onClick={setVisible}
-                    className="cursor-pointer text-secondary"
+                    className={cn(
+                      'cursor-pointer text-secondary',
+                      isInvestiment && 'text-white',
+                    )}
                   />
                 ) : (
                   <Eye
                     size={30}
                     weight="light"
                     onClick={setVisible}
-                    className="cursor-pointer text-secondary"
+                    className={cn(
+                      'cursor-pointer text-secondary',
+                      isInvestiment && 'text-white',
+                    )}
                   />
                 )}
 
@@ -88,12 +118,15 @@ export function Header({
                   <Command
                     size={30}
                     weight="light"
-                    className="cursor-pointer text-secondary"
+                    className={cn(
+                      'cursor-pointer text-secondary',
+                      isInvestiment && 'text-white',
+                    )}
                     onClick={query?.toggle}
                   />
                 )}
 
-                <Menu />
+                <Menu isInvestiment={isInvestiment} />
               </div>
             </div>
           </div>
