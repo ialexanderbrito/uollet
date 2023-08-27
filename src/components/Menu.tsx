@@ -13,10 +13,16 @@ import {
   User,
 } from '@phosphor-icons/react';
 
+import { cn } from 'utils/cn';
+
 import { useAuth } from 'contexts/Auth';
 import { useTheme } from 'contexts/Theme';
 
-export function Menu() {
+interface MenuProps {
+  isInvestiment?: boolean;
+}
+
+export function Menu({ isInvestiment }: MenuProps) {
   const navigate = useNavigate();
   const { logOut } = useAuth();
   const { theme, toggleTheme } = useTheme();
@@ -29,7 +35,10 @@ export function Menu() {
             <DotsThreeVertical
               size={30}
               weight="light"
-              className="text-secondary"
+              className={cn(
+                'cursor-pointer text-secondary',
+                isInvestiment && 'text-white',
+              )}
             />
           </MenuComponent.Button>
         </div>
@@ -54,9 +63,30 @@ export function Menu() {
                   <User
                     size={20}
                     weight="light"
-                    className="mr-2 h-5 w-5 text-secondary"
+                    className={cn(
+                      'mr-2 h-5 w-5 text-secondary',
+                      isInvestiment && 'text-primary',
+                    )}
                   />
                   Minha conta
+                </button>
+              </MenuComponent.Item>
+              <MenuComponent.Item>
+                <button
+                  className="group flex w-full items-center rounded-md px-2 py-2 text-sm"
+                  onClick={() => {
+                    navigate('/cards');
+                  }}
+                >
+                  <CreditCard
+                    size={20}
+                    weight="light"
+                    className={cn(
+                      'mr-2 h-5 w-5 text-secondary',
+                      isInvestiment && 'text-primary',
+                    )}
+                  />
+                  Cartões de crédito
                 </button>
               </MenuComponent.Item>
               <MenuComponent.Item>
@@ -69,7 +99,10 @@ export function Menu() {
                   <CreditCard
                     size={20}
                     weight="light"
-                    className="mr-2 h-5 w-5 text-secondary"
+                    className={cn(
+                      'mr-2 h-5 w-5 text-secondary',
+                      isInvestiment && 'text-primary',
+                    )}
                   />
                   Adicionar cartão
                 </button>
@@ -84,7 +117,10 @@ export function Menu() {
                   <FileCsv
                     size={20}
                     weight="light"
-                    className="mr-2 h-5 w-5 text-secondary"
+                    className={cn(
+                      'mr-2 h-5 w-5 text-secondary',
+                      isInvestiment && 'text-primary',
+                    )}
                   />
                   Importar CSV
                 </button>
@@ -99,7 +135,10 @@ export function Menu() {
                   <FileXls
                     size={20}
                     weight="light"
-                    className="mr-2 h-5 w-5 text-secondary"
+                    className={cn(
+                      'mr-2 h-5 w-5 text-secondary',
+                      isInvestiment && 'text-primary',
+                    )}
                   />
                   Exportar Planilha
                 </button>
@@ -114,13 +153,19 @@ export function Menu() {
                       <Moon
                         size={20}
                         weight="light"
-                        className="mr-2 h-5 w-5 text-secondary"
+                        className={cn(
+                          'mr-2 h-5 w-5 text-secondary',
+                          isInvestiment && 'text-primary',
+                        )}
                       />
                     ) : (
                       <Sun
                         size={20}
                         weight="light"
-                        className="mr-2 h-5 w-5 text-secondary"
+                        className={cn(
+                          'mr-2 h-5 w-5 text-secondary',
+                          isInvestiment && 'text-primary',
+                        )}
                       />
                     )}
                   </>
@@ -137,7 +182,10 @@ export function Menu() {
                   <Power
                     size={32}
                     weight="light"
-                    className="mr-2 h-5 w-5 text-secondary"
+                    className={cn(
+                      'mr-2 h-5 w-5 text-secondary',
+                      isInvestiment && 'text-primary',
+                    )}
                   />
                   Sair
                 </button>

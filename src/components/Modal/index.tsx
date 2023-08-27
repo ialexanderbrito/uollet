@@ -2,6 +2,8 @@ import { Fragment } from 'react';
 
 import { Dialog, Transition } from '@headlessui/react';
 
+import { cn } from 'utils/cn';
+
 import { useToast } from 'contexts/Toast';
 
 import { useModal } from './useModal';
@@ -21,6 +23,7 @@ interface MyDialogProps {
   handleChangeButtonSecondary?: () => void;
   terms?: boolean;
   deleteAccount?: () => void | Promise<void>;
+  isInvestiment?: boolean;
 }
 
 export function MyDialog({
@@ -38,6 +41,7 @@ export function MyDialog({
   handleChangeButtonSecondary,
   terms,
   deleteAccount,
+  isInvestiment,
 }: MyDialogProps) {
   const { toast } = useToast();
   const {
@@ -190,7 +194,7 @@ export function MyDialog({
                     {buttonPrimary && (
                       <button
                         type="submit"
-                        className="h-14 w-32 rounded-lg border-[1.5px] border-solid border-secondary p-4 text-sm  text-secondary dark:border-secondaryDark dark:text-secondaryDark"
+                        className="h-14 w-32 rounded-lg border-[1.5px] border-solid border-secondary p-4 text-sm text-secondary dark:border-secondaryDark dark:text-secondaryDark"
                         onClick={closeModal}
                       >
                         Fechar
@@ -200,7 +204,10 @@ export function MyDialog({
                     {buttonSecondary && (
                       <button
                         type="submit"
-                        className="h-14 w-32 rounded-lg bg-secondary p-4 text-sm text-white dark:bg-secondaryDark"
+                        className={cn(
+                          'h-14 w-32 rounded-lg bg-secondary p-4 text-sm text-white dark:bg-secondaryDark',
+                          isInvestiment && 'bg-primaryDark dark:bg-primary',
+                        )}
                         onClick={handleChangeButtonSecondary}
                       >
                         {textButtonSecondary}

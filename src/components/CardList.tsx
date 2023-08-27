@@ -3,6 +3,7 @@ import creditCard from 'assets/categories/credit-card.svg';
 import { format } from 'date-fns';
 
 import { category as categoryList } from 'utils/category';
+import { cn } from 'utils/cn';
 import { formatCurrency } from 'utils/formatCurrency';
 
 interface CardListProps {
@@ -15,6 +16,8 @@ interface CardListProps {
   onClick?: () => void;
   onEdit?: () => void;
   onDuplicate?: () => void;
+  visible?: boolean;
+  isInvestiment?: boolean;
 }
 
 export function CardList({
@@ -27,7 +30,12 @@ export function CardList({
   onClick,
   onEdit,
   onDuplicate,
+  visible,
+  isInvestiment,
 }: CardListProps) {
+  const newDate = new Date(date);
+  newDate.setDate(newDate.getDate() + 1);
+
   function verifyIcon(category: string) {
     const icon = categoryList.find((item) => item.name === category);
 
@@ -38,12 +46,12 @@ export function CardList({
     return icon?.icon;
   }
 
-  const newDate = new Date(date);
-  newDate.setDate(newDate.getDate() + 1);
-
   return (
     <li
-      className={`flex h-32 w-full flex-col justify-center gap-4 rounded-md bg-backgroundCard p-4 ${className} dark:bg-backgroundCardDark`}
+      className={cn(
+        'flex h-32 w-full flex-col justify-center gap-4 rounded-md bg-backgroundCard p-4 dark:bg-backgroundCardDark',
+        className,
+      )}
     >
       <div className="flex flex-row justify-between">
         <span className="text-sm font-normal text-title dark:text-titleDark">
@@ -55,7 +63,10 @@ export function CardList({
               size={18}
               weight="light"
               onClick={onDuplicate}
-              className="cursor-pointer text-secondary dark:text-secondaryDark"
+              className={cn(
+                'cursor-pointer text-secondary dark:text-secondaryDark',
+                isInvestiment && 'text-primaryDark dark:text-primary',
+              )}
             />
           )}
 
@@ -63,7 +74,10 @@ export function CardList({
             size={18}
             weight="light"
             onClick={onEdit}
-            className="cursor-pointer text-secondary dark:text-secondaryDark"
+            className={cn(
+              'cursor-pointer text-secondary dark:text-secondaryDark',
+              isInvestiment && 'text-primaryDark dark:text-primary',
+            )}
           />
 
           <TrashSimple
@@ -76,9 +90,11 @@ export function CardList({
         </div>
       </div>
       <span
-        className={`${
-          income ? 'text-success' : 'text-danger'
-        } text-xl font-normal`}
+        className={cn(
+          'text-xl font-normal',
+          income ? 'text-success' : 'text-danger',
+          visible && 'select-none blur-md',
+        )}
       >
         {formatCurrency(value)}
       </span>

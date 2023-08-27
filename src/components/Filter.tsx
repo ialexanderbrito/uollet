@@ -1,6 +1,7 @@
 import { Funnel } from '@phosphor-icons/react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
+import { cn } from 'utils/cn';
 import { MONTHS } from 'utils/month';
 
 import { SliderNavigation } from './SliderNavigation';
@@ -11,6 +12,7 @@ interface FilterProps {
   actualMonth: number;
   disabledFunnel?: boolean;
   handleOpenModalFilter?: () => void;
+  isInvestiment?: boolean;
 }
 
 export function Filter({
@@ -18,6 +20,7 @@ export function Filter({
   actualMonth,
   disabledFunnel = true,
   handleOpenModalFilter,
+  isInvestiment,
 }: FilterProps) {
   return (
     <>
@@ -40,6 +43,7 @@ export function Filter({
                   isActive={isActive}
                   month={month}
                   index={monthIndex}
+                  isInvestiment={isInvestiment}
                 />
               )}
             </SwiperSlide>
@@ -49,7 +53,10 @@ export function Filter({
         {disabledFunnel && (
           <div className="flex flex-1 justify-end">
             <Funnel
-              className="ml-8 cursor-pointer text-secondary dark:text-secondaryDark"
+              className={cn(
+                'ml-8 cursor-pointer text-secondary dark:text-secondaryDark',
+                isInvestiment && 'text-primaryDark dark:text-primary',
+              )}
               size={26}
               onClick={handleOpenModalFilter}
             />

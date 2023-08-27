@@ -12,6 +12,8 @@ import unionpayCardIcon from 'assets/cc/unionpay.svg';
 import visaCardIcon from 'assets/cc/visa.svg';
 import creditCardType from 'credit-card-type';
 
+import { cn } from 'utils/cn';
+
 interface CreditCardProps {
   creditNumber: string;
   cardName?: string;
@@ -25,6 +27,7 @@ interface CreditCardProps {
   maturity?: number;
   closure?: number;
   visible?: boolean;
+  className?: string;
 }
 
 function iconCreditCard(creditCardType: string) {
@@ -67,6 +70,7 @@ export function CreditCard({
   maturity,
   closure,
   visible = true,
+  className,
 }: CreditCardProps) {
   let maturityDate = `${maturity}/${
     new Date().getMonth() + 1
@@ -103,18 +107,21 @@ export function CreditCard({
         )}
 
         <div
-          className={`relative m-auto h-56 w-72 min-w-[340px] transform snap-center rounded-xl text-white shadow-2xl transition-transform sm:w-96`}
+          className={cn(
+            'relative m-auto h-56 w-72 min-w-[340px] transform snap-center rounded-xl text-white shadow-2xl transition-transform sm:w-96',
+            create ? 'border-2 border-dashed border-white' : 'border-none',
+            className,
+          )}
           style={{
             backgroundColor: create ? '#262d3d' : bgColor,
             color: textColor,
-            border: create ? '2.5px dashed #fff' : 'none',
           }}
         >
           <div
-            className="absolute top-8 w-full px-8"
-            style={{
-              filter: create ? 'blur(3px)' : 'none',
-            }}
+            className={cn(
+              'absolute top-8 w-full px-8',
+              create ? 'blur-sm' : '',
+            )}
           >
             <div className="flex justify-between">
               <div className="">
@@ -144,9 +151,10 @@ export function CreditCard({
                     Limite atual
                   </p>
                   <p
-                    className={`text-sm font-bold tracking-wider ${
-                      visible && 'select-none blur-md'
-                    }`}
+                    className={cn(
+                      'text-sm font-bold tracking-wider',
+                      visible && 'select-none blur-md',
+                    )}
                     style={{ color: textColor }}
                   >
                     {limit}

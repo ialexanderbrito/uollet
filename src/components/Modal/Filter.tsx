@@ -1,43 +1,21 @@
 import { ArrowLeft, ArrowRight } from '@phosphor-icons/react';
 
-// import { category } from 'utils/category';
-
-// import { useModal } from './useModal';
+import { cn } from 'utils/cn';
 
 interface ModalFilterProps {
   selectedYear: number;
   handleChangeYear: (step: number) => void;
+  isInvestiment?: boolean;
 }
 
 export function ModalFilter({
   selectedYear,
   handleChangeYear,
+  isInvestiment,
 }: ModalFilterProps) {
-  // const { selectedCategory, setSelectedCategory } = useModal();
-
   return (
     <>
       <div className="mt-2 flex flex-col items-center justify-center gap-2">
-        {/* <div className="grid grid-cols-3 gap-2">
-          {category.map((item) => (
-            <button
-              type="button"
-              className={`flex h-10 w-32 items-center justify-center rounded-lg bg-secondary text-sm text-white dark:bg-secondaryDark ${
-                selectedCategory === item.name ? 'opacity-100' : 'opacity-50'
-              }`}
-              onClick={() => {
-                setSelectedCategory(item.name);
-
-                if (item.name === selectedCategory) {
-                  setSelectedCategory('');
-                }
-              }}
-            >
-              {item.name}
-            </button>
-          ))}
-        </div> */}
-
         <span className="mt-2 text-text dark:text-textDark">
           {selectedYear === new Date().getFullYear()
             ? 'Ano atual'
@@ -45,13 +23,19 @@ export function ModalFilter({
         </span>
         <div className="flex w-52 items-center justify-between font-bold text-text dark:text-textDark">
           <ArrowLeft
-            className="cursor-pointer text-secondary dark:text-secondaryDark"
+            className={cn(
+              'cursor-pointer text-secondary dark:text-secondaryDark',
+              isInvestiment && 'text-primaryDark dark:text-primary',
+            )}
             size={28}
             onClick={() => handleChangeYear?.(-1)}
           />
           {selectedYear}
           <ArrowRight
-            className="cursor-pointer text-secondary dark:text-secondaryDark"
+            className={cn(
+              'cursor-pointer text-secondary dark:text-secondaryDark',
+              isInvestiment && 'text-primaryDark dark:text-primary',
+            )}
             size={28}
             onClick={() => handleChangeYear?.(+1)}
           />

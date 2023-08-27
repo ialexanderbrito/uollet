@@ -1,21 +1,31 @@
 import { useSwiper } from 'swiper/react';
 
+import { cn } from 'utils/cn';
+
 interface SliderOptionProps {
   isActive: boolean;
   month: string;
   index: number;
+  isInvestiment?: boolean;
 }
 
-export function SliderOption({ isActive, month, index }: SliderOptionProps) {
+export function SliderOption({
+  isActive,
+  month,
+  index,
+  isInvestiment,
+}: SliderOptionProps) {
   const swiper = useSwiper();
 
   return (
     <button
-      className={`h-12 w-full rounded-full text-sm font-medium tracking-[-0.5px] transition-colors ${
+      className={cn(
+        'h-12 w-full rounded-full text-sm font-medium tracking-[-0.5px] transition-colors',
         isActive
           ? 'bg-primary text-white dark:bg-primaryDark'
-          : 'bg-backgroundCard text-gray-800 dark:bg-backgroundCardDark dark:text-textDark'
-      }`}
+          : 'bg-backgroundCard text-gray-800 dark:bg-backgroundCardDark dark:text-textDark',
+        isInvestiment && isActive && 'bg-primaryDark dark:bg-primary',
+      )}
       onClick={() => {
         swiper.slideTo(index);
       }}

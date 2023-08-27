@@ -2,23 +2,31 @@ import { Link } from 'react-router-dom';
 
 import {
   House,
-  CreditCard,
   Coins,
   Wallet,
   ChartPie,
+  ChartLine,
 } from '@phosphor-icons/react';
 
 import { cn } from 'utils/cn';
 
 import { useTheme } from 'contexts/Theme';
 
-export function BottomNavigator() {
+interface BottomNavigatorProps {
+  isInvestiment?: boolean;
+}
+
+export function BottomNavigator({ isInvestiment }: BottomNavigatorProps) {
   const { theme } = useTheme();
   function isActive(path: string) {
     return window.location.pathname === path;
   }
 
   function darkColorIcon(link: string) {
+    if (isInvestiment && isActive(link)) {
+      return '#3d24a2';
+    }
+
     if (isActive(link)) {
       return '#ff872c';
     }
@@ -45,6 +53,9 @@ export function BottomNavigator() {
             'flex w-full items-center justify-center gap-2 pb-1 pt-2 hover:text-secondary focus:text-secondary',
             isActive('/') &&
               'h-16 rounded-full bg-secondary/10 text-secondary dark:bg-secondaryDark/10',
+            isInvestiment &&
+              isActive('/') &&
+              'h-16 rounded-full bg-primary/10 text-primary hover:text-primary focus:text-primary dark:bg-primaryDark/10',
           )}
         >
           <House
@@ -64,6 +75,9 @@ export function BottomNavigator() {
             'flex w-full items-center justify-center gap-2 pb-1 pt-2 hover:text-secondary focus:text-secondary',
             isActive('/wallet') &&
               'h-16 rounded-full bg-secondary/10 text-secondary dark:bg-secondaryDark/10',
+            isInvestiment &&
+              isActive('/wallet') &&
+              'h-16 rounded-full bg-primary/10 text-primary hover:text-primary focus:text-primary dark:bg-primaryDark/10',
           )}
         >
           <Wallet
@@ -83,6 +97,9 @@ export function BottomNavigator() {
             'flex w-full items-center justify-center gap-2 pb-1 pt-2 hover:text-secondary focus:text-secondary',
             isActive('/register') &&
               'h-16 rounded-full bg-secondary/10 text-secondary dark:bg-secondaryDark/10',
+            isInvestiment &&
+              isActive('/register') &&
+              'h-16 rounded-full bg-primary/10 text-primary hover:text-primary focus:text-primary dark:bg-primaryDark/10',
           )}
         >
           <Coins
@@ -97,21 +114,24 @@ export function BottomNavigator() {
         </Link>
 
         <Link
-          to="/cards"
+          to="/investiments"
           className={cn(
             'flex w-full items-center justify-center gap-2 pb-1 pt-2 hover:text-secondary focus:text-secondary',
-            isActive('/cards') &&
+            isActive('/investiments') &&
               'h-16 rounded-full bg-secondary/10 text-secondary dark:bg-secondaryDark/10',
+            isInvestiment &&
+              isActive('/investiments') &&
+              'h-16 rounded-full bg-primary/10 text-primary hover:text-primary focus:text-primary dark:bg-primaryDark/10',
           )}
         >
-          <CreditCard
+          <ChartLine
             size={25}
             className="inline-block"
-            color={darkColorIcon('/cards')}
-            weight={isActive('/cards') ? 'fill' : 'light'}
+            color={darkColorIcon('/investiments')}
+            weight={isActive('/investiments') ? 'fill' : 'light'}
           />
           <span className="tab tab-explore hidden text-sm sm:block">
-            Cartões
+            Investimento
           </span>
         </Link>
 
@@ -121,6 +141,9 @@ export function BottomNavigator() {
             'flex w-full items-center justify-center gap-2 pb-1 pt-2 hover:text-secondary focus:text-secondary',
             isActive('/resume') &&
               'h-16 rounded-full bg-secondary/10 text-secondary dark:bg-secondaryDark/10',
+            isInvestiment &&
+              isActive('/resume') &&
+              'h-16 rounded-full bg-primary/10 text-primary hover:text-primary focus:text-primary dark:bg-primaryDark/10',
           )}
         >
           <ChartPie
