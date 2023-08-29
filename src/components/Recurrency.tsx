@@ -33,11 +33,8 @@ export function Recurrency({
   return (
     <>
       {isParcel && (
-        <div className="mt-2 h-[51vh] rounded-t-3xl bg-backgroundCard dark:bg-backgroundCardDark sm:h-[41.5vh]">
+        <div className="mt-2 rounded-t-3xl bg-backgroundCard dark:bg-backgroundCardDark">
           <div className="flex flex-col items-center justify-center gap-4 rounded-t-3xl bg-backgroundCard dark:bg-backgroundCardDark">
-            <p className="ml-4 mt-6 text-lg font-normal text-title dark:text-titleDark">
-              A compra é parcelada?
-            </p>
             <div className="flex w-11/12 flex-row items-center justify-evenly gap-4">
               <RadioGroup
                 onChange={(value) => {
@@ -102,11 +99,8 @@ export function Recurrency({
       )}
 
       {isRecurring && (
-        <div className="mt-2 h-[51vh] rounded-t-3xl bg-backgroundCard dark:bg-backgroundCardDark sm:h-[48vh]">
+        <div className="mt-2 rounded-t-3xl bg-backgroundCard dark:bg-backgroundCardDark">
           <div className="flex flex-col items-center justify-center gap-4 rounded-t-3xl bg-backgroundCard dark:bg-backgroundCardDark">
-            <p className="ml-4 mt-6 text-lg font-normal text-title dark:text-titleDark">
-              A receita se repete a cada:
-            </p>
             <div className="flex w-full flex-row items-center justify-evenly gap-4">
               <RadioGroup
                 onChange={(value) => {
