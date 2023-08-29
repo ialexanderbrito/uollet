@@ -114,21 +114,21 @@ export function BottomNavigator({ isInvestiment }: BottomNavigatorProps) {
         </Link>
 
         <Link
-          to="/investiments"
+          to="/investments"
           className={cn(
             'flex w-full items-center justify-center gap-2 pb-1 pt-2 hover:text-secondary focus:text-secondary',
-            isActive('/investiments') &&
+            isActive('/investments') &&
               'h-16 rounded-full bg-secondary/10 text-secondary dark:bg-secondaryDark/10',
             isInvestiment &&
-              isActive('/investiments') &&
+              isActive('/investments') &&
               'h-16 rounded-full bg-primary/10 text-primary hover:text-primary focus:text-primary dark:bg-primaryDark/10',
           )}
         >
           <ChartLine
             size={25}
             className="inline-block"
-            color={darkColorIcon('/investiments')}
-            weight={isActive('/investiments') ? 'fill' : 'light'}
+            color={darkColorIcon('/investments')}
+            weight={isActive('/investments') ? 'fill' : 'light'}
           />
           <span className="tab tab-explore hidden text-sm sm:block">
             Investimento

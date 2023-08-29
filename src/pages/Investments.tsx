@@ -23,9 +23,9 @@ import { formatCurrency } from 'utils/formatCurrency';
 import { useAuth } from 'contexts/Auth';
 import { useTheme } from 'contexts/Theme';
 
-import { useInvestiments } from 'hooks/useInvestiments';
+import { useInvestments } from 'hooks/useInvestments';
 
-export function Investiments() {
+export function Investments() {
   const navigate = useNavigate();
   const { theme } = useTheme();
   const { user, areValueVisible, toggleValueVisibility } = useAuth();
@@ -34,7 +34,7 @@ export function Investiments() {
     useModal();
 
   const {
-    investiments,
+    investments,
     loading,
     totalIncome,
     allTotalInvestiments,
@@ -56,7 +56,7 @@ export function Investiments() {
     handleOpenModalFilter,
     filterTransactionsByYear,
     getTransactionsValuesTotal,
-  } = useInvestiments();
+  } = useInvestments();
 
   const [idTransaction, setIdTransaction] = useState(0);
 
@@ -146,7 +146,7 @@ export function Investiments() {
             />
 
             <ul className="flex flex-col gap-4">
-              {investiments.length === 0 && (
+              {investments.length === 0 && (
                 <div className="mt-4 flex flex-col items-center justify-center">
                   <img src={emptyImg} alt="Empty" className="mb-2 w-28" />
                   <p className="text-center text-lg font-medium text-black dark:text-textDark">
@@ -154,7 +154,7 @@ export function Investiments() {
                   </p>
                 </div>
               )}
-              {investiments.map((item: FinancesProps, index) => (
+              {investments.map((item: FinancesProps, index) => (
                 <>
                   <CardList
                     key={item.id}
@@ -162,7 +162,7 @@ export function Investiments() {
                     value={item.value}
                     category={item.category}
                     date={item.date}
-                    className={index === investiments.length - 1 ? 'mb-10' : ''}
+                    className={index === investments.length - 1 ? 'mb-10' : ''}
                     income={item.type === 'income'}
                     isInvestiment
                     onClick={() => {

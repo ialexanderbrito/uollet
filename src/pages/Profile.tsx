@@ -38,7 +38,7 @@ import { verifyLoginLastSevenDays } from 'utils/verifyLoginLastSevenDays';
 import { useAuth } from 'contexts/Auth';
 import { useTheme } from 'contexts/Theme';
 
-import { useInvestiments } from 'hooks/useInvestiments';
+import { useInvestments } from 'hooks/useInvestments';
 import { useProfile } from 'hooks/useProfile';
 import { useTransactions } from 'hooks/useTransactions';
 
@@ -59,7 +59,7 @@ export function Profile() {
   const {
     allTotalInvestiments,
     getTransactionsValuesTotal: getTransactionsValuesTotalInvestiments,
-  } = useInvestiments();
+  } = useInvestments();
 
   const [openModalSuport, setOpenModalSuport] = useState(false);
   const [openModalAbout, setOpenModalAbout] = useState(false);

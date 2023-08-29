@@ -6,7 +6,7 @@ import { Error } from 'pages/Error';
 import { Export } from 'pages/Export';
 import { Finances } from 'pages/Finances';
 import { Import } from 'pages/Import';
-import { Investiments } from 'pages/Investiments';
+import { Investments } from 'pages/Investments';
 import { MyProfile } from 'pages/MyProfile';
 import { Otp } from 'pages/Otp';
 import { Profile } from 'pages/Profile';
@@ -44,7 +44,7 @@ export function PrivateRoutes() {
       <Route path="/export" element={<Export />} />
       <Route path="/profile" element={<Profile />} />
       <Route path="/profile/:id" element={<MyProfile />} />
-      <Route path="/investiments" element={<Investiments />} />
+      <Route path="/investments" element={<Investments />} />
       <Route path="/cards" element={<Cards />} />
       <Route path="/wallet" element={<Wallet />} />
       <Route path="/credit-card" element={<CreditCard />} />

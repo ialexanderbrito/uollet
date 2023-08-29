@@ -9,13 +9,13 @@ import { supabase } from 'services/supabase';
 
 import { useResume } from './useResume';
 
-export function useInvestiments() {
+export function useInvestments() {
   const { toast } = useToast();
   const { user } = useAuth();
   const { searchParams } = useResume();
   const { selectedYear } = useModal();
 
-  const [investiments, setInvestiments] = useState<any[]>([]);
+  const [investments, setInvestments] = useState<any[]>([]);
   const [allTotalInvestiments, setAllTotalInvestiments] = useState(0);
   const [totalIncome, setTotalIncome] = useState(0);
   const [totalOutcome, setTotalOutcome] = useState(0);
@@ -172,7 +172,7 @@ export function useInvestiments() {
         (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
       );
 
-      setInvestiments(newData);
+      setInvestments(newData);
       setLoading(false);
     } catch (error) {
       toast.error('Erro ao buscar transações', { id: 'error' });
@@ -207,7 +207,7 @@ export function useInvestiments() {
         (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
       );
 
-      setInvestiments(newData);
+      setInvestments(newData);
       setLoading(false);
     } catch (error) {
       toast.error('Erro ao buscar transações', { id: 'error' });
@@ -291,13 +291,13 @@ export function useInvestiments() {
         .filter((item) => item.type === 'outcome')
         .reduce((acc, curr) => acc + curr.value, 0);
 
-      setInvestiments(newData);
+      setInvestments(newData);
       setTotalIncome(totalIncome);
       setTotalOutcome(totalOutcome);
 
       if (!data) return;
 
-      setInvestiments(newData);
+      setInvestments(newData);
       setLoading(false);
     } catch (error) {
       toast.error('Erro ao buscar transações', { id: 'error' });
@@ -311,7 +311,7 @@ export function useInvestiments() {
     month: number,
     endOfDays: number,
   ) {
-    const transaction = investiments.find(
+    const transaction = investments.find(
       (transaction) => transaction.id === id,
     );
 
@@ -418,7 +418,7 @@ export function useInvestiments() {
 
       if (!data) return;
 
-      setInvestiments(data);
+      setInvestments(data);
     } catch (error) {
       toast.error('Erro ao pesquisar transações', { id: 'error' });
     }
@@ -446,7 +446,7 @@ export function useInvestiments() {
         (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
       );
 
-      setInvestiments(newData);
+      setInvestments(newData);
       handleCloseModalFilter();
       getTransactionsValues(year, month, lastDayOfTheMonth);
       setLoading(false);
@@ -492,7 +492,7 @@ export function useInvestiments() {
   }
 
   return {
-    investiments,
+    investments,
     loading,
     setLoading,
     totalIncome,

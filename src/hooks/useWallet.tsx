@@ -111,7 +111,7 @@ export function useWallet() {
       return <Bank className="text-white" width={24} height={24} />;
     }
 
-    if (category === 'investiments') {
+    if (category === 'investments') {
       return <ChartLine className="text-white" width={24} height={24} />;
     }
 

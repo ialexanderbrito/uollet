@@ -9,7 +9,6 @@ import { ThemeProvider } from 'contexts/Theme';
 import { ToastProvider } from 'contexts/Toast';
 
 import 'react-tooltip/dist/react-tooltip.css';
-import 'react-spring-bottom-sheet/dist/style.css';
 import 'swiper/css';
 
 export function App() {

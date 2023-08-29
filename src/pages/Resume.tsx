@@ -22,7 +22,7 @@ import { useAuth } from 'contexts/Auth';
 import { useResume } from 'hooks/useResume';
 
 import { Finances } from './Finances';
-import { Investiments } from './Investiments';
+import { Investments } from './Investments';
 
 ChartJS.register(ArcElement, Tooltip, ChartDataLabels);
 
@@ -79,7 +79,7 @@ export function Resume() {
   const categoryParamsIncludes = categoryParams?.includes('Invest');
 
   if (categoryParamsIncludes && typeParams) {
-    return <Investiments />;
+    return <Investments />;
   }
 
   if (typeParams && categoryParams) {
