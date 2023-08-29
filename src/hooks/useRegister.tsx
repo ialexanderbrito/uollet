@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
+import { format } from 'date-fns';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
@@ -86,7 +87,7 @@ export function useRegister() {
         title: `${formik.values.title} ${i + 1}/${parcelas}`,
         value: valorParcela,
         category: formik.values.category.name,
-        date: novaData,
+        date: format(new Date(novaData), 'yyyy-MM-dd'),
         type: formik.values.type,
         user_id: storageUser?.id,
       });
@@ -105,16 +106,6 @@ export function useRegister() {
     }
 
     return false;
-  }
-
-  function verifyOpenBottomSheet(category: string) {
-    const categoryExists = categories.find((item) => item.name === category);
-
-    const isCreditCard = category.startsWith('Cartão');
-
-    if (categoryExists && isCreditCard) {
-      setIsRecurring(true);
-    }
   }
 
   const formik = useFormik({
@@ -177,7 +168,7 @@ export function useRegister() {
                 ? values.value
                 : convertVirgulaToPonto(values.value),
               category: values.category.name,
-              date: values.date,
+              date: format(new Date(values.date), 'yyyy-MM-dd'),
               type: values.type,
               user_id: storageUser?.id,
             },
@@ -195,7 +186,7 @@ export function useRegister() {
                     ? values.value
                     : convertVirgulaToPonto(values.value),
                   category: values.category.name,
-                  date: values.date,
+                  date: format(new Date(values.date), 'yyyy-MM-dd'),
                   type: values.type,
                 },
               ]);
@@ -231,7 +222,7 @@ export function useRegister() {
                 ? values.value
                 : convertVirgulaToPonto(values.value),
               category: values.category.name,
-              date: values.date,
+              date: format(new Date(values.date), 'yyyy-MM-dd'),
               type: values.type,
               user_id: storageUser?.id,
             })
@@ -251,7 +242,7 @@ export function useRegister() {
                     ? values.value
                     : convertVirgulaToPonto(values.value),
                   category: values.category.name,
-                  date: values.date,
+                  date: format(new Date(values.date), 'yyyy-MM-dd'),
                   type: values.type,
                 },
               ])
@@ -374,6 +365,5 @@ export function useRegister() {
     setOpenBottomSheet,
     categories,
     isCategoryCreditCard,
-    verifyOpenBottomSheet,
   };
 }
