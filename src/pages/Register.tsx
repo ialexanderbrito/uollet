@@ -1,6 +1,5 @@
 import CurrencyInput from 'react-currency-input-field';
 import { useParams } from 'react-router-dom';
-import { BottomSheet } from 'react-spring-bottom-sheet';
 
 import { Switch } from '@headlessui/react';
 import incomeIcon from 'assets/income.svg';
@@ -8,7 +7,9 @@ import outcomeIcon from 'assets/outcome.svg';
 
 import { Autocomplete } from 'components/Autocomplete';
 import { BottomNavigator } from 'components/BottomNavigator';
+import { DatePickerInput } from 'components/DatePickerInput';
 import { Header } from 'components/Header';
+import { MyDialog } from 'components/Modal';
 import { Recurrency } from 'components/Recurrency';
 
 import { useRegister } from 'hooks/useRegister';
@@ -23,7 +24,6 @@ export function Register() {
     setOpenBottomSheet,
     categories,
     isCategoryCreditCard,
-    verifyOpenBottomSheet,
   } = useRegister();
 
   return (
@@ -116,15 +116,13 @@ export function Register() {
                 : ''
             }`}
           />
-          <input
-            type="date"
-            className={`h-14 w-full rounded-lg bg-white p-4 text-title outline-none dark:bg-backgroundCardDark dark:text-titleDark ${
-              formik.errors.date && formik.touched.date
-                ? 'border-[1.5px] border-red-500'
-                : ''
-            }`}
-            placeholder="DD/MM/AAAA"
-            {...formik.getFieldProps('date')}
+
+          <DatePickerInput
+            onChange={(date) => {
+              formik.setFieldValue('date', date);
+            }}
+            value={formik.values.date}
+            error={formik.errors.date && formik.touched.date}
           />
 
           <div className="switch flex w-full flex-row items-center justify-end">
@@ -141,11 +139,10 @@ export function Register() {
                 } switch inline-block h-4 w-4 transform rounded-full bg-white`}
               />
             </Switch>
-
             <span
               className="switch ml-2 cursor-pointer text-sm text-text"
               onClick={() => {
-                setOpenBottomSheet(!openBottomSheet);
+                setOpenBottomSheet(true);
               }}
             >
               {!isCategoryCreditCard(formik.values.category.name)
@@ -154,27 +151,24 @@ export function Register() {
             </span>
           </div>
 
-          <BottomSheet
-            open={openBottomSheet}
-            defaultSnap={0}
-            onDismiss={() => {
-              verifyOpenBottomSheet(formik.values.category.name);
+          <MyDialog
+            isOpen={openBottomSheet}
+            closeModal={() => {
               setOpenBottomSheet(false);
             }}
-            snapPoints={({ maxHeight }) =>
-              isCategoryCreditCard(formik.values.category.name)
-                ? [maxHeight - 480]
-                : [maxHeight - 540]
+            title={
+              !isCategoryCreditCard(formik.values.category.name)
+                ? 'Quantas parcelas?'
+                : 'A receita se repete a cada:'
             }
+            buttonPrimary
           >
             {!isCategoryCreditCard(formik.values.category.name) ? (
-              <>
-                <Recurrency
-                  formik={formik}
-                  setOpenBottomSheet={setOpenBottomSheet}
-                  isParcel={true}
-                />
-              </>
+              <Recurrency
+                formik={formik}
+                setOpenBottomSheet={setOpenBottomSheet}
+                isParcel={true}
+              />
             ) : (
               <Recurrency
                 formik={formik}
@@ -182,7 +176,8 @@ export function Register() {
                 isRecurring={true}
               />
             )}
-          </BottomSheet>
+          </MyDialog>
+
           <div className="flex flex-col items-center justify-end gap-4">
             <button
               type="submit"
