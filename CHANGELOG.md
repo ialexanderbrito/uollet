@@ -1,3 +1,18 @@
+# [2.4.0](https://github.com/ialexanderbrito/finance/compare/v2.3.0...v2.4.0) (2023-08-29)
+
+
+### Bug Fixes
+
+* checkspell investments ([1543139](https://github.com/ialexanderbrito/finance/commit/1543139e0e30862b3500f6ff35a03dd74183efd6))
+* format date post request ([b13f0a1](https://github.com/ialexanderbrito/finance/commit/b13f0a1d1e515ea863321bfbf9a950ff85c84529))
+
+
+### Features
+
+* add new component date picker input ([4fee318](https://github.com/ialexanderbrito/finance/commit/4fee318296781de372dffdbd195ab4fcf13ec00b))
+* add new input date picker and modal recurrency ([0dace5c](https://github.com/ialexanderbrito/finance/commit/0dace5c1e67a768ed41eddbeffe39c0eec0d60cd))
+* remove react spring bottom sheet ([51a8d22](https://github.com/ialexanderbrito/finance/commit/51a8d2238efe50869a09f863064fd7486f088ad1))
+
 # [2.3.0](https://github.com/ialexanderbrito/finance/compare/v2.2.0...v2.3.0) (2023-08-27)
 
 
