@@ -41,7 +41,6 @@
     "react-hot-toast": "^2.4.1",
     "react-markdown": "^8.0.7",
     "react-router-dom": "^6.13.0",
-    "react-spring-bottom-sheet": "^3.4.1",
     "react-tooltip": "^5.14.0",
     "react-web-share": "^2.0.2",
     "rehype-highlight": "^6.0.0",
