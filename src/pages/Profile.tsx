@@ -85,7 +85,7 @@ export function Profile() {
         <div className="flex w-full flex-col items-center justify-center bg-background dark:bg-backgroundDark">
           <Header title="Minha conta" />
 
-          <div className="flex w-full flex-col gap-4 p-4">
+          <div className="flex min-h-[95vh] w-full flex-col gap-4 p-4">
             <Link
               to={`/profile/${user?.id}`}
               className="flex h-16 cursor-pointer flex-row items-center justify-start gap-4 rounded-lg bg-backgroundCard dark:bg-backgroundCardDark"
