@@ -73,7 +73,7 @@ export function Header({
                   src={user?.user_metadata.avatar_url || defaultAvatar}
                   alt={user?.user_metadata.full_name}
                   className="ml-4 h-12 w-12 cursor-pointer rounded-lg object-cover"
-                  onClick={() => navigate(`/profile/${user?.id}`)}
+                  onClick={() => navigate(`/profile`)}
                 />
                 <p className="text-sm font-medium text-white">
                   {greetings()}, <br />
