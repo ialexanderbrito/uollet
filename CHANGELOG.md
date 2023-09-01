@@ -1,3 +1,10 @@
+# [2.6.0](https://github.com/ialexanderbrito/finance/compare/v2.5.0...v2.6.0) (2023-09-01)
+
+
+### Features
+
+* add visible values in profile page ([b8b5b4f](https://github.com/ialexanderbrito/finance/commit/b8b5b4f4d08aaf3d4d77fd8a46383e454dc0dd6f))
+
 # [2.5.0](https://github.com/ialexanderbrito/finance/compare/v2.4.0...v2.5.0) (2023-09-01)
 
 
