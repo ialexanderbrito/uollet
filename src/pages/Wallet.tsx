@@ -1,5 +1,6 @@
 import emptyImg from 'assets/empty.svg';
 
+import { Alert } from 'components/Alert';
 import { BottomNavigator } from 'components/BottomNavigator';
 import { Header } from 'components/Header';
 import { Loading } from 'components/Loading';
@@ -28,6 +29,12 @@ export function Wallet() {
           />
 
           <div className="flex min-h-screen w-full flex-col items-center justify-start gap-3 p-4">
+            <Alert
+              title="Atenção!"
+              description="Carteiras com saldo zerado ou negativo não serão exibidas."
+              variant="warning"
+              alertName="wallet"
+            />
             {wallets.length === 0 ? (
               <div className="mt-4 flex flex-col items-center justify-center">
                 <img src={emptyImg} alt="Empty" className="mb-2 w-28" />
