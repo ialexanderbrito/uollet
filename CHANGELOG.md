@@ -1,3 +1,16 @@
+# [2.5.0](https://github.com/ialexanderbrito/finance/compare/v2.4.0...v2.5.0) (2023-09-01)
+
+
+### Bug Fixes
+
+* navigate profile ([fdbc0f6](https://github.com/ialexanderbrito/finance/commit/fdbc0f6f993be49d20d3f0db64bcbc4d32af52c4))
+
+
+### Features
+
+* add alert in page wallet ([0063da7](https://github.com/ialexanderbrito/finance/commit/0063da7f8843e739f60437af946c4be29e8484f0))
+* add component alert ([9076ec4](https://github.com/ialexanderbrito/finance/commit/9076ec475f7fb5aa78ee361d4f5c278acb5fb481))
+
 # [2.4.0](https://github.com/ialexanderbrito/finance/compare/v2.3.0...v2.4.0) (2023-08-29)
 
 
