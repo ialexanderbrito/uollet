@@ -23,3 +23,7 @@
     --rsbs-bg: none;
     --rsbs-handle-bg: none;
 }
+
+::selection {
+    @apply bg-primary text-white dark:bg-primaryDark dark:text-white;
+}
