@@ -5,6 +5,8 @@ import { RWebShare } from 'react-web-share';
 
 import {
   CreditCard,
+  Eye,
+  EyeClosed,
   Info,
   Key,
   LockKey,
@@ -45,7 +47,7 @@ import { useTransactions } from 'hooks/useTransactions';
 export function Profile() {
   const navigate = useNavigate();
   const { toggleTheme } = useTheme();
-  const { user, logOut } = useAuth();
+  const { user, logOut, areValueVisible, toggleValueVisibility } = useAuth();
   const { deleteUser } = useProfile();
   const { copyToClipboard } = useModal();
   const {
@@ -143,6 +145,8 @@ export function Profile() {
                     'font-medium ',
                     allTotal + allTotalInvestiments < 0 && 'text-danger',
                     allTotal + allTotalInvestiments > 0 && 'text-success',
+                    areValueVisible &&
+                      'select-none text-title blur-md dark:text-titleDark',
                   )}
                 >
                   {formatCurrency(allTotal + allTotalInvestiments)}
@@ -178,13 +182,26 @@ export function Profile() {
               </RWebShare>
 
               <Banner
-                title="Adicione seus cartões de crédito!"
+                title="Gerencie suas compras feitas no cartão de crédito!"
                 img={creditCardImg}
-                onClick={() => navigate('/credit-card')}
+                onClick={() => navigate('/cards')}
                 className="bg-[#01e59a]"
               />
             </div>
             <div className="mt-4 flex flex-col items-start justify-center gap-4 text-title dark:text-titleDark">
+              <Submenu
+                onClick={() => toggleValueVisibility()}
+                icon={
+                  areValueVisible ? (
+                    <EyeClosed size={20} weight="light" />
+                  ) : (
+                    <Eye size={20} weight="light" />
+                  )
+                }
+                title={areValueVisible ? 'Mostrar saldo' : 'Ocultar saldo'}
+                divider
+              />
+
               <Submenu
                 icon={<CreditCard size={20} weight="light" />}
                 title="Cartões de crédito"
