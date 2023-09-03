@@ -7,6 +7,7 @@ import { Export } from 'pages/Export';
 import { Finances } from 'pages/Finances';
 import { Import } from 'pages/Import';
 import { Investments } from 'pages/Investments';
+import { Login } from 'pages/Login';
 import { MyProfile } from 'pages/MyProfile';
 import { Otp } from 'pages/Otp';
 import { Profile } from 'pages/Profile';
@@ -18,8 +19,16 @@ import { Wallet } from 'pages/Wallet';
 import { useAuth } from 'contexts/Auth';
 
 export function PrivateRoutes() {
-  const { hasOtp } = useAuth();
+  const { hasOtp, signed } = useAuth();
   const hasOtpStorage = sessionStorage.getItem('@finance:hasOtp');
+
+  if (!signed) {
+    return (
+      <Routes>
+        <Route path="/" element={<Login />} />
+      </Routes>
+    );
+  }
 
   function handleOtp() {
     if (!hasOtpStorage && !hasOtp) {
@@ -36,6 +45,7 @@ export function PrivateRoutes() {
   return (
     <Routes>
       {handleOtp()}
+      <Route path="/" element={<Login />} />
       <Route path="/otp" element={<Otp />} />
       <Route path="/register" element={<Register />} />
       <Route path="/edit/:id" element={<Register />} />
