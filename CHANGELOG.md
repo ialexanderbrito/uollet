@@ -1,3 +1,14 @@
+# [2.7.0](https://github.com/ialexanderbrito/finance/compare/v2.6.0...v2.7.0) (2023-09-03)
+
+
+### Features
+
+* add landing page in routes ([a20c4df](https://github.com/ialexanderbrito/finance/commit/a20c4df413422d245a2f433024f5d62117603d74))
+* add new assets ([e16b032](https://github.com/ialexanderbrito/finance/commit/e16b032e2f380efe9ce89155f851461df00c1578))
+* add new config tailwindcss ([2971657](https://github.com/ialexanderbrito/finance/commit/29716579b9492bd41b92eedbcdfd502920058f56))
+* add new page landing page ([d2c8926](https://github.com/ialexanderbrito/finance/commit/d2c8926993fa9c083b2425c495d95e9fe2b89e32))
+* add subdomain config ([cbda980](https://github.com/ialexanderbrito/finance/commit/cbda980191bc0e6a72cf63de8a51a77c6e8b1089))
+
 # [2.6.0](https://github.com/ialexanderbrito/finance/compare/v2.5.0...v2.6.0) (2023-09-01)
 
 
