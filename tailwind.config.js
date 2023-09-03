@@ -26,6 +26,11 @@ module.exports = {
       zIndex: {
         '100': '100',
       },
+      margin: {
+        '0-auto': '0 auto',
+        '0-auto-8': '0px auto 4.6rem',
+        '2-auto': '2rem auto',
+      },
     },
   },
   plugins: [
