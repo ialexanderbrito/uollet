@@ -1,7 +1,8 @@
 {
+  "lang": "pt-BR",
   "theme_color": "#5636d3",
   "background_color": "#5636d3",
-  "description": "Sistema para gerenciamento de gastos.",
+  "description": "Gerencie seus gastos com facilidade usando o Finances, o aplicativo de controle financeiro desenvolvido por Alexander Brito.",
   "dir": "ltr",
   "display": "standalone",
   "name": "Finances",
@@ -10,9 +11,9 @@
   "short_name": "Finances",
   "start_url": "/",
   "categories": [
-    "business",
-    "finance",
-    "lifestyle"
+    "Finance",
+    "Business",
+    "Personal Finance"
   ],
   "icons": [
     {
@@ -20,7 +21,6 @@
       "sizes": "48x48",
       "type": "image/png",
       "purpose": "any"
-
     },
     {
       "src": "android-launchericon-72-72.png",
@@ -111,6 +111,5 @@
       "type": "image/png"
     }
   ],
-  "lang": "pt",
   "prefer_related_applications": true
 }
