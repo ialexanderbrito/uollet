@@ -41,7 +41,7 @@ export function BottomNavigator({ isInvestiment }: BottomNavigatorProps) {
   return (
     <section
       id="bottom-navigation"
-      className="fixed bottom-5 z-10 w-80 rounded-full bg-backgroundCard shadow-lg dark:bg-backgroundCardDark dark:shadow-xl sm:w-[40rem]"
+      className="fixed bottom-5 z-10 w-80 rounded-full bg-backgroundCard opacity-95 shadow-lg dark:bg-backgroundCardDark dark:shadow-xl sm:w-[40rem]"
     >
       <div
         id="tabs"
