@@ -11,9 +11,11 @@ interface AutocompleteProps {
   setSelected: (value: any) => void;
   options: {
     name: string;
-    icon: string;
+    icon?: string;
+    code?: string;
   }[];
   className?: string;
+  placeholder?: string;
 }
 
 interface Option {
@@ -25,6 +27,7 @@ export function Autocomplete({
   setSelected,
   options,
   className,
+  placeholder = 'Digite uma categoria: Ex: Bradesco',
 }: AutocompleteProps) {
   const [query, setQuery] = useState('');
 
@@ -48,7 +51,7 @@ export function Autocomplete({
             className="w-full border-none bg-backgroundCard py-2 pl-3 pr-10 text-sm leading-5 text-title focus:ring-0 dark:bg-backgroundCardDark dark:text-titleDark"
             displayValue={(value: Option) => value.name}
             onChange={(event) => setQuery(event.target.value)}
-            placeholder="Digite uma categoria: Ex: Bradesco"
+            placeholder={placeholder}
           />
           <Combobox.Button className="absolute inset-y-0 right-0 flex items-center pr-2">
             <CaretUpDown className="h-5 w-5 text-gray-400" aria-hidden="true" />
