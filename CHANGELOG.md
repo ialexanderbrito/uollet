@@ -1,3 +1,38 @@
+# [2.8.0](https://github.com/ialexanderbrito/finance/compare/v2.7.0...v2.8.0) (2023-09-10)
+
+
+### Bug Fixes
+
+* error message yup schema ([e39c0ce](https://github.com/ialexanderbrito/finance/commit/e39c0ce131ded2fc6fcc10bd086786084172b71a))
+* manifest json start url ([7d6c70c](https://github.com/ialexanderbrito/finance/commit/7d6c70c6dd6f3fc002e3fbb9040a190421e1558d))
+* name variable session storage and bugs ([fb7fcea](https://github.com/ialexanderbrito/finance/commit/fb7fcea16f65cbc0c27473155b42f7bd1f7e7c9d))
+* navigate and bugs ([c9ee11f](https://github.com/ialexanderbrito/finance/commit/c9ee11f997e5f6e58646900d2b377f23ebf3388a))
+* variable name in localstorage and sessionstorage ([1bdf269](https://github.com/ialexanderbrito/finance/commit/1bdf269be39047d4b8e6e9f10d2d360c5f5500a2))
+
+
+### Features
+
+* add component calculator ([86c2218](https://github.com/ialexanderbrito/finance/commit/86c22183dfaadfb90cca1a14987454f242b736a1))
+* add component currency converter ([233b292](https://github.com/ialexanderbrito/finance/commit/233b2924d9b793a29c47142d8c08497428150eef))
+* add component input error ([4a75ab3](https://github.com/ialexanderbrito/finance/commit/4a75ab3d66e6236aaad54be010394f6af3036308))
+* add component input error in pages ([a202a3b](https://github.com/ialexanderbrito/finance/commit/a202a3bad0dcd1ed4a184dc68e046d501ef1924a))
+* add component mfa ([ab4c071](https://github.com/ialexanderbrito/finance/commit/ab4c071d05b9b24fa435dcef9f73e9c17914bf91))
+* add config mfa and pin ([6d18543](https://github.com/ialexanderbrito/finance/commit/6d18543c6d9cb0d28e6ab564af4488ea56db5227))
+* add dependency mathjs ([e71047f](https://github.com/ialexanderbrito/finance/commit/e71047ffcc93a523eb16fcdc6e21f21ed334a078))
+* add hook use currency converter ([07f40b2](https://github.com/ialexanderbrito/finance/commit/07f40b2024c00202532d25b35a8dcdb0e5c5b760))
+* add hook use mfa ([8e2d8b5](https://github.com/ialexanderbrito/finance/commit/8e2d8b5dde1877f0ec71bc77d920d32f2639875e))
+* add new component pin ([57383fa](https://github.com/ialexanderbrito/finance/commit/57383fafb9ca9f0eb5f9ece9a5303d493aa95035))
+* add new function has mfa ([edb4e5b](https://github.com/ialexanderbrito/finance/commit/edb4e5b2c615ef5c1e07eb633b9c20ef641108ff))
+* add new interfaces ([f18e6b2](https://github.com/ialexanderbrito/finance/commit/f18e6b2aaca6fcfee8526da0af0d2c0c40e4fe03))
+* add new logo ([d723bf9](https://github.com/ialexanderbrito/finance/commit/d723bf97663ca002e2ff57d28c6b70ed2cd8828a))
+* add new menu and new items ([bc53c3d](https://github.com/ialexanderbrito/finance/commit/bc53c3d34d2dbd62faadccab0a8a159edee06982))
+* add new name oullet ([5f9d251](https://github.com/ialexanderbrito/finance/commit/5f9d25155247a4bb501afb631cffff9000fcef1f))
+* add new options menu ([2fe11e1](https://github.com/ialexanderbrito/finance/commit/2fe11e18c1fe57139ffce4cbaea2e9a627781bae))
+* add option beta submenu ([7225b1d](https://github.com/ialexanderbrito/finance/commit/7225b1dd93296fe6f01c8dd6fa422fb12b55ad6b))
+* add placeholder in autocomplete ([257923c](https://github.com/ialexanderbrito/finance/commit/257923c06c34a5057d97a09fa007cd0bb769714c))
+* add size component modal ([6ccb1ad](https://github.com/ialexanderbrito/finance/commit/6ccb1ad1e7be479ec3a0fec0b040a1dee9ea87b6))
+* add utils coins database ([685617c](https://github.com/ialexanderbrito/finance/commit/685617c8f39434f3b4ea64c2ec3640d32b904f08))
+
 # [2.7.0](https://github.com/ialexanderbrito/finance/compare/v2.6.0...v2.7.0) (2023-09-03)
 
 
