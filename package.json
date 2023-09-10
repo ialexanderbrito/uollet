@@ -29,6 +29,7 @@
     "date-fns": "^2.30.0",
     "formik": "^2.4.3",
     "kbar": "0.1.0-beta.43",
+    "mathjs": "^11.11.0",
     "papaparse": "^5.4.1",
     "react": "^18.2.0",
     "react-auth-code-input": "^3.2.1",
