@@ -10,6 +10,7 @@ interface SubmenuProps {
   arrow?: boolean;
   divider?: boolean;
   switchTheme?: boolean;
+  beta?: boolean;
 }
 
 export function Submenu({
@@ -19,6 +20,7 @@ export function Submenu({
   arrow,
   divider,
   switchTheme,
+  beta,
 }: SubmenuProps) {
   const { theme, toggleTheme } = useTheme();
   return (
@@ -30,6 +32,12 @@ export function Submenu({
         <div className="text-md flex w-full flex-row items-center justify-start gap-2">
           {icon}
           {title}
+
+          {beta && (
+            <p className="rounded-md bg-primary px-1 py-0.5 text-xs text-white dark:bg-primaryDark">
+              beta
+            </p>
+          )}
         </div>
         <div>
           {arrow && (
