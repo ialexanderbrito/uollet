@@ -24,6 +24,7 @@ interface MyDialogProps {
   terms?: boolean;
   deleteAccount?: () => void | Promise<void>;
   isInvestiment?: boolean;
+  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl';
 }
 
 export function MyDialog({
@@ -42,6 +43,7 @@ export function MyDialog({
   terms,
   deleteAccount,
   isInvestiment,
+  size,
 }: MyDialogProps) {
   const { toast } = useToast();
   const {
@@ -81,7 +83,7 @@ export function MyDialog({
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <div className="fixed inset-0 bg-black bg-opacity-25" />
+            <div className="fixed inset-0 bg-black opacity-5" />
           </Transition.Child>
 
           <div className="fixed inset-0 overflow-y-auto">
@@ -96,9 +98,16 @@ export function MyDialog({
                 leaveTo="opacity-0 scale-95"
               >
                 <Dialog.Panel
-                  className={`w-full max-w-md transform overflow-hidden rounded-md bg-white p-6 text-left align-middle shadow-xl transition-all dark:bg-backgroundCardDark ${
-                    about && 'max-w-xs'
-                  }`}
+                  className={cn(
+                    'w-full max-w-md transform overflow-hidden rounded-md bg-white p-6 text-left align-middle shadow-xl transition-all dark:bg-backgroundCardDark',
+                    about && 'max-w-xs',
+                    size === 'xs' && 'max-w-xs',
+                    size === 'sm' && 'max-w-sm',
+                    size === 'md' && 'max-w-md',
+                    size === 'lg' && 'max-w-lg',
+                    size === 'xl' && 'max-w-xl',
+                    size === '2xl' && 'max-w-2xl',
+                  )}
                 >
                   <h3
                     className={`text-lg font-medium leading-6 text-title dark:text-titleDark ${
