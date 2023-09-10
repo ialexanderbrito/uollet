@@ -23,11 +23,11 @@ export function Alert({
 
   function disableAlert() {
     setVisible(false);
-    localStorage.setItem(`@finance:alert${alertName}`, JSON.stringify(false));
+    localStorage.setItem(`@uollet:alert${alertName}`, JSON.stringify(false));
   }
 
-  if (localStorage.getItem(`@finance:alert${alertName}`)) {
-    const alert = JSON.parse(localStorage.getItem('@finance:alert')!);
+  if (localStorage.getItem(`@uollet:alert${alertName}`)) {
+    const alert = JSON.parse(localStorage.getItem('@uollet:alert')!);
 
     if (!alert) {
       return null;

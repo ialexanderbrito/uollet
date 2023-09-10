@@ -198,7 +198,7 @@ export function Cards() {
             textButtonSecondary="Filtrar"
             handleChangeButtonSecondary={() => {
               sessionStorage.setItem(
-                '@finance:selectedYear',
+                '@uollet:selectedYear',
                 selectedYear.toString(),
               );
               filterTransactionsCreditCardByYear(selectedYear, currentMonth);

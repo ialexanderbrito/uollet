@@ -51,7 +51,7 @@ export function Resume() {
   } = useResume();
 
   async function handleChangeGraph(month: number) {
-    const year = Number(sessionStorage.getItem('@finance:selectedYear'));
+    const year = Number(sessionStorage.getItem('@uollet:selectedYear'));
     const lastDayOfMonth = new Date(year, month, 0).getDate();
     setLastDayOfTheMonth(lastDayOfMonth);
 
@@ -219,7 +219,7 @@ export function Resume() {
               textButtonSecondary="Filtrar"
               handleChangeButtonSecondary={() => {
                 sessionStorage.setItem(
-                  '@finance:selectedYear',
+                  '@uollet:selectedYear',
                   selectedYear.toString(),
                 );
                 filterTransactionsByYearByCategory(selectedYear, currentMonth);

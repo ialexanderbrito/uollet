@@ -220,7 +220,7 @@ export function Investments() {
             textButtonSecondary="Filtrar"
             handleChangeButtonSecondary={() => {
               sessionStorage.setItem(
-                '@finance:selectedYear',
+                '@uollet:selectedYear',
                 selectedYear.toString(),
               );
               filterTransactionsByYear(selectedYear, currentMonth);

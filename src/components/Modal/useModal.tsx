@@ -16,8 +16,8 @@ export function useModal() {
   });
   const [selectedCategory, setSelectedCategory] = useState('');
   const [selectedYear, setSelectedYear] = useState(
-    sessionStorage.getItem('@finance:selectedYear')
-      ? Number(sessionStorage.getItem('@finance:selectedYear'))
+    sessionStorage.getItem('@uollet:selectedYear')
+      ? Number(sessionStorage.getItem('@uollet:selectedYear'))
       : new Date().getFullYear(),
   );
   const [openModalName, setOpenModalName] = useState(false);
@@ -26,7 +26,7 @@ export function useModal() {
   }
 
   useEffect(() => {
-    sessionStorage.setItem('@finance:selectedYear', String(selectedYear));
+    sessionStorage.setItem('@uollet:selectedYear', String(selectedYear));
   }, [selectedYear]);
 
   function handleOpenModalName() {

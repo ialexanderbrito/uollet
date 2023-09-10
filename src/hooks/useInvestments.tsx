@@ -347,7 +347,7 @@ export function useInvestments() {
         searchAllTransactions();
       }
 
-      const year = Number(sessionStorage.getItem('@finance:selectedYear'));
+      const year = Number(sessionStorage.getItem('@uollet:selectedYear'));
 
       getAllTransactionsForTheCurrentMonth(year);
       getTransactionsValues(currentYear, month, endOfDays);
@@ -387,7 +387,7 @@ export function useInvestments() {
         searchAllTransactions();
       }
 
-      const year = Number(sessionStorage.getItem('@finance:selectedYear'));
+      const year = Number(sessionStorage.getItem('@uollet:selectedYear'));
 
       getAllTransactionsForTheCurrentMonth(year);
       getTransactionsValues(currentYear, month, endOfDays);
@@ -458,7 +458,7 @@ export function useInvestments() {
   }
 
   async function handleChangeFilterMonth(month: number) {
-    const year = Number(sessionStorage.getItem('@finance:selectedYear'));
+    const year = Number(sessionStorage.getItem('@uollet:selectedYear'));
     const lastDayOfMonth = new Date(year, month, 0).getDate();
     setLastDayOfTheMonth(lastDayOfMonth);
 

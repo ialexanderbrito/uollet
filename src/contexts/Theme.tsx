@@ -9,7 +9,7 @@ interface ThemeContextProps {
 const ThemeContext = createContext<ThemeContextProps>({} as ThemeContextProps);
 
 export const ThemeProvider = ({ children }: any) => {
-  const themeStorage = localStorage.getItem('@finance:theme');
+  const themeStorage = localStorage.getItem('@uollet:theme');
   const [theme, setTheme] = useState(themeStorage || 'light');
 
   useEffect(() => {
@@ -22,12 +22,12 @@ export const ThemeProvider = ({ children }: any) => {
 
   function toggleTheme() {
     setTheme(theme === 'dark' ? 'light' : 'dark');
-    localStorage.setItem('@finance:theme', theme === 'dark' ? 'light' : 'dark');
+    localStorage.setItem('@uollet:theme', theme === 'dark' ? 'light' : 'dark');
   }
 
   function removeDarkTheme() {
     setTheme('light');
-    localStorage.setItem('@finance:theme', 'light');
+    localStorage.setItem('@uollet:theme', 'light');
     document.documentElement.classList.remove('dark');
   }
 
