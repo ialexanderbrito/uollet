@@ -166,7 +166,7 @@ export function useLogin() {
       const { email } = values;
 
       const { error } = await supabase.auth.resetPasswordForEmail(email, {
-        redirectTo: `${import.meta.env.VITE_URL}/reset-password`,
+        redirectTo: `${import.meta.env.VITE_URL_APP}/reset-password`,
       });
 
       if (error?.status === 422) {
