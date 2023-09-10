@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import {
   ChartBar,
@@ -18,6 +18,11 @@ import illustrationGif from 'assets/finance.svg';
 import mockUpCellImg from 'assets/mockup_cell.png';
 import mockUpImg from 'assets/mockup.png';
 
+interface Link {
+  name: string;
+  link: string;
+}
+
 export function LandingPage() {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -25,11 +30,53 @@ export function LandingPage() {
     setIsOpen(!isOpen);
   };
 
-  const Links = [
+  const Links: Link[] = [
     { name: 'Sobre nós', link: '#dashboard' },
-    { name: 'Recursos', link: '#feautures' },
+    { name: 'Recursos', link: '#features' },
     { name: 'Contatos', link: '#footer' },
   ];
+
+  useEffect(() => {
+    const smoothScroll = (targetId: string) => {
+      const targetElement = document.querySelector(targetId);
+      if (targetElement) {
+        targetElement.scrollIntoView({ behavior: 'smooth' });
+      }
+    };
+
+    const handleClick = (link: string) => {
+      smoothScroll(link);
+      toggleMenu();
+    };
+
+    const addClickListener = (link: Link) => {
+      const element = document.querySelector(`a[href="${link.link}"]`);
+      if (element) {
+        element.addEventListener('click', (e) => {
+          e.preventDefault();
+          handleClick(link.link);
+        });
+      }
+    };
+
+    const removeClickListeners = () => {
+      Links.forEach((link) => {
+        const element = document.querySelector(`a[href="${link.link}"]`);
+        if (element) {
+          element.removeEventListener('click', (e) => {
+            e.preventDefault();
+            handleClick(link.link);
+          });
+        }
+      });
+    };
+
+    Links.forEach(addClickListener);
+
+    return () => {
+      removeClickListeners();
+    };
+  }, []);
 
   return (
     <div className="h-[85vh] bg-primary">
@@ -63,18 +110,12 @@ export function LandingPage() {
             ))}
 
             <div className="md-0 flex  gap-2  md:ml-6 md:gap-6">
-              <a
-                href="https://app.finance-oficial.netlify.app/"
-                className="text-white"
-              >
+              <a href={import.meta.env.VITE_URL_APP} className="text-white">
                 <button className="h-12 rounded border-0 bg-secondary pb-0 pl-8 pr-8 pt-0 text-base text-white filter hover:bg-secondaryDark hover:transition-all">
                   Entrar
                 </button>
               </a>
-              <a
-                href="https://app.finance-oficial.netlify.app/"
-                className="text-white"
-              >
+              <a href={import.meta.env.VITE_URL_APP} className="text-white">
                 <button className="h-12 rounded border-0 bg-secondary pb-0 pl-8 pr-8 pt-0 text-base text-white filter hover:bg-secondaryDark hover:transition-all">
                   Cadastrar
                 </button>
@@ -135,12 +176,14 @@ export function LandingPage() {
             </p>
 
             <div className="flex flex-col items-center gap-4 md:flex-row">
-              <button className="flex h-10 w-72 items-center justify-between gap-1 rounded border-0 bg-secondary p-2 text-base text-white transition-all hover:bg-secondaryDark md:h-12 md:p-4 md:text-lg">
-                Acessar
-              </button>
-              <button className="mt-2 flex h-10 w-72 items-center justify-between gap-1 rounded border border-secondary bg-transparent p-2 text-base text-secondary transition-all hover:bg-secondaryDark hover:text-white md:mt-0 md:h-12 md:p-4 md:text-lg">
+              <a href={import.meta.env.VITE_URL_APP} className="text-white">
+                <button className="flex h-10 w-72 items-center justify-between gap-1 rounded border-0 bg-secondary p-2 text-base text-white transition-all hover:bg-secondaryDark md:h-12 md:p-4 md:text-lg">
+                  Acessar
+                </button>
+              </a>
+              {/* <button className="mt-2 flex h-10 w-72 items-center justify-between gap-1 rounded border border-secondary bg-transparent p-2 text-base text-secondary transition-all hover:bg-secondaryDark hover:text-white md:mt-0 md:h-12 md:p-4 md:text-lg">
                 Saiba mais
-              </button>
+              </button> */}
             </div>
           </div>
         </section>
@@ -160,17 +203,20 @@ export function LandingPage() {
             </p>
 
             <div className="flex flex-col items-center gap-4 md:flex-row">
-              <button className="flex h-10 w-72 items-center justify-between gap-1 rounded border-0 bg-secondary p-2 text-base text-white transition-all hover:bg-secondaryDark md:h-12 md:p-4 md:text-lg">
-                Acessar
-              </button>
-              <button className="mt-2 flex h-10 w-72 items-center justify-between gap-1 rounded border border-secondary bg-transparent p-2 text-base text-secondary transition-all hover:bg-secondaryDark hover:text-white md:mt-0 md:h-12 md:p-4 md:text-lg">
-                Saiba mais
-              </button>
+              <a href={import.meta.env.VITE_URL_APP} className="text-white">
+                <button className="flex h-10 w-72 items-center justify-between gap-1 rounded border-0 bg-secondary p-2 text-base text-white transition-all hover:bg-secondaryDark md:h-12 md:p-4 md:text-lg">
+                  Entre agora mesmo
+                </button>
+              </a>
             </div>
           </div>
 
           <div className="w-full md:w-1/2">
-            <img src={mockUpCellImg} alt="" className="w-full" />
+            <img
+              src={mockUpCellImg}
+              alt="Tela do App em um celular"
+              className="w-full"
+            />
           </div>
         </section>
       </div>
@@ -210,11 +256,11 @@ export function LandingPage() {
                   className="m-0-auto block w-[65%]"
                 />
                 <h3 className="mb-4 text-center text-lg font-bold text-secondary sm:text-xl">
-                  Planejador de orçamentos
+                  Acesso em Qualquer Dispositivo
                 </h3>
                 <p className="mb-4 text-center text-sm text-white sm:text-base">
-                  Diga adeus às planilhas complexas. Adicione seus gastos e veja
-                  o quanto você pode gastar por dia, semana, mês ou ano.
+                  Controle seus gastos de qualquer lugar, em qualquer
+                  dispositivo.
                 </p>
               </div>
               <div className="w-full rounded bg-primaryDark sm:w-1/2 md:w-1/2 lg:w-4/12">
@@ -224,11 +270,11 @@ export function LandingPage() {
                   className="m-0-auto block w-[65%]"
                 />
                 <h3 className="mb-4 text-center text-lg font-bold text-secondary sm:text-xl">
-                  Planejador de orçamentos
+                  Insights Financeiros Claros
                 </h3>
                 <p className="mb-4 text-center text-sm text-white sm:text-base">
-                  Diga adeus às planilhas complexas. Adicione seus gastos e veja
-                  o quanto você pode gastar por dia, semana, mês ou ano.
+                  Tenha uma visão clara de suas finanças com métricas fáceis de
+                  entender.
                 </p>
               </div>
               <div className="w-full rounded bg-primaryDark sm:w-1/2 md:w-1/2 lg:w-4/12">
@@ -238,11 +284,11 @@ export function LandingPage() {
                   className="m-0-auto block w-[65%]"
                 />
                 <h3 className="mb-4 text-center text-lg font-bold text-secondary sm:text-xl">
-                  Planejador de orçamentos
+                  Gestão de Transações Simples
                 </h3>
                 <p className="mb-4 text-center text-sm text-white sm:text-base">
-                  Diga adeus às planilhas complexas. Adicione seus gastos e veja
-                  o quanto você pode gastar por dia, semana, mês ou ano.
+                  Adicione, edite e acompanhe todas as suas transações com
+                  facilidade.
                 </p>
               </div>
             </div>
@@ -257,15 +303,17 @@ export function LandingPage() {
             <br />
             faça parte do
             <br />
-            <span className="text-secondary">Finance</span>
+            <span className="text-secondary">uollet</span>
           </h1>
 
-          <button
-            className="h-12 rounded border-0 bg-secondary pb-0 pl-8 pr-8 pt-0 text-base text-white filter"
-            type="button"
-          >
-            Começe agora
-          </button>
+          <a href={import.meta.env.VITE_URL_APP} className="text-white">
+            <button
+              className="h-12 rounded border-0 bg-secondary pb-0 pl-8 pr-8 pt-0 text-base text-white filter"
+              type="button"
+            >
+              Começe agora
+            </button>
+          </a>
         </section>
       </div>
 
@@ -310,7 +358,7 @@ export function LandingPage() {
       <footer className="grid grid-cols-1 gap-8 bg-primary p-4 text-white md:grid-cols-2 md:p-10 lg:grid-cols-4">
         <div>
           <h3 className="relative mb-4 text-2xl after:absolute after:bottom-0 after:left-0 after:h-1 after:w-1/2 after:rounded after:bg-secondary">
-            Finance
+            uollet
           </h3>
           <p className="text-justify text-base md:w-3/4 lg:w-full">
             A maneira mais rápida, fácil e simples de controlar seus gastos
@@ -349,9 +397,7 @@ export function LandingPage() {
                 eu@ialexanderbrito.dev
               </a>
             </li>
-            <li className="mb-2">
-              <a href="tel:+5581999999999">+55 (81) 99999-9999</a>
-            </li>
+
             <li className="mb-2">
               <a href="https://www.ialexanderbrito.dev">ialexanderbrito.dev</a>
             </li>
