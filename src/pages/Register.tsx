@@ -9,8 +9,11 @@ import { Autocomplete } from 'components/Autocomplete';
 import { BottomNavigator } from 'components/BottomNavigator';
 import { DatePickerInput } from 'components/DatePickerInput';
 import { Header } from 'components/Header';
+import { InputError } from 'components/InputError';
 import { MyDialog } from 'components/Modal';
 import { Recurrency } from 'components/Recurrency';
+
+import { cn } from 'utils/cn';
 
 import { useRegister } from 'hooks/useRegister';
 
@@ -34,14 +37,19 @@ export function Register() {
         <div className="flex h-screen w-full flex-col gap-4 p-4">
           <input
             type="text"
-            className={`h-14 w-full rounded-lg bg-white p-4 text-title outline-none dark:bg-backgroundCardDark dark:text-titleDark ${
-              formik.errors.title && formik.touched.title
-                ? 'border-[1.5px] border-red-500'
-                : ''
-            }`}
+            className={cn(
+              'h-14 w-full rounded-lg bg-white p-4 text-title outline-none dark:bg-backgroundCardDark dark:text-titleDark',
+              formik.errors.title &&
+                formik.touched.title &&
+                'border-[1.5px] border-red-500',
+            )}
             placeholder="Nome"
             {...formik.getFieldProps('title')}
           />
+          {formik.errors.title && formik.touched.title && (
+            <InputError error={true} message={formik.errors.title} />
+          )}
+
           <CurrencyInput
             prefix="R$ "
             placeholder="R$ 0,00"
@@ -52,70 +60,83 @@ export function Register() {
             onValueChange={(value) => {
               formik.setFieldValue('value', value);
             }}
-            className={`h-14 w-full rounded-lg bg-white p-4 text-title outline-none dark:bg-backgroundCardDark dark:text-titleDark ${
-              formik.errors.value && formik.touched.value
-                ? 'border-[1.5px] border-red-500'
-                : ''
-            }`}
+            className={cn(
+              'h-14 w-full rounded-lg bg-white p-4 text-title outline-none dark:bg-backgroundCardDark dark:text-titleDark',
+              formik.errors.value &&
+                formik.touched.value &&
+                'border-[1.5px] border-red-500',
+            )}
           />
+          {formik.errors.value && formik.touched.value && (
+            <InputError error={true} message={formik.errors.value} />
+          )}
+
           <div className="flex w-full flex-row justify-around gap-4 p-1">
             <div
-              className={`flex h-16 w-full cursor-pointer flex-row items-center justify-evenly rounded-md border-[1.5px] border-solid border-text ${
-                formik.values.type === 'income'
-                  ? 'border-none bg-[#e7f5e7]'
-                  : ''
-              }`}
+              className={cn(
+                'flex h-16 w-full cursor-pointer flex-row items-center justify-evenly rounded-md border-[1.5px] border-solid border-text',
+                formik.values.type === 'income' && 'border-none bg-[#e7f5e7]',
+                formik.errors.type && formik.touched.type && 'border-red-500',
+              )}
               onClick={() => {
                 formik.setFieldValue('type', 'income');
               }}
             >
               <img src={incomeIcon} alt="Entrada" className="h-6 w-6" />
               <p
-                className={`
-                text-text ${formik.values.type === 'income' ? 'text-title' : ''}
-              `}
+                className={cn(
+                  'text-text',
+                  formik.values.type === 'income' && 'text-title',
+                )}
               >
                 Entrada
               </p>
             </div>
 
             <div
-              className={`flex h-16  w-full cursor-pointer flex-row items-center justify-evenly rounded-md border-[1.5px] border-solid border-text ${
-                formik.values.type === 'outcome'
-                  ? 'border-none bg-[#fddede]'
-                  : ''
-              }`}
+              className={cn(
+                'flex h-16  w-full cursor-pointer flex-row items-center justify-evenly rounded-md border-[1.5px] border-solid border-text',
+                formik.values.type === 'outcome' && 'border-none bg-[#fddede]',
+                formik.errors.type && formik.touched.type && 'border-red-500',
+              )}
               onClick={() => {
                 formik.setFieldValue('type', 'outcome');
               }}
             >
               <img src={outcomeIcon} alt="Saída" className="h-6 w-6" />
               <p
-                className={`text-text ${
-                  formik.values.type === 'outcome' ? 'text-title' : ''
-                }`}
+                className={cn(
+                  'text-text',
+                  formik.values.type === 'income' && 'text-title',
+                )}
               >
                 Saída
               </p>
             </div>
           </div>
-          <div className="mt-[-1rem] flex w-full flex-col gap-4 pl-2">
-            {formik.errors.type && formik.touched.type ? (
-              <span className="text-xs text-red-500">{formik.errors.type}</span>
-            ) : null}
-          </div>
+
+          {formik.errors.type && formik.touched.type && (
+            <InputError error={true} message={formik.errors.type} />
+          )}
+
           <Autocomplete
             selected={formik.values.category}
             setSelected={(value) => {
               formik.setFieldValue('category', value);
             }}
             options={categories}
-            className={`${
-              formik.errors.category && formik.touched.category
-                ? 'border-[1.5px] border-red-500'
-                : ''
-            }`}
+            className={cn(
+              formik.errors.category &&
+                formik.touched.category &&
+                'border-[1.5px] border-red-500',
+            )}
           />
+          {formik.errors.category && formik.touched.category && (
+            <InputError
+              error={true}
+              message={formik.errors.category.name as string}
+            />
+          )}
 
           <DatePickerInput
             onChange={(date) => {
@@ -124,19 +145,24 @@ export function Register() {
             value={formik.values.date}
             error={formik.errors.date && formik.touched.date}
           />
+          {formik.errors.date && formik.touched.date && (
+            <InputError error={true} message={formik.errors.date} />
+          )}
 
           <div className="switch flex w-full flex-row items-center justify-end">
             <Switch
               checked={Boolean(formik.values.recurrency)}
               onChange={() => handleSwitch()}
-              className={`${
-                isRecurring ? 'bg-success' : 'bg-danger'
-              } switch relative inline-flex h-6 w-11 items-center rounded-full`}
+              className={cn(
+                'switch relative inline-flex h-6 w-11 items-center rounded-full',
+                isRecurring ? 'bg-success' : 'bg-danger',
+              )}
             >
               <span
-                className={`${
-                  isRecurring ? 'translate-x-6' : 'translate-x-1'
-                } switch inline-block h-4 w-4 transform rounded-full bg-white`}
+                className={cn(
+                  'switch inline-block h-5 w-5 transform rounded-full bg-white',
+                  isRecurring ? 'translate-x-6' : 'translate-x-1',
+                )}
               />
             </Switch>
             <span

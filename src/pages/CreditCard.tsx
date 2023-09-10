@@ -3,6 +3,7 @@ import CurrencyInput from 'react-currency-input-field';
 
 import { CreditCard as CreditCardComponent } from 'components/CreditCard';
 import { Header } from 'components/Header';
+import { InputError } from 'components/InputError';
 import { Select } from 'components/Select';
 
 import { formatCurrency } from 'utils/formatCurrency';
@@ -45,6 +46,9 @@ export function CreditCard() {
             {...formik.getFieldProps('cardNumber')}
             maxLength={6}
           />
+          {formik.errors.cardNumber && formik.touched.cardNumber && (
+            <InputError error={true} message={formik.errors.cardNumber} />
+          )}
 
           <input
             type="text"
@@ -56,6 +60,9 @@ export function CreditCard() {
             placeholder="Nome do cartão"
             {...formik.getFieldProps('cardName')}
           />
+          {formik.errors.cardName && formik.touched.cardName && (
+            <InputError error={true} message={formik.errors.cardName} />
+          )}
 
           <CurrencyInput
             className={`h-14 w-full rounded-lg bg-white p-4 text-title outline-none dark:bg-backgroundCardDark dark:text-titleDark ${
@@ -63,12 +70,15 @@ export function CreditCard() {
                 ? 'border-[1.5px] border-red-500'
                 : ''
             }`}
-            placeholder="Adicione o limite do seu cartão"
+            placeholder="Adicione o limite do seu cartão R$ 0,00"
             intlConfig={{ locale: 'pt-BR', currency: 'BRL' }}
             value={formik.values.limit}
             onValueChange={(value) => formik.setFieldValue('limit', value)}
             onBlur={formik.handleBlur}
           />
+          {formik.errors.limit && formik.touched.limit && (
+            <InputError error={true} message={formik.errors.limit} />
+          )}
 
           <Select
             options={days}
@@ -81,6 +91,13 @@ export function CreditCard() {
                 : ''
             }`}
           />
+          {formik.errors.dayClosure && formik.touched.dayClosure && (
+            <InputError
+              error={true}
+              message={formik.errors.dayClosure.name as string}
+            />
+          )}
+
           <Select
             options={days}
             selected={formik.values.dayMaturity}
@@ -92,6 +109,12 @@ export function CreditCard() {
                 : ''
             }`}
           />
+          {formik.errors.dayMaturity && formik.touched.dayMaturity && (
+            <InputError
+              error={true}
+              message={formik.errors.dayMaturity.name as string}
+            />
+          )}
 
           <div className="flex w-full flex-col gap-4">
             <div className="flex flex-row items-center gap-4">
