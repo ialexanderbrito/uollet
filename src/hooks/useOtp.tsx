@@ -27,7 +27,7 @@ export function useOtp() {
     if (otp.length === 4 && !pageLocation(location.pathname)) {
       const verify = await verifyPassword(otp, user.user_metadata.otp);
 
-      sessionStorage.setItem('@finance:hasOtp', 'true');
+      sessionStorage.setItem('@uollet:hasOtp', 'true');
 
       if (verify === true) {
         window.location.reload();
@@ -73,7 +73,7 @@ export function useOtp() {
     if (hasOtp) {
       const verify = await verifyPassword(otp, user.user_metadata.otp);
 
-      sessionStorage.setItem('@finance:hasOtp', 'true');
+      sessionStorage.setItem('@uollet:hasOtp', 'true');
 
       if (verify === true) {
         toast.error('A senha de acesso não pode ser igual a anterior', {
@@ -83,7 +83,7 @@ export function useOtp() {
       }
     }
 
-    if (pageLocation(location.pathname)) {
+    if (pageLocation('/otp')) {
       const hash = await hashPassword(otp);
 
       const { data } = await supabase.auth.updateUser({
@@ -115,7 +115,7 @@ export function useOtp() {
 
     setUser(data.user);
 
-    sessionStorage.setItem('@finance:hasOtp', 'false');
+    sessionStorage.setItem('@uollet:hasOtp', 'false');
 
     toast.success('Senha de acesso apagada com sucesso', {
       id: 'success',
