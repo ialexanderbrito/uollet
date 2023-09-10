@@ -40,7 +40,7 @@ export function Login() {
               className="flex h-12 w-64 items-center rounded-md bg-white text-sm font-medium text-title dark:bg-backgroundCardDark dark:text-titleDark"
               onClick={loginWithGoogle}
             >
-              <div className=" flex h-12 w-12 items-center justify-center rounded-l-md border-[1px] border-b-0 border-solid border-r-background dark:border-l-0 dark:border-t-0 dark:border-r-[#34383a]">
+              <div className="flex h-12 w-12 items-center justify-center rounded-l-md border-[1px] border-b-0 border-solid border-r-background dark:border-l-0 dark:border-t-0 dark:border-r-[#34383a]">
                 <img src={googleIcon} alt="Google" className="h-5 w-5" />
               </div>
               <div className="flex h-12 w-52 items-center justify-center">
