@@ -23,13 +23,28 @@ export function useRegister() {
   const [categories, setCategories] = useState(category);
 
   const schema = Yup.object({
-    title: Yup.string().required('Campo obrigatório'),
+    title: Yup.string().required('Informe o nome'),
+    value: Yup.string()
+      .required('Informe o valor, o valor deve ser maior que 0')
+      .test(
+        'is-greater-than-zero',
+        'Informe o valor, o valor deve ser maior que 0',
+        (value) => {
+          if (!value) return false;
+
+          const newValue = convertVirgulaToPonto(value);
+
+          if (newValue <= 0) return false;
+
+          return true;
+        },
+      ),
     category: Yup.object().shape({
-      name: Yup.string().required('Campo obrigatório'),
+      name: Yup.string().required('Selecione uma categoria'),
     }),
     date: Yup.string().required('Selecione uma data válida'),
     type: Yup.string()
-      .required('Campo obrigatório')
+      .required('Selecione uma opção de entrada ou saída')
       .oneOf(['income', 'outcome']),
   });
 
@@ -116,7 +131,7 @@ export function useRegister() {
         name: '',
         icon: '',
       },
-      date: '',
+      date: new Date().toISOString(),
       type: '',
       user_id: '',
       recurrency: '',

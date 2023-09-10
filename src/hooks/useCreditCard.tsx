@@ -63,16 +63,40 @@ export function useCreditCard() {
   ];
 
   const schema = Yup.object({
-    cardName: Yup.string().required('Campo obrigatório'),
-    cardNumber: Yup.string().required('Campo obrigatório'),
-    limit: Yup.string().required('Campo obrigatório'),
+    cardName: Yup.string().required('Informe o nome do cartão'),
+    cardNumber: Yup.string()
+      .required('Informe os 6 primeiros dígitos')
+      .min(6, 'Informe os 6 primeiros dígitos'),
+    limit: Yup.string()
+      .required('Informe o limite do cartão')
+      .test(
+        'is-greater-than-zero',
+        'Informe o valor, o valor deve ser maior que 0',
+        (value) => {
+          if (!value) return false;
+
+          const newValue = convertVirgulaToPonto(value);
+
+          if (newValue <= 0) return false;
+
+          return true;
+        },
+      ),
     dayMaturity: Yup.object().shape({
-      name: Yup.string().required('Campo obrigatório'),
+      name: Yup.string().required('Informe o dia de vencimento'),
     }),
     dayClosure: Yup.object().shape({
-      name: Yup.string().required('Campo obrigatório'),
+      name: Yup.string().required('Informe o dia de fechamento'),
     }),
   });
+
+  function convertVirgulaToPonto(value: string) {
+    const newValue = value.replace(',', '.');
+
+    const number = Number(newValue);
+
+    return number;
+  }
 
   const formik = useFormik({
     initialValues: {
