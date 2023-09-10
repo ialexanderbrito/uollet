@@ -1,79 +1,94 @@
 import AuthCode from 'react-auth-code-input';
 import { useLocation } from 'react-router-dom';
 
-import { BottomNavigator } from 'components/BottomNavigator';
+import { Alert } from 'components/Alert';
 import { Header } from 'components/Header';
 
-import { useAuth } from 'contexts/Auth';
-
+import { useMFA } from 'hooks/useMFA';
 import { useOtp } from 'hooks/useOtp';
 
-export function Otp() {
+interface OtpProps {
+  isOtp?: boolean;
+  isMFA?: boolean;
+}
+
+export function Otp({ isOtp, isMFA }: OtpProps) {
   const location = useLocation();
-  const { hasOtp } = useAuth();
-  const {
-    handleChangeOtp,
-    savePasswordOtp,
-    deleteOtp,
-    timeOut,
-    verifyButton,
-    pageLocation,
-  } = useOtp();
+  const { handleChangeMFA, savePasswordMFA, pageLocationMFA } = useMFA();
+  const { handleChangeOtp, savePasswordOtp } = useOtp();
 
   return (
     <div className="flex h-screen w-full flex-col items-center bg-background dark:bg-backgroundDark">
       <Header
         title="Senha de acesso"
-        showIcon={pageLocation(location.pathname)}
+        showIcon={pageLocationMFA(location.pathname)}
       />
 
-      <div className="flex w-full flex-col items-center justify-center gap-2 p-4">
-        <div className="mb-4 flex w-full flex-col items-center justify-center">
-          <p className="text-center text-lg text-title dark:text-textDark">
-            Digite a senha de acesso
-          </p>
-        </div>
+      {isMFA && (
+        <>
+          <div className="flex w-full flex-col items-center justify-center gap-2 p-4">
+            <Alert
+              title="Atenção"
+              description="Por ser um recurso em fase beta, o MFA pode apresentar instabilidades. Então tente algumas vezes caso não consiga acessar. Caso não consiga, desative o MFA e entre em contato com o suporte"
+              variant="info"
+              alertName="mfaHome"
+              className="mb-4"
+            />
+            <div className="mb-4 flex w-full flex-col items-center justify-center">
+              <p className="text-center text-lg text-title dark:text-textDark">
+                Digite o código de 2 fatores para acessar o aplicativo
+              </p>
+            </div>
 
-        <div className="mb-4 flex w-full justify-around">
-          <AuthCode
-            onChange={handleChangeOtp}
-            allowedCharacters="numeric"
-            length={4}
-            isPassword
-            inputClassName="mr-2 ml-2 h-12 w-12 rounded-md border border-background bg-backgroundCard text-center text-2xl focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary dark:border-backgroundDark dark:bg-backgroundCardDark dark:text-textDark"
-            disabled={timeOut > 0}
-          />
-        </div>
+            <div className="mb-4 flex w-full justify-around">
+              <AuthCode
+                onChange={handleChangeMFA}
+                allowedCharacters="numeric"
+                length={6}
+                inputClassName="mr-2 ml-2 h-12 w-12 rounded-md border border-background bg-backgroundCard text-center text-2xl focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary dark:border-backgroundDark dark:bg-backgroundCardDark dark:text-textDark"
+              />
+            </div>
 
-        <button
-          className="flex h-12 w-full items-center justify-center rounded-lg bg-secondary text-white dark:bg-secondaryDark"
-          onClick={() => {
-            savePasswordOtp();
-          }}
-          disabled={timeOut > 0}
-        >
-          {timeOut > 0 ? (
+            <button
+              className="flex h-12 w-full items-center justify-center rounded-lg bg-secondary text-white dark:bg-secondaryDark"
+              onClick={() => {
+                savePasswordMFA();
+              }}
+            >
+              Entrar
+            </button>
+          </div>
+        </>
+      )}
+
+      {isOtp && (
+        <div className="flex w-full flex-col items-center justify-center gap-2 p-4">
+          <div className="mb-4 flex w-full flex-col items-center justify-center">
             <p className="text-center text-lg text-title dark:text-textDark">
-              Aguarde {timeOut}s
+              Digite seu PIN para acessar o aplicativo
             </p>
-          ) : (
-            <>{verifyButton()}</>
-          )}
-        </button>
+          </div>
 
-        {hasOtp && pageLocation(location.pathname) && (
+          <div className="mb-4 flex w-full justify-around">
+            <AuthCode
+              onChange={handleChangeOtp}
+              allowedCharacters="numeric"
+              length={4}
+              isPassword
+              inputClassName="mr-2 ml-2 h-12 w-12 rounded-md border border-background bg-backgroundCard text-center text-2xl focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary dark:border-backgroundDark dark:bg-backgroundCardDark dark:text-textDark"
+            />
+          </div>
+
           <button
-            className="h-14 w-full rounded-lg bg-danger p-4 text-white dark:bg-danger"
+            className="flex h-12 w-full items-center justify-center rounded-lg bg-secondary text-white dark:bg-secondaryDark"
             onClick={() => {
-              deleteOtp();
+              savePasswordOtp();
             }}
           >
-            Remover senha de acesso
+            Entrar
           </button>
-        )}
-      </div>
-
-      {!pageLocation(location.pathname) ? null : <BottomNavigator />}
+        </div>
+      )}
     </div>
   );
 }
