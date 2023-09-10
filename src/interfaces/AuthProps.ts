@@ -39,6 +39,14 @@ export interface Identity {
   updated_at: Date;
 }
 
+export interface Factor {
+  id: string;
+  created_at: string;
+  updated_at: string;
+  status: string;
+  factor_type: string;
+}
+
 export interface UserProps {
   id: string;
   aud: string;
@@ -50,6 +58,7 @@ export interface UserProps {
   last_sign_in_at: Date;
   app_metadata: AppMetadata;
   user_metadata: UserMetadata;
+  factors: Factor[];
   identities: Identity[];
   created_at: Date;
   updated_at: Date;
