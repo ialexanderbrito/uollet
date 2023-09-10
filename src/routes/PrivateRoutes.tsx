@@ -19,8 +19,9 @@ import { Wallet } from 'pages/Wallet';
 import { useAuth } from 'contexts/Auth';
 
 export function PrivateRoutes() {
-  const { hasOtp, signed } = useAuth();
-  const hasOtpStorage = sessionStorage.getItem('@finance:hasOtp');
+  const { hasOtp, signed, hasMFA } = useAuth();
+  const hasOtpStorage = sessionStorage.getItem('@uollet:hasOtp');
+  const hasMFAStorage = sessionStorage.getItem('@uollet:hasMFA');
 
   if (!signed) {
     return (
@@ -35,8 +36,16 @@ export function PrivateRoutes() {
       return <Route path="/" element={<Finances />} />;
     }
 
+    if (!hasMFAStorage && !hasMFA) {
+      return <Route path="/" element={<Finances />} />;
+    }
+
+    if (hasMFA && hasMFAStorage === null) {
+      return <Route path="/" element={<Otp isMFA />} />;
+    }
+
     if (hasOtp && hasOtpStorage === null) {
-      return <Route path="/" element={<Otp />} />;
+      return <Route path="/" element={<Otp isOtp />} />;
     }
 
     return <Route path="/" element={<Finances />} />;
@@ -46,7 +55,6 @@ export function PrivateRoutes() {
     <Routes>
       {handleOtp()}
       <Route path="/" element={<Login />} />
-      <Route path="/otp" element={<Otp />} />
       <Route path="/register" element={<Register />} />
       <Route path="/edit/:id" element={<Register />} />
       <Route path="/resume" element={<Resume />} />
