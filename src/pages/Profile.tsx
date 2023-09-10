@@ -9,6 +9,7 @@ import {
   EyeClosed,
   Info,
   Key,
+  Keyhole,
   LockKey,
   Question,
   SealCheck,
@@ -26,6 +27,8 @@ import welcomeImg from 'assets/welcome.svg';
 
 import { Banner } from 'components/Banner';
 import { BottomNavigator } from 'components/BottomNavigator';
+import { EnrollMFA } from 'components/EnrollMFA';
+import { EnrollOtp } from 'components/EnrollOtp';
 import { Header } from 'components/Header';
 import { Loading } from 'components/Loading';
 import { MyDialog } from 'components/Modal';
@@ -48,6 +51,7 @@ export function Profile() {
   const navigate = useNavigate();
   const { toggleTheme } = useTheme();
   const { user, logOut, areValueVisible, toggleValueVisibility } = useAuth();
+
   const { deleteUser } = useProfile();
   const { copyToClipboard } = useModal();
   const {
@@ -65,6 +69,8 @@ export function Profile() {
 
   const [openModalSuport, setOpenModalSuport] = useState(false);
   const [openModalAbout, setOpenModalAbout] = useState(false);
+  const [openModalMFA, setOpenModalMFA] = useState(false);
+  const [openModalOtp, setOpenModalOtp] = useState(false);
 
   function handleOpenModalSuport() {
     setOpenModalSuport(true);
@@ -155,7 +161,7 @@ export function Profile() {
             </div>
             <div className="flex w-full min-w-full snap-x gap-4 overflow-x-scroll p-1 scrollbar-hide md:flex-row md:justify-center md:gap-4 md:overflow-x-auto md:overflow-y-hidden md:pb-4">
               <Banner
-                title="Seja bem vindo(a) ao Finances!"
+                title="Seja bem vindo(a) ao uollet!"
                 img={welcomeImg}
                 className="bg-[#1da1f3]"
               />
@@ -169,13 +175,13 @@ export function Profile() {
 
               <RWebShare
                 data={{
-                  text: 'Conheça o Finances, um app para controle de finanças pessoais!',
-                  url: 'https://finance-oficial.netlify.app/',
-                  title: 'Finances',
+                  text: 'Conheça o uollet, um app para controle de finanças pessoais!',
+                  url: import.meta.env.VITE_URL_LANDING_PAGE,
+                  title: 'uollet',
                 }}
               >
                 <Banner
-                  title=" Convide seus amigos para usar o Finances!"
+                  title=" Convide seus amigos para usar o uollet!"
                   img={connectionImg}
                   className="bg-[#fbbb02]"
                 />
@@ -211,9 +217,20 @@ export function Profile() {
               />
 
               <Submenu
+                icon={<Keyhole size={20} weight="light" />}
+                title="Autenticação de dois fatores"
+                onClick={() => {
+                  setOpenModalMFA(true);
+                }}
+                arrow
+                divider
+                beta
+              />
+
+              <Submenu
                 icon={<LockKey size={20} weight="light" />}
-                title="Segurança"
-                onClick={() => navigate('/otp')}
+                title="PIN de acesso rápido"
+                onClick={() => setOpenModalOtp(true)}
                 arrow
                 divider
               />
@@ -239,16 +256,6 @@ export function Profile() {
               />
 
               <Submenu
-                icon={<Question size={20} weight="light" />}
-                title="Sobre"
-                onClick={() => {
-                  handleOpenModalAbout();
-                }}
-                arrow
-                divider
-              />
-
-              <Submenu
                 onClick={() => {
                   toggleTheme();
                 }}
@@ -256,6 +263,15 @@ export function Profile() {
                 title="Tema do app"
                 divider
                 switchTheme
+              />
+              <Submenu
+                icon={<Question size={20} weight="light" />}
+                title="Sobre"
+                onClick={() => {
+                  handleOpenModalAbout();
+                }}
+                arrow
+                divider
               />
 
               <Submenu
@@ -304,7 +320,7 @@ export function Profile() {
             <MyDialog
               isOpen={openModalAbout}
               closeModal={() => setOpenModalAbout(false)}
-              title="Finance App"
+              title="uollet app"
               about
               buttonSecondary
               textButtonSecondary="Fechar"
@@ -312,6 +328,16 @@ export function Profile() {
             >
               <About />
             </MyDialog>
+
+            <EnrollMFA
+              openModalMFA={openModalMFA}
+              setOpenModalMFA={setOpenModalMFA}
+            />
+
+            <EnrollOtp
+              openModalOtp={openModalOtp}
+              setOpenModalOtp={setOpenModalOtp}
+            />
           </div>
 
           <BottomNavigator />
