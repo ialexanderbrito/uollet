@@ -7,7 +7,7 @@ import {
 } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { UserProps } from 'interfaces/AuthProps';
+import { Factor, UserProps } from 'interfaces/AuthProps';
 
 import { supabase } from 'services/supabase';
 
@@ -21,6 +21,7 @@ interface AuthContextProps {
   storageUser: UserProps | null;
   signed: boolean;
   hasOtp: boolean;
+  hasMFA: boolean;
   areValueVisible: boolean;
   toggleValueVisibility: () => void;
 }
@@ -33,16 +34,16 @@ export function AuthProvider({ children }: any) {
   const [user, setUser] = useState<any>();
   const [areValueVisible, setAreValueVisible] = useState<boolean>(() => {
     const areValuesVisibleStorage = localStorage.getItem(
-      '@finance:areValuesVisible',
+      '@uollet:areValuesVisible',
     );
 
     return areValuesVisibleStorage !== 'false';
   });
-  const storageUser = JSON.parse(localStorage.getItem('@finance:user') || '{}');
+  const storageUser = JSON.parse(localStorage.getItem('@uollet:user') || '{}');
 
   const toggleValueVisibility = useCallback(() => {
     setAreValueVisible((prevState) => {
-      localStorage.setItem('@finance:areValuesVisible', String(!prevState));
+      localStorage.setItem('@uollet:areValuesVisible', String(!prevState));
 
       return !prevState;
     });
@@ -64,6 +65,22 @@ export function AuthProvider({ children }: any) {
     }
 
     return false;
+  }
+
+  function hasMFA() {
+    if (!user) return false;
+
+    const factors = user.factors;
+
+    if (!factors) return false;
+
+    const factorVerify = factors.find(
+      (factor: Factor) => factor.status === 'verified',
+    );
+
+    if (!factorVerify) return false;
+
+    return true;
   }
 
   async function loginWithGoogle() {
@@ -88,14 +105,14 @@ export function AuthProvider({ children }: any) {
     if (!user) return;
 
     if (!storageUser) {
-      localStorage.setItem('@finance:user', JSON.stringify(user));
+      localStorage.setItem('@uollet:user', JSON.stringify(user));
     }
 
     setUser(user);
-    localStorage.setItem('@finance:user', JSON.stringify(user));
+    localStorage.setItem('@uollet:user', JSON.stringify(user));
 
     if (user) {
-      // navigate('/');
+      navigate('/');
     }
   }
 
@@ -125,7 +142,7 @@ export function AuthProvider({ children }: any) {
     setUser(null);
     navigate('/');
 
-    localStorage.removeItem('@finance:user');
+    localStorage.removeItem('@uollet:user');
     sessionStorage.clear();
   }
 
@@ -139,6 +156,7 @@ export function AuthProvider({ children }: any) {
         storageUser,
         signed: isSignedIn(),
         hasOtp: hasOtp(),
+        hasMFA: hasMFA(),
         areValueVisible,
         toggleValueVisibility,
       }}
