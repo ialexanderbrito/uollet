@@ -7,9 +7,9 @@
   "display": "standalone",
   "name": "uollet",
   "orientation": "portrait",
-  "scope": "/",
+  "scope": "https://app.uollet.com.br",
   "short_name": "uollet",
-  "start_url": "/",
+  "start_url": "https://app.uollet.com.br",
   "categories": [
     "Finance",
     "Business",
@@ -111,5 +111,13 @@
       "type": "image/png"
     }
   ],
-  "prefer_related_applications": true
+  "prefer_related_applications": true,
+  "display_override": "standalone",
+  "edge_side_panel": {},
+  "protocol_handlers": [
+    {
+      "protocol": "mailto",
+      "url": "/register"
+    }
+  ]
 }
