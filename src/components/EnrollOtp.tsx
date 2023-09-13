@@ -30,6 +30,7 @@ export function EnrollOtp({ openModalOtp, setOpenModalOtp }: EnrollOtpProps) {
             setOpenModalOtp(false);
           } else {
             savePasswordOtp();
+            setOpenModalOtp(false);
           }
         }}
       >
