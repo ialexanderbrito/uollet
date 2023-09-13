@@ -7,9 +7,9 @@
   "display": "standalone",
   "name": "uollet",
   "orientation": "portrait",
-  "scope": "https://app.uollet.com.br",
+  "scope": "/",
   "short_name": "uollet",
-  "start_url": "https://app.uollet.com.br",
+  "start_url": "/",
   "categories": [
     "Finance",
     "Business",
