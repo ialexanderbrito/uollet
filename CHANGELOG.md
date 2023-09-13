@@ -1,3 +1,15 @@
+# [2.10.0](https://github.com/ialexanderbrito/finance/compare/v2.9.0...v2.10.0) (2023-09-13)
+
+
+### Bug Fixes
+
+* swap currency converter ([d753aac](https://github.com/ialexanderbrito/finance/commit/d753aac1492df58ee60400183b6b709b1e22e3b8))
+
+
+### Features
+
+* update manifest ([6c7e59c](https://github.com/ialexanderbrito/finance/commit/6c7e59cd1c862d1372c4e99a9d66e99f705976d6))
+
 # [2.9.0](https://github.com/ialexanderbrito/finance/compare/v2.8.0...v2.9.0) (2023-09-13)
 
 
