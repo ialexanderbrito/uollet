@@ -30,8 +30,8 @@ export function CurrencyConverter({
     setCurrencyValue,
     getCurrencyConverter,
     setCurrencyTotal,
-    changeCurrency,
-    setChangeCurrency,
+    swapCurrency,
+    handleSwapCurrency,
   } = useCurrencyConverter();
 
   useEffect(() => {
@@ -89,10 +89,10 @@ export function CurrencyConverter({
             <Swap
               className={cn(
                 'hover:text-secondaryHover dark:hover:text-secondaryHoverDark h-6 w-6 cursor-pointer text-secondary transition-colors dark:text-secondaryDark',
-                changeCurrency && 'rotate-180 transform transition-transform',
-                !changeCurrency && 'transform transition-transform',
+                swapCurrency && 'rotate-180 transform transition-transform',
+                !swapCurrency && 'transform transition-transform',
               )}
-              onClick={() => setChangeCurrency(!changeCurrency)}
+              onClick={() => handleSwapCurrency()}
             />
           </div>
 

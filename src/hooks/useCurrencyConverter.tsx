@@ -1,14 +1,18 @@
 import { useEffect, useState } from 'react';
 
+import { useToast } from 'contexts/Toast';
+
 import axios from 'axios';
 
 export function useCurrencyConverter() {
+  const { toast } = useToast();
   const [currencyOrigin, setCurrencyOrigin] = useState('BRL');
   const [currencyDestination, setCurrencyDestination] = useState('USD');
   const [currencyValue, setCurrencyValue] = useState('');
   const [currencyTotal, setCurrencyTotal] = useState(0);
   const [updateCurrencyDate, setUpdateCurrencyDate] = useState('');
   const [changeCurrency, setChangeCurrency] = useState(false);
+  const [swapCurrency, setSwapCurrency] = useState(false);
 
   async function getCurrencyConverter() {
     if (changeCurrency) {
@@ -19,29 +23,61 @@ export function useCurrencyConverter() {
       setCurrencyDestination(currencyOriginTemp);
     }
 
-    const { data } = await axios.get(
-      `https://economia.awesomeapi.com.br/json/last/${currencyOrigin}-${currencyDestination}`,
-    );
+    if (!currencyValue || currencyValue === '0') {
+      toast.error('Preencha o campo de valor para converter.', {
+        id: 'error',
+      });
 
-    const value = data[`${currencyOrigin}${currencyDestination}`].bid;
-    const date = data[`${currencyOrigin}${currencyDestination}`].create_date;
+      return;
+    }
 
-    const newCurrencyValue = parseFloat(
-      String(currencyValue).replace(',', '.'),
-    );
+    try {
+      const { data } = await axios.get(
+        `https://economia.awesomeapi.com.br/json/last/${currencyOrigin}-${currencyDestination}`,
+      );
 
-    const total = value * newCurrencyValue;
+      const value = data[`${currencyOrigin}${currencyDestination}`].bid;
+      const date = data[`${currencyOrigin}${currencyDestination}`].create_date;
 
-    setCurrencyTotal(total);
-    setUpdateCurrencyDate(date);
+      const newCurrencyValue = parseFloat(
+        String(currencyValue).replace(',', '.'),
+      );
+
+      const total = value * newCurrencyValue;
+
+      setCurrencyTotal(total);
+      setUpdateCurrencyDate(date);
+    } catch (error) {
+      toast.error('Erro ao converter moedas. Tente novamente.', {
+        id: 'error',
+      });
+    }
+  }
+
+  function handleSwapCurrency() {
+    setSwapCurrency((prevState) => !prevState);
+
+    let actualCurrencyOrigin = currencyOrigin;
+    let actualCurrencyDestination = currencyDestination;
+
+    actualCurrencyOrigin = currencyDestination;
+    actualCurrencyDestination = currencyOrigin;
+
+    setCurrencyOrigin(actualCurrencyOrigin);
+    setCurrencyDestination(actualCurrencyDestination);
   }
 
   useEffect(() => {
-    const currencyOriginTemp = currencyOrigin;
-    const currencyDestinationTemp = currencyDestination;
+    if (changeCurrency) {
+      let actualCurrencyOrigin = currencyOrigin;
+      let actualCurrencyDestination = currencyDestination;
 
-    setCurrencyOrigin(currencyDestinationTemp);
-    setCurrencyDestination(currencyOriginTemp);
+      actualCurrencyOrigin = currencyDestination;
+      actualCurrencyDestination = currencyOrigin;
+
+      setCurrencyOrigin(actualCurrencyOrigin);
+      setCurrencyDestination(actualCurrencyDestination);
+    }
   }, [changeCurrency]);
 
   useEffect(() => {
@@ -61,5 +97,8 @@ export function useCurrencyConverter() {
     setCurrencyTotal,
     changeCurrency,
     setChangeCurrency,
+    swapCurrency,
+    setSwapCurrency,
+    handleSwapCurrency,
   };
 }
