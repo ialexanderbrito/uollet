@@ -44,14 +44,17 @@ import { useAuth } from 'contexts/Auth';
 import { useTheme } from 'contexts/Theme';
 
 import { useInvestments } from 'hooks/useInvestments';
+import { useOtp } from 'hooks/useOtp';
 import { useProfile } from 'hooks/useProfile';
 import { useTransactions } from 'hooks/useTransactions';
 
 export function Profile() {
   const navigate = useNavigate();
   const { toggleTheme } = useTheme();
-  const { user, logOut, areValueVisible, toggleValueVisibility } = useAuth();
+  const { user, logOut, areValueVisible, toggleValueVisibility, hasOtp } =
+    useAuth();
 
+  const { deleteOtp } = useOtp();
   const { deleteUser } = useProfile();
   const { copyToClipboard } = useModal();
   const {
@@ -329,10 +332,26 @@ export function Profile() {
               <About />
             </MyDialog>
 
-            <EnrollMFA
-              openModalMFA={openModalMFA}
-              setOpenModalMFA={setOpenModalMFA}
-            />
+            {hasOtp ? (
+              <MyDialog
+                isOpen={openModalMFA}
+                closeModal={() => setOpenModalMFA(false)}
+                title="Autenticação de dois fatores"
+                description="Para usar a autenticação de dois fatores, você precisa primeiro desativar o PIN de acesso rápido, para que não haja conflito entre os dois. Deseja desativar o PIN de acesso rápido?"
+                buttonPrimary
+                buttonSecondary
+                textButtonSecondary="Desativar PIN"
+                handleChangeButtonSecondary={() => {
+                  deleteOtp();
+                  setOpenModalMFA(false);
+                }}
+              />
+            ) : (
+              <EnrollMFA
+                openModalMFA={openModalMFA}
+                setOpenModalMFA={setOpenModalMFA}
+              />
+            )}
 
             <EnrollOtp
               openModalOtp={openModalOtp}
