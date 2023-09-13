@@ -19,29 +19,13 @@ import { Wallet } from 'pages/Wallet';
 import { useAuth } from 'contexts/Auth';
 
 export function PrivateRoutes() {
-  const { hasOtp, signed, hasMFA } = useAuth();
+  const { hasOtp, hasMFA } = useAuth();
   const hasOtpStorage = sessionStorage.getItem('@uollet:hasOtp');
   const hasMFAStorage = sessionStorage.getItem('@uollet:hasMFA');
-
-  if (!signed) {
-    return (
-      <Routes>
-        <Route path="/" element={<Login />} />
-      </Routes>
-    );
-  }
 
   function handleOtp() {
     if (!hasOtpStorage && !hasOtp) {
       return <Route path="/" element={<Finances />} />;
-    }
-
-    if (!hasMFAStorage && !hasMFA) {
-      return <Route path="/" element={<Finances />} />;
-    }
-
-    if (hasMFA && hasMFAStorage === null) {
-      return <Route path="/" element={<Otp isMFA />} />;
     }
 
     if (hasOtp && hasOtpStorage === null) {
@@ -51,9 +35,22 @@ export function PrivateRoutes() {
     return <Route path="/" element={<Finances />} />;
   }
 
+  function handleMFA() {
+    if (!hasMFAStorage && !hasMFA) {
+      return <Route path="/" element={<Finances />} />;
+    }
+
+    if (hasMFA && hasMFAStorage === null) {
+      return <Route path="/" element={<Otp isMFA />} />;
+    }
+
+    return <Route path="/" element={<Finances />} />;
+  }
+
   return (
     <Routes>
-      {handleOtp()}
+      {hasMFA ? handleMFA() : handleOtp()}
+      {hasOtp ? handleOtp() : handleMFA()}
       <Route path="/" element={<Login />} />
       <Route path="/register" element={<Register />} />
       <Route path="/edit/:id" element={<Register />} />
