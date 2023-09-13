@@ -1,3 +1,17 @@
+# [2.9.0](https://github.com/ialexanderbrito/finance/compare/v2.8.0...v2.9.0) (2023-09-13)
+
+
+### Bug Fixes
+
+* close modal success save otp ([6bf557e](https://github.com/ialexanderbrito/finance/commit/6bf557e90e383dc243925f9f29524ec129c37ce1))
+* remove landing page ([1f9d04a](https://github.com/ialexanderbrito/finance/commit/1f9d04ad1a67e7bbb74c4efacbac40a27eb2a36b))
+* remove optional chaining ([9f1df67](https://github.com/ialexanderbrito/finance/commit/9f1df6707caee891d31745ab82102f5c033eb6bc))
+
+
+### Features
+
+* add notice disable pin ([5ad6510](https://github.com/ialexanderbrito/finance/commit/5ad65100deefe0c0cfd9c0d54e8acbf31a84a729))
+
 # [2.8.0](https://github.com/ialexanderbrito/finance/compare/v2.7.0...v2.8.0) (2023-09-10)
 
 
