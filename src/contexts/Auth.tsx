@@ -60,7 +60,7 @@ export function AuthProvider({ children }: any) {
   function hasOtp() {
     if (!user) return false;
 
-    if (user.user_metadata?.otp) {
+    if (user.user_metadata.otp) {
       return true;
     }
 
