@@ -15,7 +15,7 @@ interface OtpProps {
 export function Otp({ isOtp, isMFA }: OtpProps) {
   const location = useLocation();
   const { handleChangeMFA, savePasswordMFA, pageLocationMFA } = useMFA();
-  const { handleChangeOtp, savePasswordOtp } = useOtp();
+  const { handleChangeOtp, handleEnterOtp, timeOut } = useOtp();
 
   return (
     <div className="flex h-screen w-full flex-col items-center bg-background dark:bg-backgroundDark">
@@ -75,17 +75,19 @@ export function Otp({ isOtp, isMFA }: OtpProps) {
               allowedCharacters="numeric"
               length={4}
               isPassword
-              inputClassName="mr-2 ml-2 h-12 w-12 rounded-md border border-background bg-backgroundCard text-center text-2xl focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary dark:border-backgroundDark dark:bg-backgroundCardDark dark:text-textDark"
+              inputClassName="mr-2 ml-2 h-12 w-12 rounded-md border border-background bg-backgroundCard text-center text-2xl focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary dark:border-backgroundDark dark:bg-backgroundCardDark dark:text-textDark disabled:cursor-not-allowed disabled:opacity-50"
+              disabled={timeOut > 0}
             />
           </div>
 
           <button
-            className="flex h-12 w-full items-center justify-center rounded-lg bg-secondary text-white dark:bg-secondaryDark"
+            className="flex h-12 w-full items-center justify-center rounded-lg bg-secondary text-white disabled:cursor-not-allowed disabled:opacity-50 dark:bg-secondaryDark"
             onClick={() => {
-              savePasswordOtp();
+              handleEnterOtp();
             }}
+            disabled={timeOut > 0}
           >
-            Entrar
+            {timeOut > 0 ? `Aguarde ${timeOut}s` : 'Entrar'}
           </button>
         </div>
       )}

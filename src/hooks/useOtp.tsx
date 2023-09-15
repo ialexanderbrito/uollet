@@ -67,6 +67,44 @@ export function useOtp() {
     return false;
   }
 
+  async function handleEnterOtp() {
+    if (!user) return;
+
+    if (!pageLocation(location.pathname)) {
+      const verify = await verifyPassword(otp, user.user_metadata.otp);
+
+      sessionStorage.setItem('@uollet:hasOtp', 'true');
+
+      if (verify === true) {
+        window.location.reload();
+      } else {
+        toast.error('Senha de acesso incorreta', {
+          id: 'error',
+        });
+
+        setAttempt(attempt + 1);
+
+        if (attempt === 1) {
+          toast.error(
+            'Cuidado você só tem mais 1 tentativa, depois disso você será bloqueado por 30s',
+            {
+              id: 'error',
+            },
+          );
+        }
+
+        if (attempt === 2) {
+          toast.error('Você errou a senha de acesso 3 vezes. Aguarde 30s', {
+            id: 'error',
+          });
+
+          setTimeOut(30);
+          setAttempt(0);
+        }
+      }
+    }
+  }
+
   async function savePasswordOtp() {
     if (!user) return;
 
@@ -155,5 +193,6 @@ export function useOtp() {
     deleteOtp,
     verifyButton,
     timeOut,
+    handleEnterOtp,
   };
 }
