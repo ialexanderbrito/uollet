@@ -1,3 +1,15 @@
+# [2.11.0](https://github.com/ialexanderbrito/finance/compare/v2.10.0...v2.11.0) (2023-09-15)
+
+
+### Bug Fixes
+
+* otp enter application ([3195f16](https://github.com/ialexanderbrito/finance/commit/3195f160b541cdc4d66af193c91b0d6207e6e887))
+
+
+### Features
+
+* add new items kbar ([a4bac4e](https://github.com/ialexanderbrito/finance/commit/a4bac4e3b31d819e0f32064c7229d70393f22a7a))
+
 # [2.10.0](https://github.com/ialexanderbrito/finance/compare/v2.9.0...v2.10.0) (2023-09-13)
 
 
