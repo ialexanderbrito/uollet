@@ -1,4 +1,4 @@
-import { forwardRef, Fragment, useMemo, Ref } from 'react';
+import { forwardRef, Fragment, useMemo, Ref, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import {
@@ -8,6 +8,10 @@ import {
   Moon,
   Sun,
   ChartLineUp,
+  Calculator as CalculatorIcon,
+  CurrencyCircleDollar,
+  FileCsv,
+  FileXls,
 } from '@phosphor-icons/react';
 import {
   KBarProvider,
@@ -21,6 +25,9 @@ import {
 } from 'kbar';
 
 import { useTheme } from 'contexts/Theme';
+
+import { Calculator } from './Calculator';
+import { CurrencyConverter } from './CurrencyConverter';
 
 function RenderResults() {
   const { results, rootActionId } = useMatches();
@@ -121,6 +128,9 @@ const ResultItem = forwardRef(
 );
 
 export function KBar({ children }: { children: React.ReactNode }) {
+  const [openModalCurrency, setOpenModalCurrency] = useState(false);
+  const [openModalCalculator, setOpenModalCalculator] = useState(false);
+
   const navigate = useNavigate();
   const { toggleTheme, theme, removeDarkTheme } = useTheme();
 
@@ -174,10 +184,54 @@ export function KBar({ children }: { children: React.ReactNode }) {
       id: 'my-cards',
       name: 'Meus Cartões',
       icon: <CreditCard size={18} weight="regular" />,
-      shortcut: ['c'],
+      shortcut: ['c', 'c'],
       keywords: 'cartão, meus cartões, cartões',
       perform: () => {
         navigate('/cards');
+      },
+    },
+    {
+      section: 'Ferramentas',
+      id: 'conversor-currency',
+      name: 'Conversor de Moedas',
+      icon: <CurrencyCircleDollar size={18} weight="regular" />,
+      shortcut: ['c', 'm'],
+      keywords: 'conversor, moedas, conversor de moedas',
+      perform: () => {
+        setOpenModalCurrency(true);
+      },
+    },
+    {
+      section: 'Ferramentas',
+      id: 'calculator',
+      name: 'Calculadora',
+      icon: <CalculatorIcon size={18} weight="regular" />,
+      shortcut: ['c', 'a'],
+      keywords: 'calculadora',
+      perform: () => {
+        setOpenModalCalculator(true);
+      },
+    },
+    {
+      section: 'Ferramentas',
+      id: 'export-sheet',
+      name: 'Exportar Planilha',
+      icon: <FileXls size={18} weight="regular" />,
+      shortcut: ['e', 'p'],
+      keywords: 'exportar, planilha, exportar planilha',
+      perform: () => {
+        navigate('/export');
+      },
+    },
+    {
+      section: 'Ferramentas',
+      id: 'import-csv',
+      name: 'Importar CSV',
+      icon: <FileCsv size={18} weight="regular" />,
+      shortcut: ['i', 'p'],
+      keywords: 'importar, planilha, importar planilha, csv, importar csv',
+      perform: () => {
+        navigate('/import');
       },
     },
     {
@@ -193,6 +247,7 @@ export function KBar({ children }: { children: React.ReactNode }) {
         ),
       shortcut: ['t'],
     },
+
     {
       section: '',
       id: 'dark-theme',
@@ -218,20 +273,32 @@ export function KBar({ children }: { children: React.ReactNode }) {
   ];
 
   return (
-    <KBarProvider actions={actions}>
-      <KBarPortal>
-        <KBarPositioner className="z-50 flex items-center bg-black/80 p-2 ">
-          <KBarAnimator className="w-max-500px w-2/4 overflow-hidden rounded-lg border-[1.5px] border-secondary bg-background dark:border-secondaryDark dark:bg-backgroundCardDark">
-            <KBarSearch
-              className="flex h-14 w-full px-4 outline-none dark:bg-backgroundCardDark dark:text-titleDark"
-              defaultPlaceholder="Digite um comando ou pesquise por algo"
-            />
-            <RenderResults />
-          </KBarAnimator>
-        </KBarPositioner>
-      </KBarPortal>
+    <>
+      <KBarProvider actions={actions}>
+        <KBarPortal>
+          <KBarPositioner className="z-50 flex items-center bg-black/80 p-2 ">
+            <KBarAnimator className="w-max-500px w-2/4 overflow-hidden rounded-lg border-[1.5px] border-secondary bg-background dark:border-secondaryDark dark:bg-backgroundCardDark">
+              <KBarSearch
+                className="flex h-14 w-full px-4 outline-none dark:bg-backgroundCardDark dark:text-titleDark"
+                defaultPlaceholder="Digite um comando ou pesquise por algo"
+              />
+              <RenderResults />
+            </KBarAnimator>
+          </KBarPositioner>
+        </KBarPortal>
 
-      {children}
-    </KBarProvider>
+        {children}
+      </KBarProvider>
+
+      <CurrencyConverter
+        openModalCurrency={openModalCurrency}
+        setOpenModalCurrency={setOpenModalCurrency}
+      />
+
+      <Calculator
+        openModalCalculator={openModalCalculator}
+        setOpenModalCalculator={setOpenModalCalculator}
+      />
+    </>
   );
 }
