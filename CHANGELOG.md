@@ -1,3 +1,10 @@
+## [2.11.1](https://github.com/ialexanderbrito/finance/compare/v2.11.0...v2.11.1) (2023-09-16)
+
+
+### Bug Fixes
+
+* vulnerability otp refresh page ([03a2944](https://github.com/ialexanderbrito/finance/commit/03a2944a1faf799e4f79da8cf2f94a6e470309fc))
+
 # [2.11.0](https://github.com/ialexanderbrito/finance/compare/v2.10.0...v2.11.0) (2023-09-15)
 
 
