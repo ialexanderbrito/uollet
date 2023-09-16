@@ -27,9 +27,9 @@ export function useOtp() {
     if (otp.length === 4 && !pageLocation(location.pathname)) {
       const verify = await verifyPassword(otp, user.user_metadata.otp);
 
-      sessionStorage.setItem('@uollet:hasOtp', 'true');
-
       if (verify === true) {
+        sessionStorage.setItem('@uollet:hasOtp', 'true');
+
         window.location.reload();
       } else {
         toast.error('Senha de acesso incorreta', {
@@ -51,6 +51,8 @@ export function useOtp() {
           toast.error('Você errou a senha de acesso 3 vezes. Aguarde 30s', {
             id: 'error',
           });
+
+          sessionStorage.setItem('@uollet:timeOut', '30');
 
           setTimeOut(30);
           setAttempt(0);
@@ -70,12 +72,18 @@ export function useOtp() {
   async function handleEnterOtp() {
     if (!user) return;
 
+    if (otp.length !== 4) {
+      toast.error('Digite o PIN corretamente com 4 dígitos', {
+        id: 'error',
+      });
+      return;
+    }
     if (!pageLocation(location.pathname)) {
       const verify = await verifyPassword(otp, user.user_metadata.otp);
 
-      sessionStorage.setItem('@uollet:hasOtp', 'true');
-
       if (verify === true) {
+        sessionStorage.setItem('@uollet:hasOtp', 'true');
+
         window.location.reload();
       } else {
         toast.error('Senha de acesso incorreta', {
@@ -98,6 +106,8 @@ export function useOtp() {
             id: 'error',
           });
 
+          sessionStorage.setItem('@uollet:timeOut', '30');
+
           setTimeOut(30);
           setAttempt(0);
         }
@@ -112,7 +122,6 @@ export function useOtp() {
       const verify = await verifyPassword(otp, user.user_metadata.otp);
 
       sessionStorage.setItem('@uollet:hasOtp', 'true');
-
       if (verify === true) {
         toast.error('A senha de acesso não pode ser igual a anterior', {
           id: 'error',
@@ -179,10 +188,27 @@ export function useOtp() {
   }
 
   useEffect(() => {
+    const storedTimeOut = sessionStorage.getItem('@uollet:timeOut');
+
+    if (storedTimeOut) {
+      const parsedTimeOut = parseInt(storedTimeOut, 10);
+
+      if (!isNaN(parsedTimeOut)) {
+        setTimeOut(parsedTimeOut);
+      }
+    }
+  }, []);
+
+  useEffect(() => {
     if (timeOut > 0) {
-      setTimeout(() => {
+      const timeoutId = setTimeout(() => {
         setTimeOut(timeOut - 1);
+        sessionStorage.setItem('@uollet:timeOut', timeOut.toString());
       }, 1000);
+
+      return () => clearTimeout(timeoutId);
+    } else if (timeOut === 0) {
+      sessionStorage.removeItem('@uollet:timeOut');
     }
   }, [timeOut]);
 
