@@ -74,9 +74,12 @@ export function Register() {
           <div className="flex w-full flex-row justify-around gap-4 p-1">
             <div
               className={cn(
-                'flex h-16 w-full cursor-pointer flex-row items-center justify-evenly rounded-md border-[1.5px] border-solid border-text bg-white dark:bg-backgroundCardDark',
-                formik.values.type === 'income' && 'border-none bg-[#e7f5e7]',
-                formik.errors.type && formik.touched.type && 'border-red-500',
+                'flex h-16 w-full cursor-pointer flex-row items-center justify-evenly rounded-md bg-white dark:bg-backgroundCardDark',
+                formik.values.type === 'income' &&
+                  'border-none bg-[#e7f5e7] dark:bg-[#e7f5e7]',
+                formik.errors.type &&
+                  formik.touched.type &&
+                  'border-[1.5px] border-red-500',
               )}
               onClick={() => {
                 formik.setFieldValue('type', 'income');
@@ -95,9 +98,12 @@ export function Register() {
 
             <div
               className={cn(
-                'flex h-16  w-full cursor-pointer flex-row items-center justify-evenly rounded-md border-[1.5px] border-solid border-text bg-white dark:bg-backgroundCardDark',
-                formik.values.type === 'outcome' && 'border-none bg-[#fddede]',
-                formik.errors.type && formik.touched.type && 'border-red-500',
+                'flex h-16  w-full cursor-pointer flex-row items-center justify-evenly rounded-md border-text bg-white dark:bg-backgroundCardDark',
+                formik.values.type === 'outcome' &&
+                  'border-none bg-[#fddede] dark:bg-[#fddede] ',
+                formik.errors.type &&
+                  formik.touched.type &&
+                  'border-[1.5px] border-red-500',
               )}
               onClick={() => {
                 formik.setFieldValue('type', 'outcome');
@@ -107,7 +113,7 @@ export function Register() {
               <p
                 className={cn(
                   'text-text',
-                  formik.values.type === 'income' && 'text-title',
+                  formik.values.type === 'outcome' && 'text-title',
                 )}
               >
                 Saída
