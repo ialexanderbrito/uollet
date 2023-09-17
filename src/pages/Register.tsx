@@ -74,7 +74,7 @@ export function Register() {
           <div className="flex w-full flex-row justify-around gap-4 p-1">
             <div
               className={cn(
-                'flex h-16 w-full cursor-pointer flex-row items-center justify-evenly rounded-md border-[1.5px] border-solid border-text',
+                'flex h-16 w-full cursor-pointer flex-row items-center justify-evenly rounded-md border-[1.5px] border-solid border-text bg-white dark:bg-backgroundCardDark',
                 formik.values.type === 'income' && 'border-none bg-[#e7f5e7]',
                 formik.errors.type && formik.touched.type && 'border-red-500',
               )}
@@ -95,7 +95,7 @@ export function Register() {
 
             <div
               className={cn(
-                'flex h-16  w-full cursor-pointer flex-row items-center justify-evenly rounded-md border-[1.5px] border-solid border-text',
+                'flex h-16  w-full cursor-pointer flex-row items-center justify-evenly rounded-md border-[1.5px] border-solid border-text bg-white dark:bg-backgroundCardDark',
                 formik.values.type === 'outcome' && 'border-none bg-[#fddede]',
                 formik.errors.type && formik.touched.type && 'border-red-500',
               )}
