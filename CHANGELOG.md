@@ -1,3 +1,11 @@
+## [2.11.2](https://github.com/ialexanderbrito/finance/compare/v2.11.1...v2.11.2) (2023-09-17)
+
+
+### Bug Fixes
+
+* force navigate user home page ([fb0ae47](https://github.com/ialexanderbrito/finance/commit/fb0ae47f8a259bfb513d96d9d4712eb9c294ccf7))
+* remove release note link modal about ([44831ba](https://github.com/ialexanderbrito/finance/commit/44831ba69afc89bebbb61caec36322f8b635008d))
+
 ## [2.11.1](https://github.com/ialexanderbrito/finance/compare/v2.11.0...v2.11.1) (2023-09-16)
 
 
