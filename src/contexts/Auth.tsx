@@ -110,10 +110,6 @@ export function AuthProvider({ children }: any) {
 
     setUser(user);
     localStorage.setItem('@uollet:user', JSON.stringify(user));
-
-    if (user) {
-      navigate('/');
-    }
   }
 
   useEffect(() => {
