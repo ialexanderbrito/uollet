@@ -1,5 +1,3 @@
-import { Link } from 'react-router-dom';
-
 import logo from 'assets/favicon.svg';
 
 import { useDetectDevice } from 'hooks/useDetectDevice';
@@ -16,15 +14,7 @@ export function About() {
 
       <div className="mt-2 flex flex-col items-center justify-center gap-2 ">
         <p className="text-sm text-text dark:text-textDark">
-          Versão {import.meta.env.PACKAGE_VERSION} (
-          <Link
-            to="/release-notes"
-            rel="noreferrer"
-            className="text-secondary dark:text-secondaryDark"
-          >
-            release notes
-          </Link>
-          )
+          Versão {import.meta.env.PACKAGE_VERSION}
         </p>
         <p className="text-sm text-text dark:text-textDark">
           Plataforma: {isMobile && 'Mobile'}
