@@ -112,12 +112,5 @@
     }
   ],
   "prefer_related_applications": true,
-  "display_override": "standalone",
-  "edge_side_panel": {},
-  "protocol_handlers": [
-    {
-      "protocol": "mailto",
-      "url": "/register"
-    }
-  ]
+  "display_override": "standalone"
 }
