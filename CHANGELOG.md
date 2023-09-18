@@ -1,3 +1,11 @@
+## [2.11.3](https://github.com/ialexanderbrito/finance/compare/v2.11.2...v2.11.3) (2023-09-18)
+
+
+### Bug Fixes
+
+* config tailwind and vite ([93a3442](https://github.com/ialexanderbrito/finance/commit/93a3442b53205b5de8475609ae7d9e464875a099))
+* import require ([8854ad7](https://github.com/ialexanderbrito/finance/commit/8854ad7e72dbdc7596cc411582af3969cda8f5ed))
+
 ## [2.11.2](https://github.com/ialexanderbrito/finance/compare/v2.11.1...v2.11.2) (2023-09-17)
 
 
