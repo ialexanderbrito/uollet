@@ -34,9 +34,9 @@ module.exports = {
     },
   },
   plugins: [
+    ('prettier-plugin-tailwindcss'),
     require('tailwind-scrollbar'),
     require('tailwind-scrollbar-hide'),
-    require('prettier-plugin-tailwindcss'),
     require('@tailwindcss/typography'),
   ],
 };
