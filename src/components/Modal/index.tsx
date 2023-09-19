@@ -99,7 +99,7 @@ export function MyDialog({
               >
                 <Dialog.Panel
                   className={cn(
-                    'w-full max-w-md transform overflow-hidden rounded-md bg-white p-6 text-left align-middle shadow-xl transition-all dark:bg-backgroundCardDark',
+                    'w-full max-w-md transform overflow-hidden rounded-md bg-white p-6 text-left align-middle transition-all dark:bg-backgroundCardDark',
                     about && 'max-w-xs',
                     size === 'xs' && 'max-w-xs',
                     size === 'sm' && 'max-w-sm',

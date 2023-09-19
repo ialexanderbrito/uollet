@@ -68,7 +68,7 @@ export function ModalLogin({ closeModal, isOpen }: MyDialogProps) {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-md bg-background p-6 text-left align-middle shadow-xl transition-all dark:bg-backgroundDark">
+                <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-md bg-background p-6 text-left align-middle transition-all dark:bg-backgroundDark">
                   <h3 className="text-lg font-medium leading-6 text-title dark:text-titleDark">
                     {register && 'Faça sua conta agora'}
                     {forgetPassword && 'Restaure sua senha'}
