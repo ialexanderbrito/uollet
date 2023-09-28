@@ -1,3 +1,10 @@
+## [2.11.4](https://github.com/ialexanderbrito/finance/compare/v2.11.3...v2.11.4) (2023-09-28)
+
+
+### Bug Fixes
+
+* name table recurrency db ([a41749a](https://github.com/ialexanderbrito/finance/commit/a41749a1be0284e1266e209dfc65d69861a8a8b4))
+
 ## [2.11.3](https://github.com/ialexanderbrito/finance/compare/v2.11.2...v2.11.3) (2023-09-18)
 
 
