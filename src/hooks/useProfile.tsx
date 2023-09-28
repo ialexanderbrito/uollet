@@ -87,7 +87,7 @@ export function useProfile() {
         .match({ user_id: id });
 
       const { error: errorDeleteRowsRecurrency } = await supabase
-        .from('finances_recurrency')
+        .from('finances_recurrency_db')
         .delete()
         .match({ user_id: id });
 

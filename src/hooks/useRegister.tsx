@@ -191,7 +191,7 @@ export function useRegister() {
 
           if (values.recurrency) {
             const { error: errorRecurrency } = await supabase
-              .from('finances_recurrency')
+              .from('finances_recurrency_db')
               .insert([
                 {
                   title: values.title,
@@ -246,7 +246,7 @@ export function useRegister() {
 
           if (values.recurrency) {
             const { error: errorRecurrency } = await supabase
-              .from('finances_recurrency')
+              .from('finances_recurrency_db')
               .update([
                 {
                   id,
@@ -329,7 +329,7 @@ export function useRegister() {
     if (!data) return;
 
     const { data: recurrencyData } = await supabase
-      .from('finances_recurrency')
+      .from('finances_recurrency_db')
       .select('*')
       .eq('title', data[0].title)
       .eq('user_id', storageUser?.id);
