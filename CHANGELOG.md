@@ -1,3 +1,15 @@
+# [2.12.0](https://github.com/ialexanderbrito/finance/compare/v2.11.4...v2.12.0) (2023-10-06)
+
+
+### Bug Fixes
+
+* disabled menu planilhas in webview ([746787a](https://github.com/ialexanderbrito/finance/commit/746787a4f4fcff8a3cb12f638448063ab7488905))
+
+
+### Features
+
+* add utils verify web view ([cdf24c2](https://github.com/ialexanderbrito/finance/commit/cdf24c24fcecad387ed8608001918135b168cf58))
+
 ## [2.11.4](https://github.com/ialexanderbrito/finance/compare/v2.11.3...v2.11.4) (2023-09-28)
 
 
