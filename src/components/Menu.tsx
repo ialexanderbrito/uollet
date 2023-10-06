@@ -22,6 +22,7 @@ import {
 } from '@phosphor-icons/react';
 
 import { cn } from 'utils/cn';
+import { verifyWebView } from 'utils/verifyWebView';
 
 import { useAuth } from 'contexts/Auth';
 import { useTheme } from 'contexts/Theme';
@@ -127,35 +128,37 @@ export function Menu({ isInvestiment }: MenuProps) {
                   </button>
                 </MenuComponent.Item>
 
-                <Disclosure as={Fragment}>
-                  <Disclosure.Button
-                    className="group flex w-full items-center rounded-md px-2 py-2 text-sm"
-                    onClick={() => {
-                      setMoreSheets(!moreSheets);
-                    }}
-                  >
-                    {moreSheets ? (
-                      <CaretUp
-                        size={20}
-                        weight="light"
-                        className={cn(
-                          'mr-2 h-5 w-5 text-secondary ',
-                          isInvestiment && 'text-primary',
-                        )}
-                      />
-                    ) : (
-                      <CaretDown
-                        size={20}
-                        weight="light"
-                        className={cn(
-                          'mr-2 h-5 w-5 text-secondary',
-                          isInvestiment && 'text-primary',
-                        )}
-                      />
-                    )}
-                    <span>Planilhas</span>
-                  </Disclosure.Button>
-                </Disclosure>
+                {!verifyWebView() && (
+                  <Disclosure as={Fragment}>
+                    <Disclosure.Button
+                      className="group flex w-full items-center rounded-md px-2 py-2 text-sm"
+                      onClick={() => {
+                        setMoreSheets(!moreSheets);
+                      }}
+                    >
+                      {moreSheets ? (
+                        <CaretUp
+                          size={20}
+                          weight="light"
+                          className={cn(
+                            'mr-2 h-5 w-5 text-secondary ',
+                            isInvestiment && 'text-primary',
+                          )}
+                        />
+                      ) : (
+                        <CaretDown
+                          size={20}
+                          weight="light"
+                          className={cn(
+                            'mr-2 h-5 w-5 text-secondary',
+                            isInvestiment && 'text-primary',
+                          )}
+                        />
+                      )}
+                      <span>Planilhas</span>
+                    </Disclosure.Button>
+                  </Disclosure>
+                )}
 
                 {moreSheets && (
                   <>
