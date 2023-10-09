@@ -1,3 +1,10 @@
+# [2.13.0](https://github.com/ialexanderbrito/finance/compare/v2.12.0...v2.13.0) (2023-10-09)
+
+
+### Features
+
+* add config pwa install route link ([4b97056](https://github.com/ialexanderbrito/finance/commit/4b970567f5232a657cb9922025edecc37c98697f))
+
 # [2.12.0](https://github.com/ialexanderbrito/finance/compare/v2.11.4...v2.12.0) (2023-10-06)
 
 
