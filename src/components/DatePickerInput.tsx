@@ -1,7 +1,8 @@
-import { Fragment } from 'react';
+import { Fragment, useState, useEffect } from 'react';
 
 import { Popover, Transition } from '@headlessui/react';
 import { Calendar } from '@phosphor-icons/react';
+import { parseISO } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 
 import { cn } from 'utils/cn';
@@ -20,13 +21,24 @@ export function DatePickerInput({
   error,
   className,
 }: DatePickerInputProps) {
-  function addOneDayInValue(value: string) {
-    const date = new Date(value);
+  const [selected, setSelected] = useState<Date | undefined>(
+    value ? parseISO(value) : undefined,
+  );
 
-    date.setDate(date.getDate());
+  useEffect(() => {
+    if (value) {
+      setSelected(parseISO(value));
+    }
+  }, [value]);
 
-    return date.toISOString();
-  }
+  const formattedValue = selected
+    ? selected.toLocaleDateString()
+    : 'Selecione uma data';
+
+  const handleDayClick = (day: Date) => {
+    setSelected(day);
+    onChange(day.toISOString());
+  };
 
   return (
     <div>
@@ -38,16 +50,7 @@ export function DatePickerInput({
             className,
           )}
         >
-          <span className="text-sm">
-            {value
-              ? addOneDayInValue(value)
-                  .split('T')[0]
-                  .split('-')
-                  .reverse()
-                  .join('/')
-              : new Date().toLocaleDateString('pt-BR')}
-          </span>
-
+          <span className="text-sm">{formattedValue}</span>
           <Calendar className="h-6 w-6" />
         </Popover.Button>
         <Transition
@@ -59,14 +62,12 @@ export function DatePickerInput({
           leaveFrom="opacity-100 translate-y-0"
           leaveTo="opacity-0 translate-y-1"
         >
-          <Popover.Panel className="w-80 ">
+          <Popover.Panel className="w-80">
             <div>
               <DayPicker
                 mode="single"
-                onDayClick={(day) => {
-                  onChange(day.toISOString());
-                }}
-                selected={value ? new Date(value) : new Date()}
+                onDayClick={handleDayClick}
+                selected={selected}
                 locale={ptBR}
                 className="flex h-80 w-80 items-center justify-center"
               />
