@@ -14,6 +14,8 @@
     "prepare": "husky install"
   },
   "dependencies": {
+    "@emoji-mart/data": "^1.1.2",
+    "@emoji-mart/react": "^1.1.1",
     "@hcaptcha/react-hcaptcha": "^1.8.1",
     "@headlessui/react": "^1.7.17",
     "@phosphor-icons/react": "^2.0.10",
@@ -27,6 +29,7 @@
     "credit-card-type": "^9.1.0",
     "crypto-js": "^4.1.1",
     "date-fns": "^2.30.0",
+    "emoji-mart": "^5.5.2",
     "formik": "^2.4.5",
     "kbar": "0.1.0-beta.43",
     "mathjs": "^11.11.0",
