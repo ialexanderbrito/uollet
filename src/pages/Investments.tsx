@@ -150,8 +150,20 @@ export function Investments() {
                 <div className="mt-4 flex flex-col items-center justify-center">
                   <img src={emptyImg} alt="Empty" className="mb-2 w-28" />
                   <p className="text-center text-lg font-medium text-black dark:text-textDark">
-                    Não encontramos nenhuma transação
+                    Não encontramos nenhum investimento
                   </p>
+
+                  <div className="mt-2 flex w-full flex-col items-center justify-end gap-4">
+                    <button
+                      type="submit"
+                      className="h-14 w-full rounded-lg bg-primaryDark p-4 text-white dark:bg-primary"
+                      onClick={() => {
+                        navigate('/register');
+                      }}
+                    >
+                      Adicionar Investimento
+                    </button>
+                  </div>
                 </div>
               )}
               {investments.map((item: FinancesProps, index) => (

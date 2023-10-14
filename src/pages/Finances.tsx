@@ -150,6 +150,18 @@ export function Finances() {
                   <p className="text-center text-lg font-medium text-black dark:text-textDark">
                     Não encontramos nenhuma transação
                   </p>
+
+                  <div className="mt-2 flex w-full flex-col items-center justify-end gap-4">
+                    <button
+                      type="submit"
+                      className="h-14 w-full rounded-lg bg-secondary p-4 text-white dark:bg-secondaryDark"
+                      onClick={() => {
+                        navigate('/register');
+                      }}
+                    >
+                      Adicionar Transação
+                    </button>
+                  </div>
                 </div>
               )}
               {finances.map((item: FinancesProps, index) => (
