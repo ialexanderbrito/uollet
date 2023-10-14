@@ -1,3 +1,16 @@
+# [2.14.0](https://github.com/ialexanderbrito/finance/compare/v2.13.0...v2.14.0) (2023-10-14)
+
+
+### Bug Fixes
+
+* date picker input ([a53e09d](https://github.com/ialexanderbrito/finance/commit/a53e09d8d7ede77647daa4d0656722c57e752ae0))
+
+
+### Features
+
+* add button add resume ([dec5309](https://github.com/ialexanderbrito/finance/commit/dec5309eaa1930b4c29c023922c596f4275e22af))
+* add new assets ([b8d7ee7](https://github.com/ialexanderbrito/finance/commit/b8d7ee7fa37ef89a565bd0d8701efbda02426d5c))
+
 # [2.13.0](https://github.com/ialexanderbrito/finance/compare/v2.12.0...v2.13.0) (2023-10-09)
 
 
