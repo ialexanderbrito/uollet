@@ -1,6 +1,7 @@
 import { Eye, EyeClosed } from '@phosphor-icons/react';
 import { Ring } from '@uiball/loaders';
 
+import { Alert } from 'components/Alert';
 import { BottomNavigator } from 'components/BottomNavigator';
 import { Dropzone } from 'components/Dropzone';
 import { Header } from 'components/Header';
@@ -20,6 +21,8 @@ export function MyProfile() {
     loadingImage,
     handleUpload,
     loading,
+    hasSuccessImage,
+    setHasSuccessImage,
   } = useProfile();
 
   return (
@@ -31,8 +34,17 @@ export function MyProfile() {
         onSubmit={formikUpdateUser.handleSubmit}
       >
         <div className="flex h-screen w-full flex-col gap-4 p-4">
+          {hasSuccessImage && (
+            <Alert
+              alertName="picture"
+              description="Sua foto de perfil foi atualizada. A atualização em todo o site pode levar alguns minutos."
+              title="Foto de perfil atualizada!"
+              variant="info"
+              onClick={() => setHasSuccessImage(false)}
+            />
+          )}
           {loadingImage ? (
-            <div className="flex h-full animate-pulse flex-row items-center justify-center space-x-5">
+            <div className="flex animate-pulse flex-row items-center justify-center space-x-5">
               <div className="h-40 w-40 rounded-lg bg-gray-300 "></div>
             </div>
           ) : (

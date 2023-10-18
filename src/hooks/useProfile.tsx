@@ -16,6 +16,7 @@ export function useProfile() {
   const [loadingImage, setLoadingImage] = useState(false);
   const [passwordType, setPasswordType] = useState('password');
   const [loading, setLoading] = useState(false);
+  const [hasSuccessImage, setHasSuccessImage] = useState(false);
 
   function togglePassword() {
     if (passwordType === 'password') {
@@ -153,10 +154,12 @@ export function useProfile() {
 
       toast.success('Imagem enviada com sucesso', { id: 'image' });
       setLoadingImage(false);
+      setHasSuccessImage(true);
       return;
     }
 
     setLoadingImage(true);
+    setHasSuccessImage(false);
     toast.loading('Enviando imagem...', { id: 'image' });
     const { error } = await supabase.storage
       .from('avatars')
@@ -186,6 +189,7 @@ export function useProfile() {
     toast.success('Imagem enviada com sucesso', { id: 'image' });
 
     setLoadingImage(false);
+    setHasSuccessImage(true);
   }
 
   return {
@@ -196,5 +200,7 @@ export function useProfile() {
     loadingImage,
     loading,
     handleUpload,
+    hasSuccessImage,
+    setHasSuccessImage,
   };
 }
