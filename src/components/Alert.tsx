@@ -10,6 +10,8 @@ interface AlertProps {
   className?: string;
   variant: 'error' | 'success' | 'warning' | 'info' | 'default';
   alertName: string;
+  onClick?: () => void;
+  disabledOnClick?: boolean;
 }
 
 export function Alert({
@@ -18,6 +20,8 @@ export function Alert({
   className,
   variant,
   alertName,
+  onClick,
+  disabledOnClick,
 }: AlertProps) {
   const [visible, setVisible] = useState(true);
 
@@ -39,7 +43,7 @@ export function Alert({
       {visible && (
         <div
           className={cn(
-            'relative w-full rounded border  px-4 py-3 ',
+            'relative w-full rounded border px-4 py-3 ',
             variant === 'error' && 'border-red-400 text-red-700',
             variant === 'success' && 'border-green-400 text-green-700',
             variant === 'warning' && 'border-yellow-400 text-yellow-700',
@@ -61,7 +65,13 @@ export function Alert({
                 variant === 'info' && 'text-blue-500',
                 variant === 'default' && 'text-gray-500',
               )}
-              onClick={() => disableAlert()}
+              onClick={() => {
+                if (onClick) {
+                  onClick();
+                } else {
+                  disableAlert();
+                }
+              }}
             />
           </span>
         </div>
