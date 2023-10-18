@@ -27,3 +27,12 @@
 ::selection {
     @apply bg-primary text-white dark:bg-primaryDark dark:text-white;
 }
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+    @apply w-5 h-5 dark:invert cursor-pointer;
+}
+
+input[type="date"]::-webkit-inner-spin-button,
+input[type="date"]::-webkit-outer-spin-button {
+    @apply h-6 w-6;
+}
