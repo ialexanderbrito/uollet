@@ -4,6 +4,7 @@ import { Tooltip } from 'react-tooltip';
 import { RWebShare } from 'react-web-share';
 
 import {
+  Confetti,
   CreditCard,
   Eye,
   EyeClosed,
@@ -20,6 +21,7 @@ import {
 import connectionImg from 'assets/connection.svg';
 import creditCardImg from 'assets/credit_card.svg';
 import defaultAvatar from 'assets/default_user_avatar.png';
+import goalsImg from 'assets/goals.svg';
 import incomeImg from 'assets/income.svg';
 import outcomeImg from 'assets/outcome.svg';
 import savingsImg from 'assets/savings.svg';
@@ -176,6 +178,13 @@ export function Profile() {
                 className="bg-[#01eefe]"
               />
 
+              <Banner
+                title="Cadastre suas metas financeiras e alcance seus objetivos!"
+                img={goalsImg}
+                onClick={() => navigate('/register/goals')}
+                className="bg-[#c8a2c8]"
+              />
+
               <RWebShare
                 data={{
                   text: 'Conheça o uollet, um app para controle de finanças pessoais!',
@@ -215,6 +224,14 @@ export function Profile() {
                 icon={<CreditCard size={20} weight="light" />}
                 title="Cartões de crédito"
                 onClick={() => navigate('/cards')}
+                arrow
+                divider
+              />
+
+              <Submenu
+                icon={<Confetti size={20} weight="light" />}
+                title="Metas"
+                onClick={() => navigate('/goals')}
                 arrow
                 divider
               />

@@ -10,6 +10,7 @@ import {
   Calculator as CalculatorIcon,
   CaretDown,
   CaretUp,
+  Confetti,
   CreditCard,
   CurrencyCircleDollar,
   DotsThreeVertical,
@@ -125,6 +126,25 @@ export function Menu({ isInvestiment }: MenuProps) {
                       )}
                     />
                     Adicionar cartão
+                  </button>
+                </MenuComponent.Item>
+
+                <MenuComponent.Item>
+                  <button
+                    className="group flex w-full items-center rounded-md px-2 py-2 text-sm"
+                    onClick={() => {
+                      navigate('/goals');
+                    }}
+                  >
+                    <Confetti
+                      size={20}
+                      weight="light"
+                      className={cn(
+                        'mr-2 h-5 w-5 text-secondary',
+                        isInvestiment && 'text-primary',
+                      )}
+                    />
+                    Metas
                   </button>
                 </MenuComponent.Item>
 
