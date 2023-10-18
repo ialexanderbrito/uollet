@@ -27,7 +27,43 @@ export function Register() {
     setOpenBottomSheet,
     categories,
     isCategoryCreditCard,
+    isGoal,
+    setIsGoal,
+    goalsList,
   } = useRegister();
+
+  function handleIsGoalToggle() {
+    setIsGoal(!isGoal);
+
+    if (!isGoal) {
+      formik.setFieldTouched('title', false);
+      formik.setFieldTouched('title', false, false);
+      formik.setFieldValue('title', formik.values.category.name);
+      formik.setFieldValue('type', 'income');
+    } else {
+      formik.setFieldTouched('title', true);
+      formik.setFieldTouched('title', true, false);
+      formik.setFieldValue('category', {
+        name: '',
+        emoji: '',
+        id: '',
+      });
+    }
+  }
+
+  const goalTitle = sessionStorage.getItem('@uollet:goal');
+
+  if (goalTitle && !formik.values.title) {
+    formik.setFieldValue('title', goalTitle);
+    setIsGoal(true);
+    formik.setFieldValue('type', 'income');
+    formik.setFieldValue('category', {
+      name: `${goalTitle}`,
+      emoji: '🎯',
+      id: '',
+    });
+    sessionStorage.removeItem('@uollet:goal');
+  }
 
   return (
     <div className="flex w-full flex-col items-center bg-background dark:bg-backgroundDark">
@@ -38,12 +74,13 @@ export function Register() {
           <input
             type="text"
             className={cn(
-              'h-14 w-full rounded-lg bg-white p-4 text-title outline-none dark:bg-backgroundCardDark dark:text-titleDark',
+              'h-14 w-full rounded-lg bg-white p-4 text-title outline-none disabled:cursor-not-allowed disabled:opacity-40 dark:bg-backgroundCardDark dark:text-titleDark',
               formik.errors.title &&
                 formik.touched.title &&
                 'border-[1.5px] border-red-500',
             )}
             placeholder="Nome"
+            disabled={isGoal}
             {...formik.getFieldProps('title')}
           />
           {formik.errors.title && formik.touched.title && (
@@ -71,8 +108,20 @@ export function Register() {
             <InputError error={true} message={formik.errors.value} />
           )}
 
+          <div className="ml-2 flex items-center gap-2">
+            <p className="text-base text-text dark:text-textDark">É uma meta</p>
+            <input
+              type="checkbox"
+              className="h-4 w-4 rounded-md border-[1.5px] border-solid border-secondary accent-secondary dark:border-secondaryDark dark:accent-secondaryDark"
+              checked={formik.values.category.name.includes('Meta') || isGoal}
+              onChange={() => {
+                handleIsGoalToggle();
+              }}
+            />
+          </div>
+
           <div className="flex w-full flex-row justify-around gap-4 p-1">
-            <div
+            <button
               className={cn(
                 'flex h-16 w-full cursor-pointer flex-row items-center justify-evenly rounded-md bg-white dark:bg-backgroundCardDark',
                 formik.values.type === 'income' &&
@@ -94,11 +143,11 @@ export function Register() {
               >
                 Entrada
               </p>
-            </div>
+            </button>
 
-            <div
+            <button
               className={cn(
-                'flex h-16  w-full cursor-pointer flex-row items-center justify-evenly rounded-md border-text bg-white dark:bg-backgroundCardDark',
+                'flex h-16 w-full cursor-pointer flex-row items-center justify-evenly rounded-md border-text bg-white disabled:cursor-not-allowed disabled:opacity-40 dark:bg-backgroundCardDark',
                 formik.values.type === 'outcome' &&
                   'border-none bg-[#fddede] dark:bg-[#fddede] ',
                 formik.errors.type &&
@@ -108,6 +157,7 @@ export function Register() {
               onClick={() => {
                 formik.setFieldValue('type', 'outcome');
               }}
+              disabled={isGoal}
             >
               <img src={outcomeIcon} alt="Saída" className="h-6 w-6" />
               <p
@@ -118,30 +168,57 @@ export function Register() {
               >
                 Saída
               </p>
-            </div>
+            </button>
           </div>
 
           {formik.errors.type && formik.touched.type && (
             <InputError error={true} message={formik.errors.type} />
           )}
 
-          <Autocomplete
-            selected={formik.values.category}
-            setSelected={(value) => {
-              formik.setFieldValue('category', value);
-            }}
-            options={categories}
-            className={cn(
-              formik.errors.category &&
-                formik.touched.category &&
-                'border-[1.5px] border-red-500',
-            )}
-          />
-          {formik.errors.category && formik.touched.category && (
-            <InputError
-              error={true}
-              message={formik.errors.category.name as string}
-            />
+          {isGoal ? (
+            <>
+              <Autocomplete
+                placeholder='Ex: "Meta do carro"'
+                selected={formik.values.category}
+                setSelected={(value) => {
+                  formik.setFieldValue('title', value.name);
+                  formik.setFieldValue('category', value);
+                }}
+                options={goalsList}
+                className={cn(
+                  formik.errors.category &&
+                    formik.touched.category &&
+                    'border-[1.5px] border-red-500',
+                )}
+              />
+              {formik.errors.category && formik.touched.category && (
+                <InputError
+                  error={true}
+                  message={formik.errors.category.name as string}
+                />
+              )}
+            </>
+          ) : (
+            <>
+              <Autocomplete
+                selected={formik.values.category}
+                setSelected={(value) => {
+                  formik.setFieldValue('category', value);
+                }}
+                options={categories}
+                className={cn(
+                  formik.errors.category &&
+                    formik.touched.category &&
+                    'border-[1.5px] border-red-500',
+                )}
+              />
+              {formik.errors.category && formik.touched.category && (
+                <InputError
+                  error={true}
+                  message={formik.errors.category.name as string}
+                />
+              )}
+            </>
           )}
 
           <DatePickerInput
@@ -155,33 +232,37 @@ export function Register() {
             <InputError error={true} message={formik.errors.date} />
           )}
 
-          <div className="switch flex w-full flex-row items-center justify-end">
-            <Switch
-              checked={Boolean(formik.values.recurrency)}
-              onChange={() => handleSwitch()}
-              className={cn(
-                'switch relative inline-flex h-6 w-11 items-center rounded-full',
-                isRecurring ? 'bg-success' : 'bg-danger',
-              )}
-            >
-              <span
+          {isGoal ? (
+            <></>
+          ) : (
+            <div className="switch flex w-full flex-row items-center justify-end">
+              <Switch
+                checked={Boolean(formik.values.recurrency)}
+                onChange={() => handleSwitch()}
                 className={cn(
-                  'switch inline-block h-5 w-5 transform rounded-full bg-white',
-                  isRecurring ? 'translate-x-6' : 'translate-x-1',
+                  'switch relative inline-flex h-6 w-11 items-center rounded-full',
+                  isRecurring ? 'bg-success' : 'bg-danger',
                 )}
-              />
-            </Switch>
-            <span
-              className="switch ml-2 cursor-pointer text-sm text-text"
-              onClick={() => {
-                setOpenBottomSheet(true);
-              }}
-            >
-              {!isCategoryCreditCard(formik.values.category.name)
-                ? 'Compra parcelada'
-                : 'Receita recorrente'}
-            </span>
-          </div>
+              >
+                <span
+                  className={cn(
+                    'switch inline-block h-5 w-5 transform rounded-full bg-white',
+                    isRecurring ? 'translate-x-6' : 'translate-x-1',
+                  )}
+                />
+              </Switch>
+              <span
+                className="switch ml-2 cursor-pointer text-sm text-text"
+                onClick={() => {
+                  setOpenBottomSheet(true);
+                }}
+              >
+                {!isCategoryCreditCard(formik.values.category.name)
+                  ? 'Compra parcelada'
+                  : 'Receita recorrente'}
+              </span>
+            </div>
+          )}
 
           <MyDialog
             isOpen={openBottomSheet}
