@@ -5,6 +5,8 @@ import { CreditCard } from 'pages/CreditCard';
 import { Error } from 'pages/Error';
 import { Export } from 'pages/Export';
 import { Finances } from 'pages/Finances';
+import { Goals } from 'pages/Goals';
+import { GoalsDetails } from 'pages/GoalsDetails';
 import { Import } from 'pages/Import';
 import { Investments } from 'pages/Investments';
 import { Login } from 'pages/Login';
@@ -12,6 +14,7 @@ import { MyProfile } from 'pages/MyProfile';
 import { Otp } from 'pages/Otp';
 import { Profile } from 'pages/Profile';
 import { Register } from 'pages/Register';
+import { RegisterGoals } from 'pages/RegisterGoals';
 import { ResetPassword } from 'pages/ResetPassword';
 import { Resume } from 'pages/Resume';
 import { Wallet } from 'pages/Wallet';
@@ -53,11 +56,15 @@ export function PrivateRoutes() {
       {hasOtp ? handleOtp() : handleMFA()}
       <Route path="/" element={<Login />} />
       <Route path="/register" element={<Register />} />
+      <Route path="/register/goals" element={<RegisterGoals />} />
       <Route path="/edit/:id" element={<Register />} />
+      <Route path="/edit/goals/:id" element={<RegisterGoals />} />
       <Route path="/resume" element={<Resume />} />
       <Route path="/import" element={<Import />} />
       <Route path="/export" element={<Export />} />
       <Route path="/profile" element={<Profile />} />
+      <Route path="/goals" element={<Goals />} />
+      <Route path="/goal/:id" element={<GoalsDetails />} />
       <Route path="/profile/:id" element={<MyProfile />} />
       <Route path="/investments" element={<Investments />} />
       <Route path="/cards" element={<Cards />} />
