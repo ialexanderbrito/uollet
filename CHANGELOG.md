@@ -1,3 +1,28 @@
+# [2.15.0](https://github.com/ialexanderbrito/finance/compare/v2.14.0...v2.15.0) (2023-10-18)
+
+
+### Bug Fixes
+
+* component alert onclick ([40c7290](https://github.com/ialexanderbrito/finance/commit/40c72909660bd92d62890d448d29e76b5f4ab31a))
+* loading profile picture and add alert ([6ed3c34](https://github.com/ialexanderbrito/finance/commit/6ed3c343c2f69cf30d5ca2471e17912d9bdee571))
+* reques api remove meta ([74ae192](https://github.com/ialexanderbrito/finance/commit/74ae19251c076ad4691806b8dd4e2703031639cd))
+
+
+### Features
+
+* add checkbox select meta ([8cc2577](https://github.com/ialexanderbrito/finance/commit/8cc2577bdcb2090eab87506c80f8098a05688144))
+* add component meta list ([878e768](https://github.com/ialexanderbrito/finance/commit/878e768d95fd5167c26ee1b4d0c73e246ea042c6))
+* add emoji mart ([2e844ec](https://github.com/ialexanderbrito/finance/commit/2e844ec94717677788b8df0d687c990bb235bc9b))
+* add get goals register ([9eae27a](https://github.com/ialexanderbrito/finance/commit/9eae27a9693c970f6143864bf94b56293a2c14c4))
+* add global input type date ([9cb5ad2](https://github.com/ialexanderbrito/finance/commit/9cb5ad2dab233882cbd2115eece42b4ddc2f5036))
+* add hook use goals ([b4ead5d](https://github.com/ialexanderbrito/finance/commit/b4ead5d88b27ed905b2cc417a784c3630372a3e1))
+* add hook use register goals ([b79c809](https://github.com/ialexanderbrito/finance/commit/b79c809e525356fdb3dee8dfe2269baaf1e03807))
+* add meta in menu ([2b6d798](https://github.com/ialexanderbrito/finance/commit/2b6d798425c286e0c27e0aeb693e0e8386256e6a))
+* add new routes ([8172b94](https://github.com/ialexanderbrito/finance/commit/8172b942982df8cbbc39a41e38aa283b3ceb3975))
+* add page goals ([98e4b99](https://github.com/ialexanderbrito/finance/commit/98e4b99df01611950b74f1aad66ef9f19ae9e9cb))
+* add page goals details ([e517f43](https://github.com/ialexanderbrito/finance/commit/e517f43b4b03b0cb2beb774902474214287137f5))
+* add register goals ([a14814c](https://github.com/ialexanderbrito/finance/commit/a14814c2da3e6e0c37a7ea4a6eae24d6a53c8857))
+
 # [2.14.0](https://github.com/ialexanderbrito/finance/compare/v2.13.0...v2.14.0) (2023-10-14)
 
 
