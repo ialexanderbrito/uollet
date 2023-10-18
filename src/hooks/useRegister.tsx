@@ -21,6 +21,8 @@ export function useRegister() {
   const [isRecurring, setIsRecurring] = useState(false);
   const [openBottomSheet, setOpenBottomSheet] = useState(false);
   const [categories, setCategories] = useState(category);
+  const [goalsList, setGoalsList] = useState(category);
+  const [isGoal, setIsGoal] = useState(false);
 
   const schema = Yup.object({
     title: Yup.string().required('Informe o nome'),
@@ -224,6 +226,11 @@ export function useRegister() {
             return;
           }
 
+          if (values.category.name.startsWith('Meta')) {
+            navigate('/goals');
+            return;
+          }
+
           navigate('/');
         }
 
@@ -277,6 +284,16 @@ export function useRegister() {
 
           toast.success('Atualizado com sucesso!', { id: 'success' });
 
+          if (values.category.name.startsWith('Cartão')) {
+            navigate('/cards');
+            return;
+          }
+
+          if (values.category.name.startsWith('Meta')) {
+            navigate('/goals');
+            return;
+          }
+
           navigate('/');
         }
       } catch (error) {
@@ -317,9 +334,40 @@ export function useRegister() {
     setCategories(uniqueCategories);
   }
 
+  async function getGoals() {
+    const { data } = await supabase
+      .from('goals_db')
+      .select('*')
+      .eq('user_id', storageUser?.id);
+
+    if (!data) return;
+
+    const newCategories = data.map((item) => ({
+      name: `Meta ${item.title}`,
+      icon: 'CreditCard',
+      category: 'goal',
+    }));
+
+    const allCategories = [...newCategories];
+
+    const orderCategories = allCategories.sort((a, b) => {
+      if (a.name < b.name) return -1;
+      if (a.name > b.name) return 1;
+
+      return 0;
+    });
+
+    const uniqueCategories = orderCategories.filter(
+      (item, index) =>
+        orderCategories.findIndex((item2) => item.name === item2.name) ===
+        index,
+    );
+
+    setGoalsList(uniqueCategories);
+  }
+
   async function updateFinance() {
     if (!id) return;
-
     const { data, error } = await supabase
       .from('finances_db')
       .select('*')
@@ -371,6 +419,12 @@ export function useRegister() {
     getCreditCards();
   }, []);
 
+  useEffect(() => {
+    if (isGoal === true) {
+      getGoals();
+    }
+  }, [isGoal]);
+
   return {
     formik,
     isRecurring,
@@ -380,5 +434,8 @@ export function useRegister() {
     setOpenBottomSheet,
     categories,
     isCategoryCreditCard,
+    isGoal,
+    setIsGoal,
+    goalsList,
   };
 }
