@@ -162,7 +162,8 @@ export function useResume() {
         .eq('user_id', user?.id)
         .gte('date', `${currentYear}-${month}-01`)
         .lte('date', `${currentYear}-${month}-${endOfDays}`)
-        .not('category', 'ilike', '%Cartão%');
+        .not('category', 'ilike', '%Cartão%')
+        .not('category', 'ilike', '%Meta%');
 
       if (error) {
         toast.error('Erro ao carregar os dados', { id: 'error' });
@@ -228,7 +229,8 @@ export function useResume() {
         .eq('type', type)
         .gte('date', `${year}-${month}-01`)
         .lte('date', `${year}-${month}-${day}`)
-        .not('category', 'ilike', '%Cartão%');
+        .not('category', 'ilike', '%Cartão%')
+        .not('category', 'ilike', '%Meta%');
 
       if (error) {
         toast.error('Erro ao carregar os dados', { id: 'error' });
@@ -293,7 +295,8 @@ export function useResume() {
         .eq('user_id', user?.id)
         .gte('date', `${year}-${month}-01`)
         .lte('date', `${year}-${month}-${lastDayOfTheMonth}`)
-        .not('category', 'ilike', '%Cartão%');
+        .not('category', 'ilike', '%Cartão%')
+        .not('category', 'ilike', '%Meta%');
 
       if (error) {
         toast.error('Erro ao carregar os dados', { id: 'error' });

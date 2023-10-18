@@ -67,7 +67,8 @@ export function useTransactions() {
         .select('*')
         .eq('user_id', user?.id)
         .not('category', 'ilike', '%Invest%')
-        .not('category', 'ilike', '%Cartão%');
+        .not('category', 'ilike', '%Cartão%')
+        .not('category', 'ilike', '%Meta%');
 
       if (errorTotal) {
         toast.error('Erro ao buscar valor total das transações', {
@@ -111,7 +112,8 @@ export function useTransactions() {
         .gte('date', `${year}-${month}-01`)
         .lte('date', `${year}-${month}-${endOfDays}`)
         .not('category', 'ilike', '%Invest%')
-        .not('category', 'ilike', '%Cartão%');
+        .not('category', 'ilike', '%Cartão%')
+        .not('category', 'ilike', '%Meta%');
 
       const { data: dataOutcomes, error: errorOutcomes } = await supabase
         .from('finances_db')
@@ -121,7 +123,8 @@ export function useTransactions() {
         .gte('date', `${year}-${month}-01`)
         .lte('date', `${year}-${month}-${endOfDays}`)
         .not('category', 'ilike', '%Invest%')
-        .not('category', 'ilike', '%Cartão%');
+        .not('category', 'ilike', '%Cartão%')
+        .not('category', 'ilike', '%Meta%');
 
       if (errorIncomes || errorOutcomes) {
         toast.error('Erro ao buscar valores das transações', { id: 'error' });
@@ -162,7 +165,8 @@ export function useTransactions() {
         .gte('date', `${year}-${currentMonth}-01`)
         .lte('date', `${year}-${currentMonth}-${lastDayOfTheMonth}`)
         .not('category', 'ilike', '%Invest%')
-        .not('category', 'ilike', '%Cartão%');
+        .not('category', 'ilike', '%Cartão%')
+        .not('category', 'ilike', '%Meta%');
 
       if (error) {
         toast.error('Erro ao buscar transações', { id: 'error' });
@@ -198,7 +202,8 @@ export function useTransactions() {
         .gte('date', `${year}-${month}-01`)
         .lte('date', `${year}-${month}-${day}`)
         .not('category', 'ilike', '%Invest%')
-        .not('category', 'ilike', '%Cartão%');
+        .not('category', 'ilike', '%Cartão%')
+        .not('category', 'ilike', '%Meta%');
 
       if (error) {
         toast.error('Erro ao buscar transações', { id: 'error' });
@@ -228,7 +233,8 @@ export function useTransactions() {
         .select('*')
         .eq('user_id', user?.id)
         .eq('category', category)
-        .not('category', 'ilike', '%Cartão%');
+        .not('category', 'ilike', '%Cartão%')
+        .not('category', 'ilike', '%Meta%');
 
       if (errorTotal) {
         toast.error('Erro ao buscar valor total das transações', {
@@ -274,7 +280,8 @@ export function useTransactions() {
         .eq('type', type)
         .gte('date', `${year}-${month}-01`)
         .lte('date', `${year}-${month}-${day}`)
-        .not('category', 'ilike', '%Cartão%');
+        .not('category', 'ilike', '%Cartão%')
+        .not('category', 'ilike', '%Meta%');
 
       if (error) {
         toast.error('Erro ao buscar transações', { id: 'error' });
@@ -412,7 +419,8 @@ export function useTransactions() {
         .ilike('title', `%${search}%`)
         .order('created_at', { ascending: false })
         .not('category', 'ilike', '%Invest%')
-        .not('category', 'ilike', '%Cartão%');
+        .not('category', 'ilike', '%Cartão%')
+        .not('category', 'ilike', '%Meta%');
 
       if (error) {
         toast.error('Erro ao buscar transações', { id: 'error' });
@@ -437,7 +445,8 @@ export function useTransactions() {
         .gte('date', `${year}-${month}-01`)
         .lte('date', `${year}-${month}-${lastDayOfTheMonth}`)
         .not('category', 'ilike', '%Invest%')
-        .not('category', 'ilike', '%Cartão%');
+        .not('category', 'ilike', '%Cartão%')
+        .not('category', 'ilike', '%Meta%');
 
       if (error) {
         toast.error('Erro ao buscar transações', { id: 'error' });

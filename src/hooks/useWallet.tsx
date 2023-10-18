@@ -152,15 +152,14 @@ export function useWallet() {
       const { data, error } = await supabase
         .from('finances_db')
         .select('value, category, type')
-        .eq('user_id', storageUser?.id);
+        .eq('user_id', storageUser?.id)
+        .not('category', 'ilike', '%Meta%');
 
       if (error) {
         toast.error('Erro ao buscar dados da carteira');
         setLoading(false);
         return;
       }
-
-      if (!data) return;
 
       if (!data) return;
 
