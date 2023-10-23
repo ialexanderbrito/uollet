@@ -90,7 +90,7 @@ export function ModalLogin({ closeModal, isOpen }: MyDialogProps) {
                       <div className="flex items-center gap-2">
                         <input
                           type="email"
-                          className="h-14 w-full rounded-lg bg-white p-4 text-title outline-none dark:bg-backgroundCardDark dark:text-titleDark"
+                          className="h-14 w-full rounded-lg bg-white p-4 text-title outline-none focus:ring-2 focus:ring-primary dark:bg-backgroundCardDark dark:text-titleDark focus:dark:ring-primaryDark"
                           placeholder="Email"
                           {...emailInput()}
                         />
@@ -101,7 +101,7 @@ export function ModalLogin({ closeModal, isOpen }: MyDialogProps) {
                           <div className="flex items-center gap-2">
                             <input
                               type={passwordType}
-                              className="h-14 w-full rounded-lg bg-white p-4 text-title outline-none dark:bg-backgroundCardDark dark:text-titleDark"
+                              className="h-14 w-full rounded-lg bg-white p-4 text-title outline-none focus:ring-2 focus:ring-primary dark:bg-backgroundCardDark dark:text-titleDark focus:dark:ring-primaryDark"
                               placeholder="Senha"
                               {...(register
                                 ? formikRegister.getFieldProps('password')
@@ -110,7 +110,7 @@ export function ModalLogin({ closeModal, isOpen }: MyDialogProps) {
 
                             <button
                               type="button"
-                              className="h-14 w-14 rounded-lg bg-white p-4 text-title outline-none dark:bg-backgroundCardDark dark:text-titleDark"
+                              className="h-14 w-14 rounded-lg bg-white p-4 text-title outline-none hover:bg-gray-200 hover:transition-all dark:bg-backgroundCardDark dark:text-titleDark dark:hover:bg-gray-700"
                               onClick={togglePassword}
                             >
                               {passwordType === 'password' ? (
@@ -139,7 +139,7 @@ export function ModalLogin({ closeModal, isOpen }: MyDialogProps) {
                         <div className="flex items-center gap-2">
                           <input
                             type={passwordType}
-                            className={`h-14 w-full rounded-lg bg-white p-4 text-title outline-none dark:bg-backgroundCardDark dark:text-titleDark`}
+                            className="h-14 w-full rounded-lg bg-white p-4 text-title outline-none focus:ring-2 focus:ring-primary dark:bg-backgroundCardDark dark:text-titleDark focus:dark:ring-primaryDark"
                             placeholder="Confirme sua senha"
                             {...formikRegister.getFieldProps('confirmPassword')}
                           />

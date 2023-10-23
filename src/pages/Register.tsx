@@ -74,7 +74,7 @@ export function Register() {
           <input
             type="text"
             className={cn(
-              'h-14 w-full rounded-lg bg-white p-4 text-title outline-none disabled:cursor-not-allowed disabled:opacity-40 dark:bg-backgroundCardDark dark:text-titleDark',
+              'h-14 w-full rounded-lg bg-white p-4 text-title outline-none focus:ring-2 focus:ring-primary disabled:cursor-not-allowed disabled:opacity-40 dark:bg-backgroundCardDark dark:text-titleDark focus:dark:ring-primaryDark',
               formik.errors.title &&
                 formik.touched.title &&
                 'border-[1.5px] border-red-500',
@@ -98,7 +98,7 @@ export function Register() {
               formik.setFieldValue('value', value);
             }}
             className={cn(
-              'h-14 w-full rounded-lg bg-white p-4 text-title outline-none dark:bg-backgroundCardDark dark:text-titleDark',
+              'h-14 w-full rounded-lg bg-white p-4 text-title outline-none focus:ring-2 focus:ring-primary dark:bg-backgroundCardDark dark:text-titleDark focus:dark:ring-primaryDark',
               formik.errors.value &&
                 formik.touched.value &&
                 'border-[1.5px] border-red-500',
@@ -227,6 +227,7 @@ export function Register() {
             }}
             value={formik.values.date}
             error={formik.errors.date && formik.touched.date}
+            className="focus:ring-2 focus:ring-primary dark:focus:ring-primaryDark"
           />
           {formik.errors.date && formik.touched.date && (
             <InputError error={true} message={formik.errors.date} />

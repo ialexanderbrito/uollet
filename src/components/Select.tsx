@@ -3,6 +3,8 @@ import { Fragment } from 'react';
 import { Listbox, Transition } from '@headlessui/react';
 import { CaretUpDown, Check } from '@phosphor-icons/react';
 
+import { cn } from 'utils/cn';
+
 interface DaysProps {
   id: number;
   name: string;
@@ -27,7 +29,10 @@ export function Select({
     <Listbox value={selected.name} onChange={setSelected}>
       <div className="relative mt-1">
         <Listbox.Button
-          className={`focus-visible:ring-offset-orange-30 relative h-14 w-full cursor-default rounded-lg bg-backgroundCard p-4 py-2 pl-3 pr-7 text-left text-title outline-none focus:outline-none focus-visible:border-primary focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 dark:bg-backgroundCardDark dark:text-titleDark sm:text-sm ${className}`}
+          className={cn(
+            'focus-visible:ring-offset-orange-30 relative h-14 w-full cursor-default rounded-lg bg-backgroundCard p-4 py-2 pl-3 pr-7 text-left text-title outline-none focus:ring-2 focus:ring-primary focus-visible:border-primary focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 dark:bg-backgroundCardDark dark:text-titleDark dark:focus:ring-primaryDark sm:text-sm',
+            className,
+          )}
         >
           {placeholder && selected.name === '' ? (
             <>
@@ -77,20 +82,22 @@ export function Select({
               <Listbox.Option
                 key={personIdx}
                 className={({ active }) =>
-                  `relative cursor-default select-none py-2 pl-10 pr-4 ${
+                  cn(
+                    'relative cursor-default select-none py-2 pl-10 pr-4',
                     active
                       ? 'bg-secondary text-title dark:bg-secondaryDark dark:text-titleDark'
-                      : 'text-title dark:text-titleDark'
-                  }`
+                      : 'text-title dark:text-titleDark',
+                  )
                 }
                 value={person}
               >
                 {({ selected }) => (
                   <>
                     <span
-                      className={`block truncate text-title dark:text-titleDark ${
-                        selected ? 'font-medium' : 'font-normal'
-                      }`}
+                      className={cn(
+                        'block truncate text-title dark:text-titleDark',
+                        selected ? 'font-medium' : 'font-normal',
+                      )}
                     >
                       {person.name}
                     </span>

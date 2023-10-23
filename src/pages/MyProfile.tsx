@@ -52,21 +52,21 @@ export function MyProfile() {
           )}
           <input
             type="text"
-            className={`h-14 w-full rounded-lg bg-white p-4 text-title outline-none disabled:opacity-40 dark:bg-backgroundCardDark dark:text-titleDark `}
+            className="h-14 w-full rounded-lg bg-white p-4 text-title outline-none focus:ring-2 focus:ring-primary disabled:opacity-40 dark:bg-backgroundCardDark dark:text-titleDark focus:dark:ring-primaryDark"
             placeholder="Nome"
             {...formikUpdateUser.getFieldProps('name')}
             disabled={user?.app_metadata.provider === 'google'}
           />
           <input
             type="email"
-            className={`h-14 w-full rounded-lg bg-white p-4 text-title outline-none disabled:opacity-40 dark:bg-backgroundCardDark dark:text-titleDark`}
+            className="h-14 w-full rounded-lg bg-white p-4 text-title outline-none focus:ring-2 focus:ring-primary disabled:opacity-40 dark:bg-backgroundCardDark dark:text-titleDark focus:dark:ring-primaryDark"
             placeholder="E-mail"
             {...formikUpdateUser.getFieldProps('email')}
             disabled={user?.app_metadata.provider === 'google'}
           />
           <input
             type="text"
-            className={`h-14 w-full rounded-lg bg-white p-4 text-title outline-none dark:bg-backgroundCardDark dark:text-titleDark`}
+            className="h-14 w-full rounded-lg bg-white p-4 text-title outline-none focus:ring-2 focus:ring-primary disabled:opacity-40 dark:bg-backgroundCardDark dark:text-titleDark focus:dark:ring-primaryDark"
             placeholder="Telefone"
             {...formikUpdateUser.getFieldProps('phone')}
             value={formatCellPhone(formikUpdateUser.values.phone)}
@@ -76,14 +76,14 @@ export function MyProfile() {
           <div className="flex items-center gap-2">
             <input
               type={passwordType}
-              className={`h-14 w-full rounded-lg bg-white p-4 text-title outline-none dark:bg-backgroundCardDark dark:text-titleDark`}
+              className="h-14 w-full rounded-lg bg-white p-4 text-title outline-none focus:ring-2 focus:ring-primary dark:bg-backgroundCardDark dark:text-titleDark focus:dark:ring-primaryDark"
               placeholder="Nova senha"
               {...formikUpdateUser.getFieldProps('password')}
             />
 
             <button
               type="button"
-              className="h-14 w-14 rounded-lg bg-white p-4 text-title outline-none dark:bg-backgroundCardDark dark:text-titleDark"
+              className="h-14 w-14 rounded-lg bg-white p-4 text-title outline-none hover:bg-gray-200 hover:transition-all dark:bg-backgroundCardDark dark:text-titleDark dark:hover:bg-gray-700"
               onClick={togglePassword}
             >
               {passwordType === 'password' ? (
@@ -99,7 +99,7 @@ export function MyProfile() {
 
           <input
             type={passwordType}
-            className={`h-14 w-full rounded-lg bg-white p-4 text-title outline-none dark:bg-backgroundCardDark dark:text-titleDark`}
+            className="h-14 w-full rounded-lg bg-white p-4 text-title outline-none focus:ring-2 focus:ring-primary dark:bg-backgroundCardDark dark:text-titleDark focus:dark:ring-primaryDark"
             placeholder="Confirmar nova senha"
             {...formikUpdateUser.getFieldProps('confirmPassword')}
           />

@@ -7,6 +7,8 @@ import {
   FormikValues,
 } from 'formik';
 
+import { cn } from 'utils/cn';
+
 interface RecurrencyProps {
   formik: {
     setFieldValue: (
@@ -46,11 +48,12 @@ export function Recurrency({
               >
                 <input
                   type="number"
-                  className={`h-14 w-full rounded-lg bg-background p-4 text-title outline-none dark:bg-backgroundDark dark:text-titleDark ${
-                    formik.errors.title && formik.touched.title
-                      ? 'border-[1.5px] border-red-500'
-                      : ''
-                  }`}
+                  className={cn(
+                    'h-14 w-full rounded-lg bg-background p-4 text-title outline-none focus:ring-2 focus:ring-primary dark:bg-backgroundDark dark:text-titleDark focus:dark:ring-primaryDark',
+                    formik.errors.title &&
+                      formik.touched.title &&
+                      'border-[1.5px] border-red-500',
+                  )}
                   placeholder="Número de parcelas"
                   {...formik.getFieldProps('parcel')}
                   maxLength={2}
@@ -58,17 +61,16 @@ export function Recurrency({
 
                 <RadioGroup.Option
                   value="month"
-                  className={({ active, checked }) => `${
-                    active
-                      ? 'ring-2 ring-white ring-opacity-60 ring-offset-2 ring-offset-secondary'
-                      : ''
-                  } ${
-                    checked
-                      ? 'bg-secondary text-white dark:bg-secondaryDark'
-                      : 'bg-backgroundCard dark:bg-backgroundCardDark'
+                  className={({ active, checked }) =>
+                    cn(
+                      'relative flex w-full cursor-pointer rounded-lg px-5 py-4 shadow-md focus:outline-none',
+                      active &&
+                        'ring-2 ring-white ring-opacity-60 ring-offset-2 ring-offset-secondary',
+                      checked
+                        ? 'bg-secondary text-white dark:bg-secondaryDark'
+                        : 'bg-backgroundCard dark:bg-backgroundCardDark',
+                    )
                   }
-                    relative flex w-full cursor-pointer rounded-lg px-5 py-4 shadow-md focus:outline-none
-                  `}
                 >
                   {({ checked }) => (
                     <>
@@ -77,7 +79,10 @@ export function Recurrency({
                           <div className="text-sm">
                             <RadioGroup.Label
                               as="p"
-                              className={`font-medium text-white`}
+                              className={cn(
+                                'font-medium',
+                                checked ? 'text-white' : 'dark:text text-title',
+                              )}
                             >
                               Mensal
                             </RadioGroup.Label>
@@ -107,22 +112,21 @@ export function Recurrency({
                   formik.setFieldValue('recurrency', value);
                   setOpenBottomSheet(false);
                 }}
-                className={`mb-1 mt-1 flex w-full flex-col items-center justify-center gap-4`}
+                className="mb-1 mt-1 flex w-full flex-col items-center justify-center gap-4"
                 value={formik.values.recurrency}
               >
                 <RadioGroup.Option
                   value="day"
-                  className={({ active, checked }) => `${
-                    active
-                      ? 'ring-2 ring-white ring-opacity-60 ring-offset-2 ring-offset-secondary'
-                      : ''
-                  } ${
-                    checked
-                      ? 'bg-secondary text-white dark:bg-secondaryDark'
-                      : 'bg-background dark:bg-backgroundDark'
+                  className={({ active, checked }) =>
+                    cn(
+                      'relative flex w-11/12 cursor-pointer rounded-lg px-5 py-4 shadow-md focus:outline-none',
+                      active &&
+                        'ring-2 ring-white ring-opacity-60 ring-offset-2 ring-offset-secondary',
+                      checked
+                        ? 'bg-secondary text-white dark:bg-secondaryDark'
+                        : 'bg-background dark:bg-backgroundDark',
+                    )
                   }
-            relative flex w-11/12 cursor-pointer rounded-lg px-5 py-4 shadow-md focus:outline-none
-          `}
                 >
                   {({ checked }) => (
                     <>
@@ -131,11 +135,10 @@ export function Recurrency({
                           <div className="text-sm">
                             <RadioGroup.Label
                               as="p"
-                              className={`font-medium  ${
-                                checked
-                                  ? 'text-white'
-                                  : 'text-title dark:text-titleDark'
-                              }`}
+                              className={cn(
+                                'font-medium',
+                                checked ? 'text-white' : 'dark:text text-title',
+                              )}
                             >
                               Dia
                             </RadioGroup.Label>
@@ -153,17 +156,16 @@ export function Recurrency({
 
                 <RadioGroup.Option
                   value="week"
-                  className={({ active, checked }) => `${
-                    active
-                      ? 'ring-2 ring-white ring-opacity-60 ring-offset-2 ring-offset-secondary'
-                      : ''
-                  } ${
-                    checked
-                      ? 'bg-secondary text-white dark:bg-secondaryDark'
-                      : 'bg-background dark:bg-backgroundDark'
+                  className={({ active, checked }) =>
+                    cn(
+                      'relative flex w-11/12 cursor-pointer rounded-lg px-5 py-4 shadow-md focus:outline-none',
+                      active &&
+                        'ring-2 ring-white ring-opacity-60 ring-offset-2 ring-offset-secondary',
+                      checked
+                        ? 'bg-secondary text-white dark:bg-secondaryDark'
+                        : 'bg-background dark:bg-backgroundDark',
+                    )
                   }
-          relative flex w-11/12 cursor-pointer rounded-lg px-5 py-4 shadow-md focus:outline-none
-        `}
                 >
                   {({ checked }) => (
                     <>
@@ -172,11 +174,10 @@ export function Recurrency({
                           <div className="text-sm">
                             <RadioGroup.Label
                               as="p"
-                              className={`font-medium  ${
-                                checked
-                                  ? 'text-white'
-                                  : 'text-title dark:text-titleDark'
-                              }`}
+                              className={cn(
+                                'font-medium',
+                                checked ? 'text-white' : 'dark:text text-title',
+                              )}
                             >
                               Semana
                             </RadioGroup.Label>
@@ -194,17 +195,16 @@ export function Recurrency({
 
                 <RadioGroup.Option
                   value="month"
-                  className={({ active, checked }) => `${
-                    active
-                      ? 'ring-2 ring-white ring-opacity-60 ring-offset-2 ring-offset-secondary'
-                      : ''
-                  } ${
-                    checked
-                      ? 'bg-secondary text-white dark:bg-secondaryDark'
-                      : 'bg-background dark:bg-backgroundDark'
+                  className={({ active, checked }) =>
+                    cn(
+                      'relative flex w-11/12 cursor-pointer rounded-lg px-5 py-4 shadow-md focus:outline-none',
+                      active &&
+                        'ring-2 ring-white ring-opacity-60 ring-offset-2 ring-offset-secondary',
+                      checked
+                        ? 'bg-secondary text-white dark:bg-secondaryDark'
+                        : 'bg-background dark:bg-backgroundDark',
+                    )
                   }
-          relative flex w-11/12 cursor-pointer rounded-lg px-5 py-4 shadow-md focus:outline-none
-        `}
                 >
                   {({ checked }) => (
                     <>
@@ -213,11 +213,10 @@ export function Recurrency({
                           <div className="text-sm">
                             <RadioGroup.Label
                               as="p"
-                              className={`font-medium  ${
-                                checked
-                                  ? 'text-white'
-                                  : 'text-title dark:text-titleDark'
-                              }`}
+                              className={cn(
+                                'font-medium',
+                                checked ? 'text-white' : 'dark:text text-title',
+                              )}
                             >
                               Mês
                             </RadioGroup.Label>

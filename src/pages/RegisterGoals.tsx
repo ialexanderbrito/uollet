@@ -11,6 +11,8 @@ import { DatePickerInput } from 'components/DatePickerInput';
 import { Header } from 'components/Header';
 import { InputError } from 'components/InputError';
 
+import { cn } from 'utils/cn';
+
 import { useTheme } from 'contexts/Theme';
 
 import { useRegisterGoals } from 'hooks/useRegisterGoals';
@@ -32,11 +34,12 @@ export function RegisterGoals() {
             <div className="flex w-full flex-col">
               <input
                 type="text"
-                className={`h-14 w-full rounded-lg bg-white p-4 text-title outline-none dark:bg-backgroundCardDark dark:text-titleDark ${
-                  formik.errors.title && formik.touched.title
-                    ? 'border-[1.5px] border-red-500'
-                    : ''
-                }`}
+                className={cn(
+                  'h-14 w-full rounded-lg bg-white p-4 text-title outline-none focus:ring-2 focus:ring-primary dark:bg-backgroundCardDark dark:text-titleDark focus:dark:ring-primaryDark',
+                  formik.errors.title &&
+                    formik.touched.title &&
+                    'border-[1.5px] border-red-500',
+                )}
                 placeholder="Nome da meta"
                 {...formik.getFieldProps('title')}
               />
@@ -52,11 +55,12 @@ export function RegisterGoals() {
               <div className="flex w-full flex-col">
                 <input
                   type="text"
-                  className={`h-14 w-full rounded-lg bg-white p-4 text-title outline-none dark:bg-backgroundCardDark dark:text-titleDark ${
-                    formik.errors.emoji && formik.touched.emoji
-                      ? 'border-[1.5px] border-red-500'
-                      : ''
-                  }`}
+                  className={cn(
+                    'h-14 w-full rounded-lg bg-white p-4 text-title outline-none focus:ring-2 focus:ring-primary dark:bg-backgroundCardDark dark:text-titleDark focus:dark:ring-primaryDark',
+                    formik.errors.emoji &&
+                      formik.touched.emoji &&
+                      'border-[1.5px] border-red-500',
+                  )}
                   placeholder="Emoji"
                   maxLength={1}
                   {...formik.getFieldProps('emoji')}
@@ -72,11 +76,12 @@ export function RegisterGoals() {
 
               <button
                 type="button"
-                className={`h-14 w-14 rounded-lg bg-white p-4 text-title outline-none dark:bg-backgroundCardDark dark:text-titleDark ${
-                  formik.errors.emoji && formik.touched.emoji
-                    ? 'mb-5 border-[1.5px] border-red-500'
-                    : ''
-                }`}
+                className={cn(
+                  'h-14 w-14 rounded-lg bg-white p-4 text-title outline-none dark:bg-backgroundCardDark dark:text-titleDark',
+                  formik.errors.emoji &&
+                    formik.touched.emoji &&
+                    'border-[1.5px] border-red-500',
+                )}
                 onClick={() => {
                   setShowEmojis(!showEmojis);
                 }}
@@ -116,21 +121,23 @@ export function RegisterGoals() {
           </div>
 
           <textarea
-            className={`h-28 w-full resize-none rounded-lg bg-white p-4 text-title outline-none dark:bg-backgroundCardDark dark:text-titleDark ${
-              formik.errors.description && formik.touched.description
-                ? 'border-[1.5px] border-red-500'
-                : ''
-            }`}
+            className={cn(
+              'h-28 w-full resize-none rounded-lg bg-white p-4 text-title outline-none focus:ring-2 focus:ring-primary dark:bg-backgroundCardDark dark:text-titleDark focus:dark:ring-primaryDark',
+              formik.errors.description &&
+                formik.touched.description &&
+                'border-[1.5px] border-red-500',
+            )}
             placeholder="Descrição"
             maxLength={140}
             {...formik.getFieldProps('description')}
           />
           <span
-            className={`-mt-2 text-xs text-title dark:text-titleDark ${
+            className={cn(
+              '-mt-2 text-xs text-title dark:text-titleDark',
               formik.values.description.length >= 140
                 ? 'text-red-500'
-                : 'text-gray-400'
-            }`}
+                : 'text-gray-400',
+            )}
           >
             <div className="absolute left-6 top-[16.7rem] h-14 w-14">
               <svg
@@ -175,11 +182,12 @@ export function RegisterGoals() {
             onValueChange={(value) => {
               formik.setFieldValue('value', value);
             }}
-            className={`h-14 w-full rounded-lg bg-white p-4 text-title outline-none dark:bg-backgroundCardDark dark:text-titleDark ${
-              formik.errors.value && formik.touched.value
-                ? 'border-[1.5px] border-red-500'
-                : ''
-            }`}
+            className={cn(
+              'h-14 w-full rounded-lg bg-white p-4 text-title outline-none focus:ring-2 focus:ring-primary dark:bg-backgroundCardDark dark:text-titleDark focus:dark:ring-primaryDark',
+              formik.errors.value &&
+                formik.touched.value &&
+                'border-[1.5px] border-red-500',
+            )}
           />
 
           {formik.errors.value && formik.touched.value && (
@@ -195,6 +203,7 @@ export function RegisterGoals() {
             }}
             value={formik.values.date_initial}
             error={formik.errors.date_initial && formik.touched.date_initial}
+            className="focus:ring-2 focus:ring-primary dark:focus:ring-primaryDark"
           />
           {formik.errors.date_initial && formik.touched.date_initial && (
             <InputError error={true} message={formik.errors.date_initial} />
@@ -209,6 +218,7 @@ export function RegisterGoals() {
             }}
             value={formik.values.date_final}
             error={formik.errors.date_final && formik.touched.date_final}
+            className="focus:ring-2 focus:ring-primary dark:focus:ring-primaryDark"
           />
           {formik.errors.date_final && formik.touched.date_final && (
             <InputError error={true} message={formik.errors.date_final} />

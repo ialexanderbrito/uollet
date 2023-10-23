@@ -1,5 +1,7 @@
 import { Eye, EyeClosed } from '@phosphor-icons/react';
 
+import { cn } from 'utils/cn';
+
 import { useResetPassword } from 'hooks/useResetPassword';
 
 export function ResetPassword() {
@@ -22,18 +24,18 @@ export function ResetPassword() {
           <div className="flex items-center gap-2">
             <input
               type={passwordType}
-              className={`h-14 w-full rounded-lg bg-white p-4 text-title outline-none dark:bg-backgroundCardDark dark:text-titleDark ${
+              className={cn(
+                'h-14 w-full rounded-lg bg-white p-4 text-title outline-none focus:ring-2 focus:ring-primary dark:bg-backgroundCardDark dark:text-titleDark focus:dark:ring-primaryDark',
                 formikResetPassword.errors.password &&
-                formikResetPassword.touched.password
-                  ? 'border-[1.5px] border-red-500'
-                  : ''
-              }`}
+                  formikResetPassword.touched.password &&
+                  'border-[1.5px] border-red-500',
+              )}
               placeholder="Digite sua nova senha"
               {...formikResetPassword.getFieldProps('password')}
             />
             <button
               type="button"
-              className="h-14 w-14 rounded-lg bg-white p-4 text-title outline-none dark:bg-backgroundCardDark dark:text-titleDark"
+              className="h-14 w-14 rounded-lg bg-white p-4 text-title outline-none hover:bg-gray-200 hover:transition-all dark:bg-backgroundCardDark dark:text-titleDark dark:hover:bg-gray-700"
               onClick={togglePassword}
             >
               {passwordType === 'password' ? (
@@ -49,12 +51,12 @@ export function ResetPassword() {
 
           <input
             type={passwordType}
-            className={`h-14 w-full rounded-lg bg-white p-4 text-title outline-none dark:bg-backgroundCardDark dark:text-titleDark ${
+            className={cn(
+              'h-14 w-full rounded-lg bg-white p-4 text-title outline-none focus:ring-2 focus:ring-primary dark:bg-backgroundCardDark dark:text-titleDark focus:dark:ring-primaryDark',
               formikResetPassword.errors.confirmPassword &&
-              formikResetPassword.touched.confirmPassword
-                ? 'border-[1.5px] border-red-500'
-                : ''
-            }`}
+                formikResetPassword.touched.confirmPassword &&
+                'border-[1.5px] border-red-500',
+            )}
             placeholder="Confirme sua nova senha"
             {...formikResetPassword.getFieldProps('confirmPassword')}
           />

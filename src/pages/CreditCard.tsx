@@ -6,6 +6,7 @@ import { Header } from 'components/Header';
 import { InputError } from 'components/InputError';
 import { Select } from 'components/Select';
 
+import { cn } from 'utils/cn';
 import { formatCurrency } from 'utils/formatCurrency';
 
 import { useTheme } from 'contexts/Theme';
@@ -37,11 +38,12 @@ export function CreditCard() {
         <div className="flex h-screen w-full flex-col gap-4 p-4">
           <input
             type="text"
-            className={`h-14 w-full rounded-lg bg-white p-4 text-title outline-none dark:bg-backgroundCardDark dark:text-titleDark ${
-              formik.errors.cardNumber && formik.touched.cardNumber
-                ? 'border-[1.5px] border-red-500'
-                : ''
-            }`}
+            className={cn(
+              'h-14 w-full rounded-lg bg-white p-4 text-title outline-none focus:ring-2 focus:ring-primary dark:bg-backgroundCardDark dark:text-titleDark focus:dark:ring-primaryDark',
+              formik.errors.cardNumber &&
+                formik.touched.cardNumber &&
+                'border-[1.5px] border-red-500',
+            )}
             placeholder="Os 6 primeiros dígitos do cartão"
             {...formik.getFieldProps('cardNumber')}
             maxLength={6}
@@ -52,11 +54,12 @@ export function CreditCard() {
 
           <input
             type="text"
-            className={`h-14 w-full rounded-lg bg-white p-4 text-title outline-none dark:bg-backgroundCardDark dark:text-titleDark ${
-              formik.errors.cardName && formik.touched.cardName
-                ? 'border-[1.5px] border-red-500'
-                : ''
-            }`}
+            className={cn(
+              'h-14 w-full rounded-lg bg-white p-4 text-title outline-none focus:ring-2 focus:ring-primary dark:bg-backgroundCardDark dark:text-titleDark focus:dark:ring-primaryDark',
+              formik.errors.cardName &&
+                formik.touched.cardName &&
+                'border-[1.5px] border-red-500',
+            )}
             placeholder="Nome do cartão"
             {...formik.getFieldProps('cardName')}
           />
@@ -65,11 +68,12 @@ export function CreditCard() {
           )}
 
           <CurrencyInput
-            className={`h-14 w-full rounded-lg bg-white p-4 text-title outline-none dark:bg-backgroundCardDark dark:text-titleDark ${
-              formik.errors.limit && formik.touched.limit
-                ? 'border-[1.5px] border-red-500'
-                : ''
-            }`}
+            className={cn(
+              'h-14 w-full rounded-lg bg-white p-4 text-title outline-none focus:ring-2 focus:ring-primary dark:bg-backgroundCardDark dark:text-titleDark focus:dark:ring-primaryDark',
+              formik.errors.limit &&
+                formik.touched.limit &&
+                'border-[1.5px] border-red-500',
+            )}
             placeholder="Adicione o limite do seu cartão R$ 0,00"
             intlConfig={{ locale: 'pt-BR', currency: 'BRL' }}
             value={formik.values.limit}
@@ -85,11 +89,12 @@ export function CreditCard() {
             selected={formik.values.dayClosure}
             setSelected={(value) => formik.setFieldValue('dayClosure', value)}
             placeholder="Dia de fechamento"
-            className={`h-14 w-full rounded-lg bg-white p-4 text-title outline-none dark:bg-backgroundCardDark dark:text-titleDark ${
-              formik.errors.dayClosure && formik.touched.dayClosure
-                ? 'border-[1.5px] border-red-500'
-                : ''
-            }`}
+            className={cn(
+              'h-14 w-full rounded-lg bg-white p-4 text-title outline-none dark:bg-backgroundCardDark dark:text-titleDark',
+              formik.errors.dayClosure &&
+                formik.touched.dayClosure &&
+                'border-[1.5px] border-red-500',
+            )}
           />
           {formik.errors.dayClosure && formik.touched.dayClosure && (
             <InputError

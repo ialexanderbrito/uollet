@@ -45,10 +45,10 @@ export function Autocomplete({
     <Combobox value={selected} onChange={setSelected}>
       <div className="relative mt-1">
         <div
-          className={`focus-visible:ring-offset-orange-30 relative h-14 w-full cursor-default  rounded-lg bg-backgroundCard p-4 py-2 pl-3 pr-10 text-left text-title outline-none focus:outline-none focus-visible:border-primary focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 dark:bg-backgroundCardDark dark:text-titleDark sm:text-sm ${className}`}
+          className={`focus-visible:ring-offset-orange-30 relative h-14 w-full cursor-default  rounded-lg bg-backgroundCard p-4 py-2 pl-3 pr-10 text-left text-title outline-none focus-visible:border-primary focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 dark:bg-backgroundCardDark dark:text-titleDark sm:text-sm ${className}`}
         >
           <Combobox.Input
-            className="w-full border-none bg-backgroundCard py-2 pl-3 pr-10 text-sm leading-5 text-title focus:ring-0 dark:bg-backgroundCardDark dark:text-titleDark"
+            className="w-full border-none bg-backgroundCard py-2 pl-3 pr-10 text-sm leading-5 text-title outline-none focus:ring-2 focus:ring-primary dark:bg-backgroundCardDark dark:text-titleDark focus:dark:ring-primaryDark"
             displayValue={(value: Option) => value.name}
             onChange={(event) => setQuery(event.target.value)}
             placeholder={placeholder}

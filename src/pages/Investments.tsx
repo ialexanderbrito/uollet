@@ -134,7 +134,7 @@ export function Investments() {
               type="text"
               value={search}
               placeholder="Pesquisar por alguma transação"
-              className="h-14 w-full rounded-lg bg-white p-4 text-title outline-none dark:bg-backgroundCardDark dark:text-titleDark"
+              className="h-14 w-full rounded-lg bg-white p-4 text-title outline-none focus:ring-2 focus:ring-primary dark:bg-backgroundCardDark dark:text-titleDark focus:dark:ring-primaryDark"
               onChange={(e) => setSearch(e.target.value)}
             />
 

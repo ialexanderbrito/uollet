@@ -135,11 +135,11 @@ export function MyDialog({
                     <div className="mt-2 flex items-center gap-2">
                       <input
                         type="text"
-                        className={`h-14 w-full rounded-lg bg-background p-4 text-title outline-none dark:bg-backgroundCardDark dark:text-titleDark ${
-                          username.length <= 2
-                            ? 'border-[1.5px] border-red-500'
-                            : ''
-                        }`}
+                        className={cn(
+                          'h-14 w-full rounded-lg bg-background p-4 text-title outline-none focus:ring-2 focus:ring-primary dark:bg-backgroundCardDark dark:text-titleDark dark:focus:ring-primaryDark',
+                          username.length <= 2 &&
+                            'border-[1.5px] border-red-500',
+                        )}
                         placeholder="Digite seu nome"
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}

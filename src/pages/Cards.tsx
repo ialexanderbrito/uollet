@@ -132,7 +132,7 @@ export function Cards() {
             <input
               type="text"
               placeholder="Pesquisar por alguma compra no cartão"
-              className="h-14 w-full rounded-lg bg-white p-4 text-title outline-none dark:bg-backgroundCardDark dark:text-titleDark"
+              className="h-14 w-full rounded-lg bg-white p-4 text-title outline-none focus:ring-2 focus:ring-primary dark:bg-backgroundCardDark dark:text-titleDark dark:focus:ring-primaryDark"
               onChange={(e) => setSearch(e.target.value)}
             />
             <Filter
