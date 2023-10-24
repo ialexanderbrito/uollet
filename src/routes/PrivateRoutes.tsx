@@ -26,6 +26,17 @@ export function PrivateRoutes() {
   const hasOtpStorage = sessionStorage.getItem('@uollet:hasOtp');
   const hasMFAStorage = sessionStorage.getItem('@uollet:hasMFA');
 
+  const url = window.location.href;
+  const type = url.split('type=')[2];
+
+  if (type === 'recovery') {
+    return (
+      <Routes>
+        <Route path="/" element={<ResetPassword />} />
+      </Routes>
+    );
+  }
+
   function handleOtp() {
     if (!hasOtpStorage && !hasOtp) {
       return <Route path="/" element={<Finances />} />;
