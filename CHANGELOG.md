@@ -1,3 +1,10 @@
+## [2.15.1](https://github.com/ialexanderbrito/finance/compare/v2.15.0...v2.15.1) (2023-10-24)
+
+
+### Bug Fixes
+
+* reset password with pin ([dea09d0](https://github.com/ialexanderbrito/finance/commit/dea09d00076577105524e5c32219258eff56af9b))
+
 # [2.15.0](https://github.com/ialexanderbrito/finance/compare/v2.14.0...v2.15.0) (2023-10-18)
 
 
