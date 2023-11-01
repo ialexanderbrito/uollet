@@ -1,3 +1,15 @@
+# [2.16.0](https://github.com/ialexanderbrito/finance/compare/v2.15.1...v2.16.0) (2023-11-01)
+
+
+### Bug Fixes
+
+* banner scroll horizontal ([f766ea7](https://github.com/ialexanderbrito/finance/commit/f766ea7a0d79f37e5f7d1e9790110c4d53f2b41b))
+
+
+### Features
+
+* add new charts bar exibition mode ([b542c2f](https://github.com/ialexanderbrito/finance/commit/b542c2f39408719cc7899d0915d254ad3d49b20b))
+
 ## [2.15.1](https://github.com/ialexanderbrito/finance/compare/v2.15.0...v2.15.1) (2023-10-24)
 
 
