@@ -1,9 +1,20 @@
-import { Pie } from 'react-chartjs-2';
+import { useState } from 'react';
+import { Pie, Bar } from 'react-chartjs-2';
 
+import { ChartBar, ChartPie } from '@phosphor-icons/react';
 import emptyImg from 'assets/empty.svg';
 import incomeIcon from 'assets/income.svg';
 import outcomeIcon from 'assets/outcome.svg';
-import { Chart as ChartJS, ArcElement, Tooltip } from 'chart.js';
+import {
+  Chart as ChartJS,
+  ArcElement,
+  Tooltip,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Legend,
+} from 'chart.js';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 
 import { BottomNavigator } from 'components/BottomNavigator';
@@ -24,7 +35,17 @@ import { useResume } from 'hooks/useResume';
 import { Finances } from './Finances';
 import { Investments } from './Investments';
 
-ChartJS.register(ArcElement, Tooltip, ChartDataLabels);
+ChartJS.register(
+  ArcElement,
+  Tooltip,
+  ChartDataLabels,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend,
+);
 
 export function Resume() {
   const { areValueVisible, user, toggleValueVisibility } = useAuth();
@@ -49,6 +70,8 @@ export function Resume() {
     filterTransactionsByYearByCategory,
     getAllTransactionsForTheMonthAndYearByCategory,
   } = useResume();
+
+  const [exibitionMode, setExibitionMode] = useState('pie');
 
   async function handleChangeGraph(month: number) {
     const year = Number(sessionStorage.getItem('@uollet:selectedYear'));
@@ -101,42 +124,85 @@ export function Resume() {
             />
 
             <div className="flex h-screen w-full flex-col items-center justify-start gap-2 p-4">
-              <div className="mb-2 flex w-full items-center justify-center gap-2 sm:justify-end">
-                <div className="mb-2 flex h-9 w-full items-center justify-around rounded-md border border-secondary dark:border-secondaryDark sm:w-64">
+              <div className="mb-2 flex w-full flex-col items-center justify-center gap-2 sm:justify-between md:flex-row">
+                <div className="flex w-full flex-row items-start justify-start gap-1">
+                  <p className="text-base font-normal text-title dark:text-titleDark">
+                    Total
+                  </p>
                   <span
-                    onClick={() => setType('income')}
-                    className={
-                      type === 'income'
-                        ? 'flex h-9 w-full cursor-pointer items-center justify-center gap-1 rounded-md rounded-r-none border-r border-secondary bg-secondary text-background dark:border-secondaryDark dark:bg-secondaryDark'
-                        : 'flex w-full cursor-pointer items-center justify-center gap-1 text-title opacity-25 dark:text-titleDark'
-                    }
+                    className={cn(
+                      'text-base font-medium text-title dark:text-titleDark',
+                      areValueVisible && 'select-none blur-md',
+                      type === 'income' ? 'text-success' : 'text-danger',
+                      values.reduce((acc, value) => acc + value, 0) === 0 &&
+                        'text-title dark:text-titleDark',
+                    )}
                   >
-                    <img
-                      src={incomeIcon}
-                      alt="Entradas"
-                      className="h-6 w-6 cursor-pointer"
-                    />
-                    Entrada
-                  </span>
-
-                  <span
-                    onClick={() => setType('outcome')}
-                    className={
-                      type === 'outcome'
-                        ? 'flex h-9 w-full cursor-pointer items-center justify-center gap-1 rounded-md rounded-l-none border-r border-secondary bg-secondary text-background dark:border-secondaryDark dark:bg-secondaryDark'
-                        : 'flex w-full cursor-pointer items-center justify-center gap-1 text-title opacity-25 dark:text-titleDark'
-                    }
-                  >
-                    <img
-                      src={outcomeIcon}
-                      alt="Saidas"
-                      className="h-6 w-6 cursor-pointer"
-                    />
-                    Saída
+                    {formatCurrency(
+                      values.reduce((acc, value) => acc + value, 0),
+                    )}
                   </span>
                 </div>
-              </div>
 
+                <div className="flex w-full flex-row items-center justify-end gap-2">
+                  <div className="mb-2 flex flex-row items-center justify-center gap-2">
+                    <ChartBar
+                      size={25}
+                      onClick={() => setExibitionMode('bar')}
+                      className={cn(
+                        'cursor-pointer',
+                        exibitionMode === 'bar'
+                          ? 'text-secondary dark:text-secondaryDark'
+                          : 'text-title opacity-25 dark:text-titleDark',
+                      )}
+                    />
+
+                    <ChartPie
+                      size={25}
+                      onClick={() => setExibitionMode('pie')}
+                      className={cn(
+                        'cursor-pointer',
+                        exibitionMode === 'pie'
+                          ? 'text-secondary dark:text-secondaryDark'
+                          : 'text-title opacity-25 dark:text-titleDark',
+                      )}
+                    />
+                  </div>
+                  <div className="mb-2 flex h-9 w-full items-center justify-around rounded-md border border-secondary dark:border-secondaryDark sm:w-64">
+                    <span
+                      onClick={() => setType('income')}
+                      className={
+                        type === 'income'
+                          ? 'flex h-9 w-full cursor-pointer items-center justify-center gap-1 rounded-md rounded-r-none border-r border-secondary bg-secondary text-background dark:border-secondaryDark dark:bg-secondaryDark'
+                          : 'flex w-full cursor-pointer items-center justify-center gap-1 text-title opacity-25 dark:text-titleDark'
+                      }
+                    >
+                      <img
+                        src={incomeIcon}
+                        alt="Entradas"
+                        className="h-6 w-6 cursor-pointer"
+                      />
+                      Entrada
+                    </span>
+
+                    <span
+                      onClick={() => setType('outcome')}
+                      className={
+                        type === 'outcome'
+                          ? 'flex h-9 w-full cursor-pointer items-center justify-center gap-1 rounded-md rounded-l-none border-r border-secondary bg-secondary text-background dark:border-secondaryDark dark:bg-secondaryDark'
+                          : 'flex w-full cursor-pointer items-center justify-center gap-1 text-title opacity-25 dark:text-titleDark'
+                      }
+                    >
+                      <img
+                        src={outcomeIcon}
+                        alt="Saidas"
+                        className="h-6 w-6 cursor-pointer"
+                      />
+                      Saída
+                    </span>
+                  </div>
+                </div>
+              </div>
               <Filter
                 actualMonth={currentMonth}
                 handleChangeFilterMonth={handleChangeGraph}
@@ -145,7 +211,13 @@ export function Resume() {
                 }}
               />
 
-              <div className="mb-8 mt-8 flex h-64 items-center justify-center">
+              <div
+                className={cn(
+                  'flex  w-full flex-col items-center justify-center',
+                  exibitionMode === 'bar' && 'h-96',
+                  exibitionMode === 'pie' && 'h-64',
+                )}
+              >
                 {categories.length === 0 ? (
                   <div className="mt-4 flex flex-col items-center justify-center">
                     <img src={emptyImg} alt="Empty" className="mb-2 w-28" />
@@ -154,31 +226,71 @@ export function Resume() {
                     </p>
                   </div>
                 ) : (
-                  <Pie
-                    data={dataChart}
-                    options={{
-                      responsive: true,
-                      plugins: {
-                        datalabels: {
-                          formatter: (value: number) => `${value}%`,
-                          color: 'white',
-                          labels: {
-                            title: {
-                              font: {
-                                weight: 'bold',
+                  <>
+                    {exibitionMode === 'bar' ? (
+                      <div className="h-full w-full">
+                        <Bar
+                          data={dataChart}
+                          options={{
+                            responsive: true,
+                            plugins: {
+                              legend: {
+                                display: false,
+                              },
+                              datalabels: {
+                                formatter: (value: number) => `${value}%`,
+                                color: 'white',
+                                labels: {
+                                  title: {
+                                    font: {
+                                      weight: 'bold',
+                                    },
+                                  },
+                                  value: {
+                                    color: 'white',
+                                  },
+                                },
                               },
                             },
-                            value: {
-                              color: 'white',
+                            maintainAspectRatio: false,
+                          }}
+                        />
+                      </div>
+                    ) : (
+                      <div className="mb-8 mt-24 flex items-center justify-center">
+                        <Pie
+                          data={dataChart}
+                          options={{
+                            responsive: true,
+                            plugins: {
+                              datalabels: {
+                                formatter: (value: number) => `${value}%`,
+                                color: 'white',
+                                labels: {
+                                  title: {
+                                    font: {
+                                      weight: 'bold',
+                                    },
+                                  },
+                                  value: {
+                                    color: 'white',
+                                  },
+                                },
+                              },
                             },
-                          },
-                        },
-                      },
-                    }}
-                  />
+                          }}
+                        />
+                      </div>
+                    )}
+                  </>
                 )}
               </div>
-              <div className="flex w-full flex-col gap-2">
+              <div
+                className={cn(
+                  'flex w-full flex-col gap-2',
+                  exibitionMode === 'pie' && 'mt-16',
+                )}
+              >
                 {categories.map((category, index) => (
                   <div
                     key={index}
