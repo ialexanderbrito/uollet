@@ -164,7 +164,8 @@ export function Profile() {
                 </span>
               </div>
             </div>
-            <div className="flex w-full min-w-full snap-x gap-4 overflow-x-scroll p-1 scrollbar-hide md:flex-row md:justify-center md:gap-4 md:overflow-x-auto md:overflow-y-hidden md:pb-4">
+
+            <div className="flex w-full min-w-full gap-4 overflow-y-hidden overflow-x-scroll p-1 scrollbar-hide md:overflow-x-auto">
               <Banner
                 title="Seja bem vindo(a) ao uollet!"
                 img={welcomeImg}
