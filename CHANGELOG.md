@@ -1,3 +1,10 @@
+# [2.17.0](https://github.com/ialexanderbrito/finance/compare/v2.16.0...v2.17.0) (2023-11-13)
+
+
+### Features
+
+* add default exibition save in local storage ([5158f3c](https://github.com/ialexanderbrito/finance/commit/5158f3c6693f35d9d1c7683c6a636dec5b389701))
+
 # [2.16.0](https://github.com/ialexanderbrito/finance/compare/v2.15.1...v2.16.0) (2023-11-01)
 
 
