@@ -77,12 +77,21 @@ export function useResume() {
   const [loading, setLoading] = useState(true);
   const [openModalFilter, setOpenModalFilter] = useState(false);
 
+  const [exibitionMode, setExibitionMode] = useState(
+    () => localStorage.getItem('@uollet:exibitionMode') || 'pie',
+  );
+
   function handleCloseModalFilter() {
     setOpenModalFilter(false);
   }
 
   function handleOpenModalFilter() {
     setOpenModalFilter(true);
+  }
+
+  function saveExibitionMode(mode: string) {
+    localStorage.setItem('@uollet:exibitionMode', mode);
+    setExibitionMode(mode);
   }
 
   function removeDuplicateCategories(categories: string[]) {
@@ -354,6 +363,10 @@ export function useResume() {
     getValuesCategory(currentMonth, lastDayOfTheMonth);
   }, [type, currentYear, currentMonth]);
 
+  useEffect(() => {
+    localStorage.setItem('@uollet:exibitionMode', exibitionMode);
+  }, [exibitionMode]);
+
   return {
     dataChart,
     categories,
@@ -376,5 +389,7 @@ export function useResume() {
     filterTransactionsByYearByCategory,
     getAllTransactionsForTheMonthAndYearByCategory,
     getColorsBanks,
+    exibitionMode,
+    saveExibitionMode,
   };
 }

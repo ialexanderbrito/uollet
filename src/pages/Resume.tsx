@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { Pie, Bar } from 'react-chartjs-2';
 
 import { ChartBar, ChartPie } from '@phosphor-icons/react';
@@ -69,9 +68,9 @@ export function Resume() {
     setLastDayOfTheMonth,
     filterTransactionsByYearByCategory,
     getAllTransactionsForTheMonthAndYearByCategory,
+    exibitionMode,
+    saveExibitionMode,
   } = useResume();
-
-  const [exibitionMode, setExibitionMode] = useState('pie');
 
   async function handleChangeGraph(month: number) {
     const year = Number(sessionStorage.getItem('@uollet:selectedYear'));
@@ -148,7 +147,7 @@ export function Resume() {
                   <div className="mb-2 flex flex-row items-center justify-center gap-2">
                     <ChartBar
                       size={25}
-                      onClick={() => setExibitionMode('bar')}
+                      onClick={() => saveExibitionMode('bar')}
                       className={cn(
                         'cursor-pointer',
                         exibitionMode === 'bar'
@@ -159,7 +158,7 @@ export function Resume() {
 
                     <ChartPie
                       size={25}
-                      onClick={() => setExibitionMode('pie')}
+                      onClick={() => saveExibitionMode('pie')}
                       className={cn(
                         'cursor-pointer',
                         exibitionMode === 'pie'
