@@ -124,26 +124,25 @@ export function Resume() {
 
             <div className="flex h-screen w-full flex-col items-center justify-start gap-2 p-4">
               <div className="mb-2 flex w-full flex-col items-center justify-center gap-2 sm:justify-between md:flex-row">
-                <div className="flex w-full flex-row items-start justify-start gap-1">
-                  <p className="text-base font-normal text-title dark:text-titleDark">
-                    Total
-                  </p>
-                  <span
-                    className={cn(
-                      'text-base font-medium text-title dark:text-titleDark',
-                      areValueVisible && 'select-none blur-md',
-                      type === 'income' ? 'text-success' : 'text-danger',
-                      values.reduce((acc, value) => acc + value, 0) === 0 &&
-                        'text-title dark:text-titleDark',
-                    )}
-                  >
-                    {formatCurrency(
-                      values.reduce((acc, value) => acc + value, 0),
-                    )}
-                  </span>
-                </div>
-
-                <div className="flex w-full flex-row items-center justify-end gap-2">
+                <div className="flex w-full flex-row items-start justify-between gap-1">
+                  <div className="flex flex-row items-start justify-center gap-1">
+                    <p className="text-base font-normal text-title dark:text-titleDark">
+                      Total
+                    </p>
+                    <span
+                      className={cn(
+                        'text-base font-medium text-title dark:text-titleDark',
+                        areValueVisible && 'select-none blur-md',
+                        type === 'income' ? 'text-success' : 'text-danger',
+                        values.reduce((acc, value) => acc + value, 0) === 0 &&
+                          'text-title dark:text-titleDark',
+                      )}
+                    >
+                      {formatCurrency(
+                        values.reduce((acc, value) => acc + value, 0),
+                      )}
+                    </span>
+                  </div>
                   <div className="mb-2 flex flex-row items-center justify-center gap-2">
                     <ChartBar
                       size={25}
@@ -167,6 +166,9 @@ export function Resume() {
                       )}
                     />
                   </div>
+                </div>
+
+                <div className="flex w-full flex-row items-center justify-end gap-2 sm:w-80">
                   <div className="mb-2 flex h-9 w-full items-center justify-around rounded-md border border-secondary dark:border-secondaryDark sm:w-64">
                     <span
                       onClick={() => setType('income')}
