@@ -1,3 +1,11 @@
+# [2.18.0](https://github.com/ialexanderbrito/finance/compare/v2.17.0...v2.18.0) (2023-11-19)
+
+
+### Features
+
+* add menu investor area ([2090769](https://github.com/ialexanderbrito/finance/commit/20907693ae4015b53481c39b3f104f7076637479))
+* remove investments bottom navigator ([7d32e43](https://github.com/ialexanderbrito/finance/commit/7d32e4310f2210a9399351019c7a5b68eac9816d))
+
 # [2.17.0](https://github.com/ialexanderbrito/finance/compare/v2.16.0...v2.17.0) (2023-11-13)
 
 
