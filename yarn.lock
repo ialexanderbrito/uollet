@@ -1303,12 +1303,18 @@
   resolved "https://registry.yarnpkg.com/@floating-ui/utils/-/utils-0.1.6.tgz#22958c042e10b67463997bd6ea7115fe28cbcaf9"
   integrity sha512-OfX7E2oUDYxtBvsuS4e/jSn4Q9Qb6DzgeYtsAdkPZ47znpoNsMgZw0+tVijiv3uGNR6dgNlty6r9rzIzHjtd/A==
 
-"@hcaptcha/react-hcaptcha@^1.8.1":
-  version "1.8.1"
-  resolved "https://registry.yarnpkg.com/@hcaptcha/react-hcaptcha/-/react-hcaptcha-1.8.1.tgz#3e6e0423100158bae089e4ef6507db0d4c62ec3f"
-  integrity sha512-33tIl77HgeahiQ6R0+JPDA8cGBBv95cIVcdOcFVwiGCJhrOxyiOQetCdEUNTDS13xrkvIP29K/PrqLXXSbKl6Q==
+"@hcaptcha/loader@^1.0.9":
+  version "1.0.9"
+  resolved "https://registry.yarnpkg.com/@hcaptcha/loader/-/loader-1.0.9.tgz#7992fd1683a3ce1e6ac4da6f20ea373db38ffc51"
+  integrity sha512-HqsreHb5A9uVKW9HqlSX+AvNHIP0bd3uZPixWKKWD1C2+A6j9LpYf33Lua+zzvOksG4GtTIMJXes6IWAy8No/g==
+
+"@hcaptcha/react-hcaptcha@^1.9.1":
+  version "1.9.1"
+  resolved "https://registry.yarnpkg.com/@hcaptcha/react-hcaptcha/-/react-hcaptcha-1.9.1.tgz#621f4b5abe58a1304b093da85d3fc2ddb86b81a4"
+  integrity sha512-Tvym9cl2RsYpyut2262XtNL8bJVfbXFuX9k1UdsMtVpmdvj8xqQMTr/yOTxiLGPqG1Abt9luSwSeLI4e1H/fsw==
   dependencies:
     "@babel/runtime" "^7.17.9"
+    "@hcaptcha/loader" "^1.0.9"
 
 "@headlessui/react@^1.7.17":
   version "1.7.17"
@@ -1849,10 +1855,10 @@
   resolved "https://registry.yarnpkg.com/@reach/observe-rect/-/observe-rect-1.2.0.tgz#d7a6013b8aafcc64c778a0ccb83355a11204d3b2"
   integrity sha512-Ba7HmkFgfQxZqqaeIWWkNK0rEhpxVQHIoVyW1YDSkGsGIXzcaW4deC8B0pZrNSSyLTdIk7y+5olKt5+g0GmFIQ==
 
-"@remix-run/router@1.11.0":
-  version "1.11.0"
-  resolved "https://registry.yarnpkg.com/@remix-run/router/-/router-1.11.0.tgz#e0e45ac3fff9d8a126916f166809825537e9f955"
-  integrity sha512-BHdhcWgeiudl91HvVa2wxqZjSHbheSgIiDvxrF1VjFzBzpTtuDPkOdOi3Iqvc08kXtFkLjhbS+ML9aM8mJS+wQ==
+"@remix-run/router@1.12.0":
+  version "1.12.0"
+  resolved "https://registry.yarnpkg.com/@remix-run/router/-/router-1.12.0.tgz#e89b64b6fa97a8a5b740a4c38c2904b80f1f229a"
+  integrity sha512-2hXv036Bux90e1GXTWSMfNzfDDK8LA8JYEWfyHxzvwdp6GyoWEovKc9cotb3KCKmkdwsIBuFGX7ScTWyiHv7Eg==
 
 "@rollup/plugin-babel@^5.2.0":
   version "5.3.1"
@@ -2444,10 +2450,10 @@
     "@typescript-eslint/types" "5.62.0"
     eslint-visitor-keys "^3.3.0"
 
-"@uiball/loaders@^1.3.0":
-  version "1.3.0"
-  resolved "https://registry.yarnpkg.com/@uiball/loaders/-/loaders-1.3.0.tgz#375a87dbcaa681596a4e0e455c4b4c4bbce7b49c"
-  integrity sha512-w372e7PMt/s6LZ321HoghgDDU8fomamAzJfrVAdBUhsWERJEpxJMqG37NFztUq/T4J7nzzjkvZI4UX7Z2F/O6A==
+"@uiball/loaders@^1.3.1":
+  version "1.3.1"
+  resolved "https://registry.yarnpkg.com/@uiball/loaders/-/loaders-1.3.1.tgz#f339803aa3abaca2d3f3ee9d872d2a137a240aae"
+  integrity sha512-1vLUoW1aux5CDJedCkW+TYxsnX0WKmmUJMi+wRR4DPEKdTZ2/KP8gQSv/LJu6oc2I0sJceKHFWLeAWO3/og98A==
 
 "@ungap/structured-clone@^1.2.0":
   version "1.2.0"
@@ -2827,10 +2833,10 @@ axe-core@^4.6.2:
   resolved "https://registry.yarnpkg.com/axe-core/-/axe-core-4.8.2.tgz#2f6f3cde40935825cf4465e3c1c9e77b240ff6ae"
   integrity sha512-/dlp0fxyM3R8YW7MFzaHWXrf4zzbr0vaYb23VBFCl83R7nWNPg/yaQw2Dc8jzCMmDVLhSdzH8MjrsuIUuvX+6g==
 
-axios@^1.6.0:
-  version "1.6.0"
-  resolved "https://registry.yarnpkg.com/axios/-/axios-1.6.0.tgz#f1e5292f26b2fd5c2e66876adc5b06cdbd7d2102"
-  integrity sha512-EZ1DYihju9pwVB+jg67ogm+Tmqc6JmhamRN6I4Zt8DfZu5lbcQGw3ozH9lFejSJgs/ibaef3A9PMXPLeefFGJg==
+axios@^1.6.2:
+  version "1.6.2"
+  resolved "https://registry.yarnpkg.com/axios/-/axios-1.6.2.tgz#de67d42c755b571d3e698df1b6504cde9b0ee9f2"
+  integrity sha512-7i24Ri4pmDRfJTR7LDBhsOTtcm+9kjX5WiY1X3wIisx6G9So3pfMkEiU7emUBe46oceVImccTEM3k6C5dbVW8A==
   dependencies:
     follow-redirects "^1.15.0"
     form-data "^4.0.0"
@@ -3529,10 +3535,10 @@ crc-32@~1.2.0, crc-32@~1.2.1:
   resolved "https://registry.yarnpkg.com/crc-32/-/crc-32-1.2.2.tgz#3cad35a934b8bf71f25ca524b6da51fb7eace2ff"
   integrity sha512-ROmzCKrTnOwybPcJApAA6WBWij23HVfGVNKqqrZpuyZOHqK2CwHSvpGuyt/UNNvaIjEd8X5IFGp4Mh+Ie1IHJQ==
 
-credit-card-type@^9.1.0:
-  version "9.1.0"
-  resolved "https://registry.yarnpkg.com/credit-card-type/-/credit-card-type-9.1.0.tgz#54dd96c93b6579623e9c8656e6798fc2b93f5f05"
-  integrity sha512-CpNFuLxiPFxuZqhSKml3M+t0K/484pMAnfYWH14JoD7OZMnmC0Lmo+P7JX9SobqFpRoo7ifA18kOHdxJywYPEA==
+credit-card-type@^10.0.0:
+  version "10.0.0"
+  resolved "https://registry.yarnpkg.com/credit-card-type/-/credit-card-type-10.0.0.tgz#f3b24df51c4e4659c49a46e9adf888e1710c6131"
+  integrity sha512-X09zdwnZd75Ne+YFZywuga4pa6Bd+ME90h8C8fQofL9O0MlRHLEb2fgwDQ9at8SGvSY2DYrLKRoTaW9zK0jAxQ==
 
 cross-spawn@^7.0.0, cross-spawn@^7.0.2, cross-spawn@^7.0.3:
   version "7.0.3"
@@ -7556,10 +7562,10 @@ react-color@^2.19.3:
     reactcss "^1.2.0"
     tinycolor2 "^1.4.1"
 
-react-currency-input-field@^3.6.11:
-  version "3.6.11"
-  resolved "https://registry.yarnpkg.com/react-currency-input-field/-/react-currency-input-field-3.6.11.tgz#5e0c94b85c78c51ddfa33e4b60608accfa123366"
-  integrity sha512-M9vOx1eaioSaYWirm7W2WSBi4bpLg+LK4Gf7C1kNhy6MvoSoOzd0mYZPxA78OC9UBIQ2nM080Wu9D1CwTY6n3w==
+react-currency-input-field@^3.6.12:
+  version "3.6.12"
+  resolved "https://registry.yarnpkg.com/react-currency-input-field/-/react-currency-input-field-3.6.12.tgz#6c59bec50b9a769459c971f94f9a67b7bf9046f7"
+  integrity sha512-92mVEo1u7tF8Lz5JeaEHpQY/p6ulmnfSk9r3dVMyykQNLoScvgQ7GczvV3uGDr81xkTF3czj7CTJ9Ekqq4+pIA==
 
 react-day-picker@^8.9.1:
   version "8.9.1"
@@ -7605,25 +7611,25 @@ react-refresh@^0.14.0:
   resolved "https://registry.yarnpkg.com/react-refresh/-/react-refresh-0.14.0.tgz#4e02825378a5f227079554d4284889354e5f553e"
   integrity sha512-wViHqhAd8OHeLS/IRMJjTSDHF3U9eWi62F/MledQGPdJGDhodXJ9PBLNGr6WWL7qlH12Mt3TyTpbS+hGXMjCzQ==
 
-react-router-dom@^6.18.0:
-  version "6.18.0"
-  resolved "https://registry.yarnpkg.com/react-router-dom/-/react-router-dom-6.18.0.tgz#0a50c167209d6e7bd2ed9de200a6579ea4fb1dca"
-  integrity sha512-Ubrue4+Ercc/BoDkFQfc6og5zRQ4A8YxSO3Knsne+eRbZ+IepAsK249XBH/XaFuOYOYr3L3r13CXTLvYt5JDjw==
+react-router-dom@^6.19.0:
+  version "6.19.0"
+  resolved "https://registry.yarnpkg.com/react-router-dom/-/react-router-dom-6.19.0.tgz#ee807e36ae7dd954db7a3f770e38b7cc026c66a8"
+  integrity sha512-N6dWlcgL2w0U5HZUUqU2wlmOrSb3ighJmtQ438SWbhB1yuLTXQ8yyTBMK3BSvVjp7gBtKurT554nCtMOgxCZmQ==
   dependencies:
-    "@remix-run/router" "1.11.0"
-    react-router "6.18.0"
+    "@remix-run/router" "1.12.0"
+    react-router "6.19.0"
 
-react-router@6.18.0:
-  version "6.18.0"
-  resolved "https://registry.yarnpkg.com/react-router/-/react-router-6.18.0.tgz#32e2bedc318e095a48763b5ed7758e54034cd36a"
-  integrity sha512-vk2y7Dsy8wI02eRRaRmOs9g2o+aE72YCx5q9VasT1N9v+lrdB79tIqrjMfByHiY5+6aYkH2rUa5X839nwWGPDg==
+react-router@6.19.0:
+  version "6.19.0"
+  resolved "https://registry.yarnpkg.com/react-router/-/react-router-6.19.0.tgz#6d5062fa33495859daca98d86292ab03b037a9ca"
+  integrity sha512-0W63PKCZ7+OuQd7Tm+RbkI8kCLmn4GPjDbX61tWljPxWgqTKlEpeQUwPkT1DRjYhF8KSihK0hQpmhU4uxVMcdw==
   dependencies:
-    "@remix-run/router" "1.11.0"
+    "@remix-run/router" "1.12.0"
 
-react-tooltip@^5.21.6:
-  version "5.21.6"
-  resolved "https://registry.yarnpkg.com/react-tooltip/-/react-tooltip-5.21.6.tgz#2287b12010c6b931ffe2b432d9961691a8cc74b3"
-  integrity sha512-WbND5ee8Kr5HaSuDDiAmSyRp5jH77PSk8M0CUzmVfD+1WST8XOm1StJndK/wOQIP5GPvDVPy96ylLxY/V+VpqA==
+react-tooltip@^5.23.0:
+  version "5.23.0"
+  resolved "https://registry.yarnpkg.com/react-tooltip/-/react-tooltip-5.23.0.tgz#dbbc950194a10e00c1b3072e71cbe0b3fcb84dfe"
+  integrity sha512-MYqn6n+Af8NHHDL3zrSqzVSoK2LLqTNFp30CuuHCYlBEf+q88FWfg+8pSO+0GnDvOa5ZaryNDq9sAVQeNhnsgw==
   dependencies:
     "@floating-ui/dom" "^1.0.0"
     classnames "^2.3.0"
@@ -8577,10 +8583,10 @@ supports-preserve-symlinks-flag@^1.0.0:
   resolved "https://registry.yarnpkg.com/supports-preserve-symlinks-flag/-/supports-preserve-symlinks-flag-1.0.0.tgz#6eda4bd344a3c94aea376d4cc31bc77311039e09"
   integrity sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==
 
-swiper@^11.0.3:
-  version "11.0.3"
-  resolved "https://registry.yarnpkg.com/swiper/-/swiper-11.0.3.tgz#9c325154db2a4431f508b7e8e300621365eb4c3d"
-  integrity sha512-MyV9ooQsriAe2EibeamqewLjgCfSvl2xoyratl6S3ln5BXDL4BzlO6mxcbLMCzQL6Z60b/u0AS/nKrepL0+TAg==
+swiper@^11.0.4:
+  version "11.0.4"
+  resolved "https://registry.yarnpkg.com/swiper/-/swiper-11.0.4.tgz#58253ef9a7a4ef5e37d5a0613783f5a3debc48da"
+  integrity sha512-qtUxILrD4aD++rpKzGrkz3IAWL92f9uTrDwjb6HaNLmPvJhZCE/83DL+9w4kIgDDJeF6QKalV47rMBN77UOVYQ==
 
 synckit@^0.8.4:
   version "0.8.5"
