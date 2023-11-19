@@ -4,6 +4,7 @@ import { Tooltip } from 'react-tooltip';
 import { RWebShare } from 'react-web-share';
 
 import {
+  ChartLine,
   Confetti,
   CreditCard,
   Eye,
@@ -218,6 +219,13 @@ export function Profile() {
                   )
                 }
                 title={areValueVisible ? 'Mostrar saldo' : 'Ocultar saldo'}
+                divider
+              />
+
+              <Submenu
+                onClick={() => navigate('/investments')}
+                icon={<ChartLine size={20} weight="light" />}
+                title="Área do investidor"
                 divider
               />
 

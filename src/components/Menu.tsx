@@ -10,6 +10,7 @@ import {
   Calculator as CalculatorIcon,
   CaretDown,
   CaretUp,
+  ChartLine,
   Confetti,
   CreditCard,
   CurrencyCircleDollar,
@@ -42,6 +43,7 @@ export function Menu({ isInvestiment }: MenuProps) {
 
   const [moreOptions, setMoreOptions] = useState(false);
   const [moreSheets, setMoreSheets] = useState(false);
+  const [moreCards, setMoreCards] = useState(false);
 
   const [openModalCurrency, setOpenModalCurrency] = useState(false);
   const [openModalCalculator, setOpenModalCalculator] = useState(false);
@@ -96,10 +98,10 @@ export function Menu({ isInvestiment }: MenuProps) {
                   <button
                     className="group flex w-full items-center rounded-md px-2 py-2 text-sm"
                     onClick={() => {
-                      navigate('/cards');
+                      navigate('/investments');
                     }}
                   >
-                    <CreditCard
+                    <ChartLine
                       size={20}
                       weight="light"
                       className={cn(
@@ -107,25 +109,7 @@ export function Menu({ isInvestiment }: MenuProps) {
                         isInvestiment && 'text-primary',
                       )}
                     />
-                    Cartões de crédito
-                  </button>
-                </MenuComponent.Item>
-                <MenuComponent.Item>
-                  <button
-                    className="group flex w-full items-center rounded-md px-2 py-2 text-sm"
-                    onClick={() => {
-                      navigate('/credit-card');
-                    }}
-                  >
-                    <CreditCard
-                      size={20}
-                      weight="light"
-                      className={cn(
-                        'mr-2 h-5 w-5 text-secondary',
-                        isInvestiment && 'text-primary',
-                      )}
-                    />
-                    Adicionar cartão
+                    Área do investidor
                   </button>
                 </MenuComponent.Item>
 
@@ -147,6 +131,77 @@ export function Menu({ isInvestiment }: MenuProps) {
                     Metas
                   </button>
                 </MenuComponent.Item>
+
+                <Disclosure as={Fragment}>
+                  <Disclosure.Button
+                    className="group flex w-full items-center rounded-md px-2 py-2 text-sm"
+                    onClick={() => {
+                      setMoreCards(!moreCards);
+                    }}
+                  >
+                    {moreCards ? (
+                      <CaretUp
+                        size={20}
+                        weight="light"
+                        className={cn(
+                          'mr-2 h-5 w-5 text-secondary',
+                          isInvestiment && 'text-primary',
+                        )}
+                      />
+                    ) : (
+                      <CaretDown
+                        size={20}
+                        weight="light"
+                        className={cn(
+                          'mr-2 h-5 w-5 text-secondary',
+                          isInvestiment && 'text-primary',
+                        )}
+                      />
+                    )}
+                    <span>Cartões</span>
+                  </Disclosure.Button>
+                </Disclosure>
+
+                {moreCards && (
+                  <>
+                    <MenuComponent.Item>
+                      <button
+                        className="group flex w-full items-center rounded-md px-2 py-2 text-sm"
+                        onClick={() => {
+                          navigate('/cards');
+                        }}
+                      >
+                        <CreditCard
+                          size={20}
+                          weight="light"
+                          className={cn(
+                            'mr-2 h-5 w-5 text-secondary',
+                            isInvestiment && 'text-primary',
+                          )}
+                        />
+                        Cartões de crédito
+                      </button>
+                    </MenuComponent.Item>
+                    <MenuComponent.Item>
+                      <button
+                        className="group flex w-full items-center rounded-md px-2 py-2 text-sm"
+                        onClick={() => {
+                          navigate('/credit-card');
+                        }}
+                      >
+                        <CreditCard
+                          size={20}
+                          weight="light"
+                          className={cn(
+                            'mr-2 h-5 w-5 text-secondary',
+                            isInvestiment && 'text-primary',
+                          )}
+                        />
+                        Adicionar cartão
+                      </button>
+                    </MenuComponent.Item>
+                  </>
+                )}
 
                 {!verifyWebView() && (
                   <Disclosure as={Fragment}>
