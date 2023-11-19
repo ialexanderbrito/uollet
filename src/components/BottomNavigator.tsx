@@ -1,12 +1,6 @@
 import { Link } from 'react-router-dom';
 
-import {
-  House,
-  Coins,
-  Wallet,
-  ChartPie,
-  ChartLine,
-} from '@phosphor-icons/react';
+import { House, Coins, Wallet, ChartPie } from '@phosphor-icons/react';
 
 import { cn } from 'utils/cn';
 
@@ -41,7 +35,7 @@ export function BottomNavigator({ isInvestiment }: BottomNavigatorProps) {
   return (
     <section
       id="bottom-navigation"
-      className="fixed bottom-5 z-10 w-80 rounded-full bg-backgroundCard opacity-95 shadow-lg dark:bg-backgroundCardDark dark:shadow-xl sm:w-[40rem]"
+      className="fixed bottom-5 z-10 w-60 rounded-full bg-backgroundCard opacity-95 shadow-lg dark:bg-backgroundCardDark dark:shadow-xl sm:w-[30rem]"
     >
       <div
         id="tabs"
@@ -110,28 +104,6 @@ export function BottomNavigator({ isInvestiment }: BottomNavigatorProps) {
           />
           <span className="tab tab-explore hidden text-sm sm:block">
             Cadastrar
-          </span>
-        </Link>
-
-        <Link
-          to="/investments"
-          className={cn(
-            'flex w-full items-center justify-center gap-2 pb-1 pt-2 hover:text-secondary focus:text-secondary',
-            isActive('/investments') &&
-              'h-16 rounded-full bg-secondary/10 text-secondary dark:bg-secondaryDark/10',
-            isInvestiment &&
-              isActive('/investments') &&
-              'h-16 rounded-full bg-primary/10 text-primary hover:text-primary focus:text-primary dark:bg-primaryDark/10',
-          )}
-        >
-          <ChartLine
-            size={25}
-            className="inline-block"
-            color={darkColorIcon('/investments')}
-            weight={isActive('/investments') ? 'fill' : 'light'}
-          />
-          <span className="tab tab-explore hidden text-sm sm:block">
-            Investimento
           </span>
         </Link>
 
