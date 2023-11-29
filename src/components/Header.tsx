@@ -27,6 +27,7 @@ interface HeaderProps {
   setVisible?: () => void;
   className?: string;
   isInvestiment?: boolean;
+  navigateLink?: string;
 }
 
 export function Header({
@@ -38,6 +39,7 @@ export function Header({
   setVisible,
   className,
   isInvestiment,
+  navigateLink,
 }: HeaderProps) {
   const navigate = useNavigate();
   const { query } = useKBar();
@@ -139,7 +141,9 @@ export function Header({
                 size={20}
                 weight="light"
                 className="cursor-pointer text-white"
-                onClick={() => navigate(-1)}
+                onClick={() =>
+                  navigateLink ? navigate(navigateLink) : navigate(-1)
+                }
               />
             )}
           </div>
