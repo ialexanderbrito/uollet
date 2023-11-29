@@ -17,6 +17,7 @@ import { Register } from 'pages/Register';
 import { RegisterGoals } from 'pages/RegisterGoals';
 import { ResetPassword } from 'pages/ResetPassword';
 import { Resume } from 'pages/Resume';
+import { Stock } from 'pages/Stock';
 import { Wallet } from 'pages/Wallet';
 
 import { useAuth } from 'contexts/Auth';
@@ -82,6 +83,7 @@ export function PrivateRoutes() {
       <Route path="/wallet" element={<Wallet />} />
       <Route path="/credit-card" element={<CreditCard />} />
       <Route path="/reset-password" element={<ResetPassword />} />
+      <Route path="/stock/:stock" element={<Stock />} />
       <Route path="*" element={<Error />} />
     </Routes>
   );
