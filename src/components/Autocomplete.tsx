@@ -1,41 +1,36 @@
 import { Fragment, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { Combobox, Transition } from '@headlessui/react';
 import { CaretUpDown, Check } from '@phosphor-icons/react';
 
-interface AutocompleteProps {
-  selected: {
-    name: string;
-    icon: string;
-  };
-  setSelected: (value: any) => void;
-  options: {
-    name: string;
-    icon?: string;
-    code?: string;
-  }[];
+interface AutocompleteProps<T> {
+  selected: T;
+  setSelected: (value: T) => void;
+  options: T[];
   className?: string;
   placeholder?: string;
+  isNavigate?: boolean;
+  displayValue: (value: T) => string;
 }
 
-interface Option {
-  name: string;
-}
-
-export function Autocomplete({
+export function Autocomplete<T>({
   selected,
   setSelected,
   options,
   className,
   placeholder = 'Digite uma categoria: Ex: Bradesco',
-}: AutocompleteProps) {
+  isNavigate = false,
+  displayValue,
+}: AutocompleteProps<T>) {
+  const navigate = useNavigate();
   const [query, setQuery] = useState('');
 
-  const filteredPeople =
+  const filteredOptions =
     query === ''
       ? options
-      : options.filter((person) =>
-          person.name
+      : options.filter((item) =>
+          displayValue(item)
             .toLowerCase()
             .replace(/\s+/g, '')
             .includes(query.toLowerCase().replace(/\s+/g, '')),
@@ -49,7 +44,7 @@ export function Autocomplete({
         >
           <Combobox.Input
             className="w-full border-none bg-backgroundCard py-2 pl-3 pr-10 text-sm leading-5 text-title outline-none focus:ring-2 focus:ring-primary dark:bg-backgroundCardDark dark:text-titleDark focus:dark:ring-primaryDark"
-            displayValue={(value: Option) => value.name}
+            displayValue={(value: T) => displayValue(value)}
             onChange={(event) => setQuery(event.target.value)}
             placeholder={placeholder}
           />
@@ -65,14 +60,14 @@ export function Autocomplete({
           afterLeave={() => setQuery('')}
         >
           <Combobox.Options className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-backgroundCard py-1 text-base text-title shadow-lg ring-1 ring-black ring-opacity-5 scrollbar scrollbar-thin scrollbar-track-backgroundCard scrollbar-thumb-secondary focus:outline-none dark:bg-backgroundCardDark dark:text-titleDark dark:scrollbar-track-backgroundDark sm:text-sm">
-            {filteredPeople.length === 0 && query !== '' ? (
+            {filteredOptions.length === 0 && query !== '' ? (
               <div className="relative cursor-default select-none px-4 py-2 text-title dark:text-titleDark">
                 Nenhum resultado encontrado
               </div>
             ) : (
-              filteredPeople.map((person) => (
+              filteredOptions.map((item) => (
                 <Combobox.Option
-                  key={person.name}
+                  key={displayValue(item)}
                   className={({ active }) =>
                     `relative cursor-pointer select-none py-2 pl-10 pr-4 ${
                       active
@@ -80,7 +75,7 @@ export function Autocomplete({
                         : 'text-text dark:text-titleDark'
                     }`
                   }
-                  value={person}
+                  value={item}
                 >
                   {({ selected }) => (
                     <>
@@ -88,8 +83,12 @@ export function Autocomplete({
                         className={`block truncate text-title dark:text-titleDark ${
                           selected ? 'font-medium' : 'font-normal'
                         }`}
+                        onClick={() => {
+                          isNavigate &&
+                            navigate(`/stock/${displayValue(item)}`);
+                        }}
                       >
-                        {person.name}
+                        {displayValue(item)}
                       </span>
                       {selected ? (
                         <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-amber-600">
