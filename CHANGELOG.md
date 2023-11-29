@@ -1,3 +1,34 @@
+# [2.19.0](https://github.com/ialexanderbrito/finance/compare/v2.18.0...v2.19.0) (2023-11-29)
+
+
+### Bug Fixes
+
+* autocomplete generic component ([70c9e99](https://github.com/ialexanderbrito/finance/commit/70c9e9942f58c5affa302f897a480aafa2d7cb4e))
+
+
+### Features
+
+* add components card stocks in investments page ([f97d5d4](https://github.com/ialexanderbrito/finance/commit/f97d5d456d8a1fef24b45445a7675a65ae838d51))
+* add display value in autocomplete ([8739e74](https://github.com/ialexanderbrito/finance/commit/8739e7496df48cb337cf58fb07e7f05ea17956cc))
+* add navigate url in header ([6343038](https://github.com/ialexanderbrito/finance/commit/63430383ddf87bf903f1e7aa9c98f19f109b2797))
+* add new api route ([6c75fa3](https://github.com/ialexanderbrito/finance/commit/6c75fa3941d110438ccd7834f518da5a2ac20e15))
+* add new component card stock ([da131f7](https://github.com/ialexanderbrito/finance/commit/da131f7742d871a3b3c93ae07461f6cbd258f9da))
+* add new component fundamental indicators stock ([89e3aa1](https://github.com/ialexanderbrito/finance/commit/89e3aa1e3cf0621941bf72ff78a3191f30562f4a))
+* add new component recommended stocks ([c036195](https://github.com/ialexanderbrito/finance/commit/c0361955c6a08da90f456f02525e38eb644dc914))
+* add new component search input ([c507d4f](https://github.com/ialexanderbrito/finance/commit/c507d4f855d44a93dc44db8d505972ef0b4b55a6))
+* add new component stock scroll ([98c4fb3](https://github.com/ialexanderbrito/finance/commit/98c4fb3c740d8ab387587914c169071e99af44df))
+* add new hook use stocks ([c3d3bdc](https://github.com/ialexanderbrito/finance/commit/c3d3bdcf997ebfaf1bea3bb5e3e5d27e0fc8604f))
+* add new page detail stock ([4e3dde5](https://github.com/ialexanderbrito/finance/commit/4e3dde510b99fc3c33780d83caa451213a3aeac8))
+* add new sizes modal ([f290bdc](https://github.com/ialexanderbrito/finance/commit/f290bdcef5f1b9a1b2f6af2a0bdfcc95211e8738))
+* add new utils tools ([b6f7015](https://github.com/ialexanderbrito/finance/commit/b6f7015e3f201d9646b56116d2dad4cad59e0a93))
+* add route stock details ([8fe8601](https://github.com/ialexanderbrito/finance/commit/8fe860141eaed90ef32996b1fcbd36ea7d504494))
+
+
+### Performance Improvements
+
+* export check user context ([7db4ec9](https://github.com/ialexanderbrito/finance/commit/7db4ec97f59fff2166c1b13caae12af342874ee1))
+* update link api currency ([22ddb09](https://github.com/ialexanderbrito/finance/commit/22ddb09032c35130e66373f7cb2a683ebb9b40f6))
+
 # [2.18.0](https://github.com/ialexanderbrito/finance/compare/v2.17.0...v2.18.0) (2023-11-19)
 
 
