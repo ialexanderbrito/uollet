@@ -24,7 +24,17 @@ interface MyDialogProps {
   terms?: boolean;
   deleteAccount?: () => void | Promise<void>;
   isInvestiment?: boolean;
-  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl';
+  size?:
+    | 'xs'
+    | 'sm'
+    | 'md'
+    | 'lg'
+    | 'xl'
+    | '2xl'
+    | '3xl'
+    | '4xl'
+    | '5xl'
+    | '6xl';
 }
 
 export function MyDialog({
@@ -107,6 +117,10 @@ export function MyDialog({
                     size === 'lg' && 'max-w-lg',
                     size === 'xl' && 'max-w-xl',
                     size === '2xl' && 'max-w-2xl',
+                    size === '3xl' && 'max-w-3xl',
+                    size === '4xl' && 'max-w-4xl',
+                    size === '5xl' && 'max-w-5xl',
+                    size === '6xl' && 'max-w-6xl',
                   )}
                 >
                   <h3
