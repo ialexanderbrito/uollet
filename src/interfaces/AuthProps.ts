@@ -3,6 +3,17 @@ export interface AppMetadata {
   providers: string[];
 }
 
+export interface Adress {
+  city: string;
+  country?: any;
+  district: string;
+  number: string;
+  reference: string;
+  state?: any;
+  street: string;
+  zipCode: string;
+}
+
 export interface UserMetadata {
   avatar_url: string;
   email: string;
@@ -15,6 +26,12 @@ export interface UserMetadata {
   sub: string;
   otp: string;
   phone: string;
+  address: Adress;
+  identification_number: string;
+  birthdate: string;
+  last_name: string;
+  customer_id: string;
+  stocks: string[];
 }
 
 export interface IdentityData {
