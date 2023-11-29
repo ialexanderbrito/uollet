@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import { MagnifyingGlass, Star, TrendUp } from '@phosphor-icons/react';
+import { Jelly } from '@uiball/loaders';
 import charLineDown from 'assets/chart-line-down.svg';
 import charLineUp from 'assets/chart-line-up.svg';
 import emptyImg from 'assets/empty.svg';
@@ -10,12 +12,15 @@ import { FinancesProps } from 'interfaces/FinancesProps';
 import { BottomNavigator } from 'components/BottomNavigator';
 import { Card } from 'components/Card';
 import { CardList } from 'components/CardList';
+import { CardStock } from 'components/CardStock';
 import { Filter } from 'components/Filter';
 import { Header } from 'components/Header';
 import { Loading } from 'components/Loading';
 import { MyDialog } from 'components/Modal';
 import { ModalFilter } from 'components/Modal/Filter';
 import { useModal } from 'components/Modal/useModal';
+import { SearchInput } from 'components/SearchInput';
+import { StockScroll } from 'components/StockScroll';
 
 import { cn } from 'utils/cn';
 import { formatCurrency } from 'utils/formatCurrency';
@@ -24,15 +29,29 @@ import { useAuth } from 'contexts/Auth';
 import { useTheme } from 'contexts/Theme';
 
 import { useInvestments } from 'hooks/useInvestments';
+import { useStocks } from 'hooks/useStocks';
 
 export function Investments() {
   const navigate = useNavigate();
   const { theme } = useTheme();
   const { user, areValueVisible, toggleValueVisibility } = useAuth();
-
+  const {
+    stocks,
+    savedStocks,
+    isFavorite,
+    setIsFavorite,
+    saveFavoriteStock,
+    verifyIsFavorite,
+    loading: loadingStocks,
+    setSearchStock,
+    stocksResultSearch,
+    isSearch,
+    setIsSearch,
+    searchStock,
+    setStocksResultSearch,
+  } = useStocks();
   const { openModalName, handleCloseModalName, selectedYear, setSelectedYear } =
     useModal();
-
   const {
     investments,
     loading,
@@ -74,6 +93,16 @@ export function Investments() {
     }
   }, [search]);
 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsSearch(false);
+      setStocksResultSearch([]);
+      setSearchStock('');
+    }, 20000);
+
+    return () => clearTimeout(timer);
+  }, [isSearch]);
+
   return (
     <>
       {loading ? (
@@ -87,7 +116,6 @@ export function Investments() {
             setVisible={toggleValueVisibility}
             isInvestiment
           />
-
           <div className="absolute top-20 flex w-full min-w-full snap-x gap-4 overflow-x-scroll p-4 scrollbar-hide md:justify-center">
             <Card
               title="Entradas"
@@ -129,6 +157,114 @@ export function Investments() {
 
           <div className="h-20" />
 
+          <div className="mt-2 flex w-full flex-row items-center justify-between">
+            <p className="ml-5 text-sm font-bold text-title dark:text-textDark">
+              {isFavorite ? 'Ações mais procuradas' : 'Minhas ações favoritas'}
+            </p>
+
+            <div className="flex flex-row items-center justify-center">
+              <p className="mr-5 flex items-center justify-center text-sm font-bold text-title dark:text-textDark">
+                <button
+                  type="button"
+                  className=" text-title dark:text-textDark"
+                  onClick={() => {
+                    setIsSearch(!isSearch);
+                  }}
+                >
+                  <MagnifyingGlass size={25} />
+                </button>
+              </p>
+
+              <p className="mr-5 flex items-center justify-center text-sm font-bold text-title dark:text-textDark">
+                {isFavorite ? (
+                  <button
+                    type="button"
+                    className=" text-title dark:text-textDark"
+                    onClick={() => {
+                      setIsFavorite(false);
+                    }}
+                  >
+                    <Star size={25} weight="fill" />
+                  </button>
+                ) : (
+                  <button
+                    type="button"
+                    className="text-title dark:text-textDark"
+                    onClick={() => {
+                      setIsFavorite(true);
+                    }}
+                  >
+                    <TrendUp size={25} />
+                  </button>
+                )}
+              </p>
+            </div>
+          </div>
+
+          {isSearch && (
+            <SearchInput
+              searchStock={searchStock}
+              setSearchStock={setSearchStock}
+              stocksResultSearch={stocksResultSearch}
+              navigate={navigate}
+              saveFavoriteStock={saveFavoriteStock}
+              verifyIsFavorite={verifyIsFavorite}
+            />
+          )}
+
+          {loadingStocks ? (
+            <div className="flex w-full items-center justify-center">
+              <Jelly color="#5636d3" />
+            </div>
+          ) : (
+            <StockScroll>
+              {isFavorite ? (
+                <>
+                  {stocks.map((stock) => (
+                    <div key={stock.stock} className="scroll-snap-align-start ">
+                      <CardStock
+                        stock={stock.stock}
+                        name={stock.name}
+                        close={stock.close}
+                        change={stock.change}
+                        logo={stock.logo}
+                        saveFavoriteStock={() => {
+                          saveFavoriteStock(stock.stock);
+                        }}
+                        verifyIsFavorite={verifyIsFavorite}
+                        onClick={() => {
+                          navigate(`/stock/${stock.stock}`);
+                        }}
+                      />
+                    </div>
+                  ))}
+                </>
+              ) : (
+                <>
+                  {savedStocks.map((stock) => (
+                    <div key={stock.symbol} className="scroll-snap-align-start">
+                      <CardStock
+                        stock={stock.symbol}
+                        name={stock.shortName}
+                        close={stock.regularMarketPrice}
+                        currency={stock.currency}
+                        change={stock.regularMarketChangePercent}
+                        logo={stock.logourl}
+                        saveFavoriteStock={() => {
+                          saveFavoriteStock(stock.symbol);
+                        }}
+                        verifyIsFavorite={verifyIsFavorite}
+                        onClick={() => {
+                          navigate(`/stock/${stock.symbol}`);
+                        }}
+                      />
+                    </div>
+                  ))}
+                </>
+              )}
+            </StockScroll>
+          )}
+
           <div className="flex min-h-screen w-full flex-col gap-4 p-4">
             <input
               type="text"
@@ -137,14 +273,12 @@ export function Investments() {
               className="h-14 w-full rounded-lg bg-white p-4 text-title outline-none focus:ring-2 focus:ring-primary dark:bg-backgroundCardDark dark:text-titleDark focus:dark:ring-primaryDark"
               onChange={(e) => setSearch(e.target.value)}
             />
-
             <Filter
               actualMonth={currentMonth}
               handleChangeFilterMonth={handleChangeFilterMonth}
               handleOpenModalFilter={handleOpenModalFilter}
               isInvestiment
             />
-
             <ul className="flex flex-col gap-4">
               {investments.length === 0 && (
                 <div className="mt-4 flex flex-col items-center justify-center">
@@ -214,7 +348,6 @@ export function Investments() {
               ))}
             </ul>
           </div>
-
           <MyDialog
             closeModal={handleCloseModalName}
             isOpen={openModalName}
@@ -222,7 +355,6 @@ export function Investments() {
             description="Antes de começar, queria saber como podemos te chamar?"
             name
           />
-
           <MyDialog
             closeModal={handleCloseModalFilter}
             isOpen={openModalFilter}
@@ -247,7 +379,6 @@ export function Investments() {
               isInvestiment
             />
           </MyDialog>
-
           <BottomNavigator isInvestiment />
         </div>
       )}
