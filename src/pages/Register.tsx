@@ -190,6 +190,7 @@ export function Register() {
                     formik.touched.category &&
                     'border-[1.5px] border-red-500',
                 )}
+                displayValue={(value) => value.name}
               />
               {formik.errors.category && formik.touched.category && (
                 <InputError
@@ -211,6 +212,7 @@ export function Register() {
                     formik.touched.category &&
                     'border-[1.5px] border-red-500',
                 )}
+                displayValue={(value) => value.name}
               />
               {formik.errors.category && formik.touched.category && (
                 <InputError
