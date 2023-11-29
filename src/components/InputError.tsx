@@ -4,11 +4,15 @@ import { cn } from 'utils/cn';
 
 interface InputErrorProps {
   error: boolean;
-  message: string;
+  message: string | undefined;
   className?: string;
 }
 
 export function InputError({ error, message, className }: InputErrorProps) {
+  if (!message) {
+    return null;
+  }
+
   return (
     <div
       className={cn('mt-[-0.5rem] flex w-full flex-col gap-4 pl-2', className)}
