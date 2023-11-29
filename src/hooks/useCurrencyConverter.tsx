@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 
 import { useToast } from 'contexts/Toast';
 
-import axios from 'axios';
+import { api } from 'services/api';
 
 export function useCurrencyConverter() {
   const { toast } = useToast();
@@ -32,8 +32,8 @@ export function useCurrencyConverter() {
     }
 
     try {
-      const { data } = await axios.get(
-        `https://economia.awesomeapi.com.br/json/last/${currencyOrigin}-${currencyDestination}`,
+      const { data } = await api.get(
+        `currency/${currencyOrigin}-${currencyDestination}`,
       );
 
       const value = data[`${currencyOrigin}${currencyDestination}`].bid;
