@@ -1,7 +1,9 @@
-export function formatCurrency(value: number) {
-  const formatter = new Intl.NumberFormat('pt-BR', {
+export function formatCurrency(value: number, currency = 'BRL'): string {
+  const language = currency === 'BRL' ? 'pt-BR' : 'en-US';
+
+  const formatter = new Intl.NumberFormat(language, {
     style: 'currency',
-    currency: 'BRL',
+    currency,
   }).format(value);
 
   return formatter;
