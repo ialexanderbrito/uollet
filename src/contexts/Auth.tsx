@@ -24,6 +24,7 @@ interface AuthContextProps {
   hasMFA: boolean;
   areValueVisible: boolean;
   toggleValueVisibility: () => void;
+  checkUser: () => Promise<void>;
 }
 
 const AuthContext = createContext({} as AuthContextProps);
@@ -155,6 +156,7 @@ export function AuthProvider({ children }: any) {
         hasMFA: hasMFA(),
         areValueVisible,
         toggleValueVisibility,
+        checkUser,
       }}
     >
       {children}
