@@ -15,8 +15,3 @@
     max-age=31536000,
     immutable
     '''
-
-[build]
-  command = "npm run build"
-  functions = "functions"
-  publish = "build"
