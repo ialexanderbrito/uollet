@@ -18,12 +18,12 @@ export function Export() {
       {loading ? (
         <Loading />
       ) : (
-        <div className="flex h-screen w-full flex-col items-center bg-background dark:bg-backgroundDark">
+        <div className="flex h-screen w-full flex-col items-center bg-background dark:bg-background-dark">
           <Header title="Exportar dados" />
 
           <div className="flex w-full flex-col items-center justify-center gap-2 p-4">
             <div className="mb-4 flex w-full flex-col items-center justify-center">
-              <p className="text-center text-lg text-title dark:text-textDark">
+              <p className="text-center text-lg text-title dark:text-text-dark">
                 Selecione o período que deseja exportar
               </p>
             </div>
@@ -39,7 +39,7 @@ export function Export() {
             </div>
 
             <button
-              className="flex h-12 w-full items-center justify-center rounded-lg bg-secondary text-white dark:bg-secondaryDark"
+              className="flex h-14 w-full items-center justify-center rounded-lg bg-primary text-white dark:bg-primary-dark"
               onClick={() => {
                 exportToExcel();
               }}

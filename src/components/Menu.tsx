@@ -23,7 +23,6 @@ import {
   User,
 } from '@phosphor-icons/react';
 
-import { cn } from 'utils/cn';
 import { verifyWebView } from 'utils/verifyWebView';
 
 import { useAuth } from 'contexts/Auth';
@@ -32,11 +31,7 @@ import { useTheme } from 'contexts/Theme';
 import { Calculator } from './Calculator';
 import { CurrencyConverter } from './CurrencyConverter';
 
-interface MenuProps {
-  isInvestiment?: boolean;
-}
-
-export function Menu({ isInvestiment }: MenuProps) {
+export function Menu() {
   const navigate = useNavigate();
   const { logOut } = useAuth();
   const { theme, toggleTheme } = useTheme();
@@ -57,10 +52,7 @@ export function Menu({ isInvestiment }: MenuProps) {
               <DotsThreeVertical
                 size={30}
                 weight="light"
-                className={cn(
-                  'cursor-pointer text-secondary',
-                  isInvestiment && 'text-white',
-                )}
+                className="cursor-pointer text-white"
               />
             </MenuComponent.Button>
           </div>
@@ -73,7 +65,7 @@ export function Menu({ isInvestiment }: MenuProps) {
             leaveFrom="transform opacity-100 scale-100"
             leaveTo="transform opacity-0 scale-95"
           >
-            <MenuComponent.Items className="absolute right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-backgroundCard shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none dark:bg-backgroundCardDark dark:text-textDark">
+            <MenuComponent.Items className="absolute right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-background shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none dark:bg-background-dark dark:text-text-dark">
               <div className="px-1 py-1 ">
                 <MenuComponent.Item>
                   <button
@@ -85,10 +77,7 @@ export function Menu({ isInvestiment }: MenuProps) {
                     <User
                       size={20}
                       weight="light"
-                      className={cn(
-                        'mr-2 h-5 w-5 text-secondary',
-                        isInvestiment && 'text-primary',
-                      )}
+                      className="mr-2 h-5 w-5 text-primary dark:text-white"
                     />
                     Minha conta
                   </button>
@@ -104,10 +93,7 @@ export function Menu({ isInvestiment }: MenuProps) {
                     <ChartLine
                       size={20}
                       weight="light"
-                      className={cn(
-                        'mr-2 h-5 w-5 text-secondary',
-                        isInvestiment && 'text-primary',
-                      )}
+                      className="mr-2 h-5 w-5 text-primary dark:text-white"
                     />
                     Área do investidor
                   </button>
@@ -123,10 +109,7 @@ export function Menu({ isInvestiment }: MenuProps) {
                     <Confetti
                       size={20}
                       weight="light"
-                      className={cn(
-                        'mr-2 h-5 w-5 text-secondary',
-                        isInvestiment && 'text-primary',
-                      )}
+                      className="mr-2 h-5 w-5 text-primary dark:text-white"
                     />
                     Metas
                   </button>
@@ -143,19 +126,13 @@ export function Menu({ isInvestiment }: MenuProps) {
                       <CaretUp
                         size={20}
                         weight="light"
-                        className={cn(
-                          'mr-2 h-5 w-5 text-secondary',
-                          isInvestiment && 'text-primary',
-                        )}
+                        className="mr-2 h-5 w-5 text-primary dark:text-white"
                       />
                     ) : (
                       <CaretDown
                         size={20}
                         weight="light"
-                        className={cn(
-                          'mr-2 h-5 w-5 text-secondary',
-                          isInvestiment && 'text-primary',
-                        )}
+                        className="mr-2 h-5 w-5 text-primary dark:text-white"
                       />
                     )}
                     <span>Cartões</span>
@@ -174,10 +151,7 @@ export function Menu({ isInvestiment }: MenuProps) {
                         <CreditCard
                           size={20}
                           weight="light"
-                          className={cn(
-                            'mr-2 h-5 w-5 text-secondary',
-                            isInvestiment && 'text-primary',
-                          )}
+                          className="mr-2 h-5 w-5 text-primary dark:text-white"
                         />
                         Cartões de crédito
                       </button>
@@ -192,10 +166,7 @@ export function Menu({ isInvestiment }: MenuProps) {
                         <CreditCard
                           size={20}
                           weight="light"
-                          className={cn(
-                            'mr-2 h-5 w-5 text-secondary',
-                            isInvestiment && 'text-primary',
-                          )}
+                          className="mr-2 h-5 w-5 text-primary dark:text-white"
                         />
                         Adicionar cartão
                       </button>
@@ -215,19 +186,13 @@ export function Menu({ isInvestiment }: MenuProps) {
                         <CaretUp
                           size={20}
                           weight="light"
-                          className={cn(
-                            'mr-2 h-5 w-5 text-secondary ',
-                            isInvestiment && 'text-primary',
-                          )}
+                          className="mr-2 h-5 w-5 text-primary dark:text-white"
                         />
                       ) : (
                         <CaretDown
                           size={20}
                           weight="light"
-                          className={cn(
-                            'mr-2 h-5 w-5 text-secondary',
-                            isInvestiment && 'text-primary',
-                          )}
+                          className="mr-2 h-5 w-5 text-primary dark:text-white"
                         />
                       )}
                       <span>Planilhas</span>
@@ -247,11 +212,7 @@ export function Menu({ isInvestiment }: MenuProps) {
                         <FileCsv
                           size={20}
                           weight="fill"
-                          className={cn(
-                            'mr-2 h-5 w-5 text-secondary dark:text-secondaryDark',
-                            isInvestiment &&
-                              'text-primary dark:text-primaryDark',
-                          )}
+                          className="mr-2 h-5 w-5 text-primary dark:text-white"
                         />
                         Importar CSV
                       </button>
@@ -266,11 +227,7 @@ export function Menu({ isInvestiment }: MenuProps) {
                         <FileXls
                           size={20}
                           weight="fill"
-                          className={cn(
-                            'mr-2 h-5 w-5 text-secondary dark:text-secondaryDark',
-                            isInvestiment &&
-                              'text-primary dark:text-primaryDark',
-                          )}
+                          className="mr-2 h-5 w-5 text-primary dark:text-white"
                         />
                         Exportar Planilha
                       </button>
@@ -289,19 +246,13 @@ export function Menu({ isInvestiment }: MenuProps) {
                       <CaretUp
                         size={20}
                         weight="light"
-                        className={cn(
-                          'mr-2 h-5 w-5 text-secondary',
-                          isInvestiment && 'text-primary',
-                        )}
+                        className="mr-2 h-5 w-5 text-primary dark:text-white"
                       />
                     ) : (
                       <CaretDown
                         size={20}
                         weight="light"
-                        className={cn(
-                          'mr-2 h-5 w-5 text-secondary',
-                          isInvestiment && 'text-primary',
-                        )}
+                        className="mr-2 h-5 w-5 text-primary dark:text-white"
                       />
                     )}
                     <span>Mais opções</span>
@@ -320,11 +271,7 @@ export function Menu({ isInvestiment }: MenuProps) {
                         <CurrencyCircleDollar
                           size={32}
                           weight="fill"
-                          className={cn(
-                            'mr-2 h-5 w-5 text-secondary dark:text-secondaryDark',
-                            isInvestiment &&
-                              'text-primary dark:text-primaryDark',
-                          )}
+                          className="mr-2 h-5 w-5 text-primary dark:text-white"
                         />
                         Conversor de moedas
                       </button>
@@ -340,11 +287,7 @@ export function Menu({ isInvestiment }: MenuProps) {
                         <CalculatorIcon
                           size={32}
                           weight="fill"
-                          className={cn(
-                            'mr-2 h-5 w-5 text-secondary dark:text-secondaryDark',
-                            isInvestiment &&
-                              'text-primary dark:text-primaryDark',
-                          )}
+                          className="mr-2 h-5 w-5 text-primary dark:text-white"
                         />
                         Calculadora
                       </button>
@@ -362,19 +305,13 @@ export function Menu({ isInvestiment }: MenuProps) {
                         <Moon
                           size={20}
                           weight="light"
-                          className={cn(
-                            'mr-2 h-5 w-5 text-secondary',
-                            isInvestiment && 'text-primary',
-                          )}
+                          className="mr-2 h-5 w-5 text-primary dark:text-white"
                         />
                       ) : (
                         <Sun
                           size={20}
                           weight="light"
-                          className={cn(
-                            'mr-2 h-5 w-5 text-secondary',
-                            isInvestiment && 'text-primary',
-                          )}
+                          className="mr-2 h-5 w-5 text-primary dark:text-white"
                         />
                       )}
                     </>
@@ -392,10 +329,7 @@ export function Menu({ isInvestiment }: MenuProps) {
                     <Power
                       size={32}
                       weight="light"
-                      className={cn(
-                        'mr-2 h-5 w-5 text-secondary',
-                        isInvestiment && 'text-primary',
-                      )}
+                      className="mr-2 h-5 w-5 text-danger dark:text-danger"
                     />
                     Sair
                   </button>

@@ -35,14 +35,14 @@ export function CheckConnection({ children }: CheckConnectionProps) {
         children
       ) : (
         <div className="flex h-screen w-full flex-col items-center justify-center">
-          <div className="flex h-screen w-full flex-col items-center justify-center gap-4 bg-primary dark:bg-primaryDark">
+          <div className="flex h-screen w-full flex-col items-center justify-center gap-4 bg-primary dark:bg-primary-dark">
             <img src={logo} alt="Logo" />
-            <h2 className="text-center text-xl font-medium text-white dark:text-textDark">
+            <h2 className="text-center text-xl font-medium text-white dark:text-text-dark">
               Algo deu errado, mas não se preocupe - vamos tentar novamente.
             </h2>
             <button
               type="submit"
-              className="h-14 w-full rounded-lg bg-secondary p-4 text-white dark:bg-secondaryDark"
+              className="h-14 w-full rounded-lg bg-primary p-4 text-white dark:bg-primary-dark"
             >
               Tentar novamente
             </button>

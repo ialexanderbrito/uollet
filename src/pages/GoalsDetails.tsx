@@ -93,7 +93,7 @@ export function GoalsDetails() {
       {loading ? (
         <Loading />
       ) : (
-        <div className="flex w-full flex-col items-center justify-center bg-background dark:bg-backgroundDark">
+        <div className="flex w-full flex-col items-center justify-center bg-background dark:bg-background-dark">
           <Header
             title={`Histórico de metas ${id}`}
             variant="secondary"
@@ -102,10 +102,10 @@ export function GoalsDetails() {
           />
 
           <div className="flex w-full flex-col items-start justify-center gap-3 p-4">
-            <h1 className="flex flex-row items-center justify-center gap-2 text-2xl text-title dark:text-titleDark">
+            <h1 className="flex flex-row items-center justify-center gap-2 text-2xl text-title dark:text-title-dark">
               Meta {title} {emojiPattern(goalsDetailsId()?.emoji)}
             </h1>
-            <span className="flex flex-row items-center justify-center text-4xl font-bold text-title dark:text-titleDark">
+            <span className="flex flex-row items-center justify-center text-4xl font-bold text-title dark:text-title-dark">
               {separeteGoalsByCategory(`Meta ${id}`)
                 .reduce((acc, goal) => acc + goal.value, 0)
                 .toLocaleString('pt-br', {
@@ -113,7 +113,7 @@ export function GoalsDetails() {
                   currency: 'BRL',
                 })}
             </span>
-            <p className="flex flex-row items-center justify-center gap-2 text-lg text-title dark:text-titleDark">
+            <p className="flex flex-row items-center justify-center gap-2 text-lg text-title dark:text-title-dark">
               de{' '}
               {goalsDetailsId()?.value.toLocaleString('pt-br', {
                 style: 'currency',
@@ -121,9 +121,9 @@ export function GoalsDetails() {
               })}
             </p>
 
-            <div className="h-2 w-full rounded bg-gray-200 dark:bg-backgroundCardDark">
+            <div className="h-2 w-full rounded bg-background-card dark:bg-background-card-dark">
               <div
-                className="h-2 rounded bg-secondary dark:bg-secondaryDark"
+                className="h-2 rounded bg-primary dark:bg-primary-dark"
                 style={{
                   width: `${calculatePorcentageGoal()}%`,
                 }}
@@ -142,7 +142,7 @@ export function GoalsDetails() {
             {calculatePorcentageGoal() !== 100 && dateFinalExpired() && (
               <button
                 type="submit"
-                className="h-14 w-full rounded-lg bg-secondary p-4 text-white disabled:cursor-not-allowed disabled:opacity-40 dark:bg-secondaryDark"
+                className="h-14 w-full rounded-lg bg-primary p-4 text-white disabled:cursor-not-allowed disabled:opacity-40 dark:bg-primary-dark"
                 onClick={() => {
                   navigate(`/edit/goals/${goalsDetailsId()?.id}`);
                   sessionStorage.setItem('@uollet:goal', `Meta ${id}`);
@@ -162,7 +162,7 @@ export function GoalsDetails() {
               <>
                 <button
                   type="submit"
-                  className="h-14 w-full rounded-lg bg-secondary p-4 text-white disabled:cursor-not-allowed disabled:opacity-40 dark:bg-secondaryDark"
+                  className="h-14 w-full rounded-lg bg-primary p-4 text-white disabled:cursor-not-allowed disabled:opacity-40 dark:bg-primary-dark"
                   onClick={() => {
                     navigate('/register');
                     sessionStorage.setItem('@uollet:goal', `Meta ${id}`);
@@ -179,14 +179,14 @@ export function GoalsDetails() {
             {separeteGoalsByCategory(`Meta ${id}`).length === 0 ? (
               <div className="mt-4 flex flex-col items-center justify-center">
                 <img src={emptyImg} alt="Empty" className="mb-2 w-28" />
-                <p className="text-center text-lg font-medium text-black dark:text-textDark">
+                <p className="text-center text-lg font-medium text-black dark:text-text-dark">
                   Não encontramos seu histórico de metas
                 </p>
               </div>
             ) : (
               <>
                 <div className="flex w-full items-center justify-between">
-                  <h1 className="text-2xl font-bold text-title dark:text-titleDark">
+                  <h1 className="text-2xl font-bold text-title dark:text-title-dark">
                     Histórico
                   </h1>
                 </div>

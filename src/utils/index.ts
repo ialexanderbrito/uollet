@@ -17,3 +17,5 @@ export * from './formatCEP';
 export * from './formatCPF';
 export * from './removeMask';
 export * from './stateToId';
+export * from './getIconBanks';
+export * from './getColorsBanks';

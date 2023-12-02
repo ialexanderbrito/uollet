@@ -26,7 +26,7 @@ export function MyProfile() {
   } = useProfile();
 
   return (
-    <div className="flex w-full flex-col items-center justify-center bg-background dark:bg-backgroundDark">
+    <div className="flex w-full flex-col items-center justify-center bg-background dark:bg-background-dark">
       <Header title={`Olá, ${user?.user_metadata.name}`} />
 
       <form
@@ -52,21 +52,21 @@ export function MyProfile() {
           )}
           <input
             type="text"
-            className="h-14 w-full rounded-lg bg-white p-4 text-title outline-none focus:ring-2 focus:ring-primary disabled:opacity-40 dark:bg-backgroundCardDark dark:text-titleDark focus:dark:ring-primaryDark"
+            className="h-14 w-full rounded-lg bg-background-card p-4 text-title outline-none focus:ring-2 focus:ring-primary disabled:opacity-40 dark:bg-background-card-dark dark:text-title-dark focus:dark:ring-primary-dark"
             placeholder="Nome"
             {...formikUpdateUser.getFieldProps('name')}
             disabled={user?.app_metadata.provider === 'google'}
           />
           <input
             type="email"
-            className="h-14 w-full rounded-lg bg-white p-4 text-title outline-none focus:ring-2 focus:ring-primary disabled:opacity-40 dark:bg-backgroundCardDark dark:text-titleDark focus:dark:ring-primaryDark"
+            className="h-14 w-full rounded-lg bg-background-card p-4 text-title outline-none focus:ring-2 focus:ring-primary disabled:opacity-40 dark:bg-background-card-dark dark:text-title-dark focus:dark:ring-primary-dark"
             placeholder="E-mail"
             {...formikUpdateUser.getFieldProps('email')}
             disabled={user?.app_metadata.provider === 'google'}
           />
           <input
             type="text"
-            className="h-14 w-full rounded-lg bg-white p-4 text-title outline-none focus:ring-2 focus:ring-primary disabled:opacity-40 dark:bg-backgroundCardDark dark:text-titleDark focus:dark:ring-primaryDark"
+            className="h-14 w-full rounded-lg bg-background-card p-4 text-title outline-none focus:ring-2 focus:ring-primary disabled:opacity-40 dark:bg-background-card-dark dark:text-title-dark focus:dark:ring-primary-dark"
             placeholder="Telefone"
             {...formikUpdateUser.getFieldProps('phone')}
             value={formatCellPhone(formikUpdateUser.values.phone)}
@@ -76,37 +76,37 @@ export function MyProfile() {
           <div className="flex items-center gap-2">
             <input
               type={passwordType}
-              className="h-14 w-full rounded-lg bg-white p-4 text-title outline-none focus:ring-2 focus:ring-primary dark:bg-backgroundCardDark dark:text-titleDark focus:dark:ring-primaryDark"
+              className="h-14 w-full rounded-lg bg-background-card p-4 text-title outline-none focus:ring-2 focus:ring-primary dark:bg-background-card-dark dark:text-title-dark focus:dark:ring-primary-dark"
               placeholder="Nova senha"
               {...formikUpdateUser.getFieldProps('password')}
             />
 
             <button
               type="button"
-              className="h-14 w-14 rounded-lg bg-white p-4 text-title outline-none hover:bg-gray-200 hover:transition-all dark:bg-backgroundCardDark dark:text-titleDark dark:hover:bg-gray-700"
+              className="h-14 w-14 rounded-lg bg-background-card p-4 text-title outline-none hover:bg-gray-200 hover:transition-all dark:bg-background-card-dark dark:text-title-dark dark:hover:bg-gray-700"
               onClick={togglePassword}
             >
               {passwordType === 'password' ? (
                 <EyeClosed
                   size={20}
-                  className="text-title dark:text-titleDark"
+                  className="text-title dark:text-title-dark"
                 />
               ) : (
-                <Eye size={20} className="text-title dark:text-titleDark" />
+                <Eye size={20} className="text-title dark:text-title-dark" />
               )}
             </button>
           </div>
 
           <input
             type={passwordType}
-            className="h-14 w-full rounded-lg bg-white p-4 text-title outline-none focus:ring-2 focus:ring-primary dark:bg-backgroundCardDark dark:text-titleDark focus:dark:ring-primaryDark"
+            className="h-14 w-full rounded-lg bg-background-card p-4 text-title outline-none focus:ring-2 focus:ring-primary dark:bg-background-card-dark dark:text-title-dark focus:dark:ring-primary-dark"
             placeholder="Confirmar nova senha"
             {...formikUpdateUser.getFieldProps('confirmPassword')}
           />
 
           <button
             type="submit"
-            className="flex h-14 w-full items-center justify-center rounded-lg bg-secondary p-4 text-center text-sm text-white disabled:cursor-not-allowed disabled:opacity-25 dark:bg-secondaryDark"
+            className="flex h-14 w-full items-center justify-center rounded-lg bg-primary p-4 text-center text-sm text-background-card disabled:cursor-not-allowed disabled:opacity-25 dark:bg-primary-dark"
           >
             {loading ? <Ring size={20} color="#fff" /> : 'Salvar alterações'}
           </button>

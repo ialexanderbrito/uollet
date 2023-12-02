@@ -19,7 +19,7 @@ export function FundamentalIndicators({
       {fields?.map((field, index) => (
         <div
           className={cn(
-            'flex flex-col items-center justify-center rounded-md bg-backgroundCard p-2 text-center shadow-sm dark:bg-backgroundCardDark',
+            'flex flex-col items-center justify-center rounded-md bg-background-card p-2 text-center shadow-sm dark:bg-background-card-dark',
             fields.length % 2 && index === fields.length - 1 && 'col-span-2',
             fiis && index === fields.length - 1 && 'col-span-2',
           )}

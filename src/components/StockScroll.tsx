@@ -64,7 +64,7 @@ export function StockScroll({ children }: StockScrollProps) {
         <div className="relative">
           <button
             type="button"
-            className="absolute left-0 z-10 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-gradient-to-l from-gray-100 to-transparent dark:from-backgroundCardDark dark:to-transparent"
+            className="absolute left-0 z-10 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-gradient-to-l from-background-card to-transparent dark:from-background-card-dark dark:to-transparent"
             onClick={() => {
               if (scrollContainerRef.current) {
                 scrollContainerRef.current.scrollLeft -= 308;
@@ -73,7 +73,7 @@ export function StockScroll({ children }: StockScrollProps) {
           >
             <CaretLeft
               size={24}
-              className="text-title dark:text-titleDark"
+              className="text-title dark:text-title-dark"
               weight="light"
             />
           </button>
@@ -93,7 +93,7 @@ export function StockScroll({ children }: StockScrollProps) {
         <div className="relative">
           <button
             type="button"
-            className="absolute right-0 z-10 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-gradient-to-l from-gray-100 to-transparent dark:from-backgroundCardDark dark:to-transparent"
+            className="absolute right-0 z-10 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-gradient-to-l from-background-card to-transparent dark:from-background-card-dark dark:to-transparent"
             onClick={() => {
               if (scrollContainerRef.current) {
                 scrollContainerRef.current.scrollLeft += 318;
@@ -102,7 +102,7 @@ export function StockScroll({ children }: StockScrollProps) {
           >
             <CaretRight
               size={24}
-              className="text-title dark:text-titleDark"
+              className="text-title dark:text-title-dark"
               weight="light"
             />
           </button>

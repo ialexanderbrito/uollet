@@ -72,7 +72,7 @@ export function Cards() {
       {loading ? (
         <Loading />
       ) : (
-        <div className="flex w-full flex-col items-center justify-center bg-background dark:bg-backgroundDark">
+        <div className="flex w-full flex-col items-center justify-center bg-background dark:bg-background-dark">
           <Header
             user={user}
             variant="primary"
@@ -132,7 +132,7 @@ export function Cards() {
             <input
               type="text"
               placeholder="Pesquisar por alguma compra no cartão"
-              className="h-14 w-full rounded-lg bg-white p-4 text-title outline-none focus:ring-2 focus:ring-primary dark:bg-backgroundCardDark dark:text-titleDark dark:focus:ring-primaryDark"
+              className="h-14 w-full rounded-lg bg-background-card p-4 text-title outline-none focus:ring-2 focus:ring-primary dark:bg-background-card-dark dark:text-title-dark dark:focus:ring-primary-dark"
               onChange={(e) => setSearch(e.target.value)}
             />
             <Filter
@@ -145,14 +145,14 @@ export function Cards() {
               {finances.length === 0 && (
                 <div className="mt-4 flex flex-col items-center justify-center">
                   <img src={emptyImg} alt="Empty" className="mb-2 w-28" />
-                  <p className="text-center text-lg font-medium text-black dark:text-textDark">
+                  <p className="text-center text-lg font-medium text-black dark:text-text-dark">
                     Não encontramos nenhuma compra
                   </p>
 
                   <div className="mt-2 flex w-full flex-col items-center justify-end gap-4">
                     <button
                       type="submit"
-                      className="h-14 w-full rounded-lg bg-secondary p-4 text-white dark:bg-secondaryDark"
+                      className="h-14 w-full rounded-lg bg-primary p-4 text-white dark:bg-primary-dark"
                       onClick={() => {
                         navigate('/register');
                       }}

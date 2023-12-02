@@ -34,7 +34,7 @@ export function Submenu({
           {title}
 
           {beta && (
-            <p className="rounded-md bg-primary px-1 py-0.5 text-xs text-white dark:bg-primaryDark">
+            <p className="rounded-md bg-primary px-1 py-0.5 text-xs text-white dark:bg-primary-dark">
               beta
             </p>
           )}
@@ -44,7 +44,7 @@ export function Submenu({
             <CaretRight
               size={20}
               weight="light"
-              className="text-secondary dark:text-secondaryDark"
+              className="text-primary dark:text-white"
             />
           )}
         </div>
@@ -54,7 +54,7 @@ export function Submenu({
               checked={theme === 'dark'}
               onChange={() => toggleTheme()}
               className={`${
-                theme === 'dark' ? 'bg-primary' : 'bg-secondary'
+                theme === 'dark' ? 'bg-primary' : 'bg-primary-dark'
               } relative inline-flex h-6 w-11 items-center rounded-full`}
             >
               <span
@@ -67,7 +67,7 @@ export function Submenu({
         </div>
       </div>
       {divider && (
-        <div className="h-[0.5px] w-full bg-text/30 dark:bg-textDark/30" />
+        <div className="h-[0.5px] w-full bg-text/30 dark:bg-text-dark/30" />
       )}
     </>
   );

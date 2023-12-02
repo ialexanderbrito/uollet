@@ -13,20 +13,20 @@ export function About() {
       />
 
       <div className="mt-2 flex flex-col items-center justify-center gap-2 ">
-        <p className="text-sm text-text dark:text-textDark">
+        <p className="text-sm text-text dark:text-text-dark">
           Versão {import.meta.env.PACKAGE_VERSION}
         </p>
-        <p className="text-sm text-text dark:text-textDark">
+        <p className="text-sm text-text dark:text-text-dark">
           Plataforma: {isMobile && 'Mobile'}
           {isTablet && 'Tablet'}
           {isDesktop && 'Desktop'}
         </p>
 
-        <p className="text-sm text-text dark:text-textDark">
+        <p className="text-sm text-text dark:text-text-dark">
           Navegador: {browser}
         </p>
 
-        <p className="text-sm text-text dark:text-textDark">
+        <p className="text-sm text-text dark:text-text-dark">
           Sistema Operacional: {os}
         </p>
       </div>

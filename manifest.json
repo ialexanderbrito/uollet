@@ -92,6 +92,32 @@
           "type": "image/png"
         }
       ]
+    },
+    {
+      "name": "Área do Investidor",
+      "short_name": "Área do Investidor",
+      "url": "/investments",
+      "description": "Área do Investidor",
+      "icons": [
+        {
+          "src": "android-launchericon-96-96.png",
+          "sizes": "96x96",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Metas",
+      "short_name": "Metas",
+      "url": "/goals",
+      "description": "Metas",
+      "icons": [
+        {
+          "src": "android-launchericon-96-96.png",
+          "sizes": "96x96",
+          "type": "image/png"
+        }
+      ]
     }
   ],
   "screenshots": [

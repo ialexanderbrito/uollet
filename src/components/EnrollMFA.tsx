@@ -57,7 +57,7 @@ export function EnrollMFA({ openModalMFA, setOpenModalMFA }: EnrollMFAProps) {
         <div className="mt-4 flex flex-col items-center justify-center gap-2">
           {verifyMFAEnabled() ? (
             <div className="flex w-full flex-col items-center justify-center">
-              <p className="text-left text-lg text-title dark:text-textDark">
+              <p className="text-left text-lg text-title dark:text-text-dark">
                 Autenticação de dois fatores já está ativada, caso queira
                 desativar, clique no botão abaixo.
               </p>
@@ -75,27 +75,27 @@ export function EnrollMFA({ openModalMFA, setOpenModalMFA }: EnrollMFAProps) {
               <div className="flex w-full items-center gap-2">
                 <input
                   type="text"
-                  className="h-14 w-full rounded-lg bg-background p-4 text-sm text-title outline-none dark:bg-backgroundCardDark dark:text-titleDark"
+                  className="h-14 w-full rounded-lg bg-background-card p-4 text-sm text-title outline-none dark:bg-background-card-dark dark:text-title-dark"
                   value={secret}
                   disabled
                 />
 
                 <button
                   type="button"
-                  className="h-14 w-14 rounded-lg bg-background p-4 text-title outline-none dark:bg-backgroundCardDark dark:text-titleDark"
+                  className="h-14 w-14 rounded-lg bg-background-card p-4 text-title outline-none dark:bg-background-card-dark dark:text-title-dark"
                   onClick={() => {
                     navigator.clipboard.writeText(secret);
                     toast.success('Código copiado');
                   }}
                 >
-                  <Copy size={20} className="text-title dark:text-titleDark" />
+                  <Copy size={20} className="text-title dark:text-title-dark" />
                 </button>
               </div>
               <div className="mt-2 flex flex-col items-center justify-center">
                 <input
                   type="text"
-                  className={`h-14 w-96 rounded-lg bg-background p-4 text-title outline-none dark:bg-backgroundCardDark dark:text-titleDark ${
-                    error ? 'border-[1.5px] border-red-500' : ''
+                  className={`h-14 w-96 rounded-lg bg-background-card p-4 text-title outline-none dark:bg-background-card-dark dark:text-title-dark ${
+                    error ? 'border-[1.5px] border-danger' : ''
                   }`}
                   placeholder="Digite o código de verificação"
                   value={verifyCode}

@@ -55,13 +55,13 @@ export function Dropzone({ onFileUploaded }: DropzoneProps) {
         <Tooltip
           content="Não é possível alterar a foto de perfil de uma conta Google"
           anchorSelect=".change-photo"
-          className="rounded-md bg-backgroundCard p-2 text-title dark:bg-backgroundCardDark dark:text-titleDark"
+          className="rounded-md bg-background-card p-2 text-title dark:bg-background-card-dark dark:text-title-dark"
           noArrow
         />
         <input {...getInputProps()} />
 
         {selectedFileUrl ? (
-          <div className="relative flex h-40 w-40 flex-col items-center justify-center rounded-lg border-2 border-dashed border-secondary">
+          <div className="relative flex h-40 w-40 flex-col items-center justify-center rounded-lg border-2 border-dashed border-primary">
             <p>
               <img
                 src={selectedFileUrl}
@@ -69,12 +69,12 @@ export function Dropzone({ onFileUploaded }: DropzoneProps) {
                 className="h-36 w-36 rounded-lg object-cover"
               />
             </p>
-            <div className="absolute z-10 ml-40 mt-36 flex h-10 w-10 cursor-pointer items-center justify-center rounded-lg bg-secondary">
+            <div className="absolute z-10 ml-40 mt-36 flex h-10 w-10 cursor-pointer items-center justify-center rounded-lg bg-primary">
               <Camera />
             </div>
           </div>
         ) : (
-          <div className="relative flex h-40 w-40 flex-col items-center justify-center rounded-lg border-2 border-dashed border-secondary">
+          <div className="relative flex h-40 w-40 flex-col items-center justify-center rounded-lg border-2 border-dashed border-primary">
             <p>
               {user?.user_metadata.picture || user?.user_metadata.avatar_url ? (
                 <img
@@ -93,7 +93,7 @@ export function Dropzone({ onFileUploaded }: DropzoneProps) {
                 />
               )}
             </p>
-            <div className="absolute z-10 ml-36 mt-36 flex h-10 w-10 cursor-pointer items-center justify-center rounded-lg bg-secondary">
+            <div className="absolute z-10 ml-36 mt-36 flex h-10 w-10 cursor-pointer items-center justify-center rounded-lg bg-primary text-white">
               <Camera />
             </div>
           </div>

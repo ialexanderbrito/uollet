@@ -1,6 +1,24 @@
-import bank from 'assets/categories/bank.svg';
-import chartLineUp from 'assets/categories/chart-line-up.svg';
-import btc from 'assets/categories/currency-btc.svg';
+import {
+  bradesco,
+  agora,
+  bancoDoBrasil,
+  binance,
+  btg,
+  btgInvest,
+  c6,
+  caixa,
+  clear,
+  foxbit,
+  inter,
+  itau,
+  mercadoBitcoin,
+  nuInvest,
+  nubank,
+  santander,
+  xp,
+  rico,
+  orama,
+} from 'assets';
 import money from 'assets/categories/money.svg';
 import piggyBank from 'assets/categories/piggy-bank.svg';
 
@@ -11,107 +29,107 @@ export const category = [
     category: 'cash',
   },
   {
-    icon: bank,
+    icon: bradesco,
     name: 'Bradesco',
     category: 'bank',
   },
   {
-    icon: bank,
+    icon: bancoDoBrasil,
     name: 'Banco do Brasil',
     category: 'bank',
   },
   {
-    icon: bank,
+    icon: santander,
     name: 'Santander',
     category: 'bank',
   },
   {
-    icon: bank,
+    icon: itau,
     name: 'Itaú',
     category: 'bank',
   },
   {
-    icon: bank,
+    icon: caixa,
     name: 'Caixa',
     category: 'bank',
   },
   {
-    icon: bank,
+    icon: nubank,
     name: 'NuConta',
     category: 'bank',
   },
   {
-    icon: bank,
+    icon: c6,
     name: 'C6Bank',
     category: 'bank',
   },
   {
-    icon: bank,
+    icon: inter,
     name: 'Inter',
     category: 'bank',
   },
   {
-    icon: bank,
+    icon: btg,
     name: 'BTG Pactual',
     category: 'bank',
   },
   {
-    icon: chartLineUp,
+    icon: nuInvest,
     name: 'NuInvest',
     category: 'investments',
   },
   {
-    icon: chartLineUp,
+    icon: c6,
     name: 'C6 Investimentos',
     category: 'investments',
   },
   {
-    icon: chartLineUp,
+    icon: inter,
     name: 'Inter Investimentos',
     category: 'investments',
   },
   {
-    icon: chartLineUp,
+    icon: xp,
     name: 'XP Investimentos',
     category: 'investments',
   },
   {
-    icon: chartLineUp,
+    icon: clear,
     name: 'Clear',
     category: 'investments',
   },
   {
-    icon: chartLineUp,
+    icon: btgInvest,
     name: 'BTG Investimentos',
     category: 'investments',
   },
   {
-    icon: chartLineUp,
+    icon: rico,
     name: 'Rico',
     category: 'investments',
   },
   {
-    icon: chartLineUp,
+    icon: agora,
     name: 'Ágora Investimentos',
     category: 'investments',
   },
   {
-    icon: chartLineUp,
+    icon: orama,
     name: 'Órama Investimentos',
     category: 'investments',
   },
   {
-    icon: btc,
+    icon: binance,
     name: 'Binance',
     category: 'crypto',
   },
   {
-    icon: btc,
+    icon: mercadoBitcoin,
     name: 'Mercado Bitcoin',
     category: 'crypto',
   },
   {
-    icon: btc,
+    icon: foxbit,
     name: 'Foxbit',
     category: 'crypto',
   },

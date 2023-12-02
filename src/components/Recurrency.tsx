@@ -35,8 +35,8 @@ export function Recurrency({
   return (
     <>
       {isParcel && (
-        <div className="mt-2 rounded-t-3xl bg-backgroundCard dark:bg-backgroundCardDark">
-          <div className="flex flex-col items-center justify-center gap-4 rounded-t-3xl bg-backgroundCard dark:bg-backgroundCardDark">
+        <div className="mt-2 rounded-t-3xl bg-background dark:bg-background-dark">
+          <div className="flex flex-col items-center justify-center gap-4 rounded-t-3xl">
             <div className="flex w-11/12 flex-row items-center justify-evenly gap-4">
               <RadioGroup
                 onChange={(value) => {
@@ -49,10 +49,10 @@ export function Recurrency({
                 <input
                   type="number"
                   className={cn(
-                    'h-14 w-full rounded-lg bg-background p-4 text-title outline-none focus:ring-2 focus:ring-primary dark:bg-backgroundDark dark:text-titleDark focus:dark:ring-primaryDark',
+                    'h-14 w-full rounded-lg bg-background-card p-4 text-title outline-none focus:ring-2 focus:ring-primary dark:bg-background-card-dark dark:text-title-dark focus:dark:ring-primary-dark',
                     formik.errors.title &&
                       formik.touched.title &&
-                      'border-[1.5px] border-red-500',
+                      'border-[1.5px] border-danger',
                   )}
                   placeholder="Número de parcelas"
                   {...formik.getFieldProps('parcel')}
@@ -65,10 +65,10 @@ export function Recurrency({
                     cn(
                       'relative flex w-full cursor-pointer rounded-lg px-5 py-4 shadow-md focus:outline-none',
                       active &&
-                        'ring-2 ring-white ring-opacity-60 ring-offset-2 ring-offset-secondary',
+                        'ring-2 ring-white ring-opacity-60 ring-offset-2 ring-offset-primary',
                       checked
-                        ? 'bg-secondary text-white dark:bg-secondaryDark'
-                        : 'bg-backgroundCard dark:bg-backgroundCardDark',
+                        ? 'bg-primary text-white dark:bg-primary-dark'
+                        : 'bg-background-card dark:bg-background-card-dark',
                     )
                   }
                 >
@@ -81,7 +81,9 @@ export function Recurrency({
                               as="p"
                               className={cn(
                                 'font-medium',
-                                checked ? 'text-white' : 'dark:text text-title',
+                                checked
+                                  ? 'text-white'
+                                  : 'text-title dark:text-title-dark',
                               )}
                             >
                               Mensal
@@ -104,8 +106,8 @@ export function Recurrency({
       )}
 
       {isRecurring && (
-        <div className="mt-2 rounded-t-3xl bg-backgroundCard dark:bg-backgroundCardDark">
-          <div className="flex flex-col items-center justify-center gap-4 rounded-t-3xl bg-backgroundCard dark:bg-backgroundCardDark">
+        <div className="mt-2 rounded-t-3xl bg-background dark:bg-background-dark">
+          <div className="flex flex-col items-center justify-center gap-4 rounded-t-3xl">
             <div className="flex w-full flex-row items-center justify-evenly gap-4">
               <RadioGroup
                 onChange={(value) => {
@@ -121,10 +123,10 @@ export function Recurrency({
                     cn(
                       'relative flex w-11/12 cursor-pointer rounded-lg px-5 py-4 shadow-md focus:outline-none',
                       active &&
-                        'ring-2 ring-white ring-opacity-60 ring-offset-2 ring-offset-secondary',
+                        'ring-2 ring-white ring-opacity-60 ring-offset-2 ring-offset-primary',
                       checked
-                        ? 'bg-secondary text-white dark:bg-secondaryDark'
-                        : 'bg-background dark:bg-backgroundDark',
+                        ? 'bg-primary text-white dark:bg-primary-dark'
+                        : 'bg-background-card dark:bg-background-card-dark',
                     )
                   }
                 >
@@ -137,7 +139,9 @@ export function Recurrency({
                               as="p"
                               className={cn(
                                 'font-medium',
-                                checked ? 'text-white' : 'dark:text text-title',
+                                checked
+                                  ? 'text-white'
+                                  : 'text-title dark:text-title-dark',
                               )}
                             >
                               Dia
@@ -160,10 +164,10 @@ export function Recurrency({
                     cn(
                       'relative flex w-11/12 cursor-pointer rounded-lg px-5 py-4 shadow-md focus:outline-none',
                       active &&
-                        'ring-2 ring-white ring-opacity-60 ring-offset-2 ring-offset-secondary',
+                        'ring-2 ring-white ring-opacity-60 ring-offset-2 ring-offset-primary',
                       checked
-                        ? 'bg-secondary text-white dark:bg-secondaryDark'
-                        : 'bg-background dark:bg-backgroundDark',
+                        ? 'bg-primary text-white dark:bg-primary-dark'
+                        : 'bg-background-card dark:bg-background-card-dark',
                     )
                   }
                 >
@@ -176,7 +180,9 @@ export function Recurrency({
                               as="p"
                               className={cn(
                                 'font-medium',
-                                checked ? 'text-white' : 'dark:text text-title',
+                                checked
+                                  ? 'text-white'
+                                  : 'text-title dark:text-title-dark',
                               )}
                             >
                               Semana
@@ -199,10 +205,10 @@ export function Recurrency({
                     cn(
                       'relative flex w-11/12 cursor-pointer rounded-lg px-5 py-4 shadow-md focus:outline-none',
                       active &&
-                        'ring-2 ring-white ring-opacity-60 ring-offset-2 ring-offset-secondary',
+                        'ring-2 ring-white ring-opacity-60 ring-offset-2 ring-offset-primary',
                       checked
-                        ? 'bg-secondary text-white dark:bg-secondaryDark'
-                        : 'bg-background dark:bg-backgroundDark',
+                        ? 'bg-primary text-white dark:bg-primary-dark'
+                        : 'bg-background-card dark:bg-background-card-dark',
                     )
                   }
                 >
@@ -215,7 +221,9 @@ export function Recurrency({
                               as="p"
                               className={cn(
                                 'font-medium',
-                                checked ? 'text-white' : 'dark:text text-title',
+                                checked
+                                  ? 'text-white'
+                                  : 'text-title dark:text-title-dark',
                               )}
                             >
                               Mês

@@ -33,11 +33,11 @@ export function CardStock({
 
   return (
     <div
-      className="flex min-w-[300px] flex-grow cursor-pointer flex-col justify-center rounded-md bg-backgroundCard px-4 py-4 text-sm font-medium tracking-[-0.5px] transition-all dark:bg-backgroundCardDark"
+      className="flex min-w-[300px] flex-grow cursor-pointer flex-col justify-center rounded-md bg-background-card px-4 py-4 text-sm font-medium tracking-[-0.5px] transition-all dark:bg-background-card-dark"
       onClick={onClick}
     >
       <div className="flex justify-between">
-        <span className="text-xl font-bold text-title dark:text-textDark">
+        <span className="text-xl font-bold text-title dark:text-text-dark">
           {stock}
         </span>
         <img
@@ -49,16 +49,16 @@ export function CardStock({
           loading="lazy"
         />
       </div>
-      <span className="capitalize text-title dark:text-textDark">{name}</span>
+      <span className="capitalize text-title dark:text-text-dark">{name}</span>
       <div className="flex justify-between">
-        <p className="text-title dark:text-textDark">{formattedClose}</p>
+        <p className="text-title dark:text-text-dark">{formattedClose}</p>
         <div className="flex gap-2">
           <p className={cn(changeColor)}>
             {changeIndicator}
             {change?.toFixed(2)}%
           </p>
           <p
-            className="flex w-6 cursor-pointer items-center justify-center rounded-md bg-primaryDark text-center text-white dark:text-textDark"
+            className="flex w-6 cursor-pointer items-center justify-center rounded-md bg-investments-primary text-center text-white dark:text-text-dark"
             onClick={() => {
               saveFavoriteStock(stock);
             }}

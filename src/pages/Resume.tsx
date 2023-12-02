@@ -114,7 +114,7 @@ export function Resume() {
         <Loading />
       ) : (
         <>
-          <div className="flex w-full flex-col items-center justify-center bg-background dark:bg-backgroundDark">
+          <div className="flex w-full flex-col items-center justify-center bg-background dark:bg-background-dark">
             <Header
               user={user}
               variant="secondary"
@@ -126,16 +126,16 @@ export function Resume() {
               <div className="mb-2 flex w-full flex-col items-center justify-center gap-2 sm:justify-between md:flex-row">
                 <div className="flex w-full flex-row items-start justify-between gap-1">
                   <div className="flex flex-row items-start justify-center gap-1">
-                    <p className="text-base font-normal text-title dark:text-titleDark">
+                    <p className="text-base font-normal text-title dark:text-title-dark">
                       Total
                     </p>
                     <span
                       className={cn(
-                        'text-base font-medium text-title dark:text-titleDark',
+                        'text-base font-medium text-title dark:text-title-dark',
                         areValueVisible && 'select-none blur-md',
                         type === 'income' ? 'text-success' : 'text-danger',
                         values.reduce((acc, value) => acc + value, 0) === 0 &&
-                          'text-title dark:text-titleDark',
+                          'text-title dark:text-title-dark',
                       )}
                     >
                       {formatCurrency(
@@ -150,8 +150,8 @@ export function Resume() {
                       className={cn(
                         'cursor-pointer',
                         exibitionMode === 'bar'
-                          ? 'text-secondary dark:text-secondaryDark'
-                          : 'text-title opacity-25 dark:text-titleDark',
+                          ? 'text-primary dark:text-white'
+                          : 'text-title opacity-25 dark:text-title-dark',
                       )}
                     />
 
@@ -161,21 +161,21 @@ export function Resume() {
                       className={cn(
                         'cursor-pointer',
                         exibitionMode === 'pie'
-                          ? 'text-secondary dark:text-secondaryDark'
-                          : 'text-title opacity-25 dark:text-titleDark',
+                          ? 'text-primary dark:text-white'
+                          : 'text-title opacity-25 dark:text-title-dark',
                       )}
                     />
                   </div>
                 </div>
 
                 <div className="flex w-full flex-row items-center justify-end gap-2 sm:w-80">
-                  <div className="mb-2 flex h-9 w-full items-center justify-around rounded-md border border-secondary dark:border-secondaryDark sm:w-64">
+                  <div className="mb-2 flex h-9 w-full items-center justify-around rounded-md border border-primary dark:border-primary-dark sm:w-64">
                     <span
                       onClick={() => setType('income')}
                       className={
                         type === 'income'
-                          ? 'flex h-9 w-full cursor-pointer items-center justify-center gap-1 rounded-md rounded-r-none border-r border-secondary bg-secondary text-background dark:border-secondaryDark dark:bg-secondaryDark'
-                          : 'flex w-full cursor-pointer items-center justify-center gap-1 text-title opacity-25 dark:text-titleDark'
+                          ? 'flex h-9 w-full cursor-pointer items-center justify-center gap-1 rounded-md rounded-r-none border-r border-primary bg-primary text-background dark:border-primary-dark dark:bg-primary-dark'
+                          : 'flex w-full cursor-pointer items-center justify-center gap-1 text-title opacity-25 dark:text-title-dark'
                       }
                     >
                       <img
@@ -190,8 +190,8 @@ export function Resume() {
                       onClick={() => setType('outcome')}
                       className={
                         type === 'outcome'
-                          ? 'flex h-9 w-full cursor-pointer items-center justify-center gap-1 rounded-md rounded-l-none border-r border-secondary bg-secondary text-background dark:border-secondaryDark dark:bg-secondaryDark'
-                          : 'flex w-full cursor-pointer items-center justify-center gap-1 text-title opacity-25 dark:text-titleDark'
+                          ? 'flex h-9 w-full cursor-pointer items-center justify-center gap-1 rounded-md rounded-l-none border-r border-primary bg-primary text-background dark:border-primary-dark dark:bg-primary-dark'
+                          : 'flex w-full cursor-pointer items-center justify-center gap-1 text-title opacity-25 dark:text-title-dark'
                       }
                     >
                       <img
@@ -222,7 +222,7 @@ export function Resume() {
                 {categories.length === 0 ? (
                   <div className="mt-4 flex flex-col items-center justify-center">
                     <img src={emptyImg} alt="Empty" className="mb-2 w-28" />
-                    <p className="text-center text-lg font-medium text-black dark:text-textDark">
+                    <p className="text-center text-lg font-medium text-black dark:text-text-dark">
                       Não encontramos nenhum dado para esse mês
                     </p>
                   </div>
@@ -295,7 +295,7 @@ export function Resume() {
                 {categories.map((category, index) => (
                   <div
                     key={index}
-                    className="flex h-12 w-full cursor-pointer items-center gap-2 rounded-md border-[1px] border-transparent bg-backgroundCard hover:border-current hover:border-secondary hover:transition-all dark:bg-backgroundCardDark dark:hover:border-secondaryDark"
+                    className="flex h-12 w-full cursor-pointer items-center gap-2 rounded-md border-[1px] border-transparent bg-background-card hover:border-current hover:border-primary hover:transition-all dark:bg-background-card-dark dark:hover:border-primary-dark"
                     onClick={() => {
                       setSearchParams({
                         category,
@@ -307,12 +307,12 @@ export function Resume() {
                       className="h-full w-2 rounded-l-md"
                       style={{ backgroundColor: colors[index] }}
                     />
-                    <p className="w-full text-left text-base font-normal text-title dark:text-titleDark">
+                    <p className="w-full text-left text-base font-normal text-title dark:text-title-dark">
                       {category}
                     </p>
                     <p
                       className={cn(
-                        'mr-4 w-full text-right text-lg font-medium text-title dark:text-titleDark',
+                        'mr-4 w-full text-right text-lg font-medium text-title dark:text-title-dark',
                         areValueVisible && 'select-none blur-md',
                       )}
                     >

@@ -17,7 +17,6 @@ import { MyDialog } from 'components/Modal';
 import { ModalFilter } from 'components/Modal/Filter';
 import { useModal } from 'components/Modal/useModal';
 
-import { cn } from 'utils/cn';
 import { formatCurrency } from 'utils/formatCurrency';
 
 import { useAuth } from 'contexts/Auth';
@@ -79,7 +78,7 @@ export function Finances() {
       {loading ? (
         <Loading />
       ) : (
-        <div className="flex w-full flex-col items-center justify-center bg-background dark:bg-backgroundDark">
+        <div className="flex w-full flex-col items-center justify-center bg-background dark:bg-background-dark">
           <Header
             variant="primary"
             user={user}
@@ -94,10 +93,7 @@ export function Finances() {
               value={formatCurrency(totalIncome)}
               lastEntry={`De 01/${currentMonth}/${selectedYear} até ${lastDayOfTheMonth}/${currentMonth}/${selectedYear}`}
               visible={areValueVisible}
-              className={cn(
-                theme === 'light' && 'bg-backgroundCard text-title',
-                theme === 'dark' && 'bg-backgroundCardDark text-textDark',
-              )}
+              className="bg-background-card text-title dark:bg-background-card-dark dark:text-title-dark"
             />
 
             <Card
@@ -106,10 +102,7 @@ export function Finances() {
               value={formatCurrency(totalOutcome)}
               lastEntry={`De 01/${currentMonth}/${selectedYear} até ${lastDayOfTheMonth}/${currentMonth}/${selectedYear}`}
               visible={areValueVisible}
-              className={cn(
-                theme === 'light' && 'bg-backgroundCard text-title',
-                theme === 'dark' && 'bg-backgroundCardDark text-textDark',
-              )}
+              className="bg-background-card text-title dark:bg-background-card-dark dark:text-title-dark"
             />
 
             <Card
@@ -119,10 +112,7 @@ export function Finances() {
               lastEntry={balanceMessage(allTotal)}
               textColor={theme === 'light' ? 'white' : 'white'}
               visible={areValueVisible}
-              className={cn(
-                theme === 'light' && 'bg-secondary text-white',
-                theme === 'dark' && 'bg-secondaryDark text-titleDark',
-              )}
+              className="bg-primary-dark text-white dark:bg-primary"
             />
           </div>
 
@@ -133,7 +123,7 @@ export function Finances() {
               type="text"
               value={search}
               placeholder="Pesquisar por alguma transação"
-              className="h-14 w-full rounded-lg bg-white p-4 text-title outline-none focus:ring-2 focus:ring-primary dark:bg-backgroundCardDark dark:text-titleDark focus:dark:ring-primaryDark"
+              className="h-14 w-full rounded-lg bg-background-card p-4 text-title outline-none focus:ring-2 focus:ring-primary dark:bg-background-card-dark dark:text-title-dark focus:dark:ring-primary-dark"
               onChange={(e) => setSearch(e.target.value)}
             />
 
@@ -147,14 +137,14 @@ export function Finances() {
               {finances.length === 0 && (
                 <div className="mt-4 flex flex-col items-center justify-center">
                   <img src={emptyImg} alt="Empty" className="mb-2 w-28" />
-                  <p className="text-center text-lg font-medium text-black dark:text-textDark">
+                  <p className="text-center text-lg font-medium text-black dark:text-text-dark">
                     Não encontramos nenhuma transação
                   </p>
 
                   <div className="mt-2 flex w-full flex-col items-center justify-end gap-4">
                     <button
                       type="submit"
-                      className="h-14 w-full rounded-lg bg-secondary p-4 text-white dark:bg-secondaryDark"
+                      className="h-14 w-full rounded-lg bg-primary p-4 text-white dark:bg-primary-dark"
                       onClick={() => {
                         navigate('/register');
                       }}

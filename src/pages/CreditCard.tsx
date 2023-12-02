@@ -18,7 +18,7 @@ export function CreditCard() {
   const { formik, days, defaultsColors } = useCreditCard();
 
   return (
-    <div className="flex w-full flex-col items-center bg-background dark:bg-backgroundDark">
+    <div className="flex w-full flex-col items-center bg-background dark:bg-background-dark">
       <Header title="Cadastrar cartão" />
 
       <div className="mt-4 flex w-full flex-col items-center">
@@ -39,10 +39,10 @@ export function CreditCard() {
           <input
             type="text"
             className={cn(
-              'h-14 w-full rounded-lg bg-white p-4 text-title outline-none focus:ring-2 focus:ring-primary dark:bg-backgroundCardDark dark:text-titleDark focus:dark:ring-primaryDark',
+              'h-14 w-full rounded-lg bg-background-card p-4 text-title outline-none focus:ring-2 focus:ring-primary dark:bg-background-card-dark dark:text-title-dark focus:dark:ring-primary-dark',
               formik.errors.cardNumber &&
                 formik.touched.cardNumber &&
-                'border-[1.5px] border-red-500',
+                'border-[1.5px] border-danger',
             )}
             placeholder="Os 6 primeiros dígitos do cartão"
             {...formik.getFieldProps('cardNumber')}
@@ -55,10 +55,10 @@ export function CreditCard() {
           <input
             type="text"
             className={cn(
-              'h-14 w-full rounded-lg bg-white p-4 text-title outline-none focus:ring-2 focus:ring-primary dark:bg-backgroundCardDark dark:text-titleDark focus:dark:ring-primaryDark',
+              'h-14 w-full rounded-lg bg-background-card p-4 text-title outline-none focus:ring-2 focus:ring-primary dark:bg-background-card-dark dark:text-title-dark focus:dark:ring-primary-dark',
               formik.errors.cardName &&
                 formik.touched.cardName &&
-                'border-[1.5px] border-red-500',
+                'border-[1.5px] border-danger',
             )}
             placeholder="Nome do cartão"
             {...formik.getFieldProps('cardName')}
@@ -69,10 +69,10 @@ export function CreditCard() {
 
           <CurrencyInput
             className={cn(
-              'h-14 w-full rounded-lg bg-white p-4 text-title outline-none focus:ring-2 focus:ring-primary dark:bg-backgroundCardDark dark:text-titleDark focus:dark:ring-primaryDark',
+              'h-14 w-full rounded-lg bg-background-card p-4 text-title outline-none focus:ring-2 focus:ring-primary dark:bg-background-card-dark dark:text-title-dark focus:dark:ring-primary-dark',
               formik.errors.limit &&
                 formik.touched.limit &&
-                'border-[1.5px] border-red-500',
+                'border-[1.5px] border-danger',
             )}
             placeholder="Adicione o limite do seu cartão R$ 0,00"
             intlConfig={{ locale: 'pt-BR', currency: 'BRL' }}
@@ -90,10 +90,10 @@ export function CreditCard() {
             setSelected={(value) => formik.setFieldValue('dayClosure', value)}
             placeholder="Dia de fechamento"
             className={cn(
-              'h-14 w-full rounded-lg bg-white p-4 text-title outline-none dark:bg-backgroundCardDark dark:text-titleDark',
+              'h-14 w-full rounded-lg bg-background-card p-4 text-title outline-none dark:bg-background-card-dark dark:text-title-dark',
               formik.errors.dayClosure &&
                 formik.touched.dayClosure &&
-                'border-[1.5px] border-red-500',
+                'border-[1.5px] border-danger',
             )}
           />
           {formik.errors.dayClosure && formik.touched.dayClosure && (
@@ -108,9 +108,9 @@ export function CreditCard() {
             selected={formik.values.dayMaturity}
             setSelected={(value) => formik.setFieldValue('dayMaturity', value)}
             placeholder="Dia de vencimento"
-            className={`h-14 w-full rounded-lg bg-white p-4 text-title outline-none dark:bg-backgroundCardDark dark:text-titleDark ${
+            className={`h-14 w-full rounded-lg bg-background-card p-4 text-title outline-none dark:bg-background-card-dark dark:text-title-dark ${
               formik.errors.dayMaturity && formik.touched.dayMaturity
-                ? 'border-[1.5px] border-red-500'
+                ? 'border-[1.5px] border-danger'
                 : ''
             }`}
           />
@@ -136,7 +136,7 @@ export function CreditCard() {
                 styles={{
                   default: {
                     card: {
-                      background: theme === 'light' ? '#fff' : '#181a1b',
+                      background: theme === 'light' ? '#fff' : '#2D2D2D',
                     },
                   },
                 }}
@@ -156,7 +156,7 @@ export function CreditCard() {
                 styles={{
                   default: {
                     card: {
-                      background: theme === 'light' ? '#fff' : '#181a1b',
+                      background: theme === 'light' ? '#fff' : '#2D2D2D',
                     },
                   },
                 }}
@@ -167,7 +167,7 @@ export function CreditCard() {
           <div className="flex flex-col items-center justify-end gap-4">
             <button
               type="submit"
-              className="h-14 w-full rounded-lg bg-secondary p-4 text-white dark:bg-secondaryDark"
+              className="h-14 w-full rounded-lg bg-primary p-4 text-white dark:bg-primary-dark"
             >
               Salvar Cartão
             </button>

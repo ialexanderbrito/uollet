@@ -24,6 +24,8 @@ import {
   ActionImpl,
 } from 'kbar';
 
+import { cn } from 'utils';
+
 import { useTheme } from 'contexts/Theme';
 
 import { Calculator } from './Calculator';
@@ -39,7 +41,7 @@ function RenderResults() {
       items={results}
       onRender={({ item, active }) =>
         typeof item === 'string' ? (
-          <div className="px-4 pb-1 pt-4 font-normal uppercase text-gray-400 ">
+          <div className="px-4 pb-1 pt-4 font-normal uppercase text-text dark:text-text-dark">
             {item}
           </div>
         ) : (
@@ -72,21 +74,19 @@ const ResultItem = forwardRef(
       const index = action.ancestors.findIndex(
         (ancestor) => ancestor.id === currentRootActionId,
       );
-      // +1 removes the currentRootAction; e.g.
-      // if we are on the "Set theme" parent action,
-      // the UI should not display "Set theme… > Dark"
-      // but rather just "Dark"
+
       return action.ancestors.slice(index + 1);
     }, [action.ancestors, currentRootActionId]);
 
     return (
       <div
         ref={ref}
-        className={`flex cursor-pointer items-center justify-between p-2 pl-6 pr-6 ${
+        className={cn(
+          'flex cursor-pointer items-center justify-between p-2 pl-6 pr-6',
           active
-            ? 'bg-secondary text-gray-100 dark:bg-secondaryDark'
-            : 'transparent text-gray-500'
-        }`}
+            ? 'bg-primary text-white dark:bg-primary-dark'
+            : 'transparent text-text dark:text-text-dark',
+        )}
       >
         <div className="flex items-center gap-2 text-base">
           {action.icon && action.icon}
@@ -111,11 +111,12 @@ const ResultItem = forwardRef(
             {action.shortcut.map((sc) => (
               <kbd
                 key={sc}
-                className={`flex cursor-pointer items-center justify-between rounded-md px-3 py-2 ${
+                className={cn(
+                  'flex cursor-pointer items-center justify-between rounded-md px-3 py-2',
                   active
-                    ? 'bg-background text-text dark:bg-backgroundDark dark:text-textDark'
-                    : 'bg-backgroundCard text-text dark:bg-backgroundDark dark:text-textDark'
-                } `}
+                    ? 'bg-background text-text dark:bg-background-dark dark:text-text-dark'
+                    : 'bg-background-card text-text dark:bg-background-card-dark dark:text-text-dark',
+                )}
               >
                 {sc}
               </kbd>
@@ -276,10 +277,10 @@ export function KBar({ children }: { children: React.ReactNode }) {
     <>
       <KBarProvider actions={actions}>
         <KBarPortal>
-          <KBarPositioner className="z-50 flex items-center bg-black/80 p-2 ">
-            <KBarAnimator className="w-max-500px w-2/4 overflow-hidden rounded-lg border-[1.5px] border-secondary bg-background dark:border-secondaryDark dark:bg-backgroundCardDark">
+          <KBarPositioner className="z-50 flex items-center bg-black/80 p-2">
+            <KBarAnimator className="w-max-500px w-2/4 overflow-hidden rounded-lg border-[1.5px] border-primary bg-background dark:border-primary-dark dark:bg-background-dark">
               <KBarSearch
-                className="flex h-14 w-full px-4 outline-none dark:bg-backgroundCardDark dark:text-titleDark"
+                className="flex h-14 w-full bg-background px-4 outline-none dark:bg-background-dark dark:text-title-dark"
                 defaultPlaceholder="Digite um comando ou pesquise por algo"
               />
               <RenderResults />

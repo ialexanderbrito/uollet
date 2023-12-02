@@ -62,9 +62,11 @@ export function Header({
       {user ? (
         <div
           className={cn(
-            'flex w-full flex-row bg-primary dark:bg-primaryDark',
+            'flex w-full flex-row bg-primary dark:bg-primary-dark',
             variant === 'primary' && 'h-52',
             variant === 'secondary' && 'h-24',
+            isInvestiment &&
+              'bg-investments-primary dark:bg-investments-primary',
             className,
           )}
         >
@@ -99,20 +101,14 @@ export function Header({
                     size={30}
                     weight="light"
                     onClick={setVisible}
-                    className={cn(
-                      'cursor-pointer text-secondary',
-                      isInvestiment && 'text-white',
-                    )}
+                    className="cursor-pointer text-white"
                   />
                 ) : (
                   <Eye
                     size={30}
                     weight="light"
                     onClick={setVisible}
-                    className={cn(
-                      'cursor-pointer text-secondary',
-                      isInvestiment && 'text-white',
-                    )}
+                    className="cursor-pointer text-white"
                   />
                 )}
 
@@ -120,21 +116,24 @@ export function Header({
                   <Command
                     size={30}
                     weight="light"
-                    className={cn(
-                      'cursor-pointer text-secondary',
-                      isInvestiment && 'text-white',
-                    )}
+                    className="cursor-pointer text-white"
                     onClick={query?.toggle}
                   />
                 )}
 
-                <Menu isInvestiment={isInvestiment} />
+                <Menu />
               </div>
             </div>
           </div>
         </div>
       ) : (
-        <div className="flex h-24 w-full flex-row bg-primary dark:bg-primaryDark">
+        <div
+          className={cn(
+            'flex h-24 w-full flex-row bg-primary dark:bg-primary-dark',
+            isInvestiment &&
+              'bg-investments-primary dark:bg-investments-primary',
+          )}
+        >
           <div className="flex w-1/4 items-center justify-center">
             {showIcon && (
               <CaretLeft

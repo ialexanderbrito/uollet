@@ -22,7 +22,6 @@ import { useModal } from 'components/Modal/useModal';
 import { SearchInput } from 'components/SearchInput';
 import { StockScroll } from 'components/StockScroll';
 
-import { cn } from 'utils/cn';
 import { formatCurrency } from 'utils/formatCurrency';
 
 import { useAuth } from 'contexts/Auth';
@@ -108,7 +107,7 @@ export function Investments() {
       {loading ? (
         <Loading />
       ) : (
-        <div className="flex w-full flex-col items-center justify-center bg-background dark:bg-backgroundDark">
+        <div className="flex w-full flex-col items-center justify-center bg-background dark:bg-background-dark">
           <Header
             variant="primary"
             user={user}
@@ -123,10 +122,7 @@ export function Investments() {
               value={formatCurrency(totalIncome)}
               lastEntry={`De 01/${currentMonth}/${selectedYear} até ${lastDayOfTheMonth}/${currentMonth}/${selectedYear}`}
               visible={areValueVisible}
-              className={cn(
-                theme === 'light' && 'bg-backgroundCard text-title',
-                theme === 'dark' && 'bg-backgroundCardDark text-textDark',
-              )}
+              className="bg-background-card text-title dark:bg-background-card-dark dark:text-title-dark"
             />
 
             <Card
@@ -135,10 +131,7 @@ export function Investments() {
               value={formatCurrency(totalOutcome)}
               lastEntry={`De 01/${currentMonth}/${selectedYear} até ${lastDayOfTheMonth}/${currentMonth}/${selectedYear}`}
               visible={areValueVisible}
-              className={cn(
-                theme === 'light' && 'bg-backgroundCard text-title',
-                theme === 'dark' && 'bg-backgroundCardDark text-textDark',
-              )}
+              className="bg-background-card text-title dark:bg-background-card-dark dark:text-title-dark"
             />
 
             <Card
@@ -148,25 +141,22 @@ export function Investments() {
               lastEntry={balanceMessage(allTotalInvestiments)}
               textColor={theme === 'light' ? 'white' : 'white'}
               visible={areValueVisible}
-              className={cn(
-                theme === 'light' && 'bg-primaryDark text-white',
-                theme === 'dark' && 'bg-primary text-textDark',
-              )}
+              className="bg-investments-primary text-white dark:bg-investments-primary"
             />
           </div>
 
           <div className="h-20" />
 
           <div className="mt-2 flex w-full flex-row items-center justify-between">
-            <p className="ml-5 text-sm font-bold text-title dark:text-textDark">
+            <p className="ml-5 text-sm font-bold text-title dark:text-text-dark">
               {isFavorite ? 'Ações mais procuradas' : 'Minhas ações favoritas'}
             </p>
 
             <div className="flex flex-row items-center justify-center">
-              <p className="mr-5 flex items-center justify-center text-sm font-bold text-title dark:text-textDark">
+              <p className="mr-5 flex items-center justify-center text-sm font-bold text-title dark:text-text-dark">
                 <button
                   type="button"
-                  className=" text-title dark:text-textDark"
+                  className=" text-title dark:text-text-dark"
                   onClick={() => {
                     setIsSearch(!isSearch);
                   }}
@@ -175,11 +165,11 @@ export function Investments() {
                 </button>
               </p>
 
-              <p className="mr-5 flex items-center justify-center text-sm font-bold text-title dark:text-textDark">
+              <p className="mr-5 flex items-center justify-center text-sm font-bold text-title dark:text-text-dark">
                 {isFavorite ? (
                   <button
                     type="button"
-                    className=" text-title dark:text-textDark"
+                    className=" text-title dark:text-text-dark"
                     onClick={() => {
                       setIsFavorite(false);
                     }}
@@ -189,7 +179,7 @@ export function Investments() {
                 ) : (
                   <button
                     type="button"
-                    className="text-title dark:text-textDark"
+                    className="text-title dark:text-text-dark"
                     onClick={() => {
                       setIsFavorite(true);
                     }}
@@ -213,8 +203,8 @@ export function Investments() {
           )}
 
           {loadingStocks ? (
-            <div className="flex w-full items-center justify-center">
-              <Jelly color="#5636d3" />
+            <div className="mt-2 flex w-full items-center justify-center">
+              <Jelly color="#170e39" size={30} />
             </div>
           ) : (
             <StockScroll>
@@ -270,7 +260,7 @@ export function Investments() {
               type="text"
               value={search}
               placeholder="Pesquisar por alguma transação"
-              className="h-14 w-full rounded-lg bg-white p-4 text-title outline-none focus:ring-2 focus:ring-primary dark:bg-backgroundCardDark dark:text-titleDark focus:dark:ring-primaryDark"
+              className="h-14 w-full rounded-lg bg-background-card p-4 text-title outline-none focus:ring-2 focus:ring-investments-primary dark:bg-background-card-dark dark:text-title-dark focus:dark:ring-investments-primary"
               onChange={(e) => setSearch(e.target.value)}
             />
             <Filter
@@ -283,14 +273,14 @@ export function Investments() {
               {investments.length === 0 && (
                 <div className="mt-4 flex flex-col items-center justify-center">
                   <img src={emptyImg} alt="Empty" className="mb-2 w-28" />
-                  <p className="text-center text-lg font-medium text-black dark:text-textDark">
+                  <p className="text-center text-lg font-medium text-black dark:text-text-dark">
                     Não encontramos nenhum investimento
                   </p>
 
                   <div className="mt-2 flex w-full flex-col items-center justify-end gap-4">
                     <button
                       type="submit"
-                      className="h-14 w-full rounded-lg bg-primaryDark p-4 text-white dark:bg-primary"
+                      className="h-14 w-full rounded-lg bg-investments-primary p-4 text-white dark:bg-investments-primary"
                       onClick={() => {
                         navigate('/register');
                       }}

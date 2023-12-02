@@ -96,13 +96,13 @@ export function Profile() {
       {loading ? (
         <Loading />
       ) : (
-        <div className="flex w-full flex-col items-center justify-center bg-background dark:bg-backgroundDark">
+        <div className="flex w-full flex-col items-center justify-center bg-background dark:bg-background-dark">
           <Header title="Minha conta" />
 
           <div className="flex min-h-[95vh] w-full flex-col gap-4 p-4">
             <Link
               to={`/profile/${user?.id}`}
-              className="flex h-16 cursor-pointer flex-row items-center justify-start gap-4 rounded-lg bg-backgroundCard dark:bg-backgroundCardDark"
+              className="flex h-16 cursor-pointer flex-row items-center justify-start gap-4 rounded-lg bg-background-card dark:bg-background-card-dark"
             >
               <img
                 src={user?.user_metadata.avatar_url || defaultAvatar}
@@ -111,7 +111,7 @@ export function Profile() {
               />
 
               <div>
-                <span className="flex items-center font-medium text-title dark:text-titleDark">
+                <span className="flex items-center font-medium text-title dark:text-title-dark">
                   {user?.user_metadata.full_name}
 
                   {verifyLoginLastSevenDays(
@@ -122,7 +122,7 @@ export function Profile() {
                       <Tooltip
                         content="Seu número de telefone foi verificado e você logou nos últimos 7 dias"
                         anchorSelect=".verify"
-                        className="rounded-md bg-backgroundCard p-2 text-title dark:bg-backgroundCardDark dark:text-titleDark"
+                        className="rounded-md bg-background-card p-2 text-title dark:bg-background-card-dark dark:text-title-dark"
                         noArrow
                         place="right"
                       />
@@ -132,12 +132,12 @@ export function Profile() {
                     </>
                   )}
                 </span>
-                <p className="text-sm font-normal text-text dark:text-textDark">
+                <p className="text-sm font-normal text-text dark:text-text-dark">
                   Perfil
                 </p>
               </div>
             </Link>
-            <div className="flex h-16 flex-row items-center justify-start gap-4 rounded-lg bg-backgroundCard dark:bg-backgroundCardDark">
+            <div className="flex h-16 flex-row items-center justify-start gap-4 rounded-lg bg-background-card dark:bg-background-card-dark">
               <img
                 src={
                   allTotal + allTotalInvestiments < 0 ? outcomeImg : incomeImg
@@ -149,7 +149,7 @@ export function Profile() {
               />
 
               <div>
-                <p className="text-sm font-normal text-text dark:text-textDark">
+                <p className="text-sm font-normal text-text dark:text-text-dark">
                   Saldo total na carteira
                 </p>
                 <span
@@ -158,7 +158,7 @@ export function Profile() {
                     allTotal + allTotalInvestiments < 0 && 'text-danger',
                     allTotal + allTotalInvestiments > 0 && 'text-success',
                     areValueVisible &&
-                      'select-none text-title blur-md dark:text-titleDark',
+                      'select-none text-title blur-md dark:text-title-dark',
                   )}
                 >
                   {formatCurrency(allTotal + allTotalInvestiments)}
@@ -208,7 +208,7 @@ export function Profile() {
                 className="bg-[#01e59a]"
               />
             </div>
-            <div className="mt-4 flex flex-col items-start justify-center gap-4 text-title dark:text-titleDark">
+            <div className="mt-4 flex flex-col items-start justify-center gap-4 text-title dark:text-title-dark">
               <Submenu
                 onClick={() => toggleValueVisibility()}
                 icon={
@@ -351,9 +351,7 @@ export function Profile() {
               closeModal={() => setOpenModalAbout(false)}
               title="uollet app"
               about
-              buttonSecondary
-              textButtonSecondary="Fechar"
-              handleChangeButtonSecondary={() => setOpenModalAbout(false)}
+              buttonPrimary
             >
               <About />
             </MyDialog>

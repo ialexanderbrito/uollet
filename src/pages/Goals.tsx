@@ -30,7 +30,7 @@ export function Goals() {
       {loading ? (
         <Loading />
       ) : (
-        <div className="flex  w-full flex-col items-center justify-center bg-background dark:bg-backgroundDark">
+        <div className="flex  w-full flex-col items-center justify-center bg-background dark:bg-background-dark">
           <Header
             user={user}
             variant="secondary"
@@ -48,47 +48,41 @@ export function Goals() {
             {goals.length === 0 ? (
               <div className="mt-4 flex flex-col items-center justify-center">
                 <img src={emptyImg} alt="Empty" className="mb-2 w-28" />
-                <p className="text-center text-lg font-medium text-black dark:text-textDark">
+                <p className="text-center text-lg font-medium text-black dark:text-text-dark">
                   Não encontramos nenhuma meta cadastrada
                 </p>
               </div>
             ) : (
               <>
-                {goals
-                  .sort((a, b) => {
-                    if (a.created_at < b.created_at) return 1;
-                    if (a.created_at > b.created_at) return -1;
-                    return 0;
-                  })
-                  .map((item) => (
-                    <>
-                      <MetaList
-                        meta={item}
-                        onDelete={() => {
-                          handleOpenModal();
-                        }}
-                      />
+                {goals.map((item) => (
+                  <>
+                    <MetaList
+                      meta={item}
+                      onDelete={() => {
+                        handleOpenModal();
+                      }}
+                    />
 
-                      <MyDialog
-                        closeModal={handleCloseModal}
-                        isOpen={openModal}
-                        title="Deseja realmente excluir essa meta?"
-                        description='Ao clicar em "Excluir" a meta e todo o seu histórico serão excluídos permanentemente.'
-                        buttonPrimary
-                        buttonSecondary
-                        textButtonSecondary="Excluir"
-                        handleChangeButtonSecondary={() => {
-                          deleteGoal(item.id, item.title);
-                        }}
-                      />
-                    </>
-                  ))}
+                    <MyDialog
+                      closeModal={handleCloseModal}
+                      isOpen={openModal}
+                      title="Deseja realmente excluir essa meta?"
+                      description='Ao clicar em "Excluir" a meta e todo o seu histórico serão excluídos permanentemente.'
+                      buttonPrimary
+                      buttonSecondary
+                      textButtonSecondary="Excluir"
+                      handleChangeButtonSecondary={() => {
+                        deleteGoal(item.id, item.title);
+                      }}
+                    />
+                  </>
+                ))}
               </>
             )}
             <div className="flex w-full flex-col items-center justify-end gap-4">
               <button
                 type="submit"
-                className="mb-14 h-14 w-full rounded-lg bg-secondary p-4 text-white dark:bg-secondaryDark"
+                className="mb-14 h-14 w-full rounded-lg bg-primary p-4 text-white dark:bg-primary-dark"
                 onClick={() => {
                   navigate('/register/goals');
                 }}

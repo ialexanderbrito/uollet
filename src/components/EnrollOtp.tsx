@@ -36,7 +36,7 @@ export function EnrollOtp({ openModalOtp, setOpenModalOtp }: EnrollOtpProps) {
       >
         <div className="mt-4 flex w-full flex-col items-center justify-center gap-2">
           <div className="mb-4 flex w-full flex-col items-center justify-center">
-            <p className="text-center text-lg text-title dark:text-textDark">
+            <p className="text-center text-lg text-title dark:text-text-dark">
               Digite a senha de acesso
             </p>
           </div>
@@ -47,7 +47,7 @@ export function EnrollOtp({ openModalOtp, setOpenModalOtp }: EnrollOtpProps) {
               allowedCharacters="numeric"
               length={4}
               isPassword
-              inputClassName="mr-2 ml-2 h-12 w-12 rounded-md border border-background bg-background text-center text-2xl focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary dark:border-backgroundDark dark:bg-backgroundDark dark:text-textDark"
+              inputClassName="mr-2 ml-2 h-12 w-12 rounded-md border border-background-card bg-background-card text-center text-2xl focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary dark:border-background-card-dark dark:bg-background-card-dark dark:text-text-dark"
               disabled={hasOtp}
             />
           </div>
