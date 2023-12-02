@@ -15,3 +15,8 @@
     max-age=31536000,
     immutable
     '''
+
+[[build]]
+  command = "yarn build"
+  functions = "functions"
+  publish = "build"
