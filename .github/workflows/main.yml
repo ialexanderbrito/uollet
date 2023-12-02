@@ -23,3 +23,11 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         run: npx semantic-release
+  deploy:
+    runs-on: ubuntu-latest
+    needs: publish
+    if: success('publish')
+    steps:
+      - uses: actions/checkout@v2
+      - name: Deploy to Netlify
+        run: curl -X POST -d {} ${{ secrets.NETLIFY_BUILD_HOOK }}
