@@ -217,7 +217,11 @@ export function MyDialog({
                     {buttonPrimary && (
                       <button
                         type="submit"
-                        className="h-14 w-32 rounded-lg border-[1.5px] border-solid border-primary p-4 text-sm text-primary dark:border-primary-dark dark:text-white"
+                        className={cn(
+                          'h-14 w-32 rounded-lg border-[1.5px] border-solid border-primary p-4 text-sm text-primary dark:border-primary-dark dark:text-white',
+                          isInvestiment &&
+                            'border-investments-primary text-investments-primary dark:border-investments-primary dark:text-white',
+                        )}
                         onClick={closeModal}
                       >
                         Fechar
@@ -229,7 +233,8 @@ export function MyDialog({
                         type="submit"
                         className={cn(
                           'h-14 w-32 rounded-lg bg-primary p-4 text-sm text-white dark:bg-primary-dark',
-                          isInvestiment && 'bg-primary-dark dark:bg-primary',
+                          isInvestiment &&
+                            'bg-investments-primary dark:bg-investments-primary',
                         )}
                         onClick={handleChangeButtonSecondary}
                       >

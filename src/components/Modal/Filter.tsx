@@ -25,7 +25,8 @@ export function ModalFilter({
           <ArrowLeft
             className={cn(
               'cursor-pointer text-primary dark:text-primary-dark',
-              isInvestiment && 'text-primary-dark dark:text-primary',
+              isInvestiment &&
+                'text-investments-primary dark:text-investments-primary',
             )}
             size={28}
             onClick={() => handleChangeYear?.(-1)}
@@ -34,7 +35,8 @@ export function ModalFilter({
           <ArrowRight
             className={cn(
               'cursor-pointer text-primary dark:text-primary-dark',
-              isInvestiment && 'text-primary-dark dark:text-primary',
+              isInvestiment &&
+                'text-investments-primary dark:text-investments-primary',
             )}
             size={28}
             onClick={() => handleChangeYear?.(+1)}

@@ -325,6 +325,7 @@ export function Investments() {
                     description='Ao clicar em "Excluir" o registro será excluído permanentemente e não poderá ser recuperado. '
                     buttonPrimary
                     buttonSecondary
+                    isInvestiment
                     textButtonSecondary="Excluir"
                     handleChangeButtonSecondary={() => {
                       deleteTransaction(
