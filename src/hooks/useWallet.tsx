@@ -11,7 +11,7 @@ interface WalletProps {
   id: number;
   wallet: string;
   value: number;
-  color: string;
+  color: string | string[];
   category?: string;
   icon: React.ReactNode;
 }
@@ -53,7 +53,9 @@ export function useWallet() {
         id: index,
         wallet: category,
         value: calculateWalletValue(data, category),
-        color: getColorsBanks(category),
+        color: Array.isArray(getColorsBanks(category))
+          ? getColorsBanks(category)[0]
+          : getColorsBanks(category),
         category: addCategoryWallet(category),
         icon: getIconBanks(category),
       }))

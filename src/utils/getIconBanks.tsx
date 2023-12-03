@@ -1,9 +1,9 @@
 import { Bank, CurrencyDollar } from '@phosphor-icons/react';
 import {
-  bradesco,
   agora,
   bancoDoBrasil,
   binance,
+  bradesco,
   btg,
   btgInvest,
   c6,
@@ -13,12 +13,31 @@ import {
   inter,
   itau,
   mercadoBitcoin,
-  nuInvest,
   nubank,
+  nuInvest,
+  rico,
   santander,
   xp,
-  rico,
   orama,
+  ativa,
+  avenue,
+  banrisul,
+  bmg,
+  bv,
+  daycoval,
+  iti,
+  mercadopago,
+  modalmais,
+  n26,
+  neon,
+  next,
+  pagbank,
+  pan,
+  pb,
+  picpay,
+  sicoob,
+  sofisa,
+  toro,
 } from 'assets';
 
 export function getIconBanks(name: string) {
@@ -64,7 +83,9 @@ export function getIconBanks(name: string) {
     'XP Investimentos': (
       <img src={xp} alt="XP Investimentos" className="h-12 w-12 rounded-md" />
     ),
-    Clear: <img src={clear} alt="Clear" className="h-12 w-12 rounded-md" />,
+    'Clear Investimentos': (
+      <img src={clear} alt="Clear" className="h-12 w-12 rounded-md" />
+    ),
     'BTG Investimentos': (
       <img
         src={btgInvest}
@@ -72,7 +93,9 @@ export function getIconBanks(name: string) {
         className="h-12 w-12 rounded-md"
       />
     ),
-    Rico: <img src={rico} alt="Rico" className="h-12 w-12 rounded-md" />,
+    'Rico Investimentos': (
+      <img src={rico} alt="Rico" className="h-12 w-12 rounded-md" />
+    ),
     'Ágora Investimentos': (
       <img
         src={agora}
@@ -95,6 +118,45 @@ export function getIconBanks(name: string) {
       />
     ),
     Foxbit: <img src={foxbit} alt="Foxbit" className="h-12 w-12 rounded-md" />,
+    'Ativa Investimentos': (
+      <img src={ativa} alt="Ativa" className="h-12 w-12 rounded-md" />
+    ),
+    'Avenue Investimentos': (
+      <img src={avenue} alt="Avenue" className="h-12 w-12 rounded-md" />
+    ),
+    Banrisul: (
+      <img src={banrisul} alt="Banrisul" className="h-12 w-12 rounded-md" />
+    ),
+    BMG: <img src={bmg} alt="BMG" className="h-12 w-12 rounded-md" />,
+    BV: <img src={bv} alt="BV" className="h-12 w-12 rounded-md" />,
+    Daycoval: (
+      <img src={daycoval} alt="Daycoval" className="h-12 w-12 rounded-md" />
+    ),
+    Iti: <img src={iti} alt="Iti" className="h-12 w-12 rounded-md" />,
+    'Mercado Pago': (
+      <img
+        src={mercadopago}
+        alt="MercadoPago"
+        className="h-12 w-12 rounded-md"
+      />
+    ),
+    'Modal Mais': (
+      <img src={modalmais} alt="Modal Mais" className="h-12 w-12 rounded-md" />
+    ),
+    N26: <img src={n26} alt="N26" className="h-12 w-12 rounded-md" />,
+    Neon: <img src={neon} alt="Neon" className="h-12 w-12 rounded-md" />,
+    Next: <img src={next} alt="Next" className="h-12 w-12 rounded-md" />,
+    PagBank: (
+      <img src={pagbank} alt="PagBank" className="h-12 w-12 rounded-md" />
+    ),
+    Pan: <img src={pan} alt="Pan" className="h-12 w-12 rounded-md" />,
+    'Players Bank': <img src={pb} alt="PB" className="h-12 w-12 rounded-md" />,
+    PicPay: <img src={picpay} alt="PicPay" className="h-12 w-12 rounded-md" />,
+    Sicoob: <img src={sicoob} alt="Sicoob" className="h-12 w-12 rounded-md" />,
+    Sofisa: <img src={sofisa} alt="Sofisa" className="h-12 w-12 rounded-md" />,
+    'Toro Investimentos': (
+      <img src={toro} alt="Toro" className="h-12 w-12 rounded-md" />
+    ),
   };
 
   return (

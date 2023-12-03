@@ -15,8 +15,6 @@ export function Wallet() {
   const { user, areValueVisible, toggleValueVisibility } = useAuth();
   const { loading, wallets } = useWallet();
 
-  console.log('wallets', wallets);
-
   return (
     <>
       {loading ? (
@@ -56,13 +54,19 @@ export function Wallet() {
                     key={index}
                     className={`flex h-[200px] w-full flex-col justify-between rounded-2xl border-b-4 bg-background-card p-4 text-left shadow-md dark:bg-background-card-dark`}
                     style={{
-                      borderBottomColor: wallet.color,
+                      borderBottomColor: Array.isArray(wallet.color)
+                        ? wallet.color[0]
+                        : wallet.color,
                     }}
                   >
                     <header>
                       <div
                         className="flex h-12 w-12 items-center justify-center rounded-md"
-                        style={{ backgroundColor: wallet.color }}
+                        style={{
+                          backgroundColor: Array.isArray(wallet.color)
+                            ? wallet.color[0]
+                            : wallet.color,
+                        }}
                       >
                         {wallet.icon}
                       </div>

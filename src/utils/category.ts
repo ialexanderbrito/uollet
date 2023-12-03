@@ -1,8 +1,8 @@
 import {
-  bradesco,
   agora,
   bancoDoBrasil,
   binance,
+  bradesco,
   btg,
   btgInvest,
   c6,
@@ -12,12 +12,31 @@ import {
   inter,
   itau,
   mercadoBitcoin,
-  nuInvest,
   nubank,
+  nuInvest,
+  rico,
   santander,
   xp,
-  rico,
   orama,
+  ativa,
+  avenue,
+  banrisul,
+  bmg,
+  bv,
+  daycoval,
+  iti,
+  mercadopago,
+  modalmais,
+  n26,
+  neon,
+  next,
+  pagbank,
+  pan,
+  pb,
+  picpay,
+  sicoob,
+  sofisa,
+  toro,
 } from 'assets';
 import money from 'assets/categories/money.svg';
 import piggyBank from 'assets/categories/piggy-bank.svg';
@@ -95,7 +114,7 @@ export const category = [
   },
   {
     icon: clear,
-    name: 'Clear',
+    name: 'Clear Investimentos',
     category: 'investments',
   },
   {
@@ -105,7 +124,7 @@ export const category = [
   },
   {
     icon: rico,
-    name: 'Rico',
+    name: 'Rico Investimentos',
     category: 'investments',
   },
   {
@@ -132,6 +151,101 @@ export const category = [
     icon: foxbit,
     name: 'Foxbit',
     category: 'crypto',
+  },
+  {
+    icon: ativa,
+    name: 'Ativa Investimentos',
+    category: 'investments',
+  },
+  {
+    icon: avenue,
+    name: 'Avenue Investimentos',
+    category: 'investments',
+  },
+  {
+    icon: banrisul,
+    name: 'Banrisul',
+    category: 'bank',
+  },
+  {
+    icon: bmg,
+    name: 'BMG',
+    category: 'bank',
+  },
+  {
+    icon: bv,
+    name: 'BV',
+    category: 'bank',
+  },
+  {
+    icon: daycoval,
+    name: 'Daycoval',
+    category: 'bank',
+  },
+  {
+    icon: iti,
+    name: 'Iti',
+    category: 'bank',
+  },
+  {
+    icon: mercadopago,
+    name: 'Mercado Pago',
+    category: 'bank',
+  },
+  {
+    icon: modalmais,
+    name: 'Modal Mais',
+    category: 'bank',
+  },
+  {
+    icon: n26,
+    name: 'N26',
+    category: 'bank',
+  },
+  {
+    icon: neon,
+    name: 'Neon',
+    category: 'bank',
+  },
+  {
+    icon: next,
+    name: 'Next',
+    category: 'bank',
+  },
+  {
+    icon: pagbank,
+    name: 'PagBank',
+    category: 'bank',
+  },
+  {
+    icon: pan,
+    name: 'Pan',
+    category: 'bank',
+  },
+  {
+    icon: pb,
+    name: 'Players Bank',
+    category: 'bank',
+  },
+  {
+    icon: picpay,
+    name: 'PicPay',
+    category: 'bank',
+  },
+  {
+    icon: sicoob,
+    name: 'Sicoob',
+    category: 'bank',
+  },
+  {
+    icon: sofisa,
+    name: 'Sofisa',
+    category: 'bank',
+  },
+  {
+    icon: toro,
+    name: 'Toro Investimentos',
+    category: 'investments',
   },
   {
     icon: piggyBank,
