@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import { Combobox, Transition } from '@headlessui/react';
 import { CaretUpDown, Check } from '@phosphor-icons/react';
 
+import { cn } from 'utils';
+
 interface AutocompleteProps<T> {
   selected: T;
   setSelected: (value: T) => void;
@@ -19,7 +21,7 @@ export function Autocomplete<T>({
   setSelected,
   options,
   className,
-  placeholder = 'Digite uma categoria: Ex: Bradesco',
+  placeholder = 'Digite sua conta: Ex: Bradesco',
   isNavigate = false,
   displayValue,
 }: AutocompleteProps<T>) {
@@ -80,9 +82,10 @@ export function Autocomplete<T>({
                   {({ selected }) => (
                     <>
                       <span
-                        className={`block truncate text-title dark:text-title-dark ${
-                          selected ? 'font-medium' : 'font-normal'
-                        }`}
+                        className={cn(
+                          'block truncate text-title hover:text-white focus:text-white dark:text-title-dark',
+                          selected ? 'font-medium' : 'font-normal',
+                        )}
                         onClick={() => {
                           isNavigate &&
                             navigate(`/stock/${displayValue(item)}`);
