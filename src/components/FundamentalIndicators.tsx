@@ -26,8 +26,8 @@ export function FundamentalIndicators({
           key={field.label}
         >
           <div className="flex flex-col gap-1">
-            <span className="text-xs opacity-80">{field.label}</span>
-            <span className="text-sm">{field.value}</span>
+            <span className="text-xs opacity-80">{field.label || '-'}</span>
+            <span className="text-sm">{field.value || '-'}</span>
           </div>
         </div>
       ))}
