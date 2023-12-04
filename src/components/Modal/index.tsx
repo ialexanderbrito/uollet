@@ -2,6 +2,8 @@ import { Fragment } from 'react';
 
 import { Dialog, Transition } from '@headlessui/react';
 
+import { Button } from 'components/Button';
+
 import { cn } from 'utils/cn';
 
 import { useToast } from 'contexts/Toast';
@@ -134,7 +136,7 @@ export function MyDialog({
                     <p className="text-sm text-text dark:text-text-dark">
                       {description}
                       {email && (
-                        <a href="mailto:eu@ialexanderbrito.dev">
+                        <a href="mailto:contato@uollet.com">
                           <span className="text-sm text-text underline dark:text-text-dark">
                             {email}
                           </span>
@@ -200,56 +202,51 @@ export function MyDialog({
 
                   <div className="mt-4 flex justify-end">
                     {name && (
-                      <button
+                      <Button
                         type="button"
-                        className="h-14 w-32 rounded-lg bg-primary p-4 text-sm text-white dark:bg-primary-dark"
+                        inline
                         onClick={() => {
                           handleSubmitName();
                           closeModal();
                         }}
                       >
                         Salvar
-                      </button>
+                      </Button>
                     )}
                   </div>
 
                   <div className="mt-4 flex justify-around">
                     {buttonPrimary && (
-                      <button
+                      <Button
+                        inline
+                        variant="outline"
+                        isInvestiment={isInvestiment}
                         type="submit"
-                        className={cn(
-                          'h-14 w-32 rounded-lg border-[1.5px] border-solid border-primary p-4 text-sm text-primary dark:border-primary-dark dark:text-white',
-                          isInvestiment &&
-                            'border-investments-primary text-investments-primary dark:border-investments-primary dark:text-white',
-                        )}
                         onClick={closeModal}
                       >
                         Fechar
-                      </button>
+                      </Button>
                     )}
 
                     {buttonSecondary && (
-                      <button
+                      <Button
+                        inline
                         type="submit"
-                        className={cn(
-                          'h-14 w-32 rounded-lg bg-primary p-4 text-sm text-white dark:bg-primary-dark',
-                          isInvestiment &&
-                            'bg-investments-primary dark:bg-investments-primary',
-                        )}
+                        isInvestiment={isInvestiment}
                         onClick={handleChangeButtonSecondary}
                       >
                         {textButtonSecondary}
-                      </button>
+                      </Button>
                     )}
 
                     {deleteAccount && (
-                      <button
+                      <Button
                         type="submit"
-                        className="h-14 w-32 rounded-lg bg-primary p-4 text-sm text-white dark:bg-primary-dark"
+                        inline
                         onClick={deleteAccountVerify}
                       >
                         Excluir
-                      </button>
+                      </Button>
                     )}
                   </div>
                 </Dialog.Panel>

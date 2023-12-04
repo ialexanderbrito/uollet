@@ -2,6 +2,7 @@ import AuthCode from 'react-auth-code-input';
 import { useLocation } from 'react-router-dom';
 
 import { Alert } from 'components/Alert';
+import { Button } from 'components/Button';
 import { Header } from 'components/Header';
 
 import { useMFA } from 'hooks/useMFA';
@@ -49,14 +50,13 @@ export function Otp({ isOtp, isMFA }: OtpProps) {
               />
             </div>
 
-            <button
-              className="flex h-12 w-full items-center justify-center rounded-lg bg-primary text-white dark:bg-primary-dark"
+            <Button
               onClick={() => {
                 savePasswordMFA();
               }}
             >
               Entrar
-            </button>
+            </Button>
           </div>
         </>
       )}
@@ -80,15 +80,14 @@ export function Otp({ isOtp, isMFA }: OtpProps) {
             />
           </div>
 
-          <button
-            className="flex h-12 w-full items-center justify-center rounded-lg bg-primary text-white disabled:cursor-not-allowed disabled:opacity-50 dark:bg-primary-dark"
+          <Button
             onClick={() => {
               handleEnterOtp();
             }}
             disabled={timeOut > 0}
           >
             {timeOut > 0 ? `Aguarde ${timeOut}s` : 'Entrar'}
-          </button>
+          </Button>
         </div>
       )}
     </div>

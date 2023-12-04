@@ -7,6 +7,7 @@ import Picker from '@emoji-mart/react';
 import { Sticker } from '@phosphor-icons/react';
 
 import { BottomNavigator } from 'components/BottomNavigator';
+import { Button } from 'components/Button';
 import { DatePickerInput } from 'components/DatePickerInput';
 import { Header } from 'components/Header';
 import { InputError } from 'components/InputError';
@@ -225,12 +226,7 @@ export function RegisterGoals() {
           )}
 
           <div className="flex flex-col items-center justify-end gap-4">
-            <button
-              type="submit"
-              className="h-14 w-full rounded-lg bg-primary p-4 text-white dark:bg-primary-dark"
-            >
-              {id ? 'Editar' : 'Cadastrar'}
-            </button>
+            <Button type="submit">{id ? 'Editar' : 'Cadastrar'}</Button>
           </div>
         </div>
       </form>

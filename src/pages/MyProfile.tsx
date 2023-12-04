@@ -3,6 +3,7 @@ import { Ring } from '@uiball/loaders';
 
 import { Alert } from 'components/Alert';
 import { BottomNavigator } from 'components/BottomNavigator';
+import { Button } from 'components/Button';
 import { Dropzone } from 'components/Dropzone';
 import { Header } from 'components/Header';
 
@@ -104,12 +105,9 @@ export function MyProfile() {
             {...formikUpdateUser.getFieldProps('confirmPassword')}
           />
 
-          <button
-            type="submit"
-            className="flex h-14 w-full items-center justify-center rounded-lg bg-primary p-4 text-center text-sm text-background-card disabled:cursor-not-allowed disabled:opacity-25 dark:bg-primary-dark"
-          >
+          <Button type="submit">
             {loading ? <Ring size={20} color="#fff" /> : 'Salvar alterações'}
-          </button>
+          </Button>
         </div>
       </form>
 

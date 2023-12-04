@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 
 import logo from 'assets/logo.svg';
 
+import { Button } from './Button';
+
 interface CheckConnectionProps {
   children: React.ReactNode;
 }
@@ -35,17 +37,14 @@ export function CheckConnection({ children }: CheckConnectionProps) {
         children
       ) : (
         <div className="flex h-screen w-full flex-col items-center justify-center">
-          <div className="flex h-screen w-full flex-col items-center justify-center gap-4 bg-primary dark:bg-primary-dark">
+          <div className="flex h-screen w-full flex-col items-center justify-center gap-4 bg-background dark:bg-background-dark">
             <img src={logo} alt="Logo" />
-            <h2 className="text-center text-xl font-medium text-white dark:text-text-dark">
+            <h2 className="text-center text-xl font-medium text-title dark:text-title-dark">
               Algo deu errado, mas não se preocupe - vamos tentar novamente.
             </h2>
-            <button
-              type="submit"
-              className="h-14 w-full rounded-lg bg-primary p-4 text-white dark:bg-primary-dark"
-            >
+            <Button type="submit" inline>
               Tentar novamente
-            </button>
+            </Button>
           </div>
         </div>
       )}

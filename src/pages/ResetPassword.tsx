@@ -1,5 +1,7 @@
 import { Eye, EyeClosed } from '@phosphor-icons/react';
 
+import { Button } from 'components/Button';
+
 import { cn } from 'utils/cn';
 
 import { useResetPassword } from 'hooks/useResetPassword';
@@ -61,12 +63,7 @@ export function ResetPassword() {
             {...formikResetPassword.getFieldProps('confirmPassword')}
           />
           <div className="flex flex-col items-center justify-end gap-4">
-            <button
-              type="submit"
-              className="h-14 w-full rounded-lg bg-primary p-4 text-white dark:bg-primary-dark"
-            >
-              Alterar senha
-            </button>
+            <Button type="submit">Alterar senha</Button>
           </div>
         </div>
       </form>

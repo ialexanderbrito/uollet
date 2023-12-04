@@ -7,6 +7,7 @@ import outcomeIcon from 'assets/outcome.svg';
 
 import { Autocomplete } from 'components/Autocomplete';
 import { BottomNavigator } from 'components/BottomNavigator';
+import { Button } from 'components/Button';
 import { DatePickerInput } from 'components/DatePickerInput';
 import { Header } from 'components/Header';
 import { InputError } from 'components/InputError';
@@ -228,6 +229,17 @@ export function Register() {
               )}
             </>
           )}
+          <span className="ml-2 text-xs text-title dark:text-title-dark">
+            Não achou sua conta?{' '}
+            <a
+              href="mailto:contato@uollet.com.br?subject=Adicionar%20conta%20no%20Uollet&body=Ol%C3%A1%2C%20gostaria%20de%20sugerir%20a%20conta%20%22%22%20no%20Uollet."
+              target="_blank"
+              rel="noreferrer"
+              className="cursor-pointer text-primary dark:text-primary-dark"
+            >
+              Sugira pra gente :)
+            </a>
+          </span>
 
           <DatePickerInput
             onChange={(date) => {
@@ -301,12 +313,7 @@ export function Register() {
           </MyDialog>
 
           <div className="flex flex-col items-center justify-end gap-4">
-            <button
-              type="submit"
-              className="h-14 w-full rounded-lg bg-primary p-4 text-background-card dark:bg-primary-dark"
-            >
-              {id ? 'Editar' : 'Cadastrar'}
-            </button>
+            <Button type="submit">{id ? 'Editar' : 'Cadastrar'}</Button>
           </div>
         </div>
       </form>

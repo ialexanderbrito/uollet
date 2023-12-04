@@ -1,6 +1,7 @@
 import { TwitterPicker } from 'react-color';
 import CurrencyInput from 'react-currency-input-field';
 
+import { Button } from 'components/Button';
 import { CreditCard as CreditCardComponent } from 'components/CreditCard';
 import { Header } from 'components/Header';
 import { InputError } from 'components/InputError';
@@ -165,12 +166,7 @@ export function CreditCard() {
           </div>
 
           <div className="flex flex-col items-center justify-end gap-4">
-            <button
-              type="submit"
-              className="h-14 w-full rounded-lg bg-primary p-4 text-white dark:bg-primary-dark"
-            >
-              Salvar Cartão
-            </button>
+            <Button type="submit">Salvar Cartão</Button>
           </div>
         </div>
       </form>

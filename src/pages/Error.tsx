@@ -2,6 +2,8 @@ import { useNavigate } from 'react-router-dom';
 
 import errorIcon from 'assets/error.svg';
 
+import { Button } from 'components/Button';
+
 export function Error() {
   const navigate = useNavigate();
 
@@ -13,15 +15,14 @@ export function Error() {
       </h1>
 
       <div className="mt-10 flex w-full flex-col gap-4">
-        <button
+        <Button
+          type="button"
           onClick={() => {
             navigate('/');
           }}
-          type="button"
-          className="h-14 w-full rounded-lg bg-primary p-4 text-white dark:bg-primary-dark"
         >
           Voltar para página inicial
-        </button>
+        </Button>
       </div>
     </div>
   );

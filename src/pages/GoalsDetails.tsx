@@ -4,6 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import emptyImg from 'assets/empty.svg';
 
 import { BottomNavigator } from 'components/BottomNavigator';
+import { Button } from 'components/Button';
 import { CardList } from 'components/CardList';
 import { Header } from 'components/Header';
 import { Loading } from 'components/Loading';
@@ -88,149 +89,145 @@ export function GoalsDetails() {
     return false;
   }
 
+  if (loading) {
+    return <Loading />;
+  }
+
   return (
-    <>
-      {loading ? (
-        <Loading />
-      ) : (
-        <div className="flex w-full flex-col items-center justify-center bg-background dark:bg-background-dark">
-          <Header
-            title={`Histórico de metas ${id}`}
-            variant="secondary"
-            visible={areValueVisible}
-            setVisible={toggleValueVisibility}
-          />
+    <div className="flex w-full flex-col items-center justify-center bg-background dark:bg-background-dark">
+      <Header
+        title={`Histórico de metas ${id}`}
+        variant="secondary"
+        visible={areValueVisible}
+        setVisible={toggleValueVisibility}
+      />
 
-          <div className="flex w-full flex-col items-start justify-center gap-3 p-4">
-            <h1 className="flex flex-row items-center justify-center gap-2 text-2xl text-title dark:text-title-dark">
-              Meta {title} {emojiPattern(goalsDetailsId()?.emoji)}
-            </h1>
-            <span className="flex flex-row items-center justify-center text-4xl font-bold text-title dark:text-title-dark">
-              {separeteGoalsByCategory(`Meta ${id}`)
-                .reduce((acc, goal) => acc + goal.value, 0)
-                .toLocaleString('pt-br', {
-                  style: 'currency',
-                  currency: 'BRL',
-                })}
+      <div className="flex w-full flex-col items-start justify-center gap-3 p-4">
+        <h1 className="flex flex-row items-center justify-center gap-2 text-2xl text-title dark:text-title-dark">
+          Meta {title} {emojiPattern(goalsDetailsId()?.emoji)}
+        </h1>
+        <span className="flex flex-row items-center justify-center text-4xl font-bold text-title dark:text-title-dark">
+          {separeteGoalsByCategory(`Meta ${id}`)
+            .reduce((acc, goal) => acc + goal.value, 0)
+            .toLocaleString('pt-br', {
+              style: 'currency',
+              currency: 'BRL',
+            })}
+        </span>
+        <p className="flex flex-row items-center justify-center gap-2 text-lg text-title dark:text-title-dark">
+          de{' '}
+          {goalsDetailsId()?.value.toLocaleString('pt-br', {
+            style: 'currency',
+            currency: 'BRL',
+          })}
+        </p>
+
+        <div className="h-2 w-full rounded bg-background-card dark:bg-background-card-dark">
+          <div
+            className="h-2 rounded bg-primary dark:bg-primary-dark"
+            style={{
+              width: `${calculatePorcentageGoal()}%`,
+            }}
+          ></div>
+        </div>
+
+        {dateFinalExpired() && calculatePorcentageGoal() !== 100 && (
+          <div className="flex flex-row items-center justify-center gap-2 text-xl font-bold text-title">
+            <span className="flex flex-row items-center justify-center gap-2 text-danger dark:text-danger">
+              {emojiPattern('🤦‍♂️')}
+              Meta não atingida
             </span>
-            <p className="flex flex-row items-center justify-center gap-2 text-lg text-title dark:text-title-dark">
-              de{' '}
-              {goalsDetailsId()?.value.toLocaleString('pt-br', {
-                style: 'currency',
-                currency: 'BRL',
-              })}
-            </p>
+          </div>
+        )}
 
-            <div className="h-2 w-full rounded bg-background-card dark:bg-background-card-dark">
-              <div
-                className="h-2 rounded bg-primary dark:bg-primary-dark"
-                style={{
-                  width: `${calculatePorcentageGoal()}%`,
-                }}
-              ></div>
+        {calculatePorcentageGoal() !== 100 && dateFinalExpired() && (
+          <Button
+            type="submit"
+            onClick={() => {
+              navigate(`/edit/goals/${goalsDetailsId()?.id}`);
+              sessionStorage.setItem('@uollet:goal', `Meta ${id}`);
+            }}
+          >
+            Editar meta
+          </Button>
+        )}
+
+        {calculatePorcentageGoal() === 100 && !dateFinalExpired() ? (
+          <div className="flex flex-row items-center justify-center gap-2 text-xl font-bold text-title">
+            <span className="flex flex-row items-center justify-center gap-2 text-green-500 dark:text-green-400">
+              {emojiPattern('🎉')} Meta concluída!
+            </span>
+          </div>
+        ) : (
+          <>
+            <Button
+              type="submit"
+              onClick={() => {
+                navigate('/register');
+                sessionStorage.setItem('@uollet:goal', `Meta ${id}`);
+              }}
+              disabled={dateFinalExpired()}
+            >
+              Adicionar novo valor
+            </Button>
+          </>
+        )}
+      </div>
+
+      <div className="flex min-h-screen w-full flex-col items-center justify-start gap-3 p-4">
+        {separeteGoalsByCategory(`Meta ${id}`).length === 0 ? (
+          <div className="mt-4 flex flex-col items-center justify-center">
+            <img src={emptyImg} alt="Empty" className="mb-2 w-28" />
+            <p className="text-center text-lg font-medium text-black dark:text-text-dark">
+              Não encontramos seu histórico de metas
+            </p>
+          </div>
+        ) : (
+          <>
+            <div className="flex w-full items-center justify-between">
+              <h1 className="text-2xl font-bold text-title dark:text-title-dark">
+                Histórico
+              </h1>
             </div>
 
-            {dateFinalExpired() && calculatePorcentageGoal() !== 100 && (
-              <div className="flex flex-row items-center justify-center gap-2 text-xl font-bold text-title">
-                <span className="flex flex-row items-center justify-center gap-2 text-danger dark:text-danger">
-                  {emojiPattern('🤦‍♂️')}
-                  Meta não atingida
-                </span>
-              </div>
-            )}
+            {detailsGoals
+              .filter((goal) => goal.category === `Meta ${id}`)
+              .map((goal, index) => (
+                <Fragment key={goal.id}>
+                  <CardList
+                    category={goal.category}
+                    date={goal.date}
+                    title={`${goal.title} | ${index + 1}`}
+                    value={goal.value}
+                    income={goal.type === 'income'}
+                    visible={false}
+                    onEdit={() => {
+                      navigate(`/edit/${goal.id}`);
+                    }}
+                    onClick={() => {
+                      handleOpenModal();
+                    }}
+                  />
 
-            {calculatePorcentageGoal() !== 100 && dateFinalExpired() && (
-              <button
-                type="submit"
-                className="h-14 w-full rounded-lg bg-primary p-4 text-white disabled:cursor-not-allowed disabled:opacity-40 dark:bg-primary-dark"
-                onClick={() => {
-                  navigate(`/edit/goals/${goalsDetailsId()?.id}`);
-                  sessionStorage.setItem('@uollet:goal', `Meta ${id}`);
-                }}
-              >
-                Editar meta
-              </button>
-            )}
+                  <MyDialog
+                    closeModal={handleCloseModal}
+                    isOpen={openModal}
+                    title="Deseja realmente excluir registro?"
+                    description='Ao clicar em "Excluir" o registro será excluído permanentemente e não poderá ser recuperado. '
+                    buttonPrimary
+                    buttonSecondary
+                    textButtonSecondary="Excluir"
+                    handleChangeButtonSecondary={() => {
+                      deleteGoalTransaction(goal.id);
+                    }}
+                  />
+                </Fragment>
+              ))}
+          </>
+        )}
+      </div>
 
-            {calculatePorcentageGoal() === 100 && !dateFinalExpired() ? (
-              <div className="flex flex-row items-center justify-center gap-2 text-xl font-bold text-title">
-                <span className="flex flex-row items-center justify-center gap-2 text-green-500 dark:text-green-400">
-                  {emojiPattern('🎉')} Meta concluída!
-                </span>
-              </div>
-            ) : (
-              <>
-                <button
-                  type="submit"
-                  className="h-14 w-full rounded-lg bg-primary p-4 text-white disabled:cursor-not-allowed disabled:opacity-40 dark:bg-primary-dark"
-                  onClick={() => {
-                    navigate('/register');
-                    sessionStorage.setItem('@uollet:goal', `Meta ${id}`);
-                  }}
-                  disabled={dateFinalExpired()}
-                >
-                  Adicionar novo valor
-                </button>
-              </>
-            )}
-          </div>
-
-          <div className="flex min-h-screen w-full flex-col items-center justify-start gap-3 p-4">
-            {separeteGoalsByCategory(`Meta ${id}`).length === 0 ? (
-              <div className="mt-4 flex flex-col items-center justify-center">
-                <img src={emptyImg} alt="Empty" className="mb-2 w-28" />
-                <p className="text-center text-lg font-medium text-black dark:text-text-dark">
-                  Não encontramos seu histórico de metas
-                </p>
-              </div>
-            ) : (
-              <>
-                <div className="flex w-full items-center justify-between">
-                  <h1 className="text-2xl font-bold text-title dark:text-title-dark">
-                    Histórico
-                  </h1>
-                </div>
-
-                {detailsGoals
-                  .filter((goal) => goal.category === `Meta ${id}`)
-                  .map((goal, index) => (
-                    <Fragment key={goal.id}>
-                      <CardList
-                        category={goal.category}
-                        date={goal.date}
-                        title={`${goal.title} | ${index + 1}`}
-                        value={goal.value}
-                        income={goal.type === 'income'}
-                        visible={false}
-                        onEdit={() => {
-                          navigate(`/edit/${goal.id}`);
-                        }}
-                        onClick={() => {
-                          handleOpenModal();
-                        }}
-                      />
-
-                      <MyDialog
-                        closeModal={handleCloseModal}
-                        isOpen={openModal}
-                        title="Deseja realmente excluir registro?"
-                        description='Ao clicar em "Excluir" o registro será excluído permanentemente e não poderá ser recuperado. '
-                        buttonPrimary
-                        buttonSecondary
-                        textButtonSecondary="Excluir"
-                        handleChangeButtonSecondary={() => {
-                          deleteGoalTransaction(goal.id);
-                        }}
-                      />
-                    </Fragment>
-                  ))}
-              </>
-            )}
-          </div>
-
-          <BottomNavigator />
-        </div>
-      )}
-    </>
+      <BottomNavigator />
+    </div>
   );
 }

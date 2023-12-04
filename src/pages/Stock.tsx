@@ -65,7 +65,7 @@ export function Stock() {
   const isFiis = stock.fundamentalIndicators?.type === 'fii' && true;
 
   if (loadingRecommendedStocks || loading) {
-    return <Loading />;
+    return <Loading color="#170e39" />;
   }
 
   return (

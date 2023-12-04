@@ -8,6 +8,7 @@ import totalIcon from 'assets/total.svg';
 import { FinancesProps } from 'interfaces/FinancesProps';
 
 import { BottomNavigator } from 'components/BottomNavigator';
+import { Button } from 'components/Button';
 import { Card } from 'components/Card';
 import { CardList } from 'components/CardList';
 import { Filter } from 'components/Filter';
@@ -64,7 +65,7 @@ export function Finances() {
   }, []);
 
   useEffect(() => {
-    if (search.length > 2) {
+    if (search.length >= 2) {
       searchAllTransactions();
     }
 
@@ -73,169 +74,166 @@ export function Finances() {
     }
   }, [search]);
 
+  if (loading) {
+    return <Loading />;
+  }
+
   return (
-    <>
-      {loading ? (
-        <Loading />
-      ) : (
-        <div className="flex w-full flex-col items-center justify-center bg-background dark:bg-background-dark">
-          <Header
-            variant="primary"
-            user={user}
-            visible={areValueVisible}
-            setVisible={toggleValueVisibility}
-          />
+    <div className="flex w-full flex-col items-center justify-center bg-background dark:bg-background-dark">
+      <Header
+        variant="primary"
+        user={user}
+        visible={areValueVisible}
+        setVisible={toggleValueVisibility}
+      />
 
-          <div className="absolute top-20 flex w-full min-w-full snap-x gap-4 overflow-x-scroll p-4 scrollbar-hide md:justify-center">
-            <Card
-              title="Entradas"
-              icon={incomeIcon}
-              value={formatCurrency(totalIncome)}
-              lastEntry={`De 01/${currentMonth}/${selectedYear} até ${lastDayOfTheMonth}/${currentMonth}/${selectedYear}`}
-              visible={areValueVisible}
-              className="bg-background-card text-title dark:bg-background-card-dark dark:text-title-dark"
-            />
+      <div className="absolute top-20 flex w-full min-w-full snap-x gap-4 overflow-x-scroll p-4 scrollbar-hide md:justify-center">
+        <Card
+          title="Entradas"
+          icon={incomeIcon}
+          value={formatCurrency(totalIncome)}
+          lastEntry={`De 01/${currentMonth}/${selectedYear} até ${lastDayOfTheMonth}/${currentMonth}/${selectedYear}`}
+          visible={areValueVisible}
+          className="bg-background-card text-title dark:bg-background-card-dark dark:text-title-dark"
+        />
 
-            <Card
-              title="Saidas"
-              icon={outcomeIcon}
-              value={formatCurrency(totalOutcome)}
-              lastEntry={`De 01/${currentMonth}/${selectedYear} até ${lastDayOfTheMonth}/${currentMonth}/${selectedYear}`}
-              visible={areValueVisible}
-              className="bg-background-card text-title dark:bg-background-card-dark dark:text-title-dark"
-            />
+        <Card
+          title="Saidas"
+          icon={outcomeIcon}
+          value={formatCurrency(totalOutcome)}
+          lastEntry={`De 01/${currentMonth}/${selectedYear} até ${lastDayOfTheMonth}/${currentMonth}/${selectedYear}`}
+          visible={areValueVisible}
+          className="bg-background-card text-title dark:bg-background-card-dark dark:text-title-dark"
+        />
 
-            <Card
-              title="Total"
-              icon={totalIcon}
-              value={formatCurrency(allTotal)}
-              lastEntry={balanceMessage(allTotal)}
-              textColor={theme === 'light' ? 'white' : 'white'}
-              visible={areValueVisible}
-              className="bg-primary-dark text-white dark:bg-primary"
-            />
-          </div>
+        <Card
+          title="Total"
+          icon={totalIcon}
+          value={formatCurrency(allTotal)}
+          lastEntry={balanceMessage(allTotal)}
+          textColor={theme === 'light' ? 'white' : 'white'}
+          visible={areValueVisible}
+          className="bg-primary-dark text-white dark:bg-primary"
+        />
+      </div>
 
-          <div className="h-20" />
+      <div className="h-20" />
 
-          <div className="flex min-h-screen w-full flex-col gap-4 p-4">
-            <input
-              type="text"
-              value={search}
-              placeholder="Pesquisar por alguma transação"
-              className="h-14 w-full rounded-lg bg-background-card p-4 text-title outline-none focus:ring-2 focus:ring-primary dark:bg-background-card-dark dark:text-title-dark focus:dark:ring-primary-dark"
-              onChange={(e) => setSearch(e.target.value)}
-            />
+      <div className="flex min-h-screen w-full flex-col gap-4 p-4">
+        <input
+          type="text"
+          value={search}
+          placeholder="Pesquisar por alguma transação"
+          className="h-14 w-full rounded-lg bg-background-card p-4 text-title outline-none focus:ring-2 focus:ring-primary dark:bg-background-card-dark dark:text-title-dark focus:dark:ring-primary-dark"
+          onChange={(e) => setSearch(e.target.value)}
+        />
 
-            <Filter
-              actualMonth={currentMonth}
-              handleChangeFilterMonth={handleChangeFilterMonth}
-              handleOpenModalFilter={handleOpenModalFilter}
-            />
+        <Filter
+          actualMonth={currentMonth}
+          handleChangeFilterMonth={handleChangeFilterMonth}
+          handleOpenModalFilter={handleOpenModalFilter}
+        />
 
-            <ul className="flex flex-col gap-4">
-              {finances.length === 0 && (
-                <div className="mt-4 flex flex-col items-center justify-center">
-                  <img src={emptyImg} alt="Empty" className="mb-2 w-28" />
-                  <p className="text-center text-lg font-medium text-black dark:text-text-dark">
-                    Não encontramos nenhuma transação
-                  </p>
+        <ul className="flex flex-col gap-4">
+          {finances.length === 0 && (
+            <div className="mt-4 flex flex-col items-center justify-center">
+              <img src={emptyImg} alt="Empty" className="mb-2 w-28" />
+              <p className="text-center text-lg font-medium text-black dark:text-text-dark">
+                Não encontramos nenhuma transação
+              </p>
 
-                  <div className="mt-2 flex w-full flex-col items-center justify-end gap-4">
-                    <button
-                      type="submit"
-                      className="h-14 w-full rounded-lg bg-primary p-4 text-white dark:bg-primary-dark"
-                      onClick={() => {
-                        navigate('/register');
-                      }}
-                    >
-                      Adicionar Transação
-                    </button>
-                  </div>
-                </div>
-              )}
-              {finances.map((item: FinancesProps, index) => (
-                <>
-                  <CardList
-                    key={item.id}
-                    title={item.title}
-                    value={item.value}
-                    category={item.category}
-                    date={item.date}
-                    className={index === finances.length - 1 ? 'mb-10' : ''}
-                    income={item.type === 'income'}
-                    onClick={() => {
-                      setIdTransaction(item.id);
-                      handleOpenModal();
-                    }}
-                    onEdit={() => {
-                      navigate(`/edit/${item.id}`);
-                    }}
-                    onDuplicate={() => {
-                      duplicateTransaction(
-                        item.id,
-                        currentMonth,
-                        lastDayOfTheMonth,
-                      );
-                    }}
-                    visible={areValueVisible}
-                  />
+              <div className="mt-2 flex w-full flex-col items-center justify-end gap-4">
+                <Button
+                  type="submit"
+                  onClick={() => {
+                    navigate('/register');
+                  }}
+                >
+                  Adicionar Transação
+                </Button>
+              </div>
+            </div>
+          )}
+          {finances.map((item: FinancesProps, index) => (
+            <>
+              <CardList
+                key={item.id}
+                title={item.title}
+                value={item.value}
+                category={item.category}
+                date={item.date}
+                className={index === finances.length - 1 ? 'mb-10' : ''}
+                income={item.type === 'income'}
+                onClick={() => {
+                  setIdTransaction(item.id);
+                  handleOpenModal();
+                }}
+                onEdit={() => {
+                  navigate(`/edit/${item.id}`);
+                }}
+                onDuplicate={() => {
+                  duplicateTransaction(
+                    item.id,
+                    currentMonth,
+                    lastDayOfTheMonth,
+                  );
+                }}
+                visible={areValueVisible}
+              />
 
-                  <MyDialog
-                    closeModal={handleCloseModal}
-                    isOpen={openModal}
-                    title="Deseja realmente excluir registro?"
-                    description='Ao clicar em "Excluir" o registro será excluído permanentemente e não poderá ser recuperado. '
-                    buttonPrimary
-                    buttonSecondary
-                    textButtonSecondary="Excluir"
-                    handleChangeButtonSecondary={() => {
-                      deleteTransaction(
-                        idTransaction,
-                        currentMonth,
-                        lastDayOfTheMonth,
-                      );
-                    }}
-                  />
-                </>
-              ))}
-            </ul>
-          </div>
+              <MyDialog
+                closeModal={handleCloseModal}
+                isOpen={openModal}
+                title="Deseja realmente excluir registro?"
+                description='Ao clicar em "Excluir" o registro será excluído permanentemente e não poderá ser recuperado. '
+                buttonPrimary
+                buttonSecondary
+                textButtonSecondary="Excluir"
+                handleChangeButtonSecondary={() => {
+                  deleteTransaction(
+                    idTransaction,
+                    currentMonth,
+                    lastDayOfTheMonth,
+                  );
+                }}
+              />
+            </>
+          ))}
+        </ul>
+      </div>
 
-          <MyDialog
-            closeModal={handleCloseModalName}
-            isOpen={openModalName}
-            title="Seja bem-vindo(a)"
-            description="Antes de começar, queria saber como podemos te chamar?"
-            name
-          />
+      <MyDialog
+        closeModal={handleCloseModalName}
+        isOpen={openModalName}
+        title="Seja bem-vindo(a)"
+        description="Antes de começar, queria saber como podemos te chamar?"
+        name
+      />
 
-          <MyDialog
-            closeModal={handleCloseModalFilter}
-            isOpen={openModalFilter}
-            title="Filtros"
-            description="Aqui você pode filtrar suas transações por categorias e anos."
-            buttonSecondary
-            textButtonSecondary="Filtrar"
-            handleChangeButtonSecondary={() => {
-              sessionStorage.setItem(
-                '@uollet:selectedYear',
-                selectedYear.toString(),
-              );
-              filterTransactionsByYear(selectedYear, currentMonth);
-            }}
-          >
-            <ModalFilter
-              handleChangeYear={(step: number) => {
-                setSelectedYear((prevState) => prevState + step);
-              }}
-              selectedYear={selectedYear}
-            />
-          </MyDialog>
+      <MyDialog
+        closeModal={handleCloseModalFilter}
+        isOpen={openModalFilter}
+        title="Filtros"
+        description="Aqui você pode filtrar suas transações por categorias e anos."
+        buttonSecondary
+        textButtonSecondary="Filtrar"
+        handleChangeButtonSecondary={() => {
+          sessionStorage.setItem(
+            '@uollet:selectedYear',
+            selectedYear.toString(),
+          );
+          filterTransactionsByYear(selectedYear, currentMonth);
+        }}
+      >
+        <ModalFilter
+          handleChangeYear={(step: number) => {
+            setSelectedYear((prevState) => prevState + step);
+          }}
+          selectedYear={selectedYear}
+        />
+      </MyDialog>
 
-          <BottomNavigator />
-        </div>
-      )}
-    </>
+      <BottomNavigator />
+    </div>
   );
 }

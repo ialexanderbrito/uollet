@@ -9,6 +9,8 @@ import { useTheme } from 'contexts/Theme';
 
 import { useLogin } from 'hooks/useLogin';
 
+import { Button } from './Button';
+
 interface MyDialogProps {
   closeModal: () => void;
   isOpen: boolean;
@@ -172,79 +174,70 @@ export function ModalLogin({ closeModal, isOpen }: MyDialogProps) {
 
                     {forgetPassword && (
                       <div className="mt-4 flex justify-between">
-                        <button
+                        <Button
+                          inline
+                          variant="outline"
                           type="button"
-                          className="h-14 w-32 rounded-lg border-[1.5px] border-solid border-primary p-4 text-sm  text-primary dark:border-primary-dark dark:text-white"
                           onClick={() => {
                             setForgetPassword(false);
                           }}
                         >
                           Voltar
-                        </button>
+                        </Button>
 
-                        <button
-                          type="submit"
-                          className="flex h-14 w-32 items-center justify-center rounded-lg bg-primary p-4 text-center text-sm text-white disabled:cursor-not-allowed disabled:opacity-25 dark:bg-primary-dark"
-                          disabled={!captchaToken}
-                        >
+                        <Button inline type="submit" disabled={!captchaToken}>
                           {loading ? (
                             <Ring size={20} color="#fff" />
                           ) : (
                             'Enviar email'
                           )}
-                        </button>
+                        </Button>
                       </div>
                     )}
 
                     {magicLink && (
                       <div className="mt-4 flex justify-between">
-                        <button
+                        <Button
                           type="button"
-                          className="h-14 w-32 rounded-lg border-[1.5px] border-solid border-primary p-4 text-sm  text-primary dark:border-primary-dark dark:text-white"
+                          inline
+                          variant="outline"
                           onClick={() => {
                             setMagicLink(false);
                           }}
                         >
                           Voltar
-                        </button>
+                        </Button>
 
-                        <button
-                          type="submit"
-                          className="flex h-14 w-32 items-center justify-center rounded-lg bg-primary p-4 text-center text-sm text-white disabled:cursor-not-allowed disabled:opacity-25 dark:bg-primary-dark"
-                          disabled={!captchaToken}
-                        >
+                        <Button type="submit" inline disabled={!captchaToken}>
                           {loading ? (
                             <Ring size={20} color="#fff" />
                           ) : (
                             'Enviar email'
                           )}
-                        </button>
+                        </Button>
                       </div>
                     )}
 
                     {register && (
                       <div className="mt-4 flex justify-between">
-                        <button
+                        <Button
                           type="button"
-                          className="h-14 w-32 rounded-lg border-[1.5px] border-solid border-primary p-4 text-sm  text-primary dark:border-primary-dark dark:text-white"
+                          inline
+                          variant="outline"
                           onClick={() => {
                             setRegister(false);
                           }}
                         >
                           Voltar
-                        </button>
+                        </Button>
 
-                        <button
-                          type="submit"
-                          className="flex h-14 w-32 items-center justify-center rounded-lg bg-primary p-4 text-center text-sm text-white disabled:cursor-not-allowed disabled:opacity-25 dark:bg-primary-dark"
-                          disabled={!captchaToken}
-                        >
+                        <Button inline type="submit" disabled={!captchaToken}>
                           {loading ? (
                             <Ring size={20} color="#fff" />
                           ) : (
                             'Cadastrar'
                           )}
-                        </button>
+                        </Button>
                       </div>
                     )}
 
@@ -266,13 +259,9 @@ export function ModalLogin({ closeModal, isOpen }: MyDialogProps) {
                           </p>
                         </div>
 
-                        <button
-                          type="submit"
-                          className="flex h-14 w-32 items-center justify-center rounded-lg bg-primary p-4 text-center text-sm text-white disabled:cursor-not-allowed disabled:opacity-25 dark:bg-primary-dark"
-                          disabled={!captchaToken}
-                        >
+                        <Button type="submit" inline disabled={!captchaToken}>
                           {loading ? <Ring size={20} color="#fff" /> : 'Entrar'}
-                        </button>
+                        </Button>
                       </div>
                     )}
                   </form>
