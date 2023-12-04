@@ -23,6 +23,7 @@ import modalmais from 'assets/banks/modalmais.svg';
 import n26 from 'assets/banks/n26.svg';
 import neon from 'assets/banks/neon.svg';
 import next from 'assets/banks/next.svg';
+import nomad from 'assets/banks/nomad.svg';
 import nubank from 'assets/banks/nubank.svg';
 import nuInvest from 'assets/banks/nuinvest.svg';
 import orama from 'assets/banks/orama.svg';
@@ -30,11 +31,13 @@ import pagbank from 'assets/banks/pagbank.svg';
 import pan from 'assets/banks/pan.svg';
 import pb from 'assets/banks/pb.svg';
 import picpay from 'assets/banks/picpay.svg';
+import revolut from 'assets/banks/revolut.svg';
 import rico from 'assets/banks/rico.svg';
 import santander from 'assets/banks/santander.svg';
 import sicoob from 'assets/banks/sicoob.svg';
 import sofisa from 'assets/banks/sofisa.svg';
 import toro from 'assets/banks/toro.svg';
+import wise from 'assets/banks/wise.svg';
 import xp from 'assets/banks/xp.svg';
 
 export {
@@ -76,4 +79,7 @@ export {
   sicoob,
   sofisa,
   toro,
+  wise,
+  nomad,
+  revolut,
 };

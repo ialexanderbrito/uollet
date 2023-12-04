@@ -41,6 +41,9 @@ export function getColorsBanks(categories: string | string[]) {
     Sicoob: '#003a46',
     Sofisa: '#00a990',
     'Toro Investimentos': '#6131b4',
+    Wise: '#87ea5c',
+    Nomad: '#ffd400',
+    Revolut: '#faff00',
   };
 
   const mapCategoryToColor = (category: string) =>

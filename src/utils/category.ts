@@ -37,6 +37,9 @@ import {
   sicoob,
   sofisa,
   toro,
+  wise,
+  nomad,
+  revolut,
 } from 'assets';
 import money from 'assets/categories/money.svg';
 import piggyBank from 'assets/categories/piggy-bank.svg';
@@ -246,6 +249,21 @@ export const category = [
     icon: toro,
     name: 'Toro Investimentos',
     category: 'investments',
+  },
+  {
+    icon: wise,
+    name: 'Wise',
+    category: 'bank',
+  },
+  {
+    icon: nomad,
+    name: 'Nomad',
+    category: 'bank',
+  },
+  {
+    icon: revolut,
+    name: 'Revolut',
+    category: 'bank',
   },
   {
     icon: piggyBank,

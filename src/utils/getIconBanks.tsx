@@ -38,6 +38,9 @@ import {
   sicoob,
   sofisa,
   toro,
+  wise,
+  nomad,
+  revolut,
 } from 'assets';
 
 export function getIconBanks(name: string) {
@@ -156,6 +159,11 @@ export function getIconBanks(name: string) {
     Sofisa: <img src={sofisa} alt="Sofisa" className="h-12 w-12 rounded-md" />,
     'Toro Investimentos': (
       <img src={toro} alt="Toro" className="h-12 w-12 rounded-md" />
+    ),
+    Wise: <img src={wise} alt="Wise" className="h-12 w-12 rounded-md" />,
+    Nomad: <img src={nomad} alt="Nomad" className="h-12 w-12 rounded-md" />,
+    Revolut: (
+      <img src={revolut} alt="Revolut" className="h-12 w-12 rounded-md" />
     ),
   };
 
