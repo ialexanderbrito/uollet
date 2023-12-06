@@ -61,7 +61,7 @@ export function CurrencyConverter({
               Converter de
             </label>
             <select
-              className="h-14 w-full rounded-md border-[1.5px] border-solid bg-background text-sm accent-primary focus:border-primary dark:border-background-card-dark dark:bg-background-dark dark:text-text-dark dark:accent-primary-dark focus:dark:border-primary-dark"
+              className="h-14 w-full rounded-md border-[1.5px] border-solid bg-background-card text-sm accent-primary focus:border-primary dark:border-background-card-dark dark:bg-background-card-dark dark:text-text-dark dark:accent-primary-dark focus:dark:border-primary-dark"
               defaultValue={currencyOrigin}
               value={currencyOrigin}
               onChange={(event) => setCurrencyOrigin(event.target.value)}
@@ -104,7 +104,7 @@ export function CurrencyConverter({
               Para
             </label>
             <select
-              className="h-14 w-full rounded-md border-[1.5px] border-solid bg-background text-sm accent-primary focus:border-primary dark:border-background-card-dark dark:bg-background-dark dark:text-text-dark dark:accent-primary-dark focus:dark:border-primary-dark"
+              className="h-14 w-full rounded-md border-[1.5px] border-solid bg-background-card text-sm accent-primary focus:border-primary dark:border-background-card-dark dark:bg-background-card-dark dark:text-text-dark dark:accent-primary-dark focus:dark:border-primary-dark"
               defaultValue={currencyDestination}
               value={currencyDestination}
               onChange={(event) => setCurrencyDestination(event.target.value)}
@@ -131,7 +131,7 @@ export function CurrencyConverter({
         </div>
 
         <CurrencyInput
-          className="h-14 rounded-md bg-background pl-2 dark:bg-background-dark dark:text-text-dark"
+          className="h-14 rounded-md bg-background-card pl-2 dark:bg-background-card-dark dark:text-text-dark"
           placeholder="Valor"
           defaultValue={0}
           decimalsLimit={2}

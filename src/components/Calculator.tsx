@@ -55,7 +55,7 @@ export function Calculator({
         <div className="rounded-lg">
           <input
             type="text"
-            className="mb-2 h-14 w-full cursor-default rounded bg-background p-2 text-xl text-title outline-none dark:bg-background-dark dark:text-text-dark"
+            className="mb-2 h-14 w-full cursor-default rounded bg-background-card p-2 text-xl text-title outline-none dark:bg-background-card-dark dark:text-text-dark"
             value={input}
             readOnly
           />

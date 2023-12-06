@@ -111,7 +111,7 @@ export function MyDialog({
               >
                 <Dialog.Panel
                   className={cn(
-                    'w-full max-w-md transform overflow-hidden rounded-md bg-background p-6 text-left align-middle transition-all dark:bg-background-dark',
+                    'w-full max-w-md transform overflow-hidden rounded-md border bg-background p-6 text-left align-middle transition-all dark:border-background-card-dark dark:bg-background-dark',
                     about && 'max-w-xs',
                     size === 'xs' && 'max-w-xs',
                     size === 'sm' && 'max-w-sm',
