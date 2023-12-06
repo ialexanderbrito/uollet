@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { Combobox, Transition } from '@headlessui/react';
 import { CaretUpDown, Check } from '@phosphor-icons/react';
+import creditCard from 'assets/categories/credit-card.svg';
 
 import { cn } from 'utils';
 
@@ -14,6 +15,7 @@ interface AutocompleteProps<T> {
   placeholder?: string;
   isNavigate?: boolean;
   displayValue: (value: T) => string;
+  displayImage?: (value: T) => string;
 }
 
 export function Autocomplete<T>({
@@ -24,6 +26,7 @@ export function Autocomplete<T>({
   placeholder = 'Digite sua conta: Ex: Bradesco',
   isNavigate = false,
   displayValue,
+  displayImage,
 }: AutocompleteProps<T>) {
   const navigate = useNavigate();
   const [query, setQuery] = useState('');
@@ -37,6 +40,18 @@ export function Autocomplete<T>({
             .replace(/\s+/g, '')
             .includes(query.toLowerCase().replace(/\s+/g, '')),
         );
+
+  function renderImage(item: T): string | undefined {
+    if (displayValue(item).startsWith('Cartão') && displayImage) {
+      return creditCard;
+    }
+
+    if (displayImage) {
+      return displayImage(item);
+    } else {
+      return undefined;
+    }
+  }
 
   return (
     <Combobox value={selected} onChange={setSelected}>
@@ -81,6 +96,13 @@ export function Autocomplete<T>({
                 >
                   {({ selected }) => (
                     <>
+                      {displayImage && (
+                        <img
+                          src={renderImage(item)}
+                          alt={displayValue(item)}
+                          className="absolute inset-y-0 left-2 top-1.5 h-6 w-6 rounded-md bg-success bg-contain fill-text"
+                        />
+                      )}
                       <span
                         className={cn(
                           'block truncate text-title hover:text-white focus:text-white dark:text-title-dark',

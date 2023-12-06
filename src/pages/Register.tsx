@@ -220,6 +220,7 @@ export function Register() {
                     'border-[1.5px] border-danger',
                 )}
                 displayValue={(value) => value.name}
+                displayImage={(value) => value.icon}
               />
               {formik.errors.category && formik.touched.category && (
                 <InputError
