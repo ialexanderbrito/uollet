@@ -1,3 +1,38 @@
+# [3.0.0](https://github.com/ialexanderbrito/finance/compare/v2.19.0...v3.0.0) (2023-12-06)
+
+
+### Bug Fixes
+
+* about version ([068acf3](https://github.com/ialexanderbrito/finance/commit/068acf3db256b5bac733b7b59f1c042ffb6530dc))
+* color button dark variant outilne ([acd4993](https://github.com/ialexanderbrito/finance/commit/acd49939d7eda048abd86a80a6fc3c3a5f0e73b8))
+* update data and values in edit register ([0cee532](https://github.com/ialexanderbrito/finance/commit/0cee532b2c7f73224fa01cb8eeb83088c6425d85))
+* update label autocomplete ([16a030f](https://github.com/ialexanderbrito/finance/commit/16a030fa30d8b7c1d855fc35223d8020e226d82c))
+
+
+### Features
+
+* add icon in autocomplete component ([d7ab6dc](https://github.com/ialexanderbrito/finance/commit/d7ab6dcdb59c4e75597b1943d84ceaee6603bb9a))
+* add new assets ([211f4f5](https://github.com/ialexanderbrito/finance/commit/211f4f5e2bd87be1a4a19368677bbdf8ae3c740f))
+* add new assets banks and bank list ([2e0a49a](https://github.com/ialexanderbrito/finance/commit/2e0a49afc2914190709bd8cc6b64b802f6b3201d))
+* add new component button ([e89785d](https://github.com/ialexanderbrito/finance/commit/e89785dc386880d66ce0656ae2cb890e2f9f8f0a))
+* add new styles colors ([080031e](https://github.com/ialexanderbrito/finance/commit/080031e6f4238f148e4a8cf7c2b8b5f4a0bf1b8c))
+* add props color in component loading ([4526076](https://github.com/ialexanderbrito/finance/commit/4526076410367ac5d47de331b06638edeaa426e0))
+* add props investiment in components ([4bf3d47](https://github.com/ialexanderbrito/finance/commit/4bf3d47c08a94ffc9b6039f5e7d8082892432615))
+* update assets ([10bb617](https://github.com/ialexanderbrito/finance/commit/10bb617406c8753653b15b637d74708dcf56c726))
+* update important dependencies, added latest version of vite among other changes ([019395b](https://github.com/ialexanderbrito/finance/commit/019395bb74eab58fafc82d9d2b96deb933645469))
+* update loading and button in pages ([3fd9d3f](https://github.com/ialexanderbrito/finance/commit/3fd9d3f1d84d0234c1f433c21d4e11e0613ac072))
+* update name banks and update get colors ([6599bd5](https://github.com/ialexanderbrito/finance/commit/6599bd58b1a8b69d04ecef0a6864f75d80f34f1e))
+
+
+### Reverts
+
+* default ci/cd ([3cded63](https://github.com/ialexanderbrito/finance/commit/3cded6308a5633318b77e69ee167815ffe72e614))
+
+
+### BREAKING CHANGES
+
+* Vite v5
+
 # [2.19.0](https://github.com/ialexanderbrito/finance/compare/v2.18.0...v2.19.0) (2023-11-29)
 
 
