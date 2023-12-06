@@ -22,7 +22,7 @@ export function Button({
         'flex h-14 w-full items-center justify-center rounded-lg bg-primary p-4 text-center text-sm text-white disabled:cursor-not-allowed disabled:opacity-25 dark:bg-primary-dark',
         isInvestiment && 'bg-investments-primary dark:bg-investments-primary',
         variant === 'outline' &&
-          'border-[1.5px] border-solid border-primary bg-transparent text-primary dark:border-primary-dark dark:text-white',
+          'border-[1.5px] border-solid border-primary bg-transparent text-primary dark:border-primary-dark dark:bg-transparent dark:text-white',
         inline && 'w-32',
       )}
       {...rest}
