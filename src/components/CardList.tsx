@@ -102,7 +102,7 @@ export function CardList({
           <img
             src={verifyIcon(category)}
             alt={category}
-            className="h-5 w-5 rounded bg-[#12a454] bg-contain fill-text"
+            className="h-5 w-5 rounded bg-success bg-contain fill-text"
           />
           {category}
         </span>
