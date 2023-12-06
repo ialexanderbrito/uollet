@@ -1,3 +1,10 @@
+## [3.0.1](https://github.com/ialexanderbrito/finance/compare/v3.0.0...v3.0.1) (2023-12-06)
+
+
+### Bug Fixes
+
+* update background input modal and border modal in dark mode ([3792a17](https://github.com/ialexanderbrito/finance/commit/3792a17733351ba44d6c9a7c216d3448e81f1a42))
+
 # [3.0.0](https://github.com/ialexanderbrito/finance/compare/v2.19.0...v3.0.0) (2023-12-06)
 
 
