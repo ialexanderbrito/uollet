@@ -99,7 +99,7 @@ export function CreditCard({
           <div className="absolute z-10 -mt-52 ml-80 flex sm:ml-96">
             <button
               onClick={onDelete}
-              className="flex h-8 w-8 items-center justify-center rounded-full bg-red-500 text-white"
+              className="flex h-8 w-8 items-center justify-center rounded-full bg-danger text-white"
             >
               <X size={20} />
             </button>
@@ -202,15 +202,12 @@ export function CreditCard({
               onClick={onCreate}
             >
               <button
-                className="flex h-16 w-16 items-center justify-center rounded-full bg-secondary text-white
-                transition-all hover:bg-secondaryDark dark:bg-secondaryDark dark:hover:bg-secondary
+                className="flex h-12 w-12 items-center justify-center rounded-md bg-primary text-white
+                transition-all hover:bg-primary-dark dark:bg-primary-dark dark:hover:bg-primary
                 "
               >
-                <Plus size={30} />
+                <Plus size={24} />
               </button>
-              <p className="mt-2 flex w-full justify-center rounded-md bg-secondary py-2 text-sm font-medium tracking-wider text-white dark:bg-secondaryDark">
-                Adicionar cartão
-              </p>
             </div>
           </>
         )}

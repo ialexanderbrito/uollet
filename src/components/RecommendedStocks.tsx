@@ -23,8 +23,8 @@ export function RecommendedStocks({
   if (recommendedStocks.length === 0) {
     return (
       <div className="flex w-full flex-col justify-start gap-0 space-y-2 md:space-y-0 lg:flex-row">
-        <div className="flex w-full flex-col text-title dark:text-textDark">
-          <span className="text-sm font-bold text-title dark:text-textDark">
+        <div className="flex w-full flex-col text-title dark:text-text-dark">
+          <span className="text-sm font-bold text-title dark:text-text-dark">
             Nenhuma ação relacionada encontrada
           </span>
         </div>
@@ -50,10 +50,10 @@ export function RecommendedStocks({
             />
 
             <div className="ml-4">
-              <p className="text-lg font-medium text-title dark:text-textDark md:w-52 md:truncate lg:w-64">
+              <p className="text-lg font-medium text-title dark:text-text-dark md:w-52 md:truncate">
                 {recommendedStock.longName}
               </p>
-              <p className="text-sm text-title dark:text-textDark">
+              <p className="text-sm text-title dark:text-text-dark">
                 <span>{recommendedStock.symbol}</span>
                 <span
                   className={cn(

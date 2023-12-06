@@ -48,6 +48,7 @@ export function Stock() {
   const {
     stock,
     recommendedStocks,
+    loading,
     loadingRecommendedStocks,
     saveFavoriteStock,
     verifyIsFavorite,
@@ -63,17 +64,17 @@ export function Stock() {
   const isStock = stock.fundamentalIndicators?.type === 'stock' && true;
   const isFiis = stock.fundamentalIndicators?.type === 'fii' && true;
 
-  if (loadingRecommendedStocks) {
-    return <Loading />;
+  if (loadingRecommendedStocks || loading) {
+    return <Loading color="#170e39" />;
   }
 
   return (
-    <div className="flex w-full flex-col items-center justify-center bg-background dark:bg-backgroundDark">
+    <div className="flex w-full flex-col items-center justify-center bg-background dark:bg-background-dark">
       <Header
         variant="secondary"
         title={`Ação ${params.stock}`}
-        isInvestiment
         navigateLink="/investments"
+        isInvestiment
       />
 
       <div className="flex min-h-screen w-full flex-col items-center justify-start gap-4 p-4">
@@ -87,7 +88,7 @@ export function Stock() {
               alt={stock.longName}
             />
             <div className="flex flex-col">
-              <span className="flex flex-row items-center gap-4 text-2xl font-bold text-title dark:text-textDark">
+              <span className="flex flex-row items-center gap-4 text-2xl font-bold text-title dark:text-text-dark">
                 {stock.symbol || stock.longName}
                 {verifyIsFavorite(stock.symbol) ? (
                   <Star
@@ -102,17 +103,17 @@ export function Stock() {
                   />
                 )}
               </span>
-              <h1 className="text-sm text-title dark:text-textDark">
+              <h1 className="text-sm text-title dark:text-text-dark">
                 {stock.longName || stock.symbol}
               </h1>
             </div>
           </div>
 
           <div className="flex flex-col md:items-end">
-            <span className="w-fit text-sm text-title dark:text-textDark">
+            <span className="w-fit text-sm text-title dark:text-text-dark">
               Última atualização
             </span>
-            <span className="w-fit text-sm font-bold text-title dark:text-textDark">
+            <span className="w-fit text-sm font-bold text-title dark:text-text-dark">
               {stock?.regularMarketTime && (
                 <>
                   {format(
@@ -126,28 +127,28 @@ export function Stock() {
         </div>
 
         <div className="mt-2 flex w-full flex-col justify-start gap-0 space-y-2 md:space-y-0 lg:flex-row">
-          <div className="flex w-full flex-col text-title dark:text-textDark">
+          <div className="flex w-full flex-col text-title dark:text-text-dark">
             <span className="text-sm">Preço</span>
             <span className="text-xl font-bold">
               {formatCurrency(stock.regularMarketPrice, stock.currency)}
             </span>
           </div>
 
-          <div className="flex w-full flex-col text-title dark:text-textDark">
+          <div className="flex w-full flex-col text-title dark:text-text-dark">
             <span className="text-sm">Abertura (dia)</span>
             <span className="text-xl font-bold">
               {formatCurrency(stock.regularMarketOpen, stock.currency)}
             </span>
           </div>
 
-          <div className="flex w-full flex-col text-title dark:text-textDark">
+          <div className="flex w-full flex-col text-title dark:text-text-dark">
             <span className="text-sm">Alta (dia)</span>
             <span className="text-xl font-bold">
               {formatCurrency(stock.regularMarketDayHigh, stock.currency)}
             </span>
           </div>
 
-          <div className="flex w-full flex-col text-title dark:text-textDark">
+          <div className="flex w-full flex-col text-title dark:text-text-dark">
             <span className="text-sm">Baixa (dia)</span>
             <span className="text-xl font-bold">
               {formatCurrency(stock.regularMarketDayLow, stock.currency)}
@@ -155,7 +156,7 @@ export function Stock() {
           </div>
 
           <div className="flex w-full flex-col">
-            <span className="text-sm text-title dark:text-textDark">
+            <span className="text-sm text-title dark:text-text-dark">
               Variação (dia)
             </span>
             <span
@@ -172,21 +173,21 @@ export function Stock() {
             </span>
           </div>
 
-          <div className="flex w-full flex-col text-title dark:text-textDark">
+          <div className="flex w-full flex-col text-title dark:text-text-dark">
             <span className="text-sm">Min. 52 Semanas</span>
             <span className="text-xl font-bold">
               {formatCurrency(stock.fiftyTwoWeekLow, stock.currency)}
             </span>
           </div>
 
-          <div className="flex w-full flex-col text-title dark:text-textDark">
+          <div className="flex w-full flex-col text-title dark:text-text-dark">
             <span className="text-sm">Máx. 52 Semanas</span>
             <span className="text-xl font-bold">
               {formatCurrency(stock.fiftyTwoWeekHigh, stock.currency)}
             </span>
           </div>
 
-          <div className="flex w-full flex-col text-title dark:text-textDark">
+          <div className="flex w-full flex-col text-title dark:text-text-dark">
             <span className="text-sm">Capitalização de mercado</span>
             <span
               className="text-xl font-bold"
@@ -199,10 +200,10 @@ export function Stock() {
 
         {loadingRecommendedStocks ? (
           <div className="flex w-full items-center justify-center">
-            <Jelly color="#5636d3" />
+            <Jelly color="#170e39" />
           </div>
         ) : (
-          <div className="grid grid-cols-1 gap-8 text-title dark:text-textDark md:grid-cols-3 lg:grid-cols-4">
+          <div className="grid grid-cols-1 gap-8 text-title dark:text-text-dark md:grid-cols-3 lg:grid-cols-4">
             <div className="md:col-span-2 lg:col-span-3">
               <div className="flex h-auto min-h-full w-full flex-col px-2 py-8">
                 <div className="flex flex-row gap-2">
@@ -222,7 +223,7 @@ export function Stock() {
                     <span className="text-sm opacity-90">{stock.symbol}</span>
                   </div>
                 </div>
-                <div className="relative mt-4 w-full rounded-xl bg-backgroundCard p-2 pt-4 dark:bg-backgroundCardDark">
+                <div className="relative mt-4 w-full rounded-xl bg-background-card p-2 pt-4 dark:bg-background-card-dark">
                   <div className="ml-5 flex flex-col">
                     <div className="flex flex-row items-center justify-between">
                       <span
@@ -301,7 +302,7 @@ export function Stock() {
                   <div className="h-[380px] w-full">
                     <div className="flex flex-row items-center justify-end">
                       <select
-                        className="rounded-md bg-backgroundCard text-sm dark:bg-backgroundCardDark"
+                        className="rounded-md bg-background-card text-sm dark:bg-background-card-dark"
                         onChange={(e) =>
                           setFilter(e.target.value as 'close' | 'high' | 'low')
                         }
@@ -312,7 +313,7 @@ export function Stock() {
                         <option value="low">Mínima</option>
                       </select>
                     </div>
-                    <h1 className="text-xl font-bold text-title dark:text-textDark">
+                    <h1 className="text-xl font-bold text-title dark:text-text-dark">
                       <Line
                         className="h-[350px] w-full"
                         options={optionsChart}
@@ -354,7 +355,7 @@ export function Stock() {
             </div>
 
             <div className="mt-0 flex flex-col space-y-2 md:mt-24">
-              <h2 className="text-xl font-bold text-title dark:text-textDark">
+              <h2 className="text-xl font-bold text-title dark:text-text-dark">
                 Ações relacionadas
               </h2>
               <RecommendedStocks

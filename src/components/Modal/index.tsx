@@ -2,6 +2,8 @@ import { Fragment } from 'react';
 
 import { Dialog, Transition } from '@headlessui/react';
 
+import { Button } from 'components/Button';
+
 import { cn } from 'utils/cn';
 
 import { useToast } from 'contexts/Toast';
@@ -109,7 +111,7 @@ export function MyDialog({
               >
                 <Dialog.Panel
                   className={cn(
-                    'w-full max-w-md transform overflow-hidden rounded-md bg-white p-6 text-left align-middle transition-all dark:bg-backgroundCardDark',
+                    'w-full max-w-md transform overflow-hidden rounded-md bg-background p-6 text-left align-middle transition-all dark:bg-background-dark',
                     about && 'max-w-xs',
                     size === 'xs' && 'max-w-xs',
                     size === 'sm' && 'max-w-sm',
@@ -124,18 +126,18 @@ export function MyDialog({
                   )}
                 >
                   <h3
-                    className={`text-lg font-medium leading-6 text-title dark:text-titleDark ${
+                    className={`text-lg font-medium leading-6 text-title dark:text-title-dark ${
                       about && 'text-center'
                     }`}
                   >
                     {title}
                   </h3>
                   <div className="mt-2">
-                    <p className="text-sm text-text dark:text-textDark">
+                    <p className="text-sm text-text dark:text-text-dark">
                       {description}
                       {email && (
-                        <a href="mailto:eu@ialexanderbrito.dev">
-                          <span className="text-sm text-text underline dark:text-textDark">
+                        <a href="mailto:contato@uollet.com">
+                          <span className="text-sm text-text underline dark:text-text-dark">
                             {email}
                           </span>
                         </a>
@@ -150,9 +152,9 @@ export function MyDialog({
                       <input
                         type="text"
                         className={cn(
-                          'h-14 w-full rounded-lg bg-background p-4 text-title outline-none focus:ring-2 focus:ring-primary dark:bg-backgroundCardDark dark:text-titleDark dark:focus:ring-primaryDark',
+                          'h-14 w-full rounded-lg bg-background p-4 text-title outline-none focus:ring-2 focus:ring-primary dark:bg-background-dark dark:text-title-dark dark:focus:ring-primary-dark',
                           username.length <= 2 &&
-                            'border-[1.5px] border-red-500',
+                            'border-[1.5px] border-danger',
                         )}
                         placeholder="Digite seu nome"
                         value={username}
@@ -167,7 +169,7 @@ export function MyDialog({
                       <div className="flex items-center gap-2">
                         <input
                           type="checkbox"
-                          className="h-4 w-4 rounded-md border-[1.5px] border-solid border-secondary accent-secondary dark:border-secondaryDark dark:accent-secondaryDark"
+                          className="h-4 w-4 rounded-md border-[1.5px] border-solid border-primary accent-primary dark:border-primary-dark dark:accent-primary-dark"
                           onChange={() =>
                             setConfirmTerms({
                               ...confirmTerms,
@@ -175,7 +177,7 @@ export function MyDialog({
                             })
                           }
                         />
-                        <p className="text-sm text-text dark:text-textDark">
+                        <p className="text-sm text-text dark:text-text-dark">
                           Eu entendo que essa ação não pode ser desfeita.
                         </p>
                       </div>
@@ -183,7 +185,7 @@ export function MyDialog({
                       <div className="flex items-center gap-2">
                         <input
                           type="checkbox"
-                          className="h-4 w-4 rounded-md border-[1.5px] border-solid border-secondary accent-secondary dark:border-secondaryDark dark:accent-secondaryDark"
+                          className="h-4 w-4 rounded-md border-[1.5px] border-solid border-primary accent-primary dark:border-primary-dark dark:accent-primary-dark"
                           onChange={() =>
                             setConfirmTerms({
                               ...confirmTerms,
@@ -191,7 +193,7 @@ export function MyDialog({
                             })
                           }
                         />
-                        <p className="text-sm text-text dark:text-textDark">
+                        <p className="text-sm text-text dark:text-text-dark">
                           Eu entendo que todos os meus dados serão perdidos.
                         </p>
                       </div>
@@ -200,51 +202,51 @@ export function MyDialog({
 
                   <div className="mt-4 flex justify-end">
                     {name && (
-                      <button
+                      <Button
                         type="button"
-                        className="h-14 w-32 rounded-lg bg-secondary p-4 text-sm text-white dark:bg-secondaryDark"
+                        inline
                         onClick={() => {
                           handleSubmitName();
                           closeModal();
                         }}
                       >
                         Salvar
-                      </button>
+                      </Button>
                     )}
                   </div>
 
                   <div className="mt-4 flex justify-around">
                     {buttonPrimary && (
-                      <button
+                      <Button
+                        inline
+                        variant="outline"
+                        isInvestiment={isInvestiment}
                         type="submit"
-                        className="h-14 w-32 rounded-lg border-[1.5px] border-solid border-secondary p-4 text-sm text-secondary dark:border-secondaryDark dark:text-secondaryDark"
                         onClick={closeModal}
                       >
                         Fechar
-                      </button>
+                      </Button>
                     )}
 
                     {buttonSecondary && (
-                      <button
+                      <Button
+                        inline
                         type="submit"
-                        className={cn(
-                          'h-14 w-32 rounded-lg bg-secondary p-4 text-sm text-white dark:bg-secondaryDark',
-                          isInvestiment && 'bg-primaryDark dark:bg-primary',
-                        )}
+                        isInvestiment={isInvestiment}
                         onClick={handleChangeButtonSecondary}
                       >
                         {textButtonSecondary}
-                      </button>
+                      </Button>
                     )}
 
                     {deleteAccount && (
-                      <button
+                      <Button
                         type="submit"
-                        className="h-14 w-32 rounded-lg bg-secondary p-4 text-sm text-white dark:bg-secondaryDark"
+                        inline
                         onClick={deleteAccountVerify}
                       >
                         Excluir
-                      </button>
+                      </Button>
                     )}
                   </div>
                 </Dialog.Panel>

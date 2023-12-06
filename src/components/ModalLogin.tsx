@@ -9,6 +9,8 @@ import { useTheme } from 'contexts/Theme';
 
 import { useLogin } from 'hooks/useLogin';
 
+import { Button } from './Button';
+
 interface MyDialogProps {
   closeModal: () => void;
   isOpen: boolean;
@@ -68,14 +70,14 @@ export function ModalLogin({ closeModal, isOpen }: MyDialogProps) {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-md bg-background p-6 text-left align-middle transition-all dark:bg-backgroundDark">
-                  <h3 className="text-lg font-medium leading-6 text-title dark:text-titleDark">
+                <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-md bg-background p-6 text-left align-middle transition-all dark:bg-background-dark">
+                  <h3 className="text-lg font-medium leading-6 text-title dark:text-title-dark">
                     {register && 'Faça sua conta agora'}
                     {forgetPassword && 'Restaure sua senha'}
                     {!register && !forgetPassword && 'Faça seu login'}
                   </h3>
                   <div className="mt-2">
-                    <p className="text-sm text-text dark:text-textDark">
+                    <p className="text-sm text-text dark:text-text-dark">
                       {register && 'Crie sua conta para controlar seus gastos'}
                       {forgetPassword &&
                         'Digite seu email para receber um link de restauração'}
@@ -90,7 +92,7 @@ export function ModalLogin({ closeModal, isOpen }: MyDialogProps) {
                       <div className="flex items-center gap-2">
                         <input
                           type="email"
-                          className="h-14 w-full rounded-lg bg-white p-4 text-title outline-none focus:ring-2 focus:ring-primary dark:bg-backgroundCardDark dark:text-titleDark focus:dark:ring-primaryDark"
+                          className="h-14 w-full rounded-lg bg-background-card p-4 text-title outline-none focus:ring-2 focus:ring-primary dark:bg-background-card-dark dark:text-title-dark focus:dark:ring-primary-dark"
                           placeholder="Email"
                           {...emailInput()}
                         />
@@ -101,7 +103,7 @@ export function ModalLogin({ closeModal, isOpen }: MyDialogProps) {
                           <div className="flex items-center gap-2">
                             <input
                               type={passwordType}
-                              className="h-14 w-full rounded-lg bg-white p-4 text-title outline-none focus:ring-2 focus:ring-primary dark:bg-backgroundCardDark dark:text-titleDark focus:dark:ring-primaryDark"
+                              className="h-14 w-full rounded-lg bg-background-card p-4 text-title outline-none focus:ring-2 focus:ring-primary dark:bg-background-card-dark dark:text-title-dark focus:dark:ring-primary-dark"
                               placeholder="Senha"
                               {...(register
                                 ? formikRegister.getFieldProps('password')
@@ -110,24 +112,24 @@ export function ModalLogin({ closeModal, isOpen }: MyDialogProps) {
 
                             <button
                               type="button"
-                              className="h-14 w-14 rounded-lg bg-white p-4 text-title outline-none hover:bg-gray-200 hover:transition-all dark:bg-backgroundCardDark dark:text-titleDark dark:hover:bg-gray-700"
+                              className="h-14 w-14 rounded-lg bg-background-card p-4 text-title outline-none hover:bg-gray-200 hover:transition-all dark:bg-background-card-dark dark:text-title-dark dark:hover:bg-gray-700"
                               onClick={togglePassword}
                             >
                               {passwordType === 'password' ? (
                                 <EyeClosed
                                   size={20}
-                                  className="text-title dark:text-titleDark"
+                                  className="text-title dark:text-title-dark"
                                 />
                               ) : (
                                 <Eye
                                   size={20}
-                                  className="text-title dark:text-titleDark"
+                                  className="text-title dark:text-title-dark"
                                 />
                               )}
                             </button>
                           </div>
                           {register && (
-                            <p className="ml-1 text-xs text-text dark:text-textDark">
+                            <p className="ml-1 text-xs text-text dark:text-text-dark">
                               Por favor, certifique-se de inserir pelo menos 8
                               caracteres
                             </p>
@@ -139,7 +141,7 @@ export function ModalLogin({ closeModal, isOpen }: MyDialogProps) {
                         <div className="flex items-center gap-2">
                           <input
                             type={passwordType}
-                            className="h-14 w-full rounded-lg bg-white p-4 text-title outline-none focus:ring-2 focus:ring-primary dark:bg-backgroundCardDark dark:text-titleDark focus:dark:ring-primaryDark"
+                            className="h-14 w-full rounded-lg bg-background-card p-4 text-title outline-none focus:ring-2 focus:ring-primary dark:bg-background-card-dark dark:text-title-dark focus:dark:ring-primary-dark"
                             placeholder="Confirme sua senha"
                             {...formikRegister.getFieldProps('confirmPassword')}
                           />
@@ -152,7 +154,7 @@ export function ModalLogin({ closeModal, isOpen }: MyDialogProps) {
                         className="mt-4 flex items-center justify-center"
                         onClick={() => setMagicLink(true)}
                       >
-                        <p className="cursor-pointer text-xs font-bold text-text underline hover:text-secondary dark:text-textDark hover:dark:text-secondaryDark">
+                        <p className="cursor-pointer text-xs font-bold text-text underline hover:text-primary dark:text-text-dark hover:dark:text-primary-dark">
                           Entrar com link mágico
                         </p>
                       </div>
@@ -172,79 +174,70 @@ export function ModalLogin({ closeModal, isOpen }: MyDialogProps) {
 
                     {forgetPassword && (
                       <div className="mt-4 flex justify-between">
-                        <button
+                        <Button
+                          inline
+                          variant="outline"
                           type="button"
-                          className="h-14 w-32 rounded-lg border-[1.5px] border-solid border-secondary p-4 text-sm  text-secondary dark:border-secondaryDark dark:text-secondaryDark"
                           onClick={() => {
                             setForgetPassword(false);
                           }}
                         >
                           Voltar
-                        </button>
+                        </Button>
 
-                        <button
-                          type="submit"
-                          className="flex h-14 w-32 items-center justify-center rounded-lg bg-secondary p-4 text-center text-sm text-white disabled:cursor-not-allowed disabled:opacity-25 dark:bg-secondaryDark"
-                          disabled={!captchaToken}
-                        >
+                        <Button inline type="submit" disabled={!captchaToken}>
                           {loading ? (
                             <Ring size={20} color="#fff" />
                           ) : (
                             'Enviar email'
                           )}
-                        </button>
+                        </Button>
                       </div>
                     )}
 
                     {magicLink && (
                       <div className="mt-4 flex justify-between">
-                        <button
+                        <Button
                           type="button"
-                          className="h-14 w-32 rounded-lg border-[1.5px] border-solid border-secondary p-4 text-sm  text-secondary dark:border-secondaryDark dark:text-secondaryDark"
+                          inline
+                          variant="outline"
                           onClick={() => {
                             setMagicLink(false);
                           }}
                         >
                           Voltar
-                        </button>
+                        </Button>
 
-                        <button
-                          type="submit"
-                          className="flex h-14 w-32 items-center justify-center rounded-lg bg-secondary p-4 text-center text-sm text-white disabled:cursor-not-allowed disabled:opacity-25 dark:bg-secondaryDark"
-                          disabled={!captchaToken}
-                        >
+                        <Button type="submit" inline disabled={!captchaToken}>
                           {loading ? (
                             <Ring size={20} color="#fff" />
                           ) : (
                             'Enviar email'
                           )}
-                        </button>
+                        </Button>
                       </div>
                     )}
 
                     {register && (
                       <div className="mt-4 flex justify-between">
-                        <button
+                        <Button
                           type="button"
-                          className="h-14 w-32 rounded-lg border-[1.5px] border-solid border-secondary p-4 text-sm  text-secondary dark:border-secondaryDark dark:text-secondaryDark"
+                          inline
+                          variant="outline"
                           onClick={() => {
                             setRegister(false);
                           }}
                         >
                           Voltar
-                        </button>
+                        </Button>
 
-                        <button
-                          type="submit"
-                          className="flex h-14 w-32 items-center justify-center rounded-lg bg-secondary p-4 text-center text-sm text-white disabled:cursor-not-allowed disabled:opacity-25 dark:bg-secondaryDark"
-                          disabled={!captchaToken}
-                        >
+                        <Button inline type="submit" disabled={!captchaToken}>
                           {loading ? (
                             <Ring size={20} color="#fff" />
                           ) : (
                             'Cadastrar'
                           )}
-                        </button>
+                        </Button>
                       </div>
                     )}
 
@@ -252,27 +245,23 @@ export function ModalLogin({ closeModal, isOpen }: MyDialogProps) {
                       <div className="mt-4 flex justify-between">
                         <div className="flex flex-col items-start justify-center">
                           <p
-                            className="cursor-pointer text-xs text-text hover:text-secondary dark:text-textDark hover:dark:text-secondaryDark"
+                            className="cursor-pointer text-xs text-text hover:text-primary dark:text-text-dark hover:dark:text-primary-dark"
                             onClick={() => setForgetPassword(true)}
                           >
                             Esqueci minha senha
                           </p>
 
                           <p
-                            className="cursor-pointer text-xs text-text hover:text-secondary dark:text-textDark hover:dark:text-secondaryDark"
+                            className="cursor-pointer text-xs text-text hover:text-primary dark:text-text-dark hover:dark:text-primary-dark"
                             onClick={() => setRegister(true)}
                           >
                             Não tem uma conta? Cadastre-se
                           </p>
                         </div>
 
-                        <button
-                          type="submit"
-                          className="flex h-14 w-32 items-center justify-center rounded-lg bg-secondary p-4 text-center text-sm text-white disabled:cursor-not-allowed disabled:opacity-25 dark:bg-secondaryDark"
-                          disabled={!captchaToken}
-                        >
+                        <Button type="submit" inline disabled={!captchaToken}>
                           {loading ? <Ring size={20} color="#fff" /> : 'Entrar'}
-                        </button>
+                        </Button>
                       </div>
                     )}
                   </form>

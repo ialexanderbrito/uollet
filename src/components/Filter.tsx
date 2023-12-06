@@ -1,7 +1,6 @@
 import { Funnel } from '@phosphor-icons/react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
-import { cn } from 'utils/cn';
 import { MONTHS } from 'utils/month';
 
 import { SliderNavigation } from './SliderNavigation';
@@ -53,10 +52,7 @@ export function Filter({
         {disabledFunnel && (
           <div className="flex flex-1 justify-end">
             <Funnel
-              className={cn(
-                'ml-8 cursor-pointer text-secondary dark:text-secondaryDark',
-                isInvestiment && 'text-primaryDark dark:text-primary',
-              )}
+              className="ml-8 cursor-pointer text-primary-dark dark:text-white"
               size={26}
               onClick={handleOpenModalFilter}
             />

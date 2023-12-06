@@ -49,12 +49,12 @@ export function CardList({
   return (
     <li
       className={cn(
-        'flex h-32 w-full flex-col justify-center gap-4 rounded-md bg-backgroundCard p-4 dark:bg-backgroundCardDark',
+        'flex h-32 w-full flex-col justify-center gap-4 rounded-md bg-background-card p-4 dark:bg-background-card-dark',
         className,
       )}
     >
       <div className="flex flex-row justify-between">
-        <span className="text-sm font-normal text-title dark:text-titleDark">
+        <span className="text-sm font-normal text-title dark:text-title-dark">
           {title}
         </span>
         <div className="flex flex-row gap-2">
@@ -64,8 +64,8 @@ export function CardList({
               weight="light"
               onClick={onDuplicate}
               className={cn(
-                'cursor-pointer text-secondary dark:text-secondaryDark',
-                isInvestiment && 'text-primaryDark dark:text-primary',
+                'cursor-pointer text-primary dark:text-white',
+                isInvestiment && 'text-primary-dark dark:text-primary',
               )}
             />
           )}
@@ -75,17 +75,16 @@ export function CardList({
             weight="light"
             onClick={onEdit}
             className={cn(
-              'cursor-pointer text-secondary dark:text-secondaryDark',
-              isInvestiment && 'text-primaryDark dark:text-primary',
+              'cursor-pointer text-primary dark:text-white',
+              isInvestiment && 'text-primary-dark dark:text-primary',
             )}
           />
 
           <TrashSimple
             size={18}
             weight="light"
-            color="#e83f5b"
             onClick={onClick}
-            className="cursor-pointer"
+            className="cursor-pointer text-danger"
           />
         </div>
       </div>
@@ -103,7 +102,7 @@ export function CardList({
           <img
             src={verifyIcon(category)}
             alt={category}
-            className="h-5 w-5 fill-text"
+            className="h-5 w-5 rounded bg-success bg-contain fill-text"
           />
           {category}
         </span>

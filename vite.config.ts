@@ -1,8 +1,7 @@
 import react from '@vitejs/plugin-react';
 import { defineConfig } from 'vite';
-import loadVersion from 'vite-plugin-package-version';
 import { VitePWA } from 'vite-plugin-pwa';
-import ViteRadar from 'vite-plugin-radar';
+import { VitePluginRadar } from 'vite-plugin-radar';
 import tsconfigPaths from 'vite-tsconfig-paths';
 
 import manifest from './manifest.json';
@@ -12,7 +11,6 @@ export default defineConfig({
   plugins: [
     react(),
     tsconfigPaths(),
-    loadVersion(),
     VitePWA({
       manifest,
       includeAssets: ['favicon.svg', 'apple-touch-icon.png'],
@@ -25,7 +23,7 @@ export default defineConfig({
         globIgnores: ['**/node_modules/**/*', 'sw.js', 'workbox-*.js'],
       },
     }),
-    ViteRadar({
+    VitePluginRadar({
       analytics: {
         id: 'G-1JV6ZL1PXF',
       },

@@ -4,58 +4,38 @@ import { House, Coins, Wallet, ChartPie } from '@phosphor-icons/react';
 
 import { cn } from 'utils/cn';
 
-import { useTheme } from 'contexts/Theme';
-
 interface BottomNavigatorProps {
   isInvestiment?: boolean;
 }
 
 export function BottomNavigator({ isInvestiment }: BottomNavigatorProps) {
-  const { theme } = useTheme();
   function isActive(path: string) {
     return window.location.pathname === path;
-  }
-
-  function darkColorIcon(link: string) {
-    if (isInvestiment && isActive(link)) {
-      return '#3d24a2';
-    }
-
-    if (isActive(link)) {
-      return '#ff872c';
-    }
-
-    if (theme === 'dark') {
-      return '#a5b7cc';
-    }
-
-    return '#363F5F';
   }
 
   return (
     <section
       id="bottom-navigation"
-      className="fixed bottom-5 z-10 w-60 rounded-full bg-backgroundCard opacity-95 shadow-lg dark:bg-backgroundCardDark dark:shadow-xl sm:w-[30rem]"
+      className="fixed bottom-5 z-10 w-60 rounded-full bg-background-card opacity-95 shadow-lg dark:bg-background-card-dark dark:shadow-xl sm:w-[30rem]"
     >
       <div
         id="tabs"
-        className="border-t-[1px]-background flex h-16 items-center justify-between border-solid text-title dark:text-titleDark"
+        className="border-t-[1px]-background flex h-16 items-center justify-between border-solid text-title dark:text-title-dark"
       >
         <Link
           to="/"
           className={cn(
-            'flex w-full items-center justify-center gap-2 pb-1 pt-2 hover:text-secondary focus:text-secondary',
+            'flex w-full items-center justify-center gap-2 pb-1 pt-2 hover:text-primary focus:text-primary hover:dark:text-white focus:dark:text-white',
             isActive('/') &&
-              'h-16 rounded-full bg-secondary/10 text-secondary dark:bg-secondaryDark/10',
+              'h-16 rounded-full bg-primary/10 text-primary dark:bg-primary-dark/10 dark:text-title-dark',
             isInvestiment &&
               isActive('/') &&
-              'h-16 rounded-full bg-primary/10 text-primary hover:text-primary focus:text-primary dark:bg-primaryDark/10',
+              'h-16 rounded-full bg-primary/10 text-primary hover:text-primary focus:text-primary dark:bg-primary-dark/10 hover:dark:text-white focus:dark:text-white',
           )}
         >
           <House
             size={25}
-            className="inline-block"
-            color={darkColorIcon('/')}
+            className={cn('inline-block ', isActive('/') && 'text-primary')}
             weight={isActive('/') ? 'fill' : 'light'}
           />
           <span className="tab tab-explore hidden text-sm sm:block">
@@ -66,18 +46,20 @@ export function BottomNavigator({ isInvestiment }: BottomNavigatorProps) {
         <Link
           to="/wallet"
           className={cn(
-            'flex w-full items-center justify-center gap-2 pb-1 pt-2 hover:text-secondary focus:text-secondary',
+            'flex w-full items-center justify-center gap-2 pb-1 pt-2 hover:text-primary focus:text-primary hover:dark:text-white focus:dark:text-white',
             isActive('/wallet') &&
-              'h-16 rounded-full bg-secondary/10 text-secondary dark:bg-secondaryDark/10',
+              'h-16 rounded-full bg-primary/10 text-primary dark:bg-primary-dark/10 dark:text-title-dark',
             isInvestiment &&
               isActive('/wallet') &&
-              'h-16 rounded-full bg-primary/10 text-primary hover:text-primary focus:text-primary dark:bg-primaryDark/10',
+              'h-16 rounded-full bg-primary/10 text-primary hover:text-primary focus:text-primary dark:bg-primary-dark/10 hover:dark:text-white focus:dark:text-white',
           )}
         >
           <Wallet
             size={25}
-            className="inline-block"
-            color={darkColorIcon('/wallet')}
+            className={cn(
+              'inline-block ',
+              isActive('/wallet') && 'text-primary',
+            )}
             weight={isActive('/wallet') ? 'fill' : 'light'}
           />
           <span className="tab tab-explore hidden text-sm sm:block">
@@ -88,18 +70,20 @@ export function BottomNavigator({ isInvestiment }: BottomNavigatorProps) {
         <Link
           to="/register"
           className={cn(
-            'flex w-full items-center justify-center gap-2 pb-1 pt-2 hover:text-secondary focus:text-secondary',
+            'flex w-full items-center justify-center gap-2 pb-1 pt-2 hover:text-primary focus:text-primary hover:dark:text-white focus:dark:text-white',
             isActive('/register') &&
-              'h-16 rounded-full bg-secondary/10 text-secondary dark:bg-secondaryDark/10',
+              'h-16 rounded-full bg-primary/10 text-primary dark:bg-primary-dark/10 dark:text-title-dark',
             isInvestiment &&
               isActive('/register') &&
-              'h-16 rounded-full bg-primary/10 text-primary hover:text-primary focus:text-primary dark:bg-primaryDark/10',
+              'h-16 rounded-full bg-primary/10 text-primary hover:text-primary focus:text-primary dark:bg-primary-dark/10 hover:dark:text-white focus:dark:text-white',
           )}
         >
           <Coins
             size={25}
-            className="inline-block"
-            color={darkColorIcon('/register')}
+            className={cn(
+              'inline-block ',
+              isActive('/register') && 'text-primary',
+            )}
             weight={isActive('/register') ? 'fill' : 'light'}
           />
           <span className="tab tab-explore hidden text-sm sm:block">
@@ -110,18 +94,20 @@ export function BottomNavigator({ isInvestiment }: BottomNavigatorProps) {
         <Link
           to="/resume"
           className={cn(
-            'flex w-full items-center justify-center gap-2 pb-1 pt-2 hover:text-secondary focus:text-secondary',
+            'flex w-full items-center justify-center gap-2 pb-1 pt-2 hover:text-primary focus:text-primary hover:dark:text-white focus:dark:text-white',
             isActive('/resume') &&
-              'h-16 rounded-full bg-secondary/10 text-secondary dark:bg-secondaryDark/10',
+              'h-16 rounded-full bg-primary/10 text-primary dark:bg-primary-dark/10 dark:text-title-dark',
             isInvestiment &&
               isActive('/resume') &&
-              'h-16 rounded-full bg-primary/10 text-primary hover:text-primary focus:text-primary dark:bg-primaryDark/10',
+              'h-16 rounded-full bg-primary/10 text-primary hover:text-primary focus:text-primary dark:bg-primary-dark/10 hover:dark:text-white focus:dark:text-white',
           )}
         >
           <ChartPie
             size={25}
-            className="inline-block"
-            color={darkColorIcon('/resume')}
+            className={cn(
+              'inline-block ',
+              isActive('/resume') && 'text-primary',
+            )}
             weight={isActive('/resume') ? 'fill' : 'light'}
           />
           <span className="tab tab-explore hidden text-sm sm:block">

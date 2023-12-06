@@ -7,6 +7,7 @@ import Picker from '@emoji-mart/react';
 import { Sticker } from '@phosphor-icons/react';
 
 import { BottomNavigator } from 'components/BottomNavigator';
+import { Button } from 'components/Button';
 import { DatePickerInput } from 'components/DatePickerInput';
 import { Header } from 'components/Header';
 import { InputError } from 'components/InputError';
@@ -25,7 +26,7 @@ export function RegisterGoals() {
   const [showEmojis, setShowEmojis] = useState(false);
 
   return (
-    <div className="flex w-full flex-col items-center bg-background dark:bg-backgroundDark">
+    <div className="flex w-full flex-col items-center bg-background dark:bg-background-dark">
       <Header title="Metas" />
 
       <form className="flex w-full flex-col" onSubmit={formik.handleSubmit}>
@@ -35,10 +36,10 @@ export function RegisterGoals() {
               <input
                 type="text"
                 className={cn(
-                  'h-14 w-full rounded-lg bg-white p-4 text-title outline-none focus:ring-2 focus:ring-primary dark:bg-backgroundCardDark dark:text-titleDark focus:dark:ring-primaryDark',
+                  'h-14 w-full rounded-lg bg-background-card p-4 text-title outline-none focus:ring-2 focus:ring-primary dark:bg-background-card-dark dark:text-title-dark focus:dark:ring-primary-dark',
                   formik.errors.title &&
                     formik.touched.title &&
-                    'border-[1.5px] border-red-500',
+                    'border-[1.5px] border-danger',
                 )}
                 placeholder="Nome da meta"
                 {...formik.getFieldProps('title')}
@@ -56,10 +57,10 @@ export function RegisterGoals() {
                 <input
                   type="text"
                   className={cn(
-                    'h-14 w-full rounded-lg bg-white p-4 text-title outline-none focus:ring-2 focus:ring-primary dark:bg-backgroundCardDark dark:text-titleDark focus:dark:ring-primaryDark',
+                    'h-14 w-full rounded-lg bg-background-card p-4 text-title outline-none focus:ring-2 focus:ring-primary dark:bg-background-card-dark dark:text-title-dark focus:dark:ring-primary-dark',
                     formik.errors.emoji &&
                       formik.touched.emoji &&
-                      'border-[1.5px] border-red-500',
+                      'border-[1.5px] border-danger',
                   )}
                   placeholder="Emoji"
                   maxLength={1}
@@ -77,10 +78,10 @@ export function RegisterGoals() {
               <button
                 type="button"
                 className={cn(
-                  'h-14 w-14 rounded-lg bg-white p-4 text-title outline-none dark:bg-backgroundCardDark dark:text-titleDark',
+                  'h-14 w-14 rounded-lg bg-background-card p-4 text-title outline-none dark:bg-background-card-dark dark:text-title-dark',
                   formik.errors.emoji &&
                     formik.touched.emoji &&
-                    'border-[1.5px] border-red-500',
+                    'border-[1.5px] border-danger',
                 )}
                 onClick={() => {
                   setShowEmojis(!showEmojis);
@@ -90,12 +91,12 @@ export function RegisterGoals() {
                   <Sticker
                     weight="fill"
                     size={20}
-                    className="text-title dark:text-titleDark"
+                    className="text-title dark:text-title-dark"
                   />
                 ) : (
                   <Sticker
                     size={20}
-                    className="text-title dark:text-titleDark"
+                    className="text-title dark:text-title-dark"
                   />
                 )}
               </button>
@@ -112,7 +113,7 @@ export function RegisterGoals() {
                     }}
                     maxFrequentRows={0}
                     maxLength={1}
-                    theme="light"
+                    theme={theme === 'light' ? 'light' : 'dark'}
                     locale="pt"
                   />
                 </div>
@@ -122,10 +123,10 @@ export function RegisterGoals() {
 
           <textarea
             className={cn(
-              'h-28 w-full resize-none rounded-lg bg-white p-4 text-title outline-none focus:ring-2 focus:ring-primary dark:bg-backgroundCardDark dark:text-titleDark focus:dark:ring-primaryDark',
+              'h-28 w-full resize-none rounded-lg bg-background-card p-4 text-title outline-none focus:ring-2 focus:ring-primary dark:bg-background-card-dark dark:text-title-dark focus:dark:ring-primary-dark',
               formik.errors.description &&
                 formik.touched.description &&
-                'border-[1.5px] border-red-500',
+                'border-[1.5px] border-danger',
             )}
             placeholder="Descrição"
             maxLength={140}
@@ -133,9 +134,9 @@ export function RegisterGoals() {
           />
           <span
             className={cn(
-              '-mt-2 text-xs text-title dark:text-titleDark',
+              '-mt-2 text-xs text-title dark:text-title-dark',
               formik.values.description.length >= 140
-                ? 'text-red-500'
+                ? 'text-dangborder-danger'
                 : 'text-gray-400',
             )}
           >
@@ -159,7 +160,7 @@ export function RegisterGoals() {
                   cx="60"
                   cy="60"
                   r="54"
-                  stroke="#FF872C"
+                  className="stroke-primary dark:stroke-primary-dark"
                   strokeWidth="12"
                   strokeDasharray={`${
                     (formik.values.description.length / 140) * 339
@@ -183,10 +184,10 @@ export function RegisterGoals() {
               formik.setFieldValue('value', value);
             }}
             className={cn(
-              'h-14 w-full rounded-lg bg-white p-4 text-title outline-none focus:ring-2 focus:ring-primary dark:bg-backgroundCardDark dark:text-titleDark focus:dark:ring-primaryDark',
+              'h-14 w-full rounded-lg bg-background-card p-4 text-title outline-none focus:ring-2 focus:ring-primary dark:bg-background-card-dark dark:text-title-dark focus:dark:ring-primary-dark',
               formik.errors.value &&
                 formik.touched.value &&
-                'border-[1.5px] border-red-500',
+                'border-[1.5px] border-danger',
             )}
           />
 
@@ -194,7 +195,7 @@ export function RegisterGoals() {
             <InputError error={true} message={formik.errors.value} />
           )}
 
-          <span className="flex items-center gap-2 text-sm text-title dark:text-titleDark">
+          <span className="flex items-center gap-2 text-sm text-title dark:text-title-dark">
             Data de início:
           </span>
           <DatePickerInput
@@ -203,13 +204,13 @@ export function RegisterGoals() {
             }}
             value={formik.values.date_initial}
             error={formik.errors.date_initial && formik.touched.date_initial}
-            className="focus:ring-2 focus:ring-primary dark:focus:ring-primaryDark"
+            className="focus:ring-2 focus:ring-primary dark:focus:ring-primary-dark"
           />
           {formik.errors.date_initial && formik.touched.date_initial && (
             <InputError error={true} message={formik.errors.date_initial} />
           )}
 
-          <span className="flex items-center gap-2 text-sm text-title dark:text-titleDark">
+          <span className="flex items-center gap-2 text-sm text-title dark:text-title-dark">
             Data de conclusão:
           </span>
           <DatePickerInput
@@ -218,19 +219,14 @@ export function RegisterGoals() {
             }}
             value={formik.values.date_final}
             error={formik.errors.date_final && formik.touched.date_final}
-            className="focus:ring-2 focus:ring-primary dark:focus:ring-primaryDark"
+            className="focus:ring-2 focus:ring-primary dark:focus:ring-primary-dark"
           />
           {formik.errors.date_final && formik.touched.date_final && (
             <InputError error={true} message={formik.errors.date_final} />
           )}
 
           <div className="flex flex-col items-center justify-end gap-4">
-            <button
-              type="submit"
-              className="h-14 w-full rounded-lg bg-secondary p-4 text-white dark:bg-secondaryDark"
-            >
-              {id ? 'Editar' : 'Cadastrar'}
-            </button>
+            <Button type="submit">{id ? 'Editar' : 'Cadastrar'}</Button>
           </div>
         </div>
       </form>

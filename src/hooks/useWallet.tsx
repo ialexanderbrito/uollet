@@ -1,14 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import {
-  Bank,
-  ChartLine,
-  CurrencyBtc,
-  CurrencyDollar,
-  PiggyBank,
-} from '@phosphor-icons/react';
-
-import { category } from 'utils/category';
+import { getColorsBanks, getIconBanks, category } from 'utils';
 
 import { useAuth } from 'contexts/Auth';
 import { useToast } from 'contexts/Toast';
@@ -19,7 +11,7 @@ interface WalletProps {
   id: number;
   wallet: string;
   value: number;
-  color: string;
+  color: string | string[];
   category?: string;
   icon: React.ReactNode;
 }
@@ -37,65 +29,12 @@ export function useWallet() {
   const [wallets, setWallets] = useState<WalletProps[]>([]);
   const [loading, setLoading] = useState(true);
 
-  function getColorsBanks(category: string) {
-    switch (category) {
-      case 'Dinheiro':
-        return '#12A454';
-      case 'NuConta':
-        return '#7e0aca';
-      case 'Bradesco':
-        return '#cc092f';
-      case 'NuInvest':
-        return '#43126e';
-      case 'C6Bank':
-        return '#2b2a29';
-      case 'Binance':
-        return '#ebb42e';
-      case 'Inter':
-        return '#f77601';
-      case 'Banco do Brasil':
-        return '#f5f430';
-      case 'Santander':
-        return '#e30000';
-      case 'Itaú':
-        return '#ec7000';
-      case 'Caixa':
-        return '#0070b0';
-      case 'BTG Pactual':
-        return '#051229';
-      case 'C6 Investimentos':
-        return '#1f1f1f';
-      case 'Inter Investimentos':
-        return '#f77601';
-      case 'XP Investimentos':
-        return '#0d0e10';
-      case 'Clear':
-        return '#0100f2';
-      case 'BTG Investimentos':
-        return '#051229';
-      case 'Rico':
-        return '#f74f00';
-      case 'Ágora Investimentos':
-        return '#01444b';
-      case 'Órama Investimentos':
-        return '#34991d';
-      case 'Mercado Bitcoin':
-        return '#e84522';
-      case 'Foxbit':
-        return '#f77100';
-      default:
-        return '#000000';
-    }
-  }
-
   function calculateWalletValue(data: FinanceData[], category: string): number {
     const values = data
       .filter((item) => item.category === category)
       .map((item) => (item.type === 'income' ? item.value : -item.value));
 
-    const sumValues = values.reduce((acc, value) => acc + value, 0);
-
-    return sumValues;
+    return values.reduce((acc, value) => acc + value, 0);
   }
 
   function addCategoryWallet(wallet: string) {
@@ -106,30 +45,6 @@ export function useWallet() {
     return walletCategory.category;
   }
 
-  function addIconWallet(category: string) {
-    if (category === 'bank') {
-      return <Bank className="text-white" width={24} height={24} />;
-    }
-
-    if (category === 'investments') {
-      return <ChartLine className="text-white" width={24} height={24} />;
-    }
-
-    if (category === 'crypto') {
-      return <CurrencyBtc className="text-white" width={24} height={24} />;
-    }
-
-    if (category === 'cash') {
-      return <CurrencyDollar className="text-white" width={24} height={24} />;
-    }
-
-    if (category === 'savings') {
-      return <PiggyBank className="text-white" width={24} height={24} />;
-    }
-
-    return <Bank className="text-white" width={24} height={24} />;
-  }
-
   function formatWalletData(data: FinanceData[]) {
     const categories = [...new Set(data.map((item) => item.category))];
 
@@ -138,9 +53,11 @@ export function useWallet() {
         id: index,
         wallet: category,
         value: calculateWalletValue(data, category),
-        color: getColorsBanks(category),
+        color: Array.isArray(getColorsBanks(category))
+          ? getColorsBanks(category)[0]
+          : getColorsBanks(category),
         category: addCategoryWallet(category),
-        icon: addIconWallet(addCategoryWallet(category) || ''),
+        icon: getIconBanks(category),
       }))
       .filter((item) => item.value > 0);
 

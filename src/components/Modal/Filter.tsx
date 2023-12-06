@@ -16,16 +16,17 @@ export function ModalFilter({
   return (
     <>
       <div className="mt-2 flex flex-col items-center justify-center gap-2">
-        <span className="mt-2 text-text dark:text-textDark">
+        <span className="mt-2 text-text dark:text-text-dark">
           {selectedYear === new Date().getFullYear()
             ? 'Ano atual'
             : 'Ano selecionado'}
         </span>
-        <div className="flex w-52 items-center justify-between font-bold text-text dark:text-textDark">
+        <div className="flex w-52 items-center justify-between font-bold text-text dark:text-text-dark">
           <ArrowLeft
             className={cn(
-              'cursor-pointer text-secondary dark:text-secondaryDark',
-              isInvestiment && 'text-primaryDark dark:text-primary',
+              'cursor-pointer text-primary dark:text-primary-dark',
+              isInvestiment &&
+                'text-investments-primary dark:text-investments-primary',
             )}
             size={28}
             onClick={() => handleChangeYear?.(-1)}
@@ -33,8 +34,9 @@ export function ModalFilter({
           {selectedYear}
           <ArrowRight
             className={cn(
-              'cursor-pointer text-secondary dark:text-secondaryDark',
-              isInvestiment && 'text-primaryDark dark:text-primary',
+              'cursor-pointer text-primary dark:text-primary-dark',
+              isInvestiment &&
+                'text-investments-primary dark:text-investments-primary',
             )}
             size={28}
             onClick={() => handleChangeYear?.(+1)}

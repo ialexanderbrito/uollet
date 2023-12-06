@@ -100,7 +100,7 @@ export function MetaList({ meta, onDelete }: MetasProps) {
             style={patternStyle}
           />
         </div>
-        <span className="ml-2 mt-2 block font-medium tracking-[-0.5px] text-title dark:text-titleDark">
+        <span className="ml-2 mt-2 block font-medium tracking-[-0.5px] text-title dark:text-title-dark">
           {meta.title}
         </span>
       </div>
@@ -119,7 +119,7 @@ export function MetaList({ meta, onDelete }: MetasProps) {
   return (
     <>
       <div
-        className="flex w-full flex-col justify-between rounded-2xl border-b-4 bg-backgroundCard p-4 text-left shadow-md dark:bg-backgroundCardDark"
+        className="flex w-full flex-col justify-between rounded-2xl border-b-4 bg-background-card p-4 text-left shadow-md dark:bg-background-card-dark"
         style={{
           borderBottomColor: `${BACKGROUND_COLORS[meta.id % 20]}`,
         }}
@@ -134,23 +134,22 @@ export function MetaList({ meta, onDelete }: MetasProps) {
               onClick={() => {
                 navigate(`/edit/goals/${meta.id}`);
               }}
-              className="cursor-pointer text-secondary dark:text-secondaryDark"
+              className="cursor-pointer text-primary dark:text-white"
             />
 
             <TrashSimple
               size={18}
               weight="light"
-              color="#e83f5b"
               onClick={onDelete}
-              className="cursor-pointer"
+              className="cursor-pointer text-danger"
             />
           </div>
         </header>
         <div>
-          <span className="mb-2 mt-2 block font-normal tracking-[-0.5px] text-title dark:text-titleDark">
+          <span className="mb-2 mt-2 block font-normal tracking-[-0.5px] text-title dark:text-title-dark">
             {meta.description}
           </span>
-          <span className="block font-medium tracking-[-0.5px] text-title dark:text-titleDark">
+          <span className="block font-medium tracking-[-0.5px] text-title dark:text-title-dark">
             Valor da Meta:{' '}
             {meta.value.toLocaleString('pt-BR', {
               style: 'currency',
@@ -166,9 +165,9 @@ export function MetaList({ meta, onDelete }: MetasProps) {
             )}
           </span>
 
-          <small className="text-sm text-text dark:text-textDark">
+          <small className="text-sm text-text dark:text-text-dark">
             {dateFinalExpired() ? (
-              <span className="text-red-500 dark:text-red-400">
+              <span className="text-danger">
                 Meta finalizada, não é possível adicionar novos valores. Para
                 reabrir a meta, edite a data final.
               </span>
@@ -184,14 +183,14 @@ export function MetaList({ meta, onDelete }: MetasProps) {
 
           <br />
 
-          <small className="text-sm text-text dark:text-textDark">
+          <small className="text-sm text-text dark:text-text-dark">
             Progresso: {calcularPorcentagemConclusao(meta.value).toFixed(2)}%
             concluído
           </small>
         </div>
-        <div className="h-2 w-full rounded bg-gray-200 dark:bg-backgroundDark">
+        <div className="h-2 w-full rounded bg-background dark:bg-background-dark">
           <div
-            className={cn('h-2 rounded bg-secondary dark:bg-secondaryDark')}
+            className={cn('h-2 rounded bg-primary dark:bg-primary-dark')}
             style={{ width: `${calcularPorcentagemConclusao(meta.value)}%` }}
           ></div>
         </div>
@@ -199,7 +198,7 @@ export function MetaList({ meta, onDelete }: MetasProps) {
 
       {separeteGoalsByCategory(`Meta ${meta.title}`).length !== 0 ? (
         <div
-          className="z-10 -mt-7 flex cursor-pointer justify-center rounded-md bg-secondary p-2 text-xs text-white dark:bg-secondaryDark"
+          className="z-10 -mt-7 flex cursor-pointer justify-center rounded-md bg-primary p-2 text-xs text-white dark:bg-primary-dark"
           onClick={() => {
             navigate(`/goal/${meta.title}`);
           }}
@@ -213,7 +212,7 @@ export function MetaList({ meta, onDelete }: MetasProps) {
         </div>
       ) : (
         <div
-          className="z-10 -mt-7 flex cursor-pointer justify-center rounded-md bg-secondary p-2 text-xs text-white dark:bg-secondaryDark"
+          className="z-10 -mt-7 flex cursor-pointer justify-center rounded-md bg-primary p-2 text-xs text-white dark:bg-primary-dark"
           onClick={() => {
             navigate(`/goal/${meta.title}`);
           }}

@@ -45,8 +45,8 @@ export function DatePickerInput({
       <Popover className="relative">
         <Popover.Button
           className={cn(
-            'flex h-14 w-full justify-between rounded-lg bg-white p-4 text-left text-title outline-none dark:bg-backgroundCardDark dark:text-titleDark',
-            error && 'border-[1.5px] border-red-500',
+            'flex h-14 w-full justify-between rounded-lg bg-background-card p-4 text-left text-title outline-none dark:bg-background-card-dark dark:text-title-dark',
+            error && 'border-[1.5px] border-danger',
             className,
           )}
         >

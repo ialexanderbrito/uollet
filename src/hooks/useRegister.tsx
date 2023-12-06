@@ -69,6 +69,10 @@ export function useRegister() {
   }
 
   function convertVirgulaToPonto(value: string) {
+    if (typeof value !== 'string') {
+      return value;
+    }
+
     const newValue = value.replace(',', '.');
 
     const number = Number(newValue);
@@ -244,7 +248,7 @@ export function useRegister() {
                 ? values.value
                 : convertVirgulaToPonto(values.value),
               category: values.category.name,
-              date: format(new Date(values.date), 'yyyy-MM-dd'),
+              date: values.date,
               type: values.type,
               user_id: storageUser?.id,
             })
@@ -264,7 +268,7 @@ export function useRegister() {
                     ? values.value
                     : convertVirgulaToPonto(values.value),
                   category: values.category.name,
-                  date: format(new Date(values.date), 'yyyy-MM-dd'),
+                  date: values.date,
                   type: values.type,
                 },
               ])
@@ -399,7 +403,11 @@ export function useRegister() {
       formik.setFieldValue('category', newCategory);
       formik.setFieldValue('date', data[0].date);
       formik.setFieldValue('type', data[0].type);
-      formik.setFieldValue('value', data[0].value);
+
+      const value = data[0].value;
+      const valueWithTwoDecimalCases = value.toFixed(2);
+
+      formik.setFieldValue('value', valueWithTwoDecimalCases);
 
       if (recurrencyData[0].recurrency) {
         setIsRecurring(true);

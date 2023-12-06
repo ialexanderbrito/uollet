@@ -7,6 +7,7 @@ import outcomeIcon from 'assets/outcome.svg';
 
 import { Autocomplete } from 'components/Autocomplete';
 import { BottomNavigator } from 'components/BottomNavigator';
+import { Button } from 'components/Button';
 import { DatePickerInput } from 'components/DatePickerInput';
 import { Header } from 'components/Header';
 import { InputError } from 'components/InputError';
@@ -66,7 +67,7 @@ export function Register() {
   }
 
   return (
-    <div className="flex w-full flex-col items-center bg-background dark:bg-backgroundDark">
+    <div className="flex w-full flex-col items-center bg-background dark:bg-background-dark">
       <Header title="Cadastro" />
 
       <form className="flex w-full flex-col" onSubmit={formik.handleSubmit}>
@@ -74,10 +75,10 @@ export function Register() {
           <input
             type="text"
             className={cn(
-              'h-14 w-full rounded-lg bg-white p-4 text-title outline-none focus:ring-2 focus:ring-primary disabled:cursor-not-allowed disabled:opacity-40 dark:bg-backgroundCardDark dark:text-titleDark focus:dark:ring-primaryDark',
+              'h-14 w-full rounded-lg bg-background-card p-4 text-title outline-none focus:ring-2 focus:ring-primary disabled:cursor-not-allowed disabled:opacity-40 dark:bg-background-card-dark dark:text-title-dark focus:dark:ring-primary-dark',
               formik.errors.title &&
                 formik.touched.title &&
-                'border-[1.5px] border-red-500',
+                'border-[1.5px] border-danger',
             )}
             placeholder="Nome"
             disabled={isGoal}
@@ -98,10 +99,10 @@ export function Register() {
               formik.setFieldValue('value', value);
             }}
             className={cn(
-              'h-14 w-full rounded-lg bg-white p-4 text-title outline-none focus:ring-2 focus:ring-primary dark:bg-backgroundCardDark dark:text-titleDark focus:dark:ring-primaryDark',
+              'h-14 w-full rounded-lg bg-background-card p-4 text-title outline-none focus:ring-2 focus:ring-primary dark:bg-background-card-dark dark:text-title-dark focus:dark:ring-primary-dark',
               formik.errors.value &&
                 formik.touched.value &&
-                'border-[1.5px] border-red-500',
+                'border-[1.5px] border-danger',
             )}
           />
           {formik.errors.value && formik.touched.value && (
@@ -109,10 +110,12 @@ export function Register() {
           )}
 
           <div className="ml-2 flex items-center gap-2">
-            <p className="text-base text-text dark:text-textDark">É uma meta</p>
+            <p className="text-base text-text dark:text-text-dark">
+              É uma meta
+            </p>
             <input
               type="checkbox"
-              className="h-4 w-4 rounded-md border-[1.5px] border-solid border-secondary accent-secondary dark:border-secondaryDark dark:accent-secondaryDark"
+              className="h-4 w-4 rounded-md border-[1.5px] border-solid border-primary accent-primary dark:border-primary-dark dark:accent-primary-dark"
               checked={formik.values.category.name.includes('Meta') || isGoal}
               onChange={() => {
                 handleIsGoalToggle();
@@ -122,13 +125,14 @@ export function Register() {
 
           <div className="flex w-full flex-row justify-around gap-4 p-1">
             <button
+              type="button"
               className={cn(
-                'flex h-16 w-full cursor-pointer flex-row items-center justify-evenly rounded-md bg-white dark:bg-backgroundCardDark',
+                'flex h-16 w-full cursor-pointer flex-row items-center justify-evenly rounded-md bg-background-card dark:bg-background-card-dark',
                 formik.values.type === 'income' &&
-                  'border-none bg-[#e7f5e7] dark:bg-[#e7f5e7]',
+                  'border-none bg-selected-income dark:bg-selected-income-dark',
                 formik.errors.type &&
                   formik.touched.type &&
-                  'border-[1.5px] border-red-500',
+                  'border-[1.5px] border-danger',
               )}
               onClick={() => {
                 formik.setFieldValue('type', 'income');
@@ -137,8 +141,9 @@ export function Register() {
               <img src={incomeIcon} alt="Entrada" className="h-6 w-6" />
               <p
                 className={cn(
-                  'text-text',
-                  formik.values.type === 'income' && 'text-title',
+                  'text-text dark:text-text-dark',
+                  formik.values.type === 'income' &&
+                    'text-title dark:text-title-dark',
                 )}
               >
                 Entrada
@@ -146,13 +151,14 @@ export function Register() {
             </button>
 
             <button
+              type="button"
               className={cn(
-                'flex h-16 w-full cursor-pointer flex-row items-center justify-evenly rounded-md border-text bg-white disabled:cursor-not-allowed disabled:opacity-40 dark:bg-backgroundCardDark',
+                'flex h-16 w-full cursor-pointer flex-row items-center justify-evenly rounded-md border-text bg-background-card disabled:cursor-not-allowed disabled:opacity-40 dark:bg-background-card-dark',
                 formik.values.type === 'outcome' &&
-                  'border-none bg-[#fddede] dark:bg-[#fddede] ',
+                  'border-none bg-selected-outcome dark:bg-selected-outcome-dark',
                 formik.errors.type &&
                   formik.touched.type &&
-                  'border-[1.5px] border-red-500',
+                  'border-[1.5px] border-danger',
               )}
               onClick={() => {
                 formik.setFieldValue('type', 'outcome');
@@ -162,8 +168,9 @@ export function Register() {
               <img src={outcomeIcon} alt="Saída" className="h-6 w-6" />
               <p
                 className={cn(
-                  'text-text',
-                  formik.values.type === 'outcome' && 'text-title',
+                  'text-text dark:text-text-dark',
+                  formik.values.type === 'outcome' &&
+                    'text-title dark:text-title-dark',
                 )}
               >
                 Saída
@@ -188,7 +195,7 @@ export function Register() {
                 className={cn(
                   formik.errors.category &&
                     formik.touched.category &&
-                    'border-[1.5px] border-red-500',
+                    'border-[1.5px] border-danger',
                 )}
                 displayValue={(value) => value.name}
               />
@@ -210,9 +217,10 @@ export function Register() {
                 className={cn(
                   formik.errors.category &&
                     formik.touched.category &&
-                    'border-[1.5px] border-red-500',
+                    'border-[1.5px] border-danger',
                 )}
                 displayValue={(value) => value.name}
+                displayImage={(value) => value.icon}
               />
               {formik.errors.category && formik.touched.category && (
                 <InputError
@@ -222,6 +230,17 @@ export function Register() {
               )}
             </>
           )}
+          <span className="ml-2 text-xs text-title dark:text-title-dark">
+            Não achou sua conta?{' '}
+            <a
+              href="mailto:contato@uollet.com.br?subject=Adicionar%20conta%20no%20Uollet&body=Ol%C3%A1%2C%20gostaria%20de%20sugerir%20a%20conta%20%22%22%20no%20Uollet."
+              target="_blank"
+              rel="noreferrer"
+              className="cursor-pointer text-primary dark:text-primary-dark"
+            >
+              Sugira pra gente :)
+            </a>
+          </span>
 
           <DatePickerInput
             onChange={(date) => {
@@ -229,7 +248,7 @@ export function Register() {
             }}
             value={formik.values.date}
             error={formik.errors.date && formik.touched.date}
-            className="focus:ring-2 focus:ring-primary dark:focus:ring-primaryDark"
+            className="focus:ring-2 focus:ring-primary dark:focus:ring-primary-dark"
           />
           {formik.errors.date && formik.touched.date && (
             <InputError error={true} message={formik.errors.date} />
@@ -249,7 +268,7 @@ export function Register() {
               >
                 <span
                   className={cn(
-                    'switch inline-block h-5 w-5 transform rounded-full bg-white',
+                    'switch inline-block h-5 w-5 transform rounded-full bg-background-card',
                     isRecurring ? 'translate-x-6' : 'translate-x-1',
                   )}
                 />
@@ -295,12 +314,7 @@ export function Register() {
           </MyDialog>
 
           <div className="flex flex-col items-center justify-end gap-4">
-            <button
-              type="submit"
-              className="h-14 w-full rounded-lg bg-secondary p-4 text-white dark:bg-secondaryDark"
-            >
-              {id ? 'Editar' : 'Cadastrar'}
-            </button>
+            <Button type="submit">{id ? 'Editar' : 'Cadastrar'}</Button>
           </div>
         </div>
       </form>

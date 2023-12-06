@@ -55,7 +55,7 @@ export function Calculator({
         <div className="rounded-lg">
           <input
             type="text"
-            className="mb-2 w-full cursor-default rounded bg-background p-2 text-xl text-title outline-none dark:bg-backgroundDark dark:text-textDark"
+            className="mb-2 h-14 w-full cursor-default rounded bg-background p-2 text-xl text-title outline-none dark:bg-background-dark dark:text-text-dark"
             value={input}
             readOnly
           />
@@ -64,7 +64,7 @@ export function Calculator({
               <button
                 key={value}
                 onClick={() => handleButtonClick(value)}
-                className="rounded bg-secondary p-2 text-xl text-white hover:bg-secondaryDark dark:bg-secondaryDark dark:text-white dark:hover:bg-secondary"
+                className="rounded bg-primary p-2 text-xl text-white hover:bg-primary-dark dark:bg-primary-dark dark:text-white dark:hover:bg-primary"
               >
                 {value}
               </button>
@@ -73,7 +73,7 @@ export function Calculator({
               <button
                 key={value}
                 onClick={() => handleButtonClick(value)}
-                className="rounded bg-secondary p-2 text-xl text-white hover:bg-secondaryDark dark:bg-secondaryDark dark:text-white dark:hover:bg-secondary"
+                className="rounded bg-primary p-2 text-xl text-white hover:bg-primary-dark dark:bg-primary-dark dark:text-white dark:hover:bg-primary"
               >
                 {value}
               </button>
@@ -82,7 +82,7 @@ export function Calculator({
               <button
                 key={value}
                 onClick={() => handleButtonClick(value)}
-                className="rounded bg-secondary p-2 text-xl text-white hover:bg-secondaryDark dark:bg-secondaryDark dark:text-white dark:hover:bg-secondary"
+                className="rounded bg-primary p-2 text-xl text-white hover:bg-primary-dark dark:bg-primary-dark dark:text-white dark:hover:bg-primary"
               >
                 {value}
               </button>
@@ -98,7 +98,7 @@ export function Calculator({
                 className={`p-2 text-xl ${
                   value === '='
                     ? 'bg-success hover:bg-success/90'
-                    : 'bg-secondary hover:bg-secondaryDark dark:bg-secondaryDark dark:hover:bg-secondary'
+                    : 'bg-primary hover:bg-primary-dark dark:bg-primary-dark dark:hover:bg-primary'
                 } rounded text-white`}
               >
                 {value}

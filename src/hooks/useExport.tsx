@@ -19,6 +19,8 @@ interface ExcelDataProps {
   Tipo: string;
 }
 
+const LIMIT_DAYS = 90;
+
 export function useExport() {
   const { user } = useAuth();
   const { toast } = useToast();
@@ -42,6 +44,16 @@ export function useExport() {
     async function buscarDadosParaExcel() {
       if (!range?.from) return;
       if (!range?.to) return;
+
+      const diff = Math.abs(range.to.getTime() - range.from.getTime());
+      const diffDays = Math.ceil(diff / (1000 * 60 * 60 * 24));
+
+      if (diffDays > LIMIT_DAYS) {
+        toast.error('Não é possível exportar mais de 3 meses', {
+          id: 'error',
+        });
+        return;
+      }
 
       try {
         const dataInicial = format(new Date(range.from), 'yyyy-MM-dd') || '';

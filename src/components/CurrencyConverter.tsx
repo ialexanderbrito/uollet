@@ -56,12 +56,12 @@ export function CurrencyConverter({
           <div className="flex w-full flex-col justify-center gap-2">
             <label
               htmlFor="moedaOrigem"
-              className="text-xs font-bold uppercase text-text dark:text-textDark"
+              className="text-xs font-bold uppercase text-text dark:text-text-dark"
             >
               Converter de
             </label>
             <select
-              className="h-10 w-full rounded-md border-[1.5px] border-solid bg-background text-sm accent-secondary focus:border-secondary dark:border-backgroundCardDark dark:bg-backgroundDark dark:text-textDark dark:accent-secondaryDark focus:dark:border-secondaryDark"
+              className="h-14 w-full rounded-md border-[1.5px] border-solid bg-background text-sm accent-primary focus:border-primary dark:border-background-card-dark dark:bg-background-dark dark:text-text-dark dark:accent-primary-dark focus:dark:border-primary-dark"
               defaultValue={currencyOrigin}
               value={currencyOrigin}
               onChange={(event) => setCurrencyOrigin(event.target.value)}
@@ -88,7 +88,7 @@ export function CurrencyConverter({
           <div className="mt-5 flex items-center justify-center">
             <Swap
               className={cn(
-                'hover:text-secondaryHover dark:hover:text-secondaryHoverDark h-6 w-6 cursor-pointer text-secondary transition-colors dark:text-secondaryDark',
+                'h-6 w-6 cursor-pointer text-primary transition-colors dark:text-white',
                 swapCurrency && 'rotate-180 transform transition-transform',
                 !swapCurrency && 'transform transition-transform',
               )}
@@ -99,12 +99,12 @@ export function CurrencyConverter({
           <div className="flex w-full flex-col gap-2">
             <label
               htmlFor="moedaDestino"
-              className="text-xs font-bold uppercase text-text dark:text-textDark"
+              className="text-xs font-bold uppercase text-text dark:text-text-dark"
             >
               Para
             </label>
             <select
-              className="h-10 w-full rounded-md border-[1.5px] border-solid bg-background text-sm accent-secondary focus:border-secondary dark:border-backgroundCardDark dark:bg-backgroundDark dark:text-textDark dark:accent-secondaryDark focus:dark:border-secondaryDark"
+              className="h-14 w-full rounded-md border-[1.5px] border-solid bg-background text-sm accent-primary focus:border-primary dark:border-background-card-dark dark:bg-background-dark dark:text-text-dark dark:accent-primary-dark focus:dark:border-primary-dark"
               defaultValue={currencyDestination}
               value={currencyDestination}
               onChange={(event) => setCurrencyDestination(event.target.value)}
@@ -131,7 +131,7 @@ export function CurrencyConverter({
         </div>
 
         <CurrencyInput
-          className="h-10 rounded-md bg-background pl-2 dark:bg-backgroundDark dark:text-textDark"
+          className="h-14 rounded-md bg-background pl-2 dark:bg-background-dark dark:text-text-dark"
           placeholder="Valor"
           defaultValue={0}
           decimalsLimit={2}
@@ -143,7 +143,7 @@ export function CurrencyConverter({
 
         {currencyTotal > 0 && (
           <div className="mt-4 ">
-            <p className="text-2xl text-title dark:text-titleDark">
+            <p className="text-2xl text-title dark:text-title-dark">
               {nameCoins.todas.map((coin) => (
                 <span key={coin.code}>
                   {coin.code === currencyDestination && coin['data-unit']}
@@ -151,14 +151,14 @@ export function CurrencyConverter({
               ))}
               {currencyTotal.toFixed(2)}
             </p>
-            <span className="text-xs text-text dark:text-textDark">
+            <span className="text-xs text-text dark:text-text-dark">
               Cotação atualizada em{' '}
               {format(new Date(updateCurrencyDate), 'dd/MM/yyyy HH:mm')} | Fonte
               <a
                 href="https://docs.awesomeapi.com.br/api-de-moedas"
                 target="_blank"
                 rel="noreferrer"
-                className="text-secondary dark:text-secondaryDark"
+                className="text-primary dark:text-primary-dark"
               >
                 {' '}
                 AwesomeAPI
