@@ -1,3 +1,16 @@
+## [3.0.4](https://github.com/ialexanderbrito/finance/compare/v3.0.3...v3.0.4) (2023-12-09)
+
+
+### Bug Fixes
+
+* remove props is investments ([cf70424](https://github.com/ialexanderbrito/finance/commit/cf704242817797b141cb9c0e15955a474802306b))
+* update bottom navigation and new icons ([0e86371](https://github.com/ialexanderbrito/finance/commit/0e8637169c0738198904f61034cdef2ef0b820ba))
+
+
+### Reverts
+
+* remove script google ads ([9b2dd54](https://github.com/ialexanderbrito/finance/commit/9b2dd548106fd527db628a216f911c9011cf2555))
+
 ## [3.0.3](https://github.com/ialexanderbrito/finance/compare/v3.0.2...v3.0.3) (2023-12-09)
 
 
