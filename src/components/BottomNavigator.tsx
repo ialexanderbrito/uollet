@@ -1,14 +1,16 @@
 import { Link } from 'react-router-dom';
 
-import { House, Coins, Wallet, ChartPie } from '@phosphor-icons/react';
+import {
+  House,
+  Wallet,
+  ChartPie,
+  ChartLine,
+  ArrowsDownUp,
+} from '@phosphor-icons/react';
 
 import { cn } from 'utils/cn';
 
-interface BottomNavigatorProps {
-  isInvestiment?: boolean;
-}
-
-export function BottomNavigator({ isInvestiment }: BottomNavigatorProps) {
+export function BottomNavigator() {
   function isActive(path: string) {
     return window.location.pathname === path;
   }
@@ -16,7 +18,7 @@ export function BottomNavigator({ isInvestiment }: BottomNavigatorProps) {
   return (
     <section
       id="bottom-navigation"
-      className="fixed bottom-5 z-10 w-60 rounded-full bg-background-card opacity-95 shadow-lg dark:bg-background-card-dark dark:shadow-xl sm:w-[30rem]"
+      className="fixed bottom-5 z-10 w-80 rounded-full bg-background-card opacity-95 shadow-lg dark:bg-background-card-dark dark:shadow-xl sm:w-[40rem]"
     >
       <div
         id="tabs"
@@ -25,12 +27,9 @@ export function BottomNavigator({ isInvestiment }: BottomNavigatorProps) {
         <Link
           to="/"
           className={cn(
-            'flex w-full items-center justify-center gap-2 pb-1 pt-2 hover:text-primary focus:text-primary hover:dark:text-white focus:dark:text-white',
+            'flex w-full items-center justify-center gap-2 pb-1 pt-2 hover:text-primary focus:text-primary hover:dark:text-white focus:dark:text-white sm:ml-2',
             isActive('/') &&
-              'h-16 rounded-full bg-primary/10 text-primary dark:bg-primary-dark/10 dark:text-title-dark',
-            isInvestiment &&
-              isActive('/') &&
-              'h-16 rounded-full bg-primary/10 text-primary hover:text-primary focus:text-primary dark:bg-primary-dark/10 hover:dark:text-white focus:dark:text-white',
+              'ml-2 h-14 w-72 rounded-full bg-primary/10 text-primary hover:text-primary focus:text-primary dark:bg-primary-dark/10 hover:dark:text-white focus:dark:text-white sm:w-full',
           )}
         >
           <House
@@ -46,12 +45,9 @@ export function BottomNavigator({ isInvestiment }: BottomNavigatorProps) {
         <Link
           to="/wallet"
           className={cn(
-            'flex w-full items-center justify-center gap-2 pb-1 pt-2 hover:text-primary focus:text-primary hover:dark:text-white focus:dark:text-white',
+            'flex w-full items-center justify-center gap-2 pb-1 pt-2 hover:text-primary focus:text-primary hover:dark:text-white focus:dark:text-white sm:mr-2',
             isActive('/wallet') &&
-              'h-16 rounded-full bg-primary/10 text-primary dark:bg-primary-dark/10 dark:text-title-dark',
-            isInvestiment &&
-              isActive('/wallet') &&
-              'h-16 rounded-full bg-primary/10 text-primary hover:text-primary focus:text-primary dark:bg-primary-dark/10 hover:dark:text-white focus:dark:text-white',
+              'mr-2 h-14 w-72 rounded-full bg-primary/10 text-primary hover:text-primary focus:text-primary dark:bg-primary-dark/10 hover:dark:text-white focus:dark:text-white sm:w-full',
           )}
         >
           <Wallet
@@ -70,15 +66,12 @@ export function BottomNavigator({ isInvestiment }: BottomNavigatorProps) {
         <Link
           to="/register"
           className={cn(
-            'flex w-full items-center justify-center gap-2 pb-1 pt-2 hover:text-primary focus:text-primary hover:dark:text-white focus:dark:text-white',
+            'flex h-full w-full items-center justify-center gap-2 rounded-full bg-primary pb-1 pt-2 text-white hover:text-primary focus:text-primary dark:bg-primary-dark/10 dark:text-title-dark hover:dark:text-white focus:dark:text-white',
             isActive('/register') &&
-              'h-16 rounded-full bg-primary/10 text-primary dark:bg-primary-dark/10 dark:text-title-dark',
-            isInvestiment &&
-              isActive('/register') &&
-              'h-16 rounded-full bg-primary/10 text-primary hover:text-primary focus:text-primary dark:bg-primary-dark/10 hover:dark:text-white focus:dark:text-white',
+              'h-16 rounded-full bg-primary/10 text-primary hover:text-primary focus:text-primary dark:bg-primary-dark/10 hover:dark:text-white focus:dark:text-white sm:w-full',
           )}
         >
-          <Coins
+          <ArrowsDownUp
             size={25}
             className={cn(
               'inline-block ',
@@ -92,14 +85,32 @@ export function BottomNavigator({ isInvestiment }: BottomNavigatorProps) {
         </Link>
 
         <Link
+          to="/investments"
+          className={cn(
+            'flex w-full items-center justify-center gap-2 pb-1 pt-2 hover:text-primary focus:text-primary hover:dark:text-white focus:dark:text-white sm:ml-2',
+            isActive('/investments') &&
+              'ml-2 h-14 w-72 rounded-full bg-primary/10 text-primary hover:text-primary focus:text-primary dark:bg-primary-dark/10 hover:dark:text-white focus:dark:text-white sm:w-full',
+          )}
+        >
+          <ChartLine
+            size={25}
+            className={cn(
+              'inline-block ',
+              isActive('/investments') && 'text-primary',
+            )}
+            weight={isActive('/investments') ? 'fill' : 'light'}
+          />
+          <span className="tab tab-explore hidden text-sm sm:block">
+            Investimentos
+          </span>
+        </Link>
+
+        <Link
           to="/resume"
           className={cn(
-            'flex w-full items-center justify-center gap-2 pb-1 pt-2 hover:text-primary focus:text-primary hover:dark:text-white focus:dark:text-white',
+            'flex w-full items-center justify-center gap-2 pb-1 pt-2 hover:text-primary focus:text-primary hover:dark:text-white focus:dark:text-white sm:mr-2',
             isActive('/resume') &&
-              'h-16 rounded-full bg-primary/10 text-primary dark:bg-primary-dark/10 dark:text-title-dark',
-            isInvestiment &&
-              isActive('/resume') &&
-              'h-16 rounded-full bg-primary/10 text-primary hover:text-primary focus:text-primary dark:bg-primary-dark/10 hover:dark:text-white focus:dark:text-white',
+              'mr-2 h-14 w-72 rounded-full bg-primary/10 text-primary hover:text-primary focus:text-primary dark:bg-primary-dark/10 hover:dark:text-white focus:dark:text-white sm:w-full',
           )}
         >
           <ChartPie
