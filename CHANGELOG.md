@@ -1,3 +1,10 @@
+## [3.0.2](https://github.com/ialexanderbrito/finance/compare/v3.0.1...v3.0.2) (2023-12-09)
+
+
+### Bug Fixes
+
+* update logo itau and add will bank ([2f63695](https://github.com/ialexanderbrito/finance/commit/2f63695277407135ba286bc523990b195183db9d))
+
 ## [3.0.1](https://github.com/ialexanderbrito/finance/compare/v3.0.0...v3.0.1) (2023-12-06)
 
 
