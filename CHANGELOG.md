@@ -1,3 +1,10 @@
+## [3.0.3](https://github.com/ialexanderbrito/finance/compare/v3.0.2...v3.0.3) (2023-12-09)
+
+
+### Bug Fixes
+
+* add google ads script ([56caaba](https://github.com/ialexanderbrito/finance/commit/56caaba17b118184d73cdc9f5e6a96068a435eb4))
+
 ## [3.0.2](https://github.com/ialexanderbrito/finance/compare/v3.0.1...v3.0.2) (2023-12-09)
 
 
