@@ -371,7 +371,7 @@ export function Investments() {
           isInvestiment
         />
       </MyDialog>
-      <BottomNavigator isInvestiment />
+      <BottomNavigator />
     </div>
   );
 }
