@@ -37,6 +37,7 @@ import santander from 'assets/banks/santander.svg';
 import sicoob from 'assets/banks/sicoob.svg';
 import sofisa from 'assets/banks/sofisa.svg';
 import toro from 'assets/banks/toro.svg';
+import will from 'assets/banks/will.svg';
 import wise from 'assets/banks/wise.svg';
 import xp from 'assets/banks/xp.svg';
 
@@ -82,4 +83,5 @@ export {
   wise,
   nomad,
   revolut,
+  will,
 };

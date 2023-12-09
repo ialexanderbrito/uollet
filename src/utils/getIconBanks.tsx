@@ -41,6 +41,7 @@ import {
   wise,
   nomad,
   revolut,
+  will,
 } from 'assets';
 
 export function getIconBanks(name: string) {
@@ -165,6 +166,7 @@ export function getIconBanks(name: string) {
     Revolut: (
       <img src={revolut} alt="Revolut" className="h-12 w-12 rounded-md" />
     ),
+    'Will Bank': <img src={will} alt="Will" className="h-12 w-12 rounded-md" />,
   };
 
   return (

@@ -9,7 +9,7 @@ export function getColorsBanks(categories: string | string[]) {
     Inter: '#f77601',
     'Banco do Brasil': '#f5f430',
     Santander: '#e30000',
-    Itaú: '#ec7000',
+    Itaú: '#ff6200',
     Caixa: '#0070b0',
     'BTG Pactual': '#051229',
     'C6 Investimentos': '#1f1f1f',
@@ -44,6 +44,7 @@ export function getColorsBanks(categories: string | string[]) {
     Wise: '#87ea5c',
     Nomad: '#ffd400',
     Revolut: '#faff00',
+    'Will Bank': '#ffd900',
   };
 
   const mapCategoryToColor = (category: string) =>

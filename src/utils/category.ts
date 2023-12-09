@@ -40,6 +40,7 @@ import {
   wise,
   nomad,
   revolut,
+  will,
 } from 'assets';
 import money from 'assets/categories/money.svg';
 import piggyBank from 'assets/categories/piggy-bank.svg';
@@ -263,6 +264,11 @@ export const category = [
   {
     icon: revolut,
     name: 'Revolut',
+    category: 'bank',
+  },
+  {
+    icon: will,
+    name: 'Will Bank',
     category: 'bank',
   },
   {
