@@ -1,4 +1,4 @@
-import { Bank, CurrencyDollar } from '@phosphor-icons/react';
+import { Bank } from '@phosphor-icons/react';
 import {
   agora,
   bancoDoBrasil,
@@ -42,11 +42,18 @@ import {
   nomad,
   revolut,
   will,
+  money,
+  savings,
 } from 'assets';
 
 export function getIconBanks(name: string) {
   const iconMap: { [key: string]: React.ReactNode } = {
-    Dinheiro: <CurrencyDollar className="text-white" width={24} height={24} />,
+    Dinheiro: (
+      <img src={money} alt="Dinheiro" className="h-12 w-12 rounded-md" />
+    ),
+    Rendimentos: (
+      <img src={savings} alt="Rendimentos" className="h-12 w-12 rounded-md" />
+    ),
     NuConta: <img src={nubank} alt="Nubank" className="h-12 w-12 rounded-md" />,
     Bradesco: (
       <img src={bradesco} alt="Bradesco" className="h-12 w-12 rounded-md" />
