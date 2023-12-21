@@ -66,7 +66,7 @@ export function BottomNavigator() {
         <Link
           to="/register"
           className={cn(
-            'flex h-full w-full items-center justify-center gap-2 rounded-full bg-primary pb-1 pt-2 text-white hover:text-primary focus:text-primary dark:bg-primary-dark dark:text-title-dark hover:dark:text-white focus:dark:text-white',
+            'flex h-full w-full items-center justify-center gap-2 rounded-full bg-primary pb-1 pt-2 text-white hover:text-white/90 focus:text-primary dark:bg-primary-dark dark:text-title-dark hover:dark:text-white focus:dark:text-white',
             isActive('/register') &&
               'h-16 rounded-full bg-primary/10 text-primary hover:text-primary focus:text-primary dark:bg-primary-dark/10 hover:dark:text-white focus:dark:text-white sm:w-full',
           )}
