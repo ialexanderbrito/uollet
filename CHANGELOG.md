@@ -1,3 +1,20 @@
+# [3.1.0](https://github.com/ialexanderbrito/finance/compare/v3.0.5...v3.1.0) (2023-12-21)
+
+
+### Bug Fixes
+
+* add optional close button alert ([6a2a799](https://github.com/ialexanderbrito/finance/commit/6a2a79914123cf616124eb156116bba75f0a4d86))
+* favorite stock zero ([b710ad5](https://github.com/ialexanderbrito/finance/commit/b710ad51bf5ce38680e955340446692f4ae0bdf4))
+* name min length modal initial ([abefa61](https://github.com/ialexanderbrito/finance/commit/abefa6199f6312f6c435686a5f6245de5502fd63))
+
+
+### Features
+
+* add confirmed email to login app ([1090422](https://github.com/ialexanderbrito/finance/commit/10904228c26966032681c0618edf92a351cc2a7b))
+* add money and savings in colors and icons ([df286ac](https://github.com/ialexanderbrito/finance/commit/df286acf8c609196eaf046fabfd4d8b1eb1c4df8))
+* add new alert in goals page ([4d8587b](https://github.com/ialexanderbrito/finance/commit/4d8587befc6cce29391bbe7921587ffe0490bbe9))
+* add new assets ([ff77830](https://github.com/ialexanderbrito/finance/commit/ff77830bb067355d605d4d1b5c7b86ab39cffc27))
+
 ## [3.0.5](https://github.com/ialexanderbrito/finance/compare/v3.0.4...v3.0.5) (2023-12-09)
 
 
