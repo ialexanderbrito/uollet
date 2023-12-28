@@ -38,8 +38,6 @@ export function useMFA() {
     if (hasMFA) {
       const factors = await supabase.auth.mfa.listFactors();
 
-      sessionStorage.setItem('@uollet:hasMFA', 'true');
-
       if (factors.error) {
         toast.error('Erro ao verificar fatores MFA. Tente novamente', {
           id: 'error',
@@ -78,11 +76,17 @@ export function useMFA() {
         return;
       }
 
-      toast.success('Bem vindo ao uollet', {
-        id: 'success',
-      });
+      if (!verify.data) return;
 
-      navigate('/');
+      if (verify.data) {
+        sessionStorage.setItem('@uollet:hasMFA', 'true');
+
+        toast.success('Bem vindo ao uollet', {
+          id: 'success',
+        });
+
+        navigate('/');
+      }
     }
   }
 
