@@ -1,3 +1,10 @@
+## [3.1.2](https://github.com/ialexanderbrito/finance/compare/v3.1.1...v3.1.2) (2023-12-28)
+
+
+### Bug Fixes
+
+* vulnerability mfa login web reload page ([5a6439c](https://github.com/ialexanderbrito/finance/commit/5a6439cbe2ed777e3e0e127a18e2a8c24e34f9fe))
+
 ## [3.1.1](https://github.com/ialexanderbrito/finance/compare/v3.1.0...v3.1.1) (2023-12-28)
 
 
