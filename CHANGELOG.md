@@ -1,3 +1,10 @@
+## [3.1.1](https://github.com/ialexanderbrito/finance/compare/v3.1.0...v3.1.1) (2023-12-28)
+
+
+### Bug Fixes
+
+* verify mfa layout and toast ([65939d3](https://github.com/ialexanderbrito/finance/commit/65939d339761635bddd090e8a11a2a96999532b7))
+
 # [3.1.0](https://github.com/ialexanderbrito/finance/compare/v3.0.5...v3.1.0) (2023-12-21)
 
 
