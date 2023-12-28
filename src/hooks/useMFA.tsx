@@ -41,14 +41,16 @@ export function useMFA() {
       sessionStorage.setItem('@uollet:hasMFA', 'true');
 
       if (factors.error) {
-        toast.error(factors.error.message);
+        toast.error('Erro ao verificar fatores MFA. Tente novamente', {
+          id: 'error',
+        });
         return;
       }
 
       const totpFactor = factors.data.totp[0];
 
       if (!totpFactor) {
-        toast.error('Nenhum fator TOTP encontrado!');
+        toast.error('Nenhum fator TOTP encontrado!', { id: 'error' });
         return;
       }
 
@@ -70,7 +72,9 @@ export function useMFA() {
       });
 
       if (verify.error) {
-        toast.error(verify.error.message);
+        toast.error(`Erro ao verificar código: ${verify.error.message}`, {
+          id: 'error',
+        });
         return;
       }
 
