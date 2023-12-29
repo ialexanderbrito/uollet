@@ -69,6 +69,7 @@ export function DatePickerInput({
                 onDayClick={handleDayClick}
                 selected={selected}
                 locale={ptBR}
+                defaultMonth={selected}
                 className="flex h-80 w-80 items-center justify-center"
               />
             </div>
