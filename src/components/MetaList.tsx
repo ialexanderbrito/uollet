@@ -116,6 +116,9 @@ export function MetaList({ meta, onDelete }: MetasProps) {
     if (isAfter(date, today)) return false;
   }
 
+  const newDateStarted = new Date(meta.date_initial);
+  newDateStarted.setDate(newDateStarted.getDate() + 1);
+
   return (
     <>
       <div
@@ -174,8 +177,7 @@ export function MetaList({ meta, onDelete }: MetasProps) {
             ) : (
               <>
                 A meta foi iniciada em{' '}
-                {format(new Date(`${meta.date_initial}`), 'dd/MM/yyyy')} e
-                termina em{' '}
+                {format(new Date(newDateStarted), 'dd/MM/yyyy')} e termina em{' '}
                 {format(new Date(`${meta.date_final} `), 'dd/MM/yyyy')}
               </>
             )}

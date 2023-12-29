@@ -143,8 +143,8 @@ export function useRegisterGoals() {
                 ? values.value
                 : convertVirgulaToPonto(values.value),
               description: values.description,
-              date_initial: format(new Date(values.date_initial), 'yyyy-MM-dd'),
-              date_final: format(new Date(values.date_final), 'yyyy-MM-dd'),
+              date_initial: values.date_initial,
+              date_final: values.date_final,
               user_id: storageUser?.id,
             })
             .eq('id', id)
@@ -182,9 +182,12 @@ export function useRegisterGoals() {
     }
 
     if (data) {
+      const value = data[0].value;
+      const valueWithTwoDecimalCases = value.toFixed(2);
+
       formik.setFieldValue('emoji', data[0].emoji);
       formik.setFieldValue('title', data[0].title);
-      formik.setFieldValue('value', data[0].value);
+      formik.setFieldValue('value', valueWithTwoDecimalCases);
       formik.setFieldValue('description', data[0].description);
       formik.setFieldValue('date_initial', data[0].date_initial);
       formik.setFieldValue('date_final', data[0].date_final);
