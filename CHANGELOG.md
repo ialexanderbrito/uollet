@@ -1,3 +1,12 @@
+## [3.1.3](https://github.com/ialexanderbrito/finance/compare/v3.1.2...v3.1.3) (2023-12-29)
+
+
+### Bug Fixes
+
+* date initial and final in goals page -1 day ([3a21b92](https://github.com/ialexanderbrito/finance/commit/3a21b9275119d589a1be98256706c303ea1f04f5))
+* default month calendar with values ([5976234](https://github.com/ialexanderbrito/finance/commit/5976234725065dcb5451604c86b556bdec4ccc90))
+* name header and position emoji ([dceaf03](https://github.com/ialexanderbrito/finance/commit/dceaf0323708eb9680ad58ef89ffcec89f914b1f))
+
 ## [3.1.2](https://github.com/ialexanderbrito/finance/compare/v3.1.1...v3.1.2) (2023-12-28)
 
 
