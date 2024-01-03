@@ -71,7 +71,7 @@ export function EnrollMFA({ openModalMFA, setOpenModalMFA }: EnrollMFAProps) {
                 variant="warning"
                 className="mt-4"
               />
-              <img src={qr} />
+              <img src={qr} className="mb-2 rounded-lg bg-white" />
               <div className="flex w-full items-center gap-2">
                 <input
                   type="text"
@@ -91,10 +91,10 @@ export function EnrollMFA({ openModalMFA, setOpenModalMFA }: EnrollMFAProps) {
                   <Copy size={20} className="text-title dark:text-title-dark" />
                 </button>
               </div>
-              <div className="mt-2 flex flex-col items-center justify-center">
+              <div className="mt-2 flex w-full flex-col items-center justify-center">
                 <input
                   type="text"
-                  className={`h-14 w-96 rounded-lg bg-background-card p-4 text-title outline-none dark:bg-background-card-dark dark:text-title-dark ${
+                  className={`h-14 w-full rounded-lg bg-background-card p-4 text-title outline-none dark:bg-background-card-dark dark:text-title-dark ${
                     error ? 'border-[1.5px] border-danger' : ''
                   }`}
                   placeholder="Digite o código de verificação"
