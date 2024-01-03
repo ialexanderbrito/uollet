@@ -16,7 +16,6 @@ import {
   Question,
   SealCheck,
   SignOut,
-  Sun,
   UserMinus,
 } from '@phosphor-icons/react';
 import connectionImg from 'assets/connection.svg';
@@ -44,7 +43,6 @@ import { formatCurrency } from 'utils/formatCurrency';
 import { verifyLoginLastSevenDays } from 'utils/verifyLoginLastSevenDays';
 
 import { useAuth } from 'contexts/Auth';
-import { useTheme } from 'contexts/Theme';
 
 import { useInvestments } from 'hooks/useInvestments';
 import { useOtp } from 'hooks/useOtp';
@@ -53,7 +51,6 @@ import { useTransactions } from 'hooks/useTransactions';
 
 export function Profile() {
   const navigate = useNavigate();
-  const { toggleTheme } = useTheme();
   const { user, logOut, areValueVisible, toggleValueVisibility, hasOtp } =
     useAuth();
 
@@ -150,7 +147,7 @@ export function Profile() {
             </p>
             <span
               className={cn(
-                'font-medium ',
+                'font-medium text-text dark:text-text-dark',
                 allTotal + allTotalInvestiments < 0 && 'text-danger',
                 allTotal + allTotalInvestiments > 0 && 'text-success',
                 areValueVisible &&
@@ -280,15 +277,6 @@ export function Profile() {
             divider
           />
 
-          <Submenu
-            onClick={() => {
-              toggleTheme();
-            }}
-            icon={<Sun size={20} weight="light" />}
-            title="Tema do app"
-            divider
-            switchTheme
-          />
           <Submenu
             icon={<Question size={20} weight="light" />}
             title="Sobre"
