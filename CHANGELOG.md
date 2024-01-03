@@ -1,3 +1,19 @@
+# [3.2.0](https://github.com/ialexanderbrito/finance/compare/v3.1.3...v3.2.0) (2024-01-03)
+
+
+### Bug Fixes
+
+* length stocks saved ([d2057ef](https://github.com/ialexanderbrito/finance/commit/d2057ef3e802f90899ec77c0cc2c8aedfae3d418))
+* menu new select theme ([6391a92](https://github.com/ialexanderbrito/finance/commit/6391a92885c8c2f29c8533f8b60c4bc206cb15e5))
+* modal mfa input size ([814b2ed](https://github.com/ialexanderbrito/finance/commit/814b2edcf59ab0a140ea0a8593a2ef9885531798))
+* remove select theme ([dd3c5be](https://github.com/ialexanderbrito/finance/commit/dd3c5be049f15ad3cc4bf5793a3ea247919ae017))
+* update save stock zero message ([a5385fd](https://github.com/ialexanderbrito/finance/commit/a5385fd00460c7c3f2117e9b4313b4a4bf6c636f))
+
+
+### Features
+
+* add new assets banks ([3cea6fc](https://github.com/ialexanderbrito/finance/commit/3cea6fc3bc616df08df99823d385169c3f7c555a))
+
 ## [3.1.3](https://github.com/ialexanderbrito/finance/compare/v3.1.2...v3.1.3) (2023-12-29)
 
 
