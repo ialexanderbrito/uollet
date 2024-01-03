@@ -232,7 +232,7 @@ export function Investments() {
             </>
           ) : (
             <>
-              {savedStocks.length === 0 &&
+              {savedStocks.length > 0 &&
                 savedStocks.map((stock) => (
                   <div key={stock.symbol} className="scroll-snap-align-start">
                     <CardStock
