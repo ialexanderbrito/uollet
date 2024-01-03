@@ -232,25 +232,34 @@ export function Investments() {
             </>
           ) : (
             <>
-              {savedStocks.map((stock) => (
-                <div key={stock.symbol} className="scroll-snap-align-start">
-                  <CardStock
-                    stock={stock.symbol}
-                    name={stock.shortName}
-                    close={stock.regularMarketPrice}
-                    currency={stock.currency}
-                    change={stock.regularMarketChangePercent}
-                    logo={stock.logourl}
-                    saveFavoriteStock={() => {
-                      saveFavoriteStock(stock.symbol);
-                    }}
-                    verifyIsFavorite={verifyIsFavorite}
-                    onClick={() => {
-                      navigate(`/stock/${stock.symbol}`);
-                    }}
-                  />
+              {savedStocks.length === 0 &&
+                savedStocks.map((stock) => (
+                  <div key={stock.symbol} className="scroll-snap-align-start">
+                    <CardStock
+                      stock={stock.symbol}
+                      name={stock.shortName}
+                      close={stock.regularMarketPrice}
+                      currency={stock.currency}
+                      change={stock.regularMarketChangePercent}
+                      logo={stock.logourl}
+                      saveFavoriteStock={() => {
+                        saveFavoriteStock(stock.symbol);
+                      }}
+                      verifyIsFavorite={verifyIsFavorite}
+                      onClick={() => {
+                        navigate(`/stock/${stock.symbol}`);
+                      }}
+                    />
+                  </div>
+                ))}
+
+              {savedStocks.length === 0 && (
+                <div className="mt-4 flex w-full flex-col items-center justify-center">
+                  <p className="w-72 text-center text-base font-medium text-black dark:text-text-dark">
+                    Você ainda não possui nenhuma ação favorita
+                  </p>
                 </div>
-              ))}
+              )}
             </>
           )}
         </StockScroll>
