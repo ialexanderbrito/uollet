@@ -14,6 +14,7 @@ import caixa from 'assets/banks/caixa.svg';
 import clear from 'assets/banks/clear.svg';
 import daycoval from 'assets/banks/daycoval.svg';
 import foxbit from 'assets/banks/foxbit.svg';
+import goals from 'assets/banks/goals.svg';
 import inter from 'assets/banks/inter.svg';
 import itau from 'assets/banks/itau.svg';
 import iti from 'assets/banks/iti.svg';
@@ -88,4 +89,5 @@ export {
   will,
   money,
   savings,
+  goals,
 };
