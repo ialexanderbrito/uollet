@@ -50,7 +50,7 @@ export function RecommendedStocks({
             />
 
             <div className="ml-4">
-              <p className="text-lg font-medium text-title dark:text-text-dark md:w-52 md:truncate">
+              <p className="text-lg font-medium text-title md:w-52 md:truncate dark:text-text-dark">
                 {recommendedStock.longName}
               </p>
               <p className="text-sm text-title dark:text-text-dark">
