@@ -1,3 +1,15 @@
+# [3.3.0](https://github.com/ialexanderbrito/finance/compare/v3.2.0...v3.3.0) (2024-01-03)
+
+
+### Bug Fixes
+
+* lint classname ([242724f](https://github.com/ialexanderbrito/finance/commit/242724fa5d266edd3c421b0a3900a391a0221ea6))
+
+
+### Features
+
+* update dependencies and dev dependencies ([62162a3](https://github.com/ialexanderbrito/finance/commit/62162a3609a04b07bbac6efe2df87539f88699fc))
+
 # [3.2.0](https://github.com/ialexanderbrito/finance/compare/v3.1.3...v3.2.0) (2024-01-03)
 
 
