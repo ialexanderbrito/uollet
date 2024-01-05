@@ -19,3 +19,4 @@ export * from './removeMask';
 export * from './stateToId';
 export * from './getIconBanks';
 export * from './getColorsBanks';
+export * from './removeMaskCPF';
