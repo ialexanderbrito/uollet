@@ -76,27 +76,39 @@ export function useLogin() {
 
       setUser(data.user);
 
-      const { data: dataImage } = supabase.storage
-        .from('avatars')
-        .getPublicUrl(`${data.user?.id}`, {
-          download: true,
+      if (
+        data.user.user_metadata?.avatar_url ||
+        data.user.user_metadata?.picture
+      ) {
+        const { data: dataImage } = supabase.storage
+          .from('avatars')
+          .getPublicUrl(`${data.user.id}`, {
+            download: true,
+          });
+
+        const { data: updateUser } = await supabase.auth.updateUser({
+          data: {
+            picture: dataImage?.publicUrl,
+            avatar_url: dataImage?.publicUrl,
+          },
         });
 
-      const { data: updateUser } = await supabase.auth.updateUser({
-        data: {
-          picture: dataImage?.publicUrl,
-          avatar_url: dataImage?.publicUrl,
-        },
-      });
+        setUser(updateUser.user);
 
-      setUser(updateUser.user);
+        setLoading(false);
 
-      setLoading(false);
+        toast.success('Login feito com sucesso!', { id: 'success' });
+        handleCloseModal();
 
-      toast.success('Login feito com sucesso!', { id: 'success' });
-      handleCloseModal();
+        navigate('/');
+      } else {
+        setLoading(false);
 
-      navigate('/');
+        toast.success('Login feito com sucesso!', { id: 'success' });
+        handleCloseModal();
+
+        navigate('/');
+      }
     },
   });
 
@@ -146,11 +158,12 @@ export function useLogin() {
         return;
       }
 
-      setUser(data.user);
-
       setLoading(false);
 
-      toast.success('Cadastro feito com sucesso!', { id: 'success' });
+      toast.success(
+        'Cadastro feito com sucesso! Verifique seu email para logar e confirmar o cadastro.',
+        { id: 'success' },
+      );
       handleCloseModal();
 
       navigate('/');

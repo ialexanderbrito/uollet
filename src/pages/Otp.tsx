@@ -15,7 +15,8 @@ interface OtpProps {
 
 export function Otp({ isOtp, isMFA }: OtpProps) {
   const location = useLocation();
-  const { handleChangeMFA, savePasswordMFA, pageLocationMFA } = useMFA();
+  const { handleChangeMFA, savePasswordMFA, pageLocationMFA, verifyCode } =
+    useMFA();
   const { handleChangeOtp, handleEnterOtp, timeOut } = useOtp();
 
   return (
@@ -41,12 +42,12 @@ export function Otp({ isOtp, isMFA }: OtpProps) {
               </p>
             </div>
 
-            <div className="mb-4 flex w-full justify-around">
+            <div className="flex w-48 items-center justify-center sm:w-full">
               <AuthCode
                 onChange={handleChangeMFA}
                 allowedCharacters="numeric"
                 length={6}
-                inputClassName="mr-2 ml-2 h-12 w-12 rounded-md border border-background bg-background-card text-center text-2xl focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary dark:border-background-dark dark:bg-background-card-dark dark:text-text-dark"
+                inputClassName="mr-2 ml-2 h-12 w-12 mb-4 rounded-md border border-background bg-background-card text-center text-2xl focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary dark:border-background-dark dark:bg-background-card-dark dark:text-text-dark"
               />
             </div>
 
@@ -54,6 +55,7 @@ export function Otp({ isOtp, isMFA }: OtpProps) {
               onClick={() => {
                 savePasswordMFA();
               }}
+              disabled={verifyCode.length < 6}
             >
               Entrar
             </Button>

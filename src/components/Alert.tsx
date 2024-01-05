@@ -56,23 +56,25 @@ export function Alert({
           <strong className="font-bold">{title}</strong>
           <span className="block sm:ml-2 sm:inline">{description}</span>
           <span className="absolute bottom-0 right-0 top-0 px-4 py-3">
-            <X
-              className={cn(
-                'h-6 w-6 cursor-pointer fill-current',
-                variant === 'error' && 'text-red-500',
-                variant === 'success' && 'text-green-500',
-                variant === 'warning' && 'text-yellow-500',
-                variant === 'info' && 'text-blue-500',
-                variant === 'default' && 'text-gray-500',
-              )}
-              onClick={() => {
-                if (onClick) {
-                  onClick();
-                } else {
-                  disableAlert();
-                }
-              }}
-            />
+            {disabledOnClick ? null : (
+              <X
+                className={cn(
+                  'h-6 w-6 cursor-pointer fill-current',
+                  variant === 'error' && 'text-red-500',
+                  variant === 'success' && 'text-green-500',
+                  variant === 'warning' && 'text-yellow-500',
+                  variant === 'info' && 'text-blue-500',
+                  variant === 'default' && 'text-gray-500',
+                )}
+                onClick={() => {
+                  if (onClick) {
+                    onClick();
+                  } else {
+                    disableAlert();
+                  }
+                }}
+              />
+            )}
           </span>
         </div>
       )}

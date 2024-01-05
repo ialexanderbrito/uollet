@@ -14,12 +14,14 @@ import caixa from 'assets/banks/caixa.svg';
 import clear from 'assets/banks/clear.svg';
 import daycoval from 'assets/banks/daycoval.svg';
 import foxbit from 'assets/banks/foxbit.svg';
+import goals from 'assets/banks/goals.svg';
 import inter from 'assets/banks/inter.svg';
 import itau from 'assets/banks/itau.svg';
 import iti from 'assets/banks/iti.svg';
 import mercadoBitcoin from 'assets/banks/mercadobitcoin.svg';
 import mercadopago from 'assets/banks/mercadopago.svg';
 import modalmais from 'assets/banks/modalmais.svg';
+import money from 'assets/banks/money.svg';
 import n26 from 'assets/banks/n26.svg';
 import neon from 'assets/banks/neon.svg';
 import next from 'assets/banks/next.svg';
@@ -34,6 +36,7 @@ import picpay from 'assets/banks/picpay.svg';
 import revolut from 'assets/banks/revolut.svg';
 import rico from 'assets/banks/rico.svg';
 import santander from 'assets/banks/santander.svg';
+import savings from 'assets/banks/savings.svg';
 import sicoob from 'assets/banks/sicoob.svg';
 import sofisa from 'assets/banks/sofisa.svg';
 import toro from 'assets/banks/toro.svg';
@@ -84,4 +87,7 @@ export {
   nomad,
   revolut,
   will,
+  money,
+  savings,
+  goals,
 };

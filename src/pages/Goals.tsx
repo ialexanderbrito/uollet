@@ -46,6 +46,15 @@ export function Goals() {
           variant="info"
           alertName="goals"
         />
+
+        <Alert
+          title="Atenção"
+          description="Os valores das metas não são adicionados ao saldo total da carteira."
+          variant="warning"
+          alertName="goals-warning"
+          disabledOnClick
+        />
+
         {goals.length === 0 ? (
           <div className="mt-4 flex flex-col items-center justify-center">
             <img src={emptyImg} alt="Empty" className="mb-2 w-28" />

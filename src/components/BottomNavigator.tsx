@@ -18,7 +18,7 @@ export function BottomNavigator() {
   return (
     <section
       id="bottom-navigation"
-      className="fixed bottom-5 z-10 w-80 rounded-full bg-background-card opacity-95 shadow-lg dark:bg-background-card-dark dark:shadow-xl sm:w-[40rem]"
+      className="fixed bottom-5 z-10 w-80 rounded-full bg-background-card opacity-95 shadow-lg sm:w-[40rem] dark:bg-background-card-dark dark:shadow-xl"
     >
       <div
         id="tabs"
@@ -27,9 +27,9 @@ export function BottomNavigator() {
         <Link
           to="/"
           className={cn(
-            'flex w-full items-center justify-center gap-2 pb-1 pt-2 hover:text-primary focus:text-primary hover:dark:text-white focus:dark:text-white sm:ml-2',
+            'flex w-full items-center justify-center gap-2 pb-1 pt-2 hover:text-primary focus:text-primary sm:ml-2 hover:dark:text-white focus:dark:text-white',
             isActive('/') &&
-              'ml-2 h-14 w-72 rounded-full bg-primary/10 text-primary hover:text-primary focus:text-primary dark:bg-primary-dark/10 hover:dark:text-white focus:dark:text-white sm:w-full',
+              'ml-2 h-14 w-72 rounded-full bg-primary/10 text-primary hover:text-primary focus:text-primary sm:w-full dark:bg-primary-dark/10 hover:dark:text-white focus:dark:text-white',
           )}
         >
           <House
@@ -45,9 +45,9 @@ export function BottomNavigator() {
         <Link
           to="/wallet"
           className={cn(
-            'flex w-full items-center justify-center gap-2 pb-1 pt-2 hover:text-primary focus:text-primary hover:dark:text-white focus:dark:text-white sm:mr-2',
+            'flex w-full items-center justify-center gap-2 pb-1 pt-2 hover:text-primary focus:text-primary sm:mr-2 hover:dark:text-white focus:dark:text-white',
             isActive('/wallet') &&
-              'mr-2 h-14 w-72 rounded-full bg-primary/10 text-primary hover:text-primary focus:text-primary dark:bg-primary-dark/10 hover:dark:text-white focus:dark:text-white sm:w-full',
+              'mr-2 h-14 w-72 rounded-full bg-primary/10 text-primary hover:text-primary focus:text-primary sm:w-full dark:bg-primary-dark/10 hover:dark:text-white focus:dark:text-white',
           )}
         >
           <Wallet
@@ -66,9 +66,9 @@ export function BottomNavigator() {
         <Link
           to="/register"
           className={cn(
-            'flex h-full w-full items-center justify-center gap-2 rounded-full bg-primary pb-1 pt-2 text-white hover:text-primary focus:text-primary dark:bg-primary-dark dark:text-title-dark hover:dark:text-white focus:dark:text-white',
+            'flex h-full w-full items-center justify-center gap-2 rounded-full bg-primary pb-1 pt-2 text-white hover:text-white/90 focus:text-primary dark:bg-primary-dark dark:text-title-dark hover:dark:text-white focus:dark:text-white',
             isActive('/register') &&
-              'h-16 rounded-full bg-primary/10 text-primary hover:text-primary focus:text-primary dark:bg-primary-dark/10 hover:dark:text-white focus:dark:text-white sm:w-full',
+              'h-16 rounded-full bg-primary/10 text-primary hover:text-primary focus:text-primary sm:w-full dark:bg-primary-dark/10 hover:dark:text-white focus:dark:text-white',
           )}
         >
           <ArrowsDownUp
@@ -87,9 +87,9 @@ export function BottomNavigator() {
         <Link
           to="/investments"
           className={cn(
-            'flex w-full items-center justify-center gap-2 pb-1 pt-2 hover:text-primary focus:text-primary hover:dark:text-white focus:dark:text-white sm:ml-2',
+            'flex w-full items-center justify-center gap-2 pb-1 pt-2 hover:text-primary focus:text-primary sm:ml-2 hover:dark:text-white focus:dark:text-white',
             isActive('/investments') &&
-              'ml-2 h-14 w-72 rounded-full bg-primary/10 text-primary hover:text-primary focus:text-primary dark:bg-primary-dark/10 hover:dark:text-white focus:dark:text-white sm:w-full',
+              'ml-2 h-14 w-72 rounded-full bg-primary/10 text-primary hover:text-primary focus:text-primary sm:w-full dark:bg-primary-dark/10 hover:dark:text-white focus:dark:text-white',
           )}
         >
           <ChartLine
@@ -108,9 +108,9 @@ export function BottomNavigator() {
         <Link
           to="/resume"
           className={cn(
-            'flex w-full items-center justify-center gap-2 pb-1 pt-2 hover:text-primary focus:text-primary hover:dark:text-white focus:dark:text-white sm:mr-2',
+            'flex w-full items-center justify-center gap-2 pb-1 pt-2 hover:text-primary focus:text-primary sm:mr-2 hover:dark:text-white focus:dark:text-white',
             isActive('/resume') &&
-              'mr-2 h-14 w-72 rounded-full bg-primary/10 text-primary hover:text-primary focus:text-primary dark:bg-primary-dark/10 hover:dark:text-white focus:dark:text-white sm:w-full',
+              'mr-2 h-14 w-72 rounded-full bg-primary/10 text-primary hover:text-primary focus:text-primary sm:w-full dark:bg-primary-dark/10 hover:dark:text-white focus:dark:text-white',
           )}
         >
           <ChartPie

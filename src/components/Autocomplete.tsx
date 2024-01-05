@@ -57,7 +57,7 @@ export function Autocomplete<T>({
     <Combobox value={selected} onChange={setSelected}>
       <div className="relative mt-1">
         <div
-          className={`focus-visible:ring-offset-orange-30 relative h-14 w-full cursor-default  rounded-lg bg-background-card p-4 py-2 pl-3 pr-10 text-left text-title outline-none focus-visible:border-primary focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 dark:bg-background-card-dark dark:text-title-dark sm:text-sm ${className}`}
+          className={`focus-visible:ring-offset-orange-30 relative h-14 w-full cursor-default  rounded-lg bg-background-card p-4 py-2 pl-3 pr-10 text-left text-title outline-none focus-visible:border-primary focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 sm:text-sm dark:bg-background-card-dark dark:text-title-dark ${className}`}
         >
           <Combobox.Input
             className="w-full border-none bg-background-card py-2 pl-3 pr-10 text-sm leading-5 text-title outline-none focus:ring-2 focus:ring-primary dark:bg-background-card-dark dark:text-title-dark focus:dark:ring-primary-dark"
@@ -76,7 +76,7 @@ export function Autocomplete<T>({
           leaveTo="opacity-0"
           afterLeave={() => setQuery('')}
         >
-          <Combobox.Options className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-background-card py-1 text-base text-title shadow-lg ring-1 ring-black ring-opacity-5  scrollbar-thin scrollbar-track-background-card scrollbar-thumb-primary focus:outline-none dark:bg-background-card-dark dark:text-title-dark dark:scrollbar-track-background-dark sm:text-sm">
+          <Combobox.Options className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-background-card py-1 text-base text-title shadow-lg ring-1 ring-black ring-opacity-5  scrollbar-thin scrollbar-track-background-card scrollbar-thumb-primary focus:outline-none sm:text-sm dark:bg-background-card-dark dark:text-title-dark dark:scrollbar-track-background-dark">
             {filteredOptions.length === 0 && query !== '' ? (
               <div className="relative cursor-default select-none px-4 py-2 text-title dark:text-title-dark">
                 Nenhum resultado encontrado

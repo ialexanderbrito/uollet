@@ -121,7 +121,7 @@ export function Resume() {
         visible={areValueVisible}
       />
 
-      <div className="flex h-screen w-full flex-col items-center justify-start gap-2 p-4">
+      <div className="flex min-h-screen w-full flex-col items-center justify-start gap-2 p-4">
         <div className="mb-2 flex w-full flex-col items-center justify-center gap-2 sm:justify-between md:flex-row">
           <div className="flex w-full flex-row items-start justify-between gap-1">
             <div className="flex flex-row items-start justify-center gap-1">
@@ -166,7 +166,7 @@ export function Resume() {
           </div>
 
           <div className="flex w-full flex-row items-center justify-end gap-2 sm:w-80">
-            <div className="mb-2 flex h-9 w-full items-center justify-around rounded-md border border-primary dark:border-primary-dark sm:w-64">
+            <div className="mb-2 flex h-9 w-full items-center justify-around rounded-md border border-primary sm:w-64 dark:border-primary-dark">
               <span
                 onClick={() => setType('income')}
                 className={
@@ -292,7 +292,10 @@ export function Resume() {
           {categories.map((category, index) => (
             <div
               key={index}
-              className="flex h-12 w-full cursor-pointer items-center gap-2 rounded-md border-[1px] border-transparent bg-background-card hover:border-current hover:border-primary hover:transition-all dark:bg-background-card-dark dark:hover:border-primary-dark"
+              className={cn(
+                'flex h-12 w-full cursor-pointer items-center gap-2 rounded-md border-[1px] border-transparent bg-background-card hover:border-current hover:border-primary hover:transition-all dark:bg-background-card-dark dark:hover:border-primary-dark',
+                index === categories.length - 1 && 'mb-10',
+              )}
               onClick={() => {
                 setSearchParams({
                   category,

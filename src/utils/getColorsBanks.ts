@@ -45,6 +45,7 @@ export function getColorsBanks(categories: string | string[]) {
     Nomad: '#ffd400',
     Revolut: '#faff00',
     'Will Bank': '#ffd900',
+    Rendimentos: '#ee9ead',
   };
 
   const mapCategoryToColor = (category: string) =>

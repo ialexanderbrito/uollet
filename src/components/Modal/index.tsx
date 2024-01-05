@@ -3,6 +3,7 @@ import { Fragment } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 
 import { Button } from 'components/Button';
+import { InputError } from 'components/InputError';
 
 import { cn } from 'utils/cn';
 
@@ -148,7 +149,7 @@ export function MyDialog({
                   {children}
 
                   {name && (
-                    <div className="mt-2 flex items-center gap-2">
+                    <div className="mt-2 flex flex-col items-center gap-2">
                       <input
                         type="text"
                         className={cn(
@@ -160,6 +161,11 @@ export function MyDialog({
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
                         maxLength={50}
+                      />
+                      <InputError
+                        error={username.length <= 2}
+                        message="O nome precisa ter pelo menos 3 caracteres"
+                        className="mt-0.5"
                       />
                     </div>
                   )}
@@ -205,6 +211,7 @@ export function MyDialog({
                       <Button
                         type="button"
                         inline
+                        disabled={username.length <= 2}
                         onClick={() => {
                           handleSubmitName();
                           closeModal();

@@ -39,6 +39,10 @@ export function CardList({
   function verifyIcon(category: string) {
     const icon = categoryList.find((item) => item.name === category);
 
+    if (category.startsWith('Meta')) {
+      return categoryList.find((item) => item.name === 'Meta')?.icon;
+    }
+
     if (!icon) {
       return creditCard;
     }

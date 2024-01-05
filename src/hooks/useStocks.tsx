@@ -128,7 +128,7 @@ export function useStocks() {
   const [loadingRecommendedStocks, setLoadingRecommendedStocks] =
     useState(true);
   const [favorites, setFavorites] = useState<string[]>([]);
-  const [isFavorite, setIsFavorite] = useState(false);
+  const [isFavorite, setIsFavorite] = useState(savedStocks.length > 0);
   const [searchStock, setSearchStock] = useState('');
   const [stocksResultSearch, setStocksResultSearch] = useState<
     StocksResultSearch[]

@@ -5,6 +5,7 @@ import { BottomNavigator } from 'components/BottomNavigator';
 import { Header } from 'components/Header';
 import { Loading } from 'components/Loading';
 
+import { cn } from 'utils';
 import { formatCurrency } from 'utils/formatCurrency';
 
 import { useAuth } from 'contexts/Auth';
@@ -52,7 +53,7 @@ export function Wallet() {
             wallets.map((wallet, index) => (
               <div
                 key={index}
-                className={`flex h-[200px] w-full flex-col justify-between rounded-2xl border-b-4 bg-background-card p-4 text-left shadow-md dark:bg-background-card-dark`}
+                className="flex h-[200px] w-full flex-col justify-between rounded-2xl border-b-4 bg-background-card p-4 text-left shadow-md dark:bg-background-card-dark"
                 style={{
                   borderBottomColor: Array.isArray(wallet.color)
                     ? wallet.color[0]
@@ -76,9 +77,10 @@ export function Wallet() {
                 </header>
                 <div>
                   <span
-                    className={`block font-medium tracking-[-0.5px] text-title dark:text-title-dark ${
-                      areValueVisible ? 'select-none blur-md' : ''
-                    }`}
+                    className={cn(
+                      'block font-medium tracking-[-0.5px] text-title dark:text-title-dark',
+                      areValueVisible && 'select-none blur-md',
+                    )}
                   >
                     {formatCurrency(wallet.value)}
                   </span>

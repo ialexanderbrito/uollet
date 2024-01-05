@@ -1,3 +1,71 @@
+# [3.3.0](https://github.com/ialexanderbrito/finance/compare/v3.2.0...v3.3.0) (2024-01-03)
+
+
+### Bug Fixes
+
+* lint classname ([242724f](https://github.com/ialexanderbrito/finance/commit/242724fa5d266edd3c421b0a3900a391a0221ea6))
+
+
+### Features
+
+* update dependencies and dev dependencies ([62162a3](https://github.com/ialexanderbrito/finance/commit/62162a3609a04b07bbac6efe2df87539f88699fc))
+
+# [3.2.0](https://github.com/ialexanderbrito/finance/compare/v3.1.3...v3.2.0) (2024-01-03)
+
+
+### Bug Fixes
+
+* length stocks saved ([d2057ef](https://github.com/ialexanderbrito/finance/commit/d2057ef3e802f90899ec77c0cc2c8aedfae3d418))
+* menu new select theme ([6391a92](https://github.com/ialexanderbrito/finance/commit/6391a92885c8c2f29c8533f8b60c4bc206cb15e5))
+* modal mfa input size ([814b2ed](https://github.com/ialexanderbrito/finance/commit/814b2edcf59ab0a140ea0a8593a2ef9885531798))
+* remove select theme ([dd3c5be](https://github.com/ialexanderbrito/finance/commit/dd3c5be049f15ad3cc4bf5793a3ea247919ae017))
+* update save stock zero message ([a5385fd](https://github.com/ialexanderbrito/finance/commit/a5385fd00460c7c3f2117e9b4313b4a4bf6c636f))
+
+
+### Features
+
+* add new assets banks ([3cea6fc](https://github.com/ialexanderbrito/finance/commit/3cea6fc3bc616df08df99823d385169c3f7c555a))
+
+## [3.1.3](https://github.com/ialexanderbrito/finance/compare/v3.1.2...v3.1.3) (2023-12-29)
+
+
+### Bug Fixes
+
+* date initial and final in goals page -1 day ([3a21b92](https://github.com/ialexanderbrito/finance/commit/3a21b9275119d589a1be98256706c303ea1f04f5))
+* default month calendar with values ([5976234](https://github.com/ialexanderbrito/finance/commit/5976234725065dcb5451604c86b556bdec4ccc90))
+* name header and position emoji ([dceaf03](https://github.com/ialexanderbrito/finance/commit/dceaf0323708eb9680ad58ef89ffcec89f914b1f))
+
+## [3.1.2](https://github.com/ialexanderbrito/finance/compare/v3.1.1...v3.1.2) (2023-12-28)
+
+
+### Bug Fixes
+
+* vulnerability mfa login web reload page ([5a6439c](https://github.com/ialexanderbrito/finance/commit/5a6439cbe2ed777e3e0e127a18e2a8c24e34f9fe))
+
+## [3.1.1](https://github.com/ialexanderbrito/finance/compare/v3.1.0...v3.1.1) (2023-12-28)
+
+
+### Bug Fixes
+
+* verify mfa layout and toast ([65939d3](https://github.com/ialexanderbrito/finance/commit/65939d339761635bddd090e8a11a2a96999532b7))
+
+# [3.1.0](https://github.com/ialexanderbrito/finance/compare/v3.0.5...v3.1.0) (2023-12-21)
+
+
+### Bug Fixes
+
+* add optional close button alert ([6a2a799](https://github.com/ialexanderbrito/finance/commit/6a2a79914123cf616124eb156116bba75f0a4d86))
+* favorite stock zero ([b710ad5](https://github.com/ialexanderbrito/finance/commit/b710ad51bf5ce38680e955340446692f4ae0bdf4))
+* name min length modal initial ([abefa61](https://github.com/ialexanderbrito/finance/commit/abefa6199f6312f6c435686a5f6245de5502fd63))
+
+
+### Features
+
+* add confirmed email to login app ([1090422](https://github.com/ialexanderbrito/finance/commit/10904228c26966032681c0618edf92a351cc2a7b))
+* add money and savings in colors and icons ([df286ac](https://github.com/ialexanderbrito/finance/commit/df286acf8c609196eaf046fabfd4d8b1eb1c4df8))
+* add new alert in goals page ([4d8587b](https://github.com/ialexanderbrito/finance/commit/4d8587befc6cce29391bbe7921587ffe0490bbe9))
+* add new assets ([ff77830](https://github.com/ialexanderbrito/finance/commit/ff77830bb067355d605d4d1b5c7b86ab39cffc27))
+
 ## [3.0.5](https://github.com/ialexanderbrito/finance/compare/v3.0.4...v3.0.5) (2023-12-09)
 
 

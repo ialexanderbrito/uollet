@@ -96,7 +96,7 @@ export function GoalsDetails() {
   return (
     <div className="flex w-full flex-col items-center justify-center bg-background dark:bg-background-dark">
       <Header
-        title={`Histórico de metas ${id}`}
+        title="Histórico"
         variant="secondary"
         visible={areValueVisible}
         setVisible={toggleValueVisibility}
@@ -104,7 +104,7 @@ export function GoalsDetails() {
 
       <div className="flex w-full flex-col items-start justify-center gap-3 p-4">
         <h1 className="flex flex-row items-center justify-center gap-2 text-2xl text-title dark:text-title-dark">
-          Meta {title} {emojiPattern(goalsDetailsId()?.emoji)}
+          {emojiPattern(goalsDetailsId()?.emoji)} Meta {title}
         </h1>
         <span className="flex flex-row items-center justify-center text-4xl font-bold text-title dark:text-title-dark">
           {separeteGoalsByCategory(`Meta ${id}`)
