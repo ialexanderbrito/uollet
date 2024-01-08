@@ -10,7 +10,6 @@ export * from './numberToLocale';
 export * from './numberToPercent';
 export * from './numberToSI';
 export * from './numberToSIMoney';
-export * from './verifyLoginLastSevenDays';
 export * from './verifyWebView';
 export * from './verifyCpf';
 export * from './formatCEP';
