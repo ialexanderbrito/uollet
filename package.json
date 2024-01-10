@@ -1,6 +1,6 @@
 {
   "name": "finance",
-  "version": "3.3.0",
+  "version": "3.4.0",
   "type": "module",
   "engines": {
     "node": ">=18.18.2",
@@ -34,6 +34,7 @@
     "chartjs-plugin-datalabels": "^2.2.0",
     "clsx": "^2.1.0",
     "credit-card-type": "^10.0.0",
+    "crisp-sdk-web": "^1.0.21",
     "crypto-js": "^4.2.0",
     "date-fns": "^3.0.6",
     "emoji-mart": "^5.5.2",

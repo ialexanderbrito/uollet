@@ -30,7 +30,7 @@ export function Select({
       <div className="relative mt-1">
         <Listbox.Button
           className={cn(
-            'relative h-14 w-full cursor-default rounded-lg bg-background-card p-4 py-2 pl-3 pr-7 text-left text-title outline-none focus:ring-2 focus:ring-primary focus-visible:border-primary focus-visible:ring-2 focus-visible:ring-background focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-primary sm:text-sm dark:bg-background-card-dark dark:text-title-dark dark:focus:ring-primary-dark',
+            'relative h-14 w-full cursor-default rounded-lg bg-background-card p-4 py-2 pl-3 pr-7 text-left text-title outline-none focus:ring-2 focus:ring-primary focus-visible:border-primary focus-visible:ring-2 focus-visible:ring-background focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-primary dark:bg-background-card-dark dark:text-title-dark dark:focus:ring-primary-dark sm:text-sm',
             className,
           )}
         >
@@ -66,7 +66,7 @@ export function Select({
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <Listbox.Options className="absolute z-50 mt-1 max-h-60 w-full overflow-auto rounded-md bg-background-card py-1 text-base text-title shadow-lg ring-1 ring-black ring-opacity-5 scrollbar-thin scrollbar-track-background-card scrollbar-thumb-primary focus:outline-none sm:text-sm dark:bg-background-card-dark dark:text-title-dark dark:scrollbar-track-background-dark">
+          <Listbox.Options className="absolute z-50 mt-1 max-h-60 w-full overflow-auto rounded-md bg-background-card py-1 text-base text-title shadow-lg ring-1 ring-black ring-opacity-5 scrollbar-thin scrollbar-track-background-card scrollbar-thumb-primary focus:outline-none dark:bg-background-card-dark dark:text-title-dark dark:scrollbar-track-background-dark sm:text-sm">
             <Listbox.Option
               key={0}
               className={({ active }) =>

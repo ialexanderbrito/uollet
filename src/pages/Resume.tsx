@@ -166,7 +166,7 @@ export function Resume() {
           </div>
 
           <div className="flex w-full flex-row items-center justify-end gap-2 sm:w-80">
-            <div className="mb-2 flex h-9 w-full items-center justify-around rounded-md border border-primary sm:w-64 dark:border-primary-dark">
+            <div className="mb-2 flex h-9 w-full items-center justify-around rounded-md border border-primary dark:border-primary-dark sm:w-64">
               <span
                 onClick={() => setType('income')}
                 className={

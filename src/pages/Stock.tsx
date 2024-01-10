@@ -203,7 +203,7 @@ export function Stock() {
             <Jelly color="#170e39" />
           </div>
         ) : (
-          <div className="grid grid-cols-1 gap-8 text-title md:grid-cols-3 lg:grid-cols-4 dark:text-text-dark">
+          <div className="grid grid-cols-1 gap-8 text-title dark:text-text-dark md:grid-cols-3 lg:grid-cols-4">
             <div className="md:col-span-2 lg:col-span-3">
               <div className="flex h-auto min-h-full w-full flex-col px-2 py-8">
                 <div className="flex flex-row gap-2">
