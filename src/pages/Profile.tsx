@@ -5,6 +5,7 @@ import { RWebShare } from 'react-web-share';
 
 import {
   ChartLine,
+  ChatText,
   Confetti,
   CreditCard,
   Eye,
@@ -26,6 +27,7 @@ import incomeImg from 'assets/income.svg';
 import outcomeImg from 'assets/outcome.svg';
 import savingsImg from 'assets/savings.svg';
 import welcomeImg from 'assets/welcome.svg';
+import { Crisp } from 'crisp-sdk-web';
 
 import { Banner } from 'components/Banner';
 import { BottomNavigator } from 'components/BottomNavigator';
@@ -82,6 +84,15 @@ export function Profile() {
   function handleOpenModalAbout() {
     setOpenModalAbout(true);
   }
+
+  function handleOpenCrisp() {
+    Crisp.setHideOnMobile(false);
+    Crisp.chat.open();
+  }
+
+  Crisp.chat.onChatClosed(() => {
+    Crisp.setHideOnMobile(true);
+  });
 
   useEffect(() => {
     getTransactionsValuesTotal();
@@ -262,6 +273,16 @@ export function Profile() {
             title="Senha"
             onClick={() => {
               navigate(`/profile/${user?.id}`);
+            }}
+            arrow
+            divider
+          />
+
+          <Submenu
+            icon={<ChatText size={20} weight="light" />}
+            title="Chat"
+            onClick={() => {
+              handleOpenCrisp();
             }}
             arrow
             divider
