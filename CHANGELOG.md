@@ -1,3 +1,15 @@
+# [3.4.0](https://github.com/ialexanderbrito/finance/compare/v3.3.0...v3.4.0) (2024-01-10)
+
+
+### Bug Fixes
+
+* lint tailwindcss order ([2b13f73](https://github.com/ialexanderbrito/finance/commit/2b13f73fc56b861b78e396ce854cc7954c614663))
+
+
+### Features
+
+* add crisp chat ([42dcd8c](https://github.com/ialexanderbrito/finance/commit/42dcd8cb12ff026420d75793ed431a8387dc8819))
+
 # [3.3.0](https://github.com/ialexanderbrito/finance/compare/v3.2.0...v3.3.0) (2024-01-03)
 
 
