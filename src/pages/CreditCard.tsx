@@ -1,5 +1,5 @@
 import { TwitterPicker } from 'react-color';
-import CurrencyInput from 'react-currency-input-field';
+import { CurrencyInput as CurrencyInputMask } from 'react-currency-mask';
 
 import { Button } from 'components/Button';
 import { CreditCard as CreditCardComponent } from 'components/CreditCard';
@@ -68,19 +68,27 @@ export function CreditCard() {
             <InputError error={true} message={formik.errors.cardName} />
           )}
 
-          <CurrencyInput
-            className={cn(
-              'h-14 w-full rounded-lg bg-background-card p-4 text-title outline-none focus:ring-2 focus:ring-primary dark:bg-background-card-dark dark:text-title-dark focus:dark:ring-primary-dark',
-              formik.errors.limit &&
-                formik.touched.limit &&
-                'border-[1.5px] border-danger',
-            )}
-            placeholder="Adicione o limite do seu cartão R$ 0,00"
-            intlConfig={{ locale: 'pt-BR', currency: 'BRL' }}
+          <CurrencyInputMask
             value={formik.values.limit}
-            onValueChange={(value) => formik.setFieldValue('limit', value)}
+            onChangeValue={(event, originalValue, maskedValue) => {
+              formik.setFieldValue('limit', originalValue);
+            }}
             onBlur={formik.handleBlur}
+            InputElement={
+              <input
+                type="text"
+                className={cn(
+                  'h-14 w-full rounded-lg bg-background-card p-4 text-title outline-none focus:ring-2 focus:ring-primary dark:bg-background-card-dark dark:text-title-dark focus:dark:ring-primary-dark',
+                  formik.errors.limit &&
+                    formik.touched.limit &&
+                    'border-[1.5px] border-danger',
+                )}
+                placeholder="Adicione o limite do seu cartão R$ 0,00"
+                onBlur={formik.handleBlur}
+              />
+            }
           />
+
           {formik.errors.limit && formik.touched.limit && (
             <InputError error={true} message={formik.errors.limit} />
           )}
