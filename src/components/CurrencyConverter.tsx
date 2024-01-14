@@ -136,7 +136,7 @@ export function CurrencyConverter({
           }}
           InputElement={
             <input
-              type="text"
+              type="tel"
               className="h-14 rounded-md bg-background-card pl-2 dark:bg-background-card-dark dark:text-text-dark"
               placeholder="Valor"
             />

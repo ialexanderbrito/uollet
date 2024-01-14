@@ -76,7 +76,7 @@ export function CreditCard() {
             onBlur={formik.handleBlur}
             InputElement={
               <input
-                type="text"
+                type="tel"
                 className={cn(
                   'h-14 w-full rounded-lg bg-background-card p-4 text-title outline-none focus:ring-2 focus:ring-primary dark:bg-background-card-dark dark:text-title-dark focus:dark:ring-primary-dark',
                   formik.errors.limit &&
