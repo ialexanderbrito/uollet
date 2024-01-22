@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import CurrencyInput from 'react-currency-input-field';
+import { CurrencyInput as CurrencyInputMask } from 'react-currency-mask';
 import { useParams } from 'react-router-dom';
 
 import data, { Skin } from '@emoji-mart/data';
@@ -173,22 +173,23 @@ export function RegisterGoals() {
             <InputError error={true} message={formik.errors.description} />
           )}
 
-          <CurrencyInput
-            prefix="R$ "
-            placeholder="Qual seu objetivo? R$ 0,00"
-            decimalsLimit={2}
-            decimalSeparator=","
-            groupSeparator="."
+          <CurrencyInputMask
             value={formik.values.value}
-            onValueChange={(value) => {
-              formik.setFieldValue('value', value);
+            onChangeValue={(event, originalValue, maskedValue) => {
+              formik.setFieldValue('value', originalValue);
             }}
-            className={cn(
-              'h-14 w-full rounded-lg bg-background-card p-4 text-title outline-none focus:ring-2 focus:ring-primary dark:bg-background-card-dark dark:text-title-dark focus:dark:ring-primary-dark',
-              formik.errors.value &&
-                formik.touched.value &&
-                'border-[1.5px] border-danger',
-            )}
+            InputElement={
+              <input
+                type="tel"
+                className={cn(
+                  'h-14 w-full rounded-lg bg-background-card p-4 text-title outline-none focus:ring-2 focus:ring-primary dark:bg-background-card-dark dark:text-title-dark focus:dark:ring-primary-dark',
+                  formik.errors.value &&
+                    formik.touched.value &&
+                    'border-[1.5px] border-danger',
+                )}
+                placeholder="Qual seu objetivo? R$ 0,00"
+              />
+            }
           />
 
           {formik.errors.value && formik.touched.value && (

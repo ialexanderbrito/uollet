@@ -1,3 +1,18 @@
+## [3.5.1](https://github.com/ialexanderbrito/finance/compare/v3.5.0...v3.5.1) (2024-01-14)
+
+
+### Bug Fixes
+
+* input type text to tel ([9bc911a](https://github.com/ialexanderbrito/finance/commit/9bc911a7768f05eda46a2ce29d8411a5a196f6b7))
+
+# [3.5.0](https://github.com/ialexanderbrito/finance/compare/v3.4.0...v3.5.0) (2024-01-14)
+
+
+### Features
+
+* add currency mask brl ([1d6a8a6](https://github.com/ialexanderbrito/finance/commit/1d6a8a61635d215bc2d92190822fa65584fb9c89))
+* add new component input mask currency ([516a8f6](https://github.com/ialexanderbrito/finance/commit/516a8f6f2b614612418c49dc776487f00eb0d94b))
+
 # [3.4.0](https://github.com/ialexanderbrito/finance/compare/v3.3.0...v3.4.0) (2024-01-10)
 
 

@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import CurrencyInput from 'react-currency-input-field';
+import { CurrencyInput as CurrencyInputMask } from 'react-currency-mask';
 
 import { Swap } from '@phosphor-icons/react';
 import { format } from 'date-fns';
@@ -130,15 +130,17 @@ export function CurrencyConverter({
           </div>
         </div>
 
-        <CurrencyInput
-          className="h-14 rounded-md bg-background-card pl-2 dark:bg-background-card-dark dark:text-text-dark"
-          placeholder="Valor"
-          defaultValue={0}
-          decimalsLimit={2}
-          decimalSeparator=","
-          groupSeparator="."
-          prefix="R$ "
-          onValueChange={(value) => setCurrencyValue(String(value))}
+        <CurrencyInputMask
+          onChangeValue={(event, originalValue, maskedValue) => {
+            setCurrencyValue(String(originalValue));
+          }}
+          InputElement={
+            <input
+              type="tel"
+              className="h-14 rounded-md bg-background-card pl-2 dark:bg-background-card-dark dark:text-text-dark"
+              placeholder="Valor"
+            />
+          }
         />
 
         {currencyTotal > 0 && (
