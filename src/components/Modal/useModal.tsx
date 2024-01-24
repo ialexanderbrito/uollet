@@ -38,7 +38,7 @@ export function useModal() {
   }
 
   function copyToClipboard() {
-    navigator.clipboard.writeText('contato@uollet.com.br');
+    navigator.clipboard.writeText('oi@uollet.com.br');
     toast.success('Email copiado com sucesso!', {
       id: 'success',
     });
