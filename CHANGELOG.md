@@ -1,3 +1,10 @@
+## [3.5.2](https://github.com/ialexanderbrito/finance/compare/v3.5.1...v3.5.2) (2024-01-26)
+
+
+### Bug Fixes
+
+* disabled switch recurrency ([38209d5](https://github.com/ialexanderbrito/finance/commit/38209d512dcce5bf63a1d7db7061403d7e32cf8b))
+
 ## [3.5.1](https://github.com/ialexanderbrito/finance/compare/v3.5.0...v3.5.1) (2024-01-14)
 
 
