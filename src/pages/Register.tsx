@@ -258,7 +258,7 @@ export function Register() {
           {isGoal ? (
             <></>
           ) : (
-            <div className="switch flex w-full flex-row items-center justify-end">
+            <div className="switch hidden w-full flex-row items-center justify-end">
               <Switch
                 checked={Boolean(formik.values.recurrency)}
                 onChange={() => handleSwitch()}
