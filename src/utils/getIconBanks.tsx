@@ -45,7 +45,8 @@ import {
   money,
   savings,
   goals,
-} from 'assets';
+  credit,
+} from 'assets/banks';
 
 export function getIconBanks(name: string) {
   const iconMap: { [key: string]: React.ReactNode } = {
@@ -176,6 +177,7 @@ export function getIconBanks(name: string) {
     ),
     'Will Bank': <img src={will} alt="Will" className="h-12 w-12 rounded-md" />,
     Meta: <img src={goals} alt="Metas" className="h-12 w-12 rounded-md" />,
+    Cartão: <img src={credit} alt="Cartão" className="h-12 w-12 rounded-md" />,
   };
 
   return (

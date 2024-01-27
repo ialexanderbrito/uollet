@@ -46,6 +46,7 @@ export function getColorsBanks(categories: string | string[]) {
     Revolut: '#faff00',
     'Will Bank': '#ffd900',
     Rendimentos: '#ee9ead',
+    Cartão: '#36a18b',
   };
 
   const mapCategoryToColor = (category: string) =>

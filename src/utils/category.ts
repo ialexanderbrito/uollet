@@ -44,7 +44,7 @@ import {
   money,
   savings,
   goals,
-} from 'assets';
+} from 'assets/banks';
 
 export const category = [
   {
