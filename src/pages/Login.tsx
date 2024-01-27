@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import googleIcon from 'assets/google-icon.svg';
+import { google } from 'assets/icons';
 import goFinancesLogo from 'assets/logo.svg';
 
 import { ModalLogin } from 'components/ModalLogin';
@@ -41,7 +41,7 @@ export function Login() {
               onClick={loginWithGoogle}
             >
               <div className="flex h-12 w-12 items-center justify-center rounded-l-md border-[1px] border-b-0 border-solid border-gray-400 border-r-background dark:border-l-0 dark:border-t-0 dark:border-r-[#34383a]">
-                <img src={googleIcon} alt="Google" className="h-5 w-5" />
+                <img src={google} alt="Google" className="h-5 w-5" />
               </div>
               <div className="flex h-12 w-52 items-center justify-center">
                 <span>Entrar com Google</span>
