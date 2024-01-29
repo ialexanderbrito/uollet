@@ -21,8 +21,9 @@ interface MyDialogProps {
   name?: boolean;
   about?: boolean;
   buttonPrimary?: boolean;
+  textPrimary?: string;
   buttonSecondary?: boolean;
-  textButtonSecondary?: string;
+  textButtonSecondary?: React.ReactNode;
   handleChangeButtonSecondary?: () => void;
   terms?: boolean;
   deleteAccount?: () => void | Promise<void>;
@@ -38,6 +39,7 @@ interface MyDialogProps {
     | '4xl'
     | '5xl'
     | '6xl';
+  className?: string;
 }
 
 export function MyDialog({
@@ -50,6 +52,7 @@ export function MyDialog({
   name,
   about,
   buttonPrimary,
+  textPrimary = 'Fechar',
   buttonSecondary,
   textButtonSecondary,
   handleChangeButtonSecondary,
@@ -57,6 +60,7 @@ export function MyDialog({
   deleteAccount,
   isInvestiment,
   size,
+  className,
 }: MyDialogProps) {
   const { toast } = useToast();
   const {
@@ -84,7 +88,7 @@ export function MyDialog({
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog
           as="div"
-          className="relative z-10"
+          className={cn('relative z-10', className)}
           onClose={name ? () => {} : closeModal}
         >
           <Transition.Child
@@ -137,7 +141,7 @@ export function MyDialog({
                     <p className="text-sm text-text dark:text-text-dark">
                       {description}
                       {email && (
-                        <a href="mailto:contato@uollet.com">
+                        <a href="mailto:oi@uollet.com">
                           <span className="text-sm text-text underline dark:text-text-dark">
                             {email}
                           </span>
@@ -228,17 +232,17 @@ export function MyDialog({
                         inline
                         variant="outline"
                         isInvestiment={isInvestiment}
-                        type="submit"
+                        type="button"
                         onClick={closeModal}
                       >
-                        Fechar
+                        {textPrimary}
                       </Button>
                     )}
 
                     {buttonSecondary && (
                       <Button
                         inline
-                        type="submit"
+                        type="button"
                         isInvestiment={isInvestiment}
                         onClick={handleChangeButtonSecondary}
                       >
@@ -248,7 +252,7 @@ export function MyDialog({
 
                     {deleteAccount && (
                       <Button
-                        type="submit"
+                        type="button"
                         inline
                         onClick={deleteAccountVerify}
                       >
