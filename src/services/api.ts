@@ -1,7 +1,8 @@
 import axios from 'axios';
 
 export const api = axios.create({
-  baseURL: 'https://api.uollet.com.br',
+  // baseURL: 'https://api.uollet.com.br',
+  baseURL: 'http://localhost:4000',
 });
 
 api.interceptors.request.use(async (config) => {
