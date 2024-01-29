@@ -1,5 +1,6 @@
 import { BrowserRouter } from 'react-router-dom';
 
+import { ConfigCatProvider, PollingMode } from 'configcat-react';
 import { Crisp } from 'crisp-sdk-web';
 import { MainRoutes } from 'routes';
 
@@ -16,16 +17,24 @@ export function App() {
   Crisp.configure(import.meta.env.VITE_CRISP_ID);
 
   return (
-    <BrowserRouter>
-      <ThemeProvider>
-        <AuthProvider>
-          <ToastProvider>
-            <CheckConnection>
-              <MainRoutes />
-            </CheckConnection>
-          </ToastProvider>
-        </AuthProvider>
-      </ThemeProvider>
-    </BrowserRouter>
+    <ConfigCatProvider
+      sdkKey={import.meta.env.VITE_CONFIGCAT_SDK}
+      pollingMode={PollingMode.AutoPoll}
+      options={{
+        pollIntervalSeconds: 5,
+      }}
+    >
+      <BrowserRouter>
+        <ThemeProvider>
+          <AuthProvider>
+            <ToastProvider>
+              <CheckConnection>
+                <MainRoutes />
+              </CheckConnection>
+            </ToastProvider>
+          </AuthProvider>
+        </ThemeProvider>
+      </BrowserRouter>
+    </ConfigCatProvider>
   );
 }
