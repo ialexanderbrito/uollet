@@ -2,8 +2,8 @@ import { CurrencyInput as CurrencyInputMask } from 'react-currency-mask';
 import { useParams } from 'react-router-dom';
 
 import { Switch } from '@headlessui/react';
-import incomeIcon from 'assets/income.svg';
-import outcomeIcon from 'assets/outcome.svg';
+import { income, outcome } from 'assets/icons';
+import { useFeatureFlag } from 'configcat-react';
 
 import { Autocomplete } from 'components/Autocomplete';
 import { BottomNavigator } from 'components/BottomNavigator';
@@ -11,6 +11,7 @@ import { Button } from 'components/Button';
 import { DatePickerInput } from 'components/DatePickerInput';
 import { Header } from 'components/Header';
 import { InputError } from 'components/InputError';
+import { Loading } from 'components/Loading';
 import { MyDialog } from 'components/Modal';
 import { Recurrency } from 'components/Recurrency';
 
@@ -19,6 +20,8 @@ import { cn } from 'utils/cn';
 import { useRegister } from 'hooks/useRegister';
 
 export function Register() {
+  const { loading: loadindConfigCat, value: showSwitchRecurrency } =
+    useFeatureFlag('switch_recurrency', false);
   const { id } = useParams();
   const {
     formik,
@@ -64,6 +67,10 @@ export function Register() {
       id: '',
     });
     sessionStorage.removeItem('@uollet:goal');
+  }
+
+  if (loadindConfigCat) {
+    <Loading />;
   }
 
   return (
@@ -139,7 +146,7 @@ export function Register() {
                 formik.setFieldValue('type', 'income');
               }}
             >
-              <img src={incomeIcon} alt="Entrada" className="h-6 w-6" />
+              <img src={income} alt="Entrada" className="h-6 w-6" />
               <p
                 className={cn(
                   'text-text dark:text-text-dark',
@@ -166,7 +173,7 @@ export function Register() {
               }}
               disabled={isGoal}
             >
-              <img src={outcomeIcon} alt="Saída" className="h-6 w-6" />
+              <img src={outcome} alt="Saída" className="h-6 w-6" />
               <p
                 className={cn(
                   'text-text dark:text-text-dark',
@@ -199,6 +206,7 @@ export function Register() {
                     'border-[1.5px] border-danger',
                 )}
                 displayValue={(value) => value.name}
+                displayImage={(value) => value.icon}
               />
               {formik.errors.category && formik.touched.category && (
                 <InputError
@@ -234,7 +242,7 @@ export function Register() {
           <span className="ml-2 text-xs text-title dark:text-title-dark">
             Não achou sua conta?{' '}
             <a
-              href="mailto:contato@uollet.com.br?subject=Adicionar%20conta%20no%20Uollet&body=Ol%C3%A1%2C%20gostaria%20de%20sugerir%20a%20conta%20%22%22%20no%20Uollet."
+              href="mailto:oi@uollet.com.br?subject=Adicionar%20conta%20no%20Uollet&body=Ol%C3%A1%2C%20gostaria%20de%20sugerir%20a%20conta%20%22%22%20no%20Uollet."
               target="_blank"
               rel="noreferrer"
               className="cursor-pointer text-primary dark:text-primary-dark"
@@ -258,33 +266,37 @@ export function Register() {
           {isGoal ? (
             <></>
           ) : (
-            <div className="switch hidden w-full flex-row items-center justify-end">
-              <Switch
-                checked={Boolean(formik.values.recurrency)}
-                onChange={() => handleSwitch()}
-                className={cn(
-                  'switch relative inline-flex h-6 w-11 items-center rounded-full',
-                  isRecurring ? 'bg-success' : 'bg-danger',
-                )}
-              >
-                <span
-                  className={cn(
-                    'switch inline-block h-5 w-5 transform rounded-full bg-background-card',
-                    isRecurring ? 'translate-x-6' : 'translate-x-1',
-                  )}
-                />
-              </Switch>
-              <span
-                className="switch ml-2 cursor-pointer text-sm text-text"
-                onClick={() => {
-                  setOpenBottomSheet(true);
-                }}
-              >
-                {!isCategoryCreditCard(formik.values.category.name)
-                  ? 'Compra parcelada'
-                  : 'Receita recorrente'}
-              </span>
-            </div>
+            <>
+              {showSwitchRecurrency && (
+                <div className="switch flex w-full flex-row items-center justify-end">
+                  <Switch
+                    checked={Boolean(formik.values.recurrency)}
+                    onChange={() => handleSwitch()}
+                    className={cn(
+                      'switch relative inline-flex h-6 w-11 items-center rounded-full',
+                      isRecurring ? 'bg-success' : 'bg-danger',
+                    )}
+                  >
+                    <span
+                      className={cn(
+                        'switch inline-block h-5 w-5 transform rounded-full bg-background-card',
+                        isRecurring ? 'translate-x-6' : 'translate-x-1',
+                      )}
+                    />
+                  </Switch>
+                  <span
+                    className="switch ml-2 cursor-pointer text-sm text-text"
+                    onClick={() => {
+                      setOpenBottomSheet(true);
+                    }}
+                  >
+                    {!isCategoryCreditCard(formik.values.category.name)
+                      ? 'Compra parcelada'
+                      : 'Receita recorrente'}
+                  </span>
+                </div>
+              )}
+            </>
           )}
 
           <MyDialog
