@@ -1,7 +1,6 @@
-import { Switch } from '@headlessui/react';
 import { CaretRight } from '@phosphor-icons/react';
 
-import { useTheme } from 'contexts/Theme';
+import { SwitchTheme } from 'components/SwitchTheme';
 
 interface SubmenuProps {
   icon: React.ReactNode;
@@ -22,7 +21,6 @@ export function Submenu({
   switchTheme,
   beta,
 }: SubmenuProps) {
-  const { theme, toggleTheme } = useTheme();
   return (
     <>
       <div
@@ -48,23 +46,11 @@ export function Submenu({
             />
           )}
         </div>
-        <div>
-          {switchTheme && (
-            <Switch
-              checked={theme === 'dark'}
-              onChange={() => toggleTheme()}
-              className={`${
-                theme === 'dark' ? 'bg-primary' : 'bg-primary-dark'
-              } relative inline-flex h-6 w-11 items-center rounded-full`}
-            >
-              <span
-                className={`${
-                  theme === 'dark' ? 'translate-x-6' : 'translate-x-1'
-                } inline-block h-4 w-4 transform rounded-full bg-white`}
-              />
-            </Switch>
-          )}
-        </div>
+        {switchTheme && (
+          <div className="flex w-52">
+            <SwitchTheme />
+          </div>
+        )}
       </div>
       {divider && (
         <div className="h-[0.5px] w-full bg-text/30 dark:bg-text-dark/30" />
