@@ -10,32 +10,27 @@ import {
   Calculator as CalculatorIcon,
   CaretDown,
   CaretUp,
-  ChartLine,
   Confetti,
   CreditCard,
   CurrencyCircleDollar,
   DotsThreeVertical,
   FileCsv,
   FileXls,
-  Moon,
   Power,
-  Sun,
   User,
 } from '@phosphor-icons/react';
 
-import { cn } from 'utils';
 import { verifyWebView } from 'utils/verifyWebView';
 
 import { useAuth } from 'contexts/Auth';
-import { useTheme } from 'contexts/Theme';
 
 import { Calculator } from './Calculator';
 import { CurrencyConverter } from './CurrencyConverter';
+import { SwitchTheme } from './SwitchTheme';
 
 export function Menu() {
   const navigate = useNavigate();
   const { logOut } = useAuth();
-  const { theme, handleChangeColorMode } = useTheme();
 
   const [moreOptions, setMoreOptions] = useState(false);
   const [moreSheets, setMoreSheets] = useState(false);
@@ -81,22 +76,6 @@ export function Menu() {
                       className="mr-2 h-5 w-5 text-primary dark:text-white"
                     />
                     Minha conta
-                  </button>
-                </MenuComponent.Item>
-
-                <MenuComponent.Item>
-                  <button
-                    className="group flex w-full items-center rounded-md px-2 py-2 text-sm"
-                    onClick={() => {
-                      navigate('/investments');
-                    }}
-                  >
-                    <ChartLine
-                      size={20}
-                      weight="light"
-                      className="mr-2 h-5 w-5 text-primary dark:text-white"
-                    />
-                    Área do investidor
                   </button>
                 </MenuComponent.Item>
 
@@ -212,7 +191,7 @@ export function Menu() {
                       >
                         <FileCsv
                           size={20}
-                          weight="fill"
+                          weight="light"
                           className="mr-2 h-5 w-5 text-primary dark:text-white"
                         />
                         Importar CSV
@@ -227,7 +206,7 @@ export function Menu() {
                       >
                         <FileXls
                           size={20}
-                          weight="fill"
+                          weight="light"
                           className="mr-2 h-5 w-5 text-primary dark:text-white"
                         />
                         Exportar Planilha
@@ -271,7 +250,7 @@ export function Menu() {
                       >
                         <CurrencyCircleDollar
                           size={32}
-                          weight="fill"
+                          weight="light"
                           className="mr-2 h-5 w-5 text-primary dark:text-white"
                         />
                         Conversor de moedas
@@ -287,7 +266,7 @@ export function Menu() {
                       >
                         <CalculatorIcon
                           size={32}
-                          weight="fill"
+                          weight="light"
                           className="mr-2 h-5 w-5 text-primary dark:text-white"
                         />
                         Calculadora
@@ -297,56 +276,7 @@ export function Menu() {
                 )}
 
                 <MenuComponent.Item>
-                  <button
-                    className="group flex w-full items-center px-2 py-2 text-sm"
-                    onClick={(e) => {
-                      e.preventDefault();
-                    }}
-                  >
-                    <div className="flex w-full flex-row justify-between rounded-md border border-text dark:border-title">
-                      <button
-                        className={cn(
-                          'flex h-full w-full cursor-pointer items-center justify-center rounded-md border-0 border-transparent bg-transparent p-1 font-normal active:outline-none',
-                          theme === 'dark'
-                            ? 'bg-primary/90 text-white'
-                            : 'bg-transparent text-primary',
-                        )}
-                        onClick={() => {
-                          handleChangeColorMode('dark');
-                        }}
-                      >
-                        <Moon size={20} weight="light" />
-                      </button>
-
-                      <button
-                        className={cn(
-                          'h-full w-full cursor-pointer rounded-md border-0 border-transparent bg-transparent p-1 font-normal',
-                          theme === 'auto'
-                            ? 'bg-primary text-white'
-                            : 'bg-transparent text-primary',
-                        )}
-                        onClick={() => {
-                          handleChangeColorMode('auto');
-                        }}
-                      >
-                        Auto
-                      </button>
-
-                      <button
-                        className={cn(
-                          'flex h-full w-full cursor-pointer items-center justify-center rounded-md border-0 border-transparent bg-transparent p-1 font-normal active:outline-none',
-                          theme === 'light'
-                            ? 'bg-primary/90 text-white'
-                            : 'bg-transparent text-primary',
-                        )}
-                        onClick={() => {
-                          handleChangeColorMode('light');
-                        }}
-                      >
-                        <Sun size={20} weight="light" />
-                      </button>
-                    </div>
-                  </button>
+                  <SwitchTheme />
                 </MenuComponent.Item>
 
                 <MenuComponent.Item>
