@@ -1,32 +1,31 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { Tooltip } from 'react-tooltip';
 import { RWebShare } from 'react-web-share';
 
 import {
-  ChartLine,
   ChatText,
   Confetti,
   CreditCard,
+  Crown,
   Eye,
   EyeClosed,
   Info,
-  Key,
   Keyhole,
   LockKey,
-  Question,
-  SealCheck,
   SignOut,
-  UserMinus,
+  SketchLogo,
+  Sun,
 } from '@phosphor-icons/react';
-import connectionImg from 'assets/connection.svg';
-import creditCardImg from 'assets/credit_card.svg';
 import defaultAvatar from 'assets/default_user_avatar.png';
-import goalsImg from 'assets/goals.svg';
-import incomeImg from 'assets/income.svg';
-import outcomeImg from 'assets/outcome.svg';
-import savingsImg from 'assets/savings.svg';
-import welcomeImg from 'assets/welcome.svg';
+import { income, outcome } from 'assets/icons';
+import {
+  goalsIllustration,
+  connectionIllustration,
+  creditCardIllustration,
+  savingsIllustration,
+  welcomeIllustration,
+} from 'assets/illustrations';
+import { useFeatureFlag } from 'configcat-react';
 import { Crisp } from 'crisp-sdk-web';
 
 import { Banner } from 'components/Banner';
@@ -36,53 +35,48 @@ import { EnrollOtp } from 'components/EnrollOtp';
 import { Header } from 'components/Header';
 import { Loading } from 'components/Loading';
 import { MyDialog } from 'components/Modal';
-import { About } from 'components/Modal/About';
 import { useModal } from 'components/Modal/useModal';
 import { Submenu } from 'components/Submenu';
 
 import { cn } from 'utils/cn';
 import { formatCurrency } from 'utils/formatCurrency';
-import { verifyLoginLastSevenDays } from 'utils/verifyLoginLastSevenDays';
 
 import { useAuth } from 'contexts/Auth';
 
 import { useInvestments } from 'hooks/useInvestments';
 import { useOtp } from 'hooks/useOtp';
-import { useProfile } from 'hooks/useProfile';
 import { useTransactions } from 'hooks/useTransactions';
 
+import { Payments } from './Payments';
+
 export function Profile() {
+  const { loading: loadindConfigCat, value: showPaymentsFeature } =
+    useFeatureFlag('page_payments', false);
   const navigate = useNavigate();
-  const { user, logOut, areValueVisible, toggleValueVisibility, hasOtp } =
-    useAuth();
+  const {
+    user,
+    logOut,
+    areValueVisible,
+    toggleValueVisibility,
+    hasOtp,
+    isPlanActive,
+  } = useAuth();
 
   const { deleteOtp } = useOtp();
-  const { deleteUser } = useProfile();
   const { copyToClipboard } = useModal();
-  const {
-    loading,
-    handleCloseModal,
-    openModal,
-    handleOpenModal,
-    allTotal,
-    getTransactionsValuesTotal,
-  } = useTransactions();
+  const { loading, allTotal, getTransactionsValuesTotal } = useTransactions();
   const {
     allTotalInvestiments,
     getTransactionsValuesTotal: getTransactionsValuesTotalInvestiments,
   } = useInvestments();
 
   const [openModalSuport, setOpenModalSuport] = useState(false);
-  const [openModalAbout, setOpenModalAbout] = useState(false);
   const [openModalMFA, setOpenModalMFA] = useState(false);
   const [openModalOtp, setOpenModalOtp] = useState(false);
+  const [openModalPayments, setOpenModalPayments] = useState(false);
 
   function handleOpenModalSuport() {
     setOpenModalSuport(true);
-  }
-
-  function handleOpenModalAbout() {
-    setOpenModalAbout(true);
   }
 
   function handleOpenCrisp() {
@@ -99,7 +93,7 @@ export function Profile() {
     getTransactionsValuesTotalInvestiments();
   }, []);
 
-  if (loading) {
+  if (loading || loadindConfigCat) {
     return <Loading />;
   }
 
@@ -122,32 +116,20 @@ export function Profile() {
             <span className="flex items-center font-medium text-title dark:text-title-dark">
               {user?.user_metadata.full_name}
 
-              {verifyLoginLastSevenDays(
-                user?.updated_at,
-                user?.user_metadata.phone,
-              ) && (
-                <>
-                  <Tooltip
-                    content="Seu número de telefone foi verificado e você logou nos últimos 7 dias"
-                    anchorSelect=".verify"
-                    className="rounded-md bg-background-card p-2 text-title dark:bg-background-card-dark dark:text-title-dark"
-                    noArrow
-                    place="right"
-                  />
-                  <span className="verify ml-1 text-xs font-normal text-blue-500 dark:text-blue-400">
-                    <SealCheck size={16} weight="fill" />
-                  </span>
-                </>
+              {isPlanActive && (
+                <span className="ml-1 text-xs font-normal text-yellow-500 dark:text-yellow-400">
+                  <Crown size={16} weight="duotone" />
+                </span>
               )}
             </span>
             <p className="text-sm font-normal text-text dark:text-text-dark">
-              Perfil
+              Gerencie sua conta
             </p>
           </div>
         </Link>
         <div className="flex h-16 flex-row items-center justify-start gap-4 rounded-lg bg-background-card dark:bg-background-card-dark">
           <img
-            src={allTotal + allTotalInvestiments < 0 ? outcomeImg : incomeImg}
+            src={allTotal + allTotalInvestiments < 0 ? outcome : income}
             alt={allTotal + allTotalInvestiments < 0 ? 'Saidas' : 'Entradas'}
             className="ml-3 h-8 w-8 rounded-lg object-cover"
           />
@@ -170,23 +152,44 @@ export function Profile() {
           </div>
         </div>
 
+        {showPaymentsFeature && (
+          // {!isPlanActive && (
+          <div
+            className="flex h-20 cursor-pointer flex-row items-center justify-start gap-4 rounded-lg border border-primary bg-background-card transition-all hover:bg-background-card-dark/5 dark:bg-background-card-dark dark:hover:border-primary-dark"
+            onClick={() => setOpenModalPayments(true)}
+          >
+            <SketchLogo className="ml-3 h-8 w-8 rounded-lg object-cover text-primary dark:text-white" />
+
+            <div>
+              <span className="text-lg font-bold text-primary dark:text-white">
+                Vire um uollet+!
+              </span>
+              <p className="text-xs font-normal text-title dark:text-text-dark">
+                Assine o uollet+ e tenha acesso a mais funcionalidades e mais{' '}
+                <br />
+                controle sobre suas finanças!
+              </p>
+            </div>
+          </div>
+        )}
+
         <div className="flex w-full min-w-full gap-4 overflow-y-hidden overflow-x-scroll p-1 scrollbar-hide md:overflow-x-auto">
           <Banner
             title="Seja bem vindo(a) ao uollet!"
-            img={welcomeImg}
+            img={welcomeIllustration}
             className="bg-[#1da1f3]"
           />
 
           <Banner
             title="Comece a controlar suas finanças agora mesmo!"
-            img={savingsImg}
+            img={savingsIllustration}
             onClick={() => navigate('/register')}
             className="bg-[#01eefe]"
           />
 
           <Banner
             title="Cadastre suas metas financeiras e alcance seus objetivos!"
-            img={goalsImg}
+            img={goalsIllustration}
             onClick={() => navigate('/register/goals')}
             className="bg-[#c8a2c8]"
           />
@@ -200,14 +203,14 @@ export function Profile() {
           >
             <Banner
               title=" Convide seus amigos para usar o uollet!"
-              img={connectionImg}
+              img={connectionIllustration}
               className="bg-[#fbbb02]"
             />
           </RWebShare>
 
           <Banner
             title="Gerencie suas compras feitas no cartão de crédito!"
-            img={creditCardImg}
+            img={creditCardIllustration}
             onClick={() => navigate('/cards')}
             className="bg-[#01e59a]"
           />
@@ -223,13 +226,6 @@ export function Profile() {
               )
             }
             title={areValueVisible ? 'Mostrar saldo' : 'Ocultar saldo'}
-            divider
-          />
-
-          <Submenu
-            onClick={() => navigate('/investments')}
-            icon={<ChartLine size={20} weight="light" />}
-            title="Área do investidor"
             divider
           />
 
@@ -269,16 +265,6 @@ export function Profile() {
           />
 
           <Submenu
-            icon={<Key size={20} weight="light" />}
-            title="Senha"
-            onClick={() => {
-              navigate(`/profile/${user?.id}`);
-            }}
-            arrow
-            divider
-          />
-
-          <Submenu
             icon={<ChatText size={20} weight="light" />}
             title="Chat"
             onClick={() => {
@@ -286,6 +272,7 @@ export function Profile() {
             }}
             arrow
             divider
+            beta
           />
 
           <Submenu
@@ -299,21 +286,10 @@ export function Profile() {
           />
 
           <Submenu
-            icon={<Question size={20} weight="light" />}
-            title="Sobre"
-            onClick={() => {
-              handleOpenModalAbout();
-            }}
-            arrow
+            icon={<Sun size={20} weight="light" />}
+            title="Tema do app"
             divider
-          />
-
-          <Submenu
-            icon={<UserMinus size={20} weight="light" />}
-            title="Apagar a conta"
-            onClick={() => handleOpenModal()}
-            arrow
-            divider
+            switchTheme
           />
 
           <Submenu
@@ -324,25 +300,13 @@ export function Profile() {
 
           <div className="mb-14 flex h-6" />
         </div>
-        <MyDialog
-          isOpen={openModal}
-          closeModal={handleCloseModal}
-          title="Deletar Conta"
-          description="Tem certeza que deseja deletar sua conta? Essa ação não poderá ser desfeita e todos os seus dados serão perdidos."
-          buttonPrimary
-          deleteAccount={() => {
-            if (!user) return;
-            deleteUser(user.id);
-          }}
-          terms
-        />
 
         <MyDialog
           isOpen={openModalSuport}
           closeModal={() => setOpenModalSuport(false)}
           title="Suporte"
           description="Email para contato: "
-          email="contato@uollet.com.br"
+          email="oi@uollet.com.br"
           buttonPrimary
           buttonSecondary
           textButtonSecondary="Copiar email"
@@ -351,15 +315,10 @@ export function Profile() {
           }}
         />
 
-        <MyDialog
-          isOpen={openModalAbout}
-          closeModal={() => setOpenModalAbout(false)}
-          title="uollet app"
-          about
-          buttonPrimary
-        >
-          <About />
-        </MyDialog>
+        <Payments
+          closeModal={() => setOpenModalPayments(false)}
+          isOpen={openModalPayments}
+        />
 
         {hasOtp ? (
           <MyDialog
