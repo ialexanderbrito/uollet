@@ -1,3 +1,11 @@
+# [3.6.0](https://github.com/ialexanderbrito/finance/compare/v3.5.2...v3.6.0) (2024-02-10)
+
+
+### Features
+
+* add env url api ([26f9bf7](https://github.com/ialexanderbrito/finance/commit/26f9bf72d2dbb99db610b0566c6032e878670106))
+* add update dependencies and dev dependencies ([3ae76bc](https://github.com/ialexanderbrito/finance/commit/3ae76bccb881fffe88279567743bac09bf343084))
+
 ## [3.5.2](https://github.com/ialexanderbrito/finance/compare/v3.5.1...v3.5.2) (2024-01-26)
 
 
