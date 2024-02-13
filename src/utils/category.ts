@@ -43,6 +43,8 @@ import {
   will,
   money,
   savings,
+  goals,
+  credit,
 } from 'assets/banks';
 
 export const category = [
@@ -275,5 +277,15 @@ export const category = [
     icon: savings,
     name: 'Rendimentos',
     category: 'savings',
+  },
+  {
+    icon: goals,
+    name: 'Meta',
+    category: 'goal',
+  },
+  {
+    icon: credit,
+    name: 'Cartão',
+    category: 'credit',
   },
 ];
