@@ -336,7 +336,11 @@ export function useRegister() {
         index,
     );
 
-    setCategories(uniqueCategories);
+    const newUniqueCategories = uniqueCategories.filter(
+      (item) => item.name !== 'Meta' && item.name !== 'Cartão',
+    );
+
+    setCategories(newUniqueCategories);
   }
 
   async function getGoals() {
