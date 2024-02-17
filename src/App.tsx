@@ -9,6 +9,7 @@ import { CheckConnection } from 'components/CheckConnection';
 import { AuthProvider } from 'contexts/Auth';
 import { ThemeProvider } from 'contexts/Theme';
 import { ToastProvider } from 'contexts/Toast';
+
 import 'react-tooltip/dist/react-tooltip.css';
 import 'swiper/css';
 
