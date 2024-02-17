@@ -201,6 +201,7 @@ export function GoalsDetails() {
                     value={goal.value}
                     income={goal.type === 'income'}
                     visible={false}
+                    className={index === detailsGoals.length - 1 ? 'mb-10' : ''}
                     onEdit={() => {
                       navigate(`/edit/${goal.id}`);
                     }}
