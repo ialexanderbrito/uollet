@@ -1,8 +1,7 @@
 import axios from 'axios';
 
 export const api = axios.create({
-  // baseURL: 'https://api.uollet.com.br',
-  baseURL: 'http://localhost:4000',
+  baseURL: import.meta.env.VITE_URL_API,
 });
 
 api.interceptors.request.use(async (config) => {
