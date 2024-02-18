@@ -7,8 +7,12 @@ import {
 } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { Factor, UserProps } from 'interfaces/AuthProps';
+import { Factor, PlanProps, UserProps } from 'interfaces/AuthProps';
 
+import {
+  getCustomerSubscriptionDetails,
+  getCustumerByIdentificationNumber,
+} from 'services/payments';
 import { supabase } from 'services/supabase';
 
 import { useToast } from './Toast';
@@ -25,6 +29,11 @@ interface AuthContextProps {
   areValueVisible: boolean;
   toggleValueVisibility: () => void;
   checkUser: () => Promise<void>;
+  informationUser: () => Promise<void>;
+  isPlanActive: boolean;
+  setIsPlanActive: (value: boolean) => void;
+  plan: PlanProps | undefined;
+  loading: boolean;
 }
 
 const AuthContext = createContext({} as AuthContextProps);
@@ -33,6 +42,9 @@ export function AuthProvider({ children }: any) {
   const { toast } = useToast();
   const navigate = useNavigate();
   const [user, setUser] = useState<any>();
+  const [isPlanActive, setIsPlanActive] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [plan, setPlan] = useState<PlanProps>();
   const [areValueVisible, setAreValueVisible] = useState<boolean>(() => {
     const areValuesVisibleStorage = localStorage.getItem(
       '@uollet:areValuesVisible',
@@ -103,29 +115,23 @@ export function AuthProvider({ children }: any) {
       data: { user },
     } = await supabase.auth.getUser();
 
-    if (!user) return;
+    const {
+      data: { session },
+    } = await supabase.auth.getSession();
+
+    if (!user || !session) return;
 
     if (!storageUser) {
       localStorage.setItem('@uollet:user', JSON.stringify(user));
+      sessionStorage.setItem('@uollet:token', session.access_token);
+      sessionStorage.setItem('@uollet:refreshToken', session.refresh_token);
     }
 
     setUser(user);
     localStorage.setItem('@uollet:user', JSON.stringify(user));
+    sessionStorage.setItem('@uollet:token', session.access_token);
+    sessionStorage.setItem('@uollet:refreshToken', session.refresh_token);
   }
-
-  useEffect(() => {
-    checkUser();
-
-    window.addEventListener('hashchange', () => {
-      checkUser();
-    });
-
-    return () => {
-      window.removeEventListener('hashchange', () => {
-        checkUser();
-      });
-    };
-  }, [isSignedIn()]);
 
   async function logOut() {
     const { error } = await supabase.auth.signOut();
@@ -143,6 +149,81 @@ export function AuthProvider({ children }: any) {
     sessionStorage.clear();
   }
 
+  async function informationUser() {
+    if (!user) return;
+
+    const identificationNumber = user.user_metadata.identification_number;
+    const identificationSubscription = user.user_metadata.subscription_id;
+
+    if (identificationNumber && !identificationSubscription) {
+      try {
+        const { data: dataPrimefy } =
+          await getCustumerByIdentificationNumber(identificationNumber);
+
+        if (!dataPrimefy) return;
+
+        const { data } = await supabase.auth.updateUser({
+          data: {
+            subscription_id: dataPrimefy.subscriptions[0].id,
+          },
+        });
+
+        if (!data) return;
+
+        setUser(data);
+        localStorage.setItem('@uollet:user', JSON.stringify(data));
+      } catch (error) {
+        toast.error('Erro ao buscar informações do usuário', {
+          id: 'error',
+        });
+      }
+    }
+
+    if (identificationNumber && identificationSubscription) {
+      setLoading(true);
+      try {
+        const { data } = await getCustomerSubscriptionDetails(
+          identificationSubscription,
+        );
+
+        if (!data) {
+          setLoading(false);
+          return;
+        }
+
+        if (data.status === 'Active') {
+          setIsPlanActive(true);
+        }
+
+        setPlan(data);
+      } catch (error) {
+        toast.error('Erro ao buscar informações do plano do usuário', {
+          id: 'error',
+        });
+      } finally {
+        setLoading(false);
+      }
+    }
+  }
+
+  useEffect(() => {
+    checkUser();
+
+    window.addEventListener('hashchange', () => {
+      checkUser();
+    });
+
+    return () => {
+      window.removeEventListener('hashchange', () => {
+        checkUser();
+      });
+    };
+  }, [isSignedIn()]);
+
+  useEffect(() => {
+    informationUser();
+  }, [user]);
+
   return (
     <AuthContext.Provider
       value={{
@@ -157,6 +238,11 @@ export function AuthProvider({ children }: any) {
         areValueVisible,
         toggleValueVisibility,
         checkUser,
+        informationUser,
+        isPlanActive,
+        setIsPlanActive,
+        plan,
+        loading,
       }}
     >
       {children}
