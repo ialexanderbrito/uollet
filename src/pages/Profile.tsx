@@ -12,7 +12,7 @@ import {
   Info,
   Keyhole,
   LockKey,
-  SignOut,
+  Power,
   SketchLogo,
   Sun,
 } from '@phosphor-icons/react';
@@ -293,7 +293,7 @@ export function Profile() {
           />
 
           <Submenu
-            icon={<SignOut size={20} weight="light" />}
+            icon={<Power size={20} weight="light" className="text-danger" />}
             title="Sair"
             onClick={() => logOut()}
           />
