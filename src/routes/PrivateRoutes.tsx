@@ -78,6 +78,9 @@ export function PrivateRoutes() {
       <Route path="/goals" element={<Goals />} />
       <Route path="/goal/:id" element={<GoalsDetails />} />
       <Route path="/profile/:id" element={<MyProfile />} />
+      <Route path="/profile/:id/access" element={<MyProfile />} />
+      <Route path="/profile/:id/personal" element={<MyProfile />} />
+      <Route path="/profile/:id/subscriptions" element={<MyProfile />} />
       <Route path="/investments" element={<Investments />} />
       <Route path="/cards" element={<Cards />} />
       <Route path="/wallet" element={<Wallet />} />
