@@ -75,7 +75,8 @@ export function useGoals() {
         .from('finances_db')
         .select('*')
         .eq('user_id', storageUser?.id)
-        .ilike('category', '%Meta%');
+        .ilike('category', '%Meta%')
+        .order('date', { ascending: false });
 
       if (error) {
         toast.error('Erro ao buscar dados das metas');
