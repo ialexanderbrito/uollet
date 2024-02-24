@@ -1,3 +1,10 @@
+## [3.7.1](https://github.com/ialexanderbrito/finance/compare/v3.7.0...v3.7.1) (2024-02-24)
+
+
+### Bug Fixes
+
+* manual clarity implementation ([ff28059](https://github.com/ialexanderbrito/finance/commit/ff2805914cc6a61e8c7758bb3ac633b180ad34fa))
+
 # [3.7.0](https://github.com/ialexanderbrito/finance/compare/v3.6.0...v3.7.0) (2024-02-24)
 
 
