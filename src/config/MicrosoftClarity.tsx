@@ -1,26 +1,23 @@
 import { useEffect } from 'react';
-import { clarity } from 'react-microsoft-clarity';
-
-import { useAuth } from 'contexts/Auth';
 
 export function MicrosoftClarity() {
-  const { user } = useAuth();
-
   useEffect(() => {
-    clarity.consent();
+    const script = document.createElement('script');
+    script.id = 'microsoft-clarity-init';
+    script.type = 'text/javascript';
+    script.async = true;
+    script.src = `https://www.clarity.ms/tag/${process.env.VITE_MICROSOFT_CLARITY_ID}`;
 
-    if (user) {
-      clarity.identify('user_id', { user_id: user.id });
-      clarity.identify('user_email', { user_email: user.email });
-      clarity.identify('user_name', {
-        user_name: user.user_metadata.full_name,
-      });
+    const firstScript = document.getElementsByTagName('script')[0];
 
-      clarity.setTag('user_id', user.id);
-      clarity.setTag('user_email', user.email);
-      clarity.setTag('user_name', user.user_metadata.full_name);
+    if (firstScript && firstScript.parentNode) {
+      firstScript.parentNode.insertBefore(script, firstScript);
 
-      clarity.init(import.meta.env.VITE_MICROSOFT_CLARITY_ID);
+      return () => {
+        // Limpeza se necessário, por exemplo, se você desmontar o componente
+        const clarityScript = document.getElementById('microsoft-clarity-init');
+        clarityScript?.parentNode?.removeChild(clarityScript);
+      };
     }
   }, []);
 
