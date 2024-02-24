@@ -107,7 +107,7 @@ export function CalculatorCompoundInterest({
           <option value="mensal">Mensal</option>
           <option value="anual">Anual</option>
         </select>
-        <div className="flex items-center justify-center gap-2">
+        <div className="flex flex-col items-center justify-center sm:flex-row sm:gap-2">
           <div className="flex w-full flex-col justify-center gap-2">
             <CurrencyInputMask
               onChangeValue={(event, originalValue, maskedValue) => {
@@ -143,7 +143,7 @@ export function CalculatorCompoundInterest({
         </div>
         <div className="flex w-full flex-col gap-2"></div>
 
-        <div className="flex items-center justify-center gap-2">
+        <div className="flex flex-col items-center justify-center sm:flex-row sm:gap-2">
           <div className="flex w-full flex-col gap-2">
             <Input
               label={`Taxa de juros ${

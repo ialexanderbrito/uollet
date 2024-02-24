@@ -95,7 +95,7 @@ export function EmergencyReserve({
         >
           Selecione sua profissão
         </label>
-        <div className="flex flex-row gap-2">
+        <div className="flex flex-col gap-2 sm:flex-row">
           <div className="flex items-center gap-2">
             <input
               type="radio"
@@ -121,11 +121,11 @@ export function EmergencyReserve({
               {...formik.getFieldProps('profession')}
               value="MEI"
             />
-            <label htmlFor="MEI">MEI/Autônomo/Empreendedor</label>
+            <label htmlFor="MEI">MEI/Autônomo</label>
           </div>
         </div>
 
-        <div className="flex items-center justify-center gap-2">
+        <div className="flex flex-col items-center justify-center sm:flex-row sm:gap-2">
           <div className="flex w-full flex-col justify-center gap-2">
             <CurrencyInputMask
               onChangeValue={(event, originalValue, maskedValue) => {
