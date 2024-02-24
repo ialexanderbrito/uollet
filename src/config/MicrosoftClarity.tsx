@@ -1,31 +1,27 @@
 import { useEffect } from 'react';
-
-import { clarity, version } from 'clarity-js';
+import { clarity } from 'react-microsoft-clarity';
 
 import { useAuth } from 'contexts/Auth';
 
 export function MicrosoftClarity() {
   const { user } = useAuth();
-  console.log('Microsoft Clarity version:', version);
 
   useEffect(() => {
     clarity.consent();
 
     if (user) {
-      clarity.set('user_id', user.id);
-      clarity.set('user_email', user.email);
-      clarity.set('user_name', user.user_metadata.full_name);
-
-      clarity.start({
-        projectId: import.meta.env.VITE_MICROSOFT_CLARITY_ID,
-        track: true,
-        content: true,
-        upload: 'https://m.clarity.ms/collect',
+      clarity.identify('user_id', { user_id: user.id });
+      clarity.identify('user_email', { user_email: user.email });
+      clarity.identify('user_name', {
+        user_name: user.user_metadata.full_name,
       });
+
+      clarity.setTag('user_id', user.id);
+      clarity.setTag('user_email', user.email);
+      clarity.setTag('user_name', user.user_metadata.full_name);
+
+      clarity.init(import.meta.env.VITE_MICROSOFT_CLARITY_ID);
     }
-    return () => {
-      clarity.stop();
-    };
   }, []);
 
   return null;
