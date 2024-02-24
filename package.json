@@ -32,6 +32,7 @@
     "bcryptjs": "^2.4.3",
     "chart.js": "^4.4.1",
     "chartjs-plugin-datalabels": "^2.2.0",
+    "clarity-js": "^0.7.21",
     "clsx": "^2.1.0",
     "configcat-react": "^4.3.0",
     "credit-card-type": "^10.0.0",
