@@ -16,8 +16,11 @@ import {
   DotsThreeVertical,
   FileCsv,
   FileXls,
+  FirstAid,
+  Percent,
   Power,
   User,
+  UserFocus,
 } from '@phosphor-icons/react';
 
 import { verifyWebView } from 'utils/verifyWebView';
@@ -25,7 +28,10 @@ import { verifyWebView } from 'utils/verifyWebView';
 import { useAuth } from 'contexts/Auth';
 
 import { Calculator } from './Calculator';
+import { CalculatorCompoundInterest } from './CalculatorCompoundInterest';
 import { CurrencyConverter } from './CurrencyConverter';
+import { EmergencyReserve } from './EmergencyReserve';
+import { InvestorProfile } from './InvestorProfile';
 import { SwitchTheme } from './SwitchTheme';
 
 export function Menu() {
@@ -38,6 +44,12 @@ export function Menu() {
 
   const [openModalCurrency, setOpenModalCurrency] = useState(false);
   const [openModalCalculator, setOpenModalCalculator] = useState(false);
+  const [openModalCompoundInterest, setOpenModalCompoundInterest] =
+    useState(false);
+  const [openModalEmergencyReserve, setOpenModalEmergencyReserve] =
+    useState(false);
+  const [openModalInvestorProfile, setOpenModalInvestorProfile] =
+    useState(false);
 
   return (
     <>
@@ -235,7 +247,7 @@ export function Menu() {
                         className="mr-2 h-5 w-5 text-primary dark:text-white"
                       />
                     )}
-                    <span>Mais opções</span>
+                    <span>Ferramentas</span>
                   </Disclosure.Button>
                 </Disclosure>
 
@@ -270,6 +282,54 @@ export function Menu() {
                           className="mr-2 h-5 w-5 text-primary dark:text-white"
                         />
                         Calculadora
+                      </button>
+                    </MenuComponent.Item>
+
+                    <MenuComponent.Item>
+                      <button
+                        className="group flex w-full items-center rounded-md px-2 py-2 text-sm"
+                        onClick={() => {
+                          setOpenModalCompoundInterest(true);
+                        }}
+                      >
+                        <Percent
+                          size={32}
+                          weight="light"
+                          className="mr-2 h-5 w-5 text-primary dark:text-white"
+                        />
+                        Juros compostos
+                      </button>
+                    </MenuComponent.Item>
+
+                    <MenuComponent.Item>
+                      <button
+                        className="group flex w-full items-center rounded-md px-2 py-2 text-sm"
+                        onClick={() => {
+                          setOpenModalEmergencyReserve(true);
+                        }}
+                      >
+                        <FirstAid
+                          size={32}
+                          weight="light"
+                          className="mr-2 h-5 w-5 text-primary dark:text-white"
+                        />
+                        Reserva de emergência
+                      </button>
+                    </MenuComponent.Item>
+
+                    <MenuComponent.Item>
+                      <button
+                        className="group flex w-full items-center rounded-md px-2 py-2 text-sm"
+                        onClick={() => {
+                          setOpenModalInvestorProfile(true);
+                        }}
+                      >
+                        <UserFocus
+                          size={32}
+                          weight="light"
+                          className="mr-2 h-5 w-5 text-primary dark:text-white"
+                        />
+                        Perfil do investidor
                       </button>
                     </MenuComponent.Item>
                   </>
@@ -308,6 +368,21 @@ export function Menu() {
       <Calculator
         openModalCalculator={openModalCalculator}
         setOpenModalCalculator={setOpenModalCalculator}
+      />
+
+      <CalculatorCompoundInterest
+        openModalCalculator={openModalCompoundInterest}
+        setOpenModalCalculator={setOpenModalCompoundInterest}
+      />
+
+      <EmergencyReserve
+        openModalEmergencyReserve={openModalEmergencyReserve}
+        setOpenModalEmergencyReserve={setOpenModalEmergencyReserve}
+      />
+
+      <InvestorProfile
+        openModalInvestorProfile={openModalInvestorProfile}
+        setOpenModalInvestorProfile={setOpenModalInvestorProfile}
       />
     </>
   );
