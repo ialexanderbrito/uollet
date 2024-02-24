@@ -1,5 +1,6 @@
 import { BrowserRouter } from 'react-router-dom';
 
+import { MicrosoftClarity } from 'config/MicrosoftClarity';
 import { ConfigCatProvider, PollingMode } from 'configcat-react';
 import { Crisp } from 'crisp-sdk-web';
 import { MainRoutes } from 'routes';
@@ -31,6 +32,7 @@ export function App() {
             <ToastProvider>
               <CheckConnection>
                 <MainRoutes />
+                <MicrosoftClarity />
               </CheckConnection>
             </ToastProvider>
           </AuthProvider>
