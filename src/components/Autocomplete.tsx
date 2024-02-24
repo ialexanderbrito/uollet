@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { Combobox, Transition } from '@headlessui/react';
 import { CaretUpDown, Check } from '@phosphor-icons/react';
-import creditCard from 'assets/categories/credit-card.svg';
+import { credit, goals } from 'assets';
 
 import { cn } from 'utils';
 
@@ -43,7 +43,11 @@ export function Autocomplete<T>({
 
   function renderImage(item: T): string | undefined {
     if (displayValue(item).startsWith('Cartão') && displayImage) {
-      return creditCard;
+      return credit;
+    }
+
+    if (displayValue(item).startsWith('Meta') && displayImage) {
+      return goals;
     }
 
     if (displayImage) {
@@ -88,7 +92,7 @@ export function Autocomplete<T>({
                   className={({ active }) =>
                     `relative cursor-pointer select-none py-2 pl-10 pr-4 ${
                       active
-                        ? 'bg-primary text-title dark:bg-primary-dark dark:text-title-dark'
+                        ? 'bg-primary/20 text-title  dark:bg-primary-dark/20 dark:text-title-dark'
                         : 'text-text dark:text-title-dark'
                     }`
                   }
@@ -100,12 +104,12 @@ export function Autocomplete<T>({
                         <img
                           src={renderImage(item)}
                           alt={displayValue(item)}
-                          className="absolute inset-y-0 left-2 top-1.5 h-6 w-6 rounded-md bg-success bg-contain fill-text"
+                          className="absolute inset-y-0 left-2 top-1.5 h-6 w-6 rounded-md bg-contain fill-text"
                         />
                       )}
                       <span
                         className={cn(
-                          'block truncate text-title hover:text-white focus:text-white dark:text-title-dark',
+                          'block truncate text-title focus:text-white dark:text-title-dark',
                           selected ? 'font-medium' : 'font-normal',
                         )}
                         onClick={() => {
@@ -115,7 +119,7 @@ export function Autocomplete<T>({
                       >
                         {displayValue(item)}
                       </span>
-                      {selected ? (
+                      {selected && !displayImage ? (
                         <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-primary dark:text-title-dark">
                           <Check className="h-5 w-5" aria-hidden="true" />
                         </span>

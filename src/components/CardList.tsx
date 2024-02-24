@@ -1,5 +1,4 @@
 import { TrashSimple, Pencil, Copy } from '@phosphor-icons/react';
-import creditCard from 'assets/categories/credit-card.svg';
 import { format } from 'date-fns';
 
 import { category as categoryList } from 'utils/category';
@@ -43,8 +42,8 @@ export function CardList({
       return categoryList.find((item) => item.name === 'Meta')?.icon;
     }
 
-    if (!icon) {
-      return creditCard;
+    if (category.startsWith('Cartão')) {
+      return categoryList.find((item) => item.name === 'Cartão')?.icon;
     }
 
     return icon?.icon;

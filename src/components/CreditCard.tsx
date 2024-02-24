@@ -1,6 +1,6 @@
 import { Plus, X } from '@phosphor-icons/react';
 import amexCardIcon from 'assets/cc/amex.svg';
-import dinersClubCardIcon from 'assets/cc/diners.svg';
+import dinersClubCardIcon from 'assets/cc/dinners.svg';
 import discoverCardIcon from 'assets/cc/discover.svg';
 import eloCardIcon from 'assets/cc/elo.svg';
 import hipercardCardIcon from 'assets/cc/hipercard.svg';
@@ -28,9 +28,10 @@ interface CreditCardProps {
   closure?: number;
   visible?: boolean;
   className?: string;
+  expiration?: string;
 }
 
-function iconCreditCard(creditCardType: string) {
+export function iconCreditCard(creditCardType: string) {
   switch (creditCardType) {
     case 'visa':
       return visaCardIcon;
@@ -71,6 +72,7 @@ export function CreditCard({
   closure,
   visible = true,
   className,
+  expiration,
 }: CreditCardProps) {
   let maturityDate = `${maturity}/${
     new Date().getMonth() + 1
@@ -94,10 +96,11 @@ export function CreditCard({
 
   return (
     <>
-      <div className="flex flex-row items-center justify-center">
+      <div className="relative flex flex-row items-center justify-center">
         {isDeletable && (
           <div className="absolute z-10 -mt-52 ml-80 flex sm:ml-96">
             <button
+              type="button"
               onClick={onDelete}
               className="flex h-8 w-8 items-center justify-center rounded-full bg-danger text-white"
             >
@@ -143,53 +146,76 @@ export function CreditCard({
             </div>
             <div className="pt-6">
               <div className="flex justify-between">
-                <div className="">
-                  <p
-                    className="text-xs font-light"
-                    style={{ color: textColor }}
-                  >
-                    Limite atual
-                  </p>
-                  <p
-                    className={cn(
-                      'text-sm font-bold tracking-wider',
-                      visible && 'select-none blur-md',
-                    )}
-                    style={{ color: textColor }}
-                  >
-                    {limit}
-                  </p>
-                </div>
+                {limit && (
+                  <div className="">
+                    <p
+                      className="text-xs font-light"
+                      style={{ color: textColor }}
+                    >
+                      Limite atual
+                    </p>
+                    <p
+                      className={cn(
+                        'text-sm font-bold tracking-wider',
+                        visible && 'select-none blur-md',
+                      )}
+                      style={{ color: textColor }}
+                    >
+                      {limit}
+                    </p>
+                  </div>
+                )}
 
-                <div className="">
-                  <p
-                    className="text-xs font-light"
-                    style={{ color: textColor }}
-                  >
-                    Fechamento
-                  </p>
-                  <p
-                    className="tracking-more-wider text-sm font-bold"
-                    style={{ color: textColor }}
-                  >
-                    {closureDate}
-                  </p>
-                </div>
+                {expiration && (
+                  <div className="">
+                    <p
+                      className="text-xs font-light"
+                      style={{ color: textColor }}
+                    >
+                      Vencimento
+                    </p>
+                    <p
+                      className={cn('text-sm font-bold tracking-wider')}
+                      style={{ color: textColor }}
+                    >
+                      {expiration}
+                    </p>
+                  </div>
+                )}
 
-                <div className="">
-                  <p
-                    className="text-xs font-light"
-                    style={{ color: textColor }}
-                  >
-                    Vencimento
-                  </p>
-                  <p
-                    className="text-sm font-bold tracking-wider"
-                    style={{ color: textColor }}
-                  >
-                    {verifyMaturityDateLessClosureDate()}
-                  </p>
-                </div>
+                {closure && (
+                  <div className="">
+                    <p
+                      className="text-xs font-light"
+                      style={{ color: textColor }}
+                    >
+                      Fechamento
+                    </p>
+                    <p
+                      className="tracking-more-wider text-sm font-bold"
+                      style={{ color: textColor }}
+                    >
+                      {closureDate}
+                    </p>
+                  </div>
+                )}
+
+                {maturity && (
+                  <div className="">
+                    <p
+                      className="text-xs font-light"
+                      style={{ color: textColor }}
+                    >
+                      Vencimento
+                    </p>
+                    <p
+                      className="text-sm font-bold tracking-wider"
+                      style={{ color: textColor }}
+                    >
+                      {verifyMaturityDateLessClosureDate()}
+                    </p>
+                  </div>
+                )}
               </div>
             </div>
           </div>
@@ -202,6 +228,7 @@ export function CreditCard({
               onClick={onCreate}
             >
               <button
+                type="button"
                 className="flex h-12 w-12 items-center justify-center rounded-md bg-primary text-white
                 transition-all hover:bg-primary-dark dark:bg-primary-dark dark:hover:bg-primary
                 "

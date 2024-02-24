@@ -197,10 +197,11 @@ export function GoalsDetails() {
                   <CardList
                     category={goal.category}
                     date={goal.date}
-                    title={`${goal.title} | ${index + 1}`}
+                    title={`${goal.title} | ${detailsGoals.length - index}º`}
                     value={goal.value}
                     income={goal.type === 'income'}
                     visible={false}
+                    className={index === detailsGoals.length - 1 ? 'mb-10' : ''}
                     onEdit={() => {
                       navigate(`/edit/${goal.id}`);
                     }}

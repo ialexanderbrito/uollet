@@ -3,10 +3,8 @@ import { useNavigate } from 'react-router-dom';
 
 import { MagnifyingGlass, Star, TrendUp } from '@phosphor-icons/react';
 import { Jelly } from '@uiball/loaders';
-import charLineDown from 'assets/chart-line-down.svg';
-import charLineUp from 'assets/chart-line-up.svg';
 import emptyImg from 'assets/empty.svg';
-import totalIcon from 'assets/total.svg';
+import { chartLineDown, chartLineUp, total } from 'assets/icons';
 import { FinancesProps } from 'interfaces/FinancesProps';
 
 import { BottomNavigator } from 'components/BottomNavigator';
@@ -119,7 +117,7 @@ export function Investments() {
       <div className="absolute top-20 flex w-full min-w-full snap-x gap-4 overflow-x-scroll p-4 scrollbar-hide md:justify-center">
         <Card
           title="Entradas"
-          icon={charLineUp}
+          icon={chartLineUp}
           value={formatCurrency(totalIncome)}
           lastEntry={`De 01/${currentMonth}/${selectedYear} até ${lastDayOfTheMonth}/${currentMonth}/${selectedYear}`}
           visible={areValueVisible}
@@ -128,7 +126,7 @@ export function Investments() {
 
         <Card
           title="Saidas"
-          icon={charLineDown}
+          icon={chartLineDown}
           value={formatCurrency(totalOutcome)}
           lastEntry={`De 01/${currentMonth}/${selectedYear} até ${lastDayOfTheMonth}/${currentMonth}/${selectedYear}`}
           visible={areValueVisible}
@@ -137,7 +135,7 @@ export function Investments() {
 
         <Card
           title="Rendimento Total"
-          icon={totalIcon}
+          icon={total}
           value={formatCurrency(allTotalInvestiments)}
           lastEntry={balanceMessage(allTotalInvestiments)}
           textColor={theme === 'light' ? 'white' : 'white'}

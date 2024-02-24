@@ -44,7 +44,8 @@ import {
   money,
   savings,
   goals,
-} from 'assets';
+  credit,
+} from 'assets/banks';
 
 export const category = [
   {
@@ -280,6 +281,11 @@ export const category = [
   {
     icon: goals,
     name: 'Meta',
-    category: 'goals',
+    category: 'goal',
+  },
+  {
+    icon: credit,
+    name: 'Cartão',
+    category: 'credit',
   },
 ];

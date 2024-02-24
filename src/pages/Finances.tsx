@@ -2,9 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import emptyImg from 'assets/empty.svg';
-import incomeIcon from 'assets/income.svg';
-import outcomeIcon from 'assets/outcome.svg';
-import totalIcon from 'assets/total.svg';
+import { income, outcome, total } from 'assets/icons';
 import { FinancesProps } from 'interfaces/FinancesProps';
 
 import { BottomNavigator } from 'components/BottomNavigator';
@@ -90,7 +88,7 @@ export function Finances() {
       <div className="absolute top-20 flex w-full min-w-full snap-x gap-4 overflow-x-scroll p-4 scrollbar-hide md:justify-center">
         <Card
           title="Entradas"
-          icon={incomeIcon}
+          icon={income}
           value={formatCurrency(totalIncome)}
           lastEntry={`De 01/${currentMonth}/${selectedYear} até ${lastDayOfTheMonth}/${currentMonth}/${selectedYear}`}
           visible={areValueVisible}
@@ -99,7 +97,7 @@ export function Finances() {
 
         <Card
           title="Saidas"
-          icon={outcomeIcon}
+          icon={outcome}
           value={formatCurrency(totalOutcome)}
           lastEntry={`De 01/${currentMonth}/${selectedYear} até ${lastDayOfTheMonth}/${currentMonth}/${selectedYear}`}
           visible={areValueVisible}
@@ -108,7 +106,7 @@ export function Finances() {
 
         <Card
           title="Total"
-          icon={totalIcon}
+          icon={total}
           value={formatCurrency(allTotal)}
           lastEntry={balanceMessage(allTotal)}
           textColor={theme === 'light' ? 'white' : 'white'}

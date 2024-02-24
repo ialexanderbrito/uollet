@@ -8,6 +8,7 @@ export function PublicRoutes() {
   return (
     <Routes>
       <Route path="/" element={<Login />} />
+      <Route path="/login" element={<Login />} />
       <Route path="/reset-password" element={<ResetPassword />} />
       <Route path="*" element={<Error />} />
     </Routes>

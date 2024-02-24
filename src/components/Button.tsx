@@ -7,6 +7,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   isInvestiment?: boolean;
   variant?: 'primary' | 'outline';
   inline?: boolean;
+  className?: string;
 }
 
 export function Button({
@@ -14,6 +15,7 @@ export function Button({
   isInvestiment,
   variant = 'primary',
   inline,
+  className,
   ...rest
 }: ButtonProps) {
   return (
@@ -24,6 +26,7 @@ export function Button({
         variant === 'outline' &&
           'border-[1.5px] border-solid border-primary bg-transparent text-primary dark:border-primary-dark dark:bg-transparent dark:text-white',
         inline && 'w-32',
+        className,
       )}
       {...rest}
     >

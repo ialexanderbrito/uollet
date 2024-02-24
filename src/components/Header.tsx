@@ -3,16 +3,17 @@ import { useNavigate } from 'react-router-dom';
 import {
   CaretLeft,
   Command,
+  Crown,
   Eye,
   EyeClosed,
-  SealCheck,
 } from '@phosphor-icons/react';
 import defaultAvatar from 'assets/default_user_avatar.png';
 import { UserProps } from 'interfaces/AuthProps';
 import { useKBar } from 'kbar';
 
 import { cn } from 'utils/cn';
-import { verifyLoginLastSevenDays } from 'utils/verifyLoginLastSevenDays';
+
+import { useAuth } from 'contexts/Auth';
 
 import { useDetectDevice } from 'hooks/useDetectDevice';
 
@@ -44,6 +45,7 @@ export function Header({
   const navigate = useNavigate();
   const { query } = useKBar();
   const { isDesktop } = useDetectDevice();
+  const { isPlanActive } = useAuth();
 
   function greetings() {
     const hours = new Date().getHours();
@@ -84,14 +86,11 @@ export function Header({
                   <b className="flex items-center">
                     {user?.user_metadata.name}
 
-                    {verifyLoginLastSevenDays(
-                      user?.updated_at,
-                      user.user_metadata.phone,
-                    ) && (
+                    {isPlanActive ? (
                       <span className="ml-1 text-xs font-normal text-white">
-                        <SealCheck size={16} weight="fill" />
+                        <Crown size={16} weight="duotone" />
                       </span>
-                    )}
+                    ) : null}
                   </b>
                 </p>
               </div>

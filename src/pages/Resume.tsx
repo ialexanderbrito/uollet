@@ -2,8 +2,7 @@ import { Pie, Bar } from 'react-chartjs-2';
 
 import { ChartBar, ChartPie } from '@phosphor-icons/react';
 import emptyImg from 'assets/empty.svg';
-import incomeIcon from 'assets/income.svg';
-import outcomeIcon from 'assets/outcome.svg';
+import { income, outcome } from 'assets/icons';
 import {
   Chart as ChartJS,
   ArcElement,
@@ -176,7 +175,7 @@ export function Resume() {
                 }
               >
                 <img
-                  src={incomeIcon}
+                  src={income}
                   alt="Entradas"
                   className="h-6 w-6 cursor-pointer"
                 />
@@ -192,7 +191,7 @@ export function Resume() {
                 }
               >
                 <img
-                  src={outcomeIcon}
+                  src={outcome}
                   alt="Saidas"
                   className="h-6 w-6 cursor-pointer"
                 />

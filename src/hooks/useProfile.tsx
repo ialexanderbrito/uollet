@@ -1,11 +1,22 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { useFormik } from 'formik';
+import { OrdersProp } from 'interfaces/OrdersProps';
+import * as Yup from 'yup';
+
+import {
+  formatCellPhone,
+  removeMaskCEP,
+  removeMaskCPF,
+  stateNameToId,
+} from 'utils';
 
 import { useAuth } from 'contexts/Auth';
 import { useToast } from 'contexts/Toast';
 
+import { api } from 'services/api';
+import { getOrdersList, updateCustomer } from 'services/payments';
 import { supabase } from 'services/supabase';
 
 export function useProfile() {
@@ -17,6 +28,8 @@ export function useProfile() {
   const [passwordType, setPasswordType] = useState('password');
   const [loading, setLoading] = useState(false);
   const [hasSuccessImage, setHasSuccessImage] = useState(false);
+  const [disabledStreet, setDisabledStreet] = useState(true);
+  const [orders, setOrders] = useState<OrdersProp[]>([]);
 
   function togglePassword() {
     if (passwordType === 'password') {
@@ -26,6 +39,10 @@ export function useProfile() {
     }
   }
 
+  const schemaUpdateUser = Yup.object({
+    zipCode: Yup.string().required('CEP obrigatório'),
+  });
+
   const formikUpdateUser = useFormik({
     initialValues: {
       name: user?.user_metadata.name,
@@ -34,25 +51,81 @@ export function useProfile() {
       password: '',
       confirmPassword: '',
     },
+    onSubmit: async () => {},
+  });
+
+  const formikAddress = useFormik({
+    initialValues: {
+      city: user?.user_metadata.address?.city || '',
+      district: user?.user_metadata.address?.district || '',
+      number: user?.user_metadata.address?.number || '',
+      reference: user?.user_metadata.address?.reference || '',
+      state: user?.user_metadata.address?.state || '',
+      street: user?.user_metadata.address?.street || '',
+      zipCode: user?.user_metadata.address?.zipCode || '',
+    },
+    validationSchema: schemaUpdateUser,
     onSubmit: async (values) => {
       setLoading(true);
-      if (values.password !== values.confirmPassword) {
+
+      if (!user) return;
+      if (!user.user_metadata.customer_id) return;
+
+      if (
+        formikUpdateUser.values.password !==
+        formikUpdateUser.values.confirmPassword
+      ) {
         toast.error('As senhas não coincidem', { id: 'updateUser' });
         setLoading(false);
         return;
       }
 
-      const { data, error } = await supabase.auth.updateUser({
-        data: {
-          name: values.name,
-          full_name: values.name,
-          phone: values.phone,
+      const newValues = {
+        firstName: formikUpdateUser.values.name || '',
+        surname: user?.user_metadata.last_name || '',
+        identificationNumber:
+          removeMaskCPF(user.user_metadata.identification_number) || '',
+        birthdate: user?.user_metadata.birthdate || '',
+        email: formikUpdateUser.values.email || '',
+        phone: formatCellPhone(formikUpdateUser.values.phone) || '',
+        address: {
+          street: values.street,
+          number: values.number,
+          zipcode: removeMaskCEP(values.zipCode),
+          reference: values.reference,
+          district: values.district,
+          city: values.city,
+          state: stateNameToId(values.state),
+          country: 0,
         },
-        email: values.email,
-        password: values.password || undefined,
+      };
+
+      const { data, error } = await supabase.auth.updateUser({
+        email: formikUpdateUser.values.email,
+        password: formikUpdateUser.values.password || undefined,
+        data: {
+          name: formikUpdateUser.values.name,
+          full_name: formikUpdateUser.values.name,
+          phone: formikUpdateUser.values.phone,
+          address: {
+            street: values.street,
+            number: values.number,
+            reference: values.reference,
+            district: values.district,
+            city: values.city,
+            state: values.state,
+            zipCode: values.zipCode,
+          },
+        },
       });
 
+      const { data: updateUser } = await updateCustomer(
+        newValues,
+        user?.user_metadata.customer_id,
+      );
+
       if (!data) return;
+      if (!updateUser) return;
 
       if (error) {
         toast.error('Erro ao atualizar dados, tente novamente', {
@@ -67,7 +140,7 @@ export function useProfile() {
       toast.success('Dados atualizados com sucesso', { id: 'updateUser' });
       setLoading(false);
 
-      navigate('/profile');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     },
   });
 
@@ -192,6 +265,56 @@ export function useProfile() {
     setHasSuccessImage(true);
   }
 
+  async function handleChangeCEP(cep: string) {
+    const cepwithoutMask = removeMaskCEP(cep);
+
+    if (cep && cep.length === 9) {
+      try {
+        const { data } = await api.get(`cep/${cepwithoutMask}`);
+
+        if (data.street === '' || data.neighborhood === '') {
+          setDisabledStreet(false);
+        } else {
+          setDisabledStreet(true);
+        }
+
+        formikAddress.setFieldValue('street', data.street);
+        formikAddress.setFieldValue('district', data.neighborhood);
+        formikAddress.setFieldValue('state', data.state);
+        formikAddress.setFieldValue('city', data.city);
+      } catch (error) {
+        toast.error('Erro ao buscar CEP, tente novamente', { id: 'error' });
+      }
+    }
+  }
+
+  async function getOrdersListUser() {
+    if (!user?.user_metadata.identification_number) return;
+
+    setLoading(true);
+    try {
+      const { data } = await getOrdersList(
+        user?.user_metadata.identification_number,
+      );
+
+      if (!data) {
+        setOrders([]);
+        setLoading(false);
+        return;
+      }
+
+      setOrders(data);
+    } catch (error) {
+      toast.error('Erro ao buscar pedidos, tente novamente', { id: 'error' });
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  useEffect(() => {
+    getOrdersListUser();
+  }, []);
+
   return {
     passwordType,
     togglePassword,
@@ -202,5 +325,9 @@ export function useProfile() {
     handleUpload,
     hasSuccessImage,
     setHasSuccessImage,
+    formikAddress,
+    handleChangeCEP,
+    disabledStreet,
+    orders,
   };
 }

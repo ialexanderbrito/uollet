@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
+import { goals } from 'assets';
 import { format } from 'date-fns';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
@@ -335,7 +336,11 @@ export function useRegister() {
         index,
     );
 
-    setCategories(uniqueCategories);
+    const newUniqueCategories = uniqueCategories.filter(
+      (item) => item.name !== 'Meta' && item.name !== 'Cartão',
+    );
+
+    setCategories(newUniqueCategories);
   }
 
   async function getGoals() {
@@ -348,7 +353,7 @@ export function useRegister() {
 
     const newCategories = data.map((item) => ({
       name: `Meta ${item.title}`,
-      icon: 'CreditCard',
+      icon: goals,
       category: 'goal',
     }));
 
@@ -360,6 +365,8 @@ export function useRegister() {
 
       return 0;
     });
+
+    console.log(newCategories);
 
     const uniqueCategories = orderCategories.filter(
       (item, index) =>

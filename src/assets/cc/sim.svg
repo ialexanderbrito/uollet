@@ -1,19 +1,30 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- Generator: Adobe Illustrator 21.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
-<style type="text/css">
-	.st0{fill:#FF9800;}
-	.st1{fill:#FFD54F;}
-</style>
-<g>
-	<path class="st0" d="M0,404.2V107.8c0-29.6,24.3-53.9,53.9-53.9h404.2c29.6,0,53.9,24.3,53.9,53.9v296.4
-		c0,29.6-24.3,53.9-53.9,53.9H53.9C24.3,458.1,0,433.9,0,404.2z"/>
-	<path class="st1" d="M512,215.6v-26.9H350.3c-14.8,0-26.9-12.1-26.9-26.9c0-14.8,12.1-26.9,26.9-26.9h13.5v-26.9h-13.5
-		c-29.6,0-53.9,24.3-53.9,53.9s24.3,53.9,53.9,53.9h40.4v80.8h-40.4c-37.7,0-67.4,29.6-67.4,67.4s29.6,67.4,67.4,67.4h26.9v-26.9
-		h-26.9c-22.9,0-40.4-17.5-40.4-40.4c0-22.9,17.5-40.4,40.4-40.4H512v-26.9h-94.3v-80.8H512z"/>
-	<path class="st1" d="M161.7,296.4h-40.4v-80.8h40.4c29.6,0,53.9-24.3,53.9-53.9s-24.3-53.9-53.9-53.9h-40.4v26.9h40.4
-		c14.8,0,26.9,12.1,26.9,26.9c0,14.8-12.1,26.9-26.9,26.9H0v26.9h94.3v80.8H0v26.9h161.7c22.9,0,40.4,17.5,40.4,40.4
-		c0,22.9-17.5,40.4-40.4,40.4h-26.9v26.9h26.9c37.7,0,67.4-29.6,67.4-67.4S199.4,296.4,161.7,296.4z"/>
+<svg width="290" height="216" viewBox="0 0 290 216" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g filter="url(#filter0_dd_303_2799)">
+<rect x="41" y="21" width="208" height="134" rx="24" fill="white"/>
+<rect x="40.5" y="20.5" width="209" height="135" rx="24.5" stroke="#D6DCE5"/>
+<g clip-path="url(#clip0_303_2799)">
+<path d="M41 137.131V38.8689C41 29.0559 50.8719 21 62.8969 21H227.103C239.128 21 249 29.0559 249 38.8689V137.131C249 146.944 239.128 155 227.103 155H62.8969C50.8719 155 41 146.977 41 137.131Z" fill="#FF9800"/>
+<path d="M249 74.6066V65.6888H183.309C177.297 65.6888 172.381 61.6774 172.381 56.7709C172.381 51.8644 177.297 47.853 183.309 47.853H188.794V38.9352H183.309C171.284 38.9352 161.413 46.9911 161.413 56.8041C161.413 66.617 171.284 74.6729 183.309 74.6729H199.722V101.46H183.309C167.994 101.46 155.928 111.273 155.928 123.804C155.928 136.335 167.953 146.148 183.309 146.148H194.238V137.231H183.309C174.006 137.231 166.897 131.429 166.897 123.837C166.897 116.245 174.006 110.444 183.309 110.444H249V101.526H210.691V74.7392H249V74.6066Z" fill="#FFD54F"/>
+<path d="M106.691 101.393H90.2781V74.6066H106.691C118.716 74.6066 128.588 66.5507 128.588 56.7378C128.588 46.9248 118.716 38.8689 106.691 38.8689H90.2781V47.7868H106.691C112.703 47.7868 117.619 51.7981 117.619 56.7046C117.619 61.6111 112.703 65.6225 106.691 65.6225H41V74.5403H79.3094V101.327H41V110.245H106.691C115.994 110.245 123.103 116.047 123.103 123.638C123.103 131.23 115.994 137.032 106.691 137.032H95.7625V145.95H106.691C122.006 145.95 134.072 136.137 134.072 123.605C134.072 111.074 122.006 101.393 106.691 101.393Z" fill="#FFD54F"/>
 </g>
+</g>
+<defs>
+<filter id="filter0_dd_303_2799" x="0" y="0" width="290" height="216" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset dy="2"/>
+<feGaussianBlur stdDeviation="10"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0.717647 0 0 0 0 0.717647 0 0 0 0 0.717647 0 0 0 0.08 0"/>
+<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_303_2799"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset dy="20"/>
+<feGaussianBlur stdDeviation="20"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0.717647 0 0 0 0 0.717647 0 0 0 0 0.717647 0 0 0 0.08 0"/>
+<feBlend mode="normal" in2="effect1_dropShadow_303_2799" result="effect2_dropShadow_303_2799"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect2_dropShadow_303_2799" result="shape"/>
+</filter>
+<clipPath id="clip0_303_2799">
+<rect width="208" height="134" fill="white" transform="translate(41 21)"/>
+</clipPath>
+</defs>
 </svg>

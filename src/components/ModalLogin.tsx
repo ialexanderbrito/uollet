@@ -3,7 +3,7 @@ import { Fragment } from 'react';
 import HCaptcha from '@hcaptcha/react-hcaptcha';
 import { Dialog, Transition } from '@headlessui/react';
 import { Eye, EyeClosed } from '@phosphor-icons/react';
-import { Ring } from '@uiball/loaders';
+import { Jelly } from '@uiball/loaders';
 
 import { useTheme } from 'contexts/Theme';
 
@@ -160,6 +160,31 @@ export function ModalLogin({ closeModal, isOpen }: MyDialogProps) {
                       </div>
                     )}
 
+                    {register && (
+                      <div className="mt-4 flex items-center justify-center">
+                        <p className="text-xs text-text dark:text-text-dark">
+                          Ao se cadastrar você concorda com os nossos{' '}
+                          <a
+                            href="https://www.uollet.com.br/terms"
+                            target="_blank"
+                            className="underline hover:text-primary dark:text-text-dark hover:dark:text-primary-dark"
+                            rel="noreferrer"
+                          >
+                            Termos de Uso
+                          </a>{' '}
+                          e{' '}
+                          <a
+                            href="https://www.uollet.com.br/privacy"
+                            target="_blank"
+                            className="underline hover:text-primary dark:text-text-dark hover:dark:text-primary-dark"
+                            rel="noreferrer"
+                          >
+                            Política de Privacidade
+                          </a>
+                        </p>
+                      </div>
+                    )}
+
                     <div className="mt-4 flex items-center justify-center">
                       <HCaptcha
                         ref={captchaRef}
@@ -187,7 +212,7 @@ export function ModalLogin({ closeModal, isOpen }: MyDialogProps) {
 
                         <Button inline type="submit" disabled={!captchaToken}>
                           {loading ? (
-                            <Ring size={20} color="#fff" />
+                            <Jelly size={20} color="#fff" />
                           ) : (
                             'Enviar email'
                           )}
@@ -210,7 +235,7 @@ export function ModalLogin({ closeModal, isOpen }: MyDialogProps) {
 
                         <Button type="submit" inline disabled={!captchaToken}>
                           {loading ? (
-                            <Ring size={20} color="#fff" />
+                            <Jelly size={20} color="#fff" />
                           ) : (
                             'Enviar email'
                           )}
@@ -233,7 +258,7 @@ export function ModalLogin({ closeModal, isOpen }: MyDialogProps) {
 
                         <Button inline type="submit" disabled={!captchaToken}>
                           {loading ? (
-                            <Ring size={20} color="#fff" />
+                            <Jelly size={20} color="#fff" />
                           ) : (
                             'Cadastrar'
                           )}
@@ -260,7 +285,11 @@ export function ModalLogin({ closeModal, isOpen }: MyDialogProps) {
                         </div>
 
                         <Button type="submit" inline disabled={!captchaToken}>
-                          {loading ? <Ring size={20} color="#fff" /> : 'Entrar'}
+                          {loading ? (
+                            <Jelly size={20} color="#fff" />
+                          ) : (
+                            'Entrar'
+                          )}
                         </Button>
                       </div>
                     )}

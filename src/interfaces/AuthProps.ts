@@ -32,6 +32,7 @@ export interface UserMetadata {
   last_name: string;
   customer_id: string;
   stocks: string[];
+  subscription_id: string;
 }
 
 export interface IdentityData {
@@ -79,4 +80,36 @@ export interface UserProps {
   identities: Identity[];
   created_at: Date;
   updated_at: Date;
+}
+
+export interface Plan {
+  id: number;
+  name: string;
+  description: string;
+  amount: number;
+  products: any[];
+  currency: string;
+  gracePeriod: number;
+  frequency: string;
+  status: string;
+  maxCharges: number;
+  chargeDaysBefore: number;
+  tax?: any;
+  isVisible: boolean;
+  paymentTypes: number[];
+}
+
+export interface PlanProps {
+  id: number;
+  paymentType: string;
+  lastPayment?: any;
+  nextPayment: string;
+  status: string;
+  retries: number;
+  maxRetries: number;
+  daysBetweenRetries: number;
+  createdOn: string;
+  plan: Plan;
+  customer?: any;
+  productCategory?: any;
 }
