@@ -1,3 +1,10 @@
+## [3.7.2](https://github.com/ialexanderbrito/finance/compare/v3.7.1...v3.7.2) (2024-02-24)
+
+
+### Bug Fixes
+
+* microsoft clarity env ([46985e5](https://github.com/ialexanderbrito/finance/commit/46985e564065b8c501f055e74e6442e449714ffa))
+
 ## [3.7.1](https://github.com/ialexanderbrito/finance/compare/v3.7.0...v3.7.1) (2024-02-24)
 
 
