@@ -2,6 +2,8 @@ import { CurrencyInput as CurrencyInputMask } from 'react-currency-mask';
 
 import { Jelly } from '@uiball/loaders';
 
+import { formatCurrency } from 'utils';
+
 import { useCalculator } from 'hooks/useCalculator';
 
 import { Button } from '../Button';
@@ -23,11 +25,15 @@ export function EmergencyReserve({
     montante,
     porcentagem,
     monthlySuccess,
+    resetForm,
   } = useCalculator();
 
   return (
     <MyDialog
-      closeModal={() => setOpenModalEmergencyReserve(false)}
+      closeModal={() => {
+        setOpenModalEmergencyReserve(false);
+        resetForm();
+      }}
       isOpen={openModalEmergencyReserve}
       title="Reserva de emergência"
       description="Calcule quanto você precisa guardar para ter uma reserva de emergência."
@@ -40,37 +46,49 @@ export function EmergencyReserve({
         >
           Selecione sua profissão
         </label>
-        <div className="flex flex-row gap-2">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between sm:gap-2">
           <div className="flex items-center gap-2">
             <input
               type="radio"
               id="funcionarioPublico"
+              className="accent-primary dark:accent-primary-dark"
               {...formikEmergencyReserve.getFieldProps('profession')}
               value="funcionarioPublico"
             />
-            <label htmlFor="funcionarioPublico">Funcionário Público</label>
+            <label
+              htmlFor="funcionarioPublico"
+              className="text-title dark:text-title-dark"
+            >
+              Funcionário Público
+            </label>
           </div>
           <div className="flex items-center gap-2">
             <input
               type="radio"
               id="CLT"
+              className="accent-primary dark:accent-primary-dark"
               {...formikEmergencyReserve.getFieldProps('profession')}
               value="CLT"
             />
-            <label htmlFor="CLT">CLT</label>
+            <label htmlFor="CLT" className="text-title dark:text-title-dark">
+              CLT
+            </label>
           </div>
           <div className="flex items-center gap-2">
             <input
               type="radio"
               id="MEI"
+              className="accent-primary dark:accent-primary-dark"
               {...formikEmergencyReserve.getFieldProps('profession')}
               value="MEI"
             />
-            <label htmlFor="MEI">MEI/Autônomo/Empreendedor</label>
+            <label htmlFor="MEI" className="text-title dark:text-title-dark">
+              MEI/Autônomo
+            </label>
           </div>
         </div>
 
-        <div className="flex items-center justify-center gap-2">
+        <div className="flex flex-col items-center justify-center sm:flex-row sm:gap-2">
           <div className="flex w-full flex-col justify-center gap-2">
             <CurrencyInputMask
               onChangeValue={(event, originalValue, maskedValue) => {
@@ -83,7 +101,7 @@ export function EmergencyReserve({
                 <Input
                   label="Custo fixo mensal"
                   type="tel"
-                  className="h-14 rounded-md bg-background-card pl-2 dark:bg-background-card-dark dark:text-text-dark"
+                  className="h-14 rounded-md bg-background-card pl-2 text-title dark:bg-background-card-dark dark:text-title-dark"
                   placeholder="R$ 0,00"
                 />
               }
@@ -103,7 +121,7 @@ export function EmergencyReserve({
                 <Input
                   label="Salário mensal"
                   type="tel"
-                  className="h-14 rounded-md bg-background-card pl-2 dark:bg-background-card-dark dark:text-text-dark"
+                  className="h-14 rounded-md bg-background-card pl-2 text-title dark:bg-background-card-dark dark:text-title-dark"
                   placeholder="R$ 0,00"
                 />
               }
@@ -118,42 +136,54 @@ export function EmergencyReserve({
           >
             Quanto você guarda por mês?
           </label>
-          <div className="flex flex-row gap-2">
+          <div className="flex flex-row items-center justify-between gap-2">
             <div className="flex items-center gap-2">
               <input
                 type="radio"
                 id="5"
+                className="accent-primary dark:accent-primary-dark"
                 {...formikEmergencyReserve.getFieldProps('percentageToSave')}
                 value="5"
               />
-              <label htmlFor="5">5%</label>
+              <label htmlFor="5" className="text-title dark:text-title-dark">
+                5%
+              </label>
             </div>
             <div className="flex items-center gap-2">
               <input
                 type="radio"
                 id="10"
+                className="accent-primary dark:accent-primary-dark"
                 {...formikEmergencyReserve.getFieldProps('percentageToSave')}
                 value="10"
               />
-              <label htmlFor="10">10%</label>
+              <label htmlFor="10" className="text-title dark:text-title-dark">
+                10%
+              </label>
             </div>
             <div className="flex items-center gap-2">
               <input
                 type="radio"
                 id="20"
+                className="accent-primary dark:accent-primary-dark"
                 {...formikEmergencyReserve.getFieldProps('percentageToSave')}
                 value="20"
               />
-              <label htmlFor="20">20%</label>
+              <label htmlFor="20" className="text-title dark:text-title-dark">
+                20%
+              </label>
             </div>
             <div className="flex items-center gap-2">
               <input
                 type="radio"
                 id="30"
+                className="accent-primary dark:accent-primary-dark"
                 {...formikEmergencyReserve.getFieldProps('percentageToSave')}
                 value="30"
               />
-              <label htmlFor="30">30%</label>
+              <label htmlFor="30" className="text-title dark:text-title-dark">
+                30%
+              </label>
             </div>
           </div>
         </div>
@@ -166,16 +196,17 @@ export function EmergencyReserve({
             <div className="grid grid-cols-1 gap-2 sm:grid-cols-3">
               <p className="rounded border border-title p-2 text-base font-bold text-text dark:text-text-dark">
                 Sua reserva de ser de: <br />
-                <span>R$ {montante.toFixed(2)}</span>
+                <span className="text-success">{formatCurrency(montante)}</span>
               </p>
               <p className="rounded border border-title p-2 text-base font-bold text-text dark:text-text-dark">
                 Guardando
                 <br />
-                <span>{porcentagem}% </span>
+                <span className="text-success">{porcentagem}% </span>
                 do seu salário
               </p>
               <p className="rounded border border-title p-2 text-base font-bold text-text dark:text-text-dark">
-                Em <span>{monthlySuccess} meses</span> atingirá sua reserva.
+                Em <span className="text-success">{monthlySuccess} meses</span>{' '}
+                atingirá sua reserva.
               </p>
             </div>
           </div>

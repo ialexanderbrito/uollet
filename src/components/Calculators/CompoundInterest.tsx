@@ -2,6 +2,8 @@ import { CurrencyInput as CurrencyInputMask } from 'react-currency-mask';
 
 import { Jelly } from '@uiball/loaders';
 
+import { formatCurrency } from 'utils';
+
 import { useCalculator } from 'hooks/useCalculator';
 
 import { Button } from '../Button';
@@ -17,12 +19,15 @@ export function CompoundInterest({
   openModalCalculator,
   setOpenModalCalculator,
 }: CompoundInterestProps) {
-  const { formik, montante, loading, totalJuros, totalInvestido } =
+  const { formik, montante, loading, totalJuros, totalInvestido, resetForm } =
     useCalculator();
 
   return (
     <MyDialog
-      closeModal={() => setOpenModalCalculator(false)}
+      closeModal={() => {
+        setOpenModalCalculator(false);
+        resetForm();
+      }}
       isOpen={openModalCalculator}
       title="Calculadora de Juros Compostos"
       description="Calcule o valor final de um investimento com juros compostos."
@@ -42,7 +47,7 @@ export function CompoundInterest({
           <option value="mensal">Mensal</option>
           <option value="anual">Anual</option>
         </select>
-        <div className="flex items-center justify-center gap-2">
+        <div className="flex flex-col items-center justify-center sm:flex-row sm:gap-2">
           <div className="flex w-full flex-col justify-center gap-2">
             <CurrencyInputMask
               onChangeValue={(event, originalValue, maskedValue) => {
@@ -52,7 +57,7 @@ export function CompoundInterest({
                 <Input
                   label="Valor inicial"
                   type="tel"
-                  className="h-14 rounded-md bg-background-card pl-2 dark:bg-background-card-dark dark:text-text-dark"
+                  className="h-14 rounded-md bg-background-card pl-2 text-title dark:bg-background-card-dark dark:text-title-dark"
                   placeholder="R$ 0,00"
                 />
               }
@@ -69,7 +74,7 @@ export function CompoundInterest({
                 <Input
                   label="Aportes mensais"
                   type="tel"
-                  className="h-14 rounded-md bg-background-card pl-2 dark:bg-background-card-dark dark:text-text-dark"
+                  className="h-14 rounded-md bg-background-card pl-2 text-title dark:bg-background-card-dark dark:text-title-dark"
                   placeholder="R$ 0,00"
                 />
               }
@@ -78,7 +83,7 @@ export function CompoundInterest({
         </div>
         <div className="flex w-full flex-col gap-2"></div>
 
-        <div className="flex items-center justify-center gap-2">
+        <div className="flex flex-col items-center justify-center sm:flex-row sm:gap-2">
           <div className="flex w-full flex-col gap-2">
             <Input
               label={`Taxa de juros ${
@@ -118,15 +123,19 @@ export function CompoundInterest({
             <div className="grid grid-cols-1 gap-2 sm:grid-cols-3">
               <p className="rounded border border-title p-2 text-xl font-bold text-text dark:text-text-dark">
                 Total de juros: <br />
-                <span className="text-success">R$ {totalJuros.toFixed(2)}</span>
+                <span className="text-success">
+                  {formatCurrency(totalJuros)}
+                </span>
               </p>
               <p className="rounded border border-title p-2 text-xl font-bold text-text dark:text-text-dark">
                 Total investido: <br />
-                <span>R$ {totalInvestido.toFixed(2)}</span>
+                <span className="text-success">
+                  {formatCurrency(totalInvestido)}
+                </span>
               </p>
               <p className="rounded border border-title p-2 text-xl font-bold text-text dark:text-text-dark">
                 Valor total: <br />
-                <span>R$ {montante.toFixed(2)}</span>
+                <span className="text-success">{formatCurrency(montante)}</span>
               </p>
             </div>
           </div>
