@@ -154,6 +154,14 @@ export function useCalculator() {
     setInput('');
   }
 
+  function resetForm() {
+    formik.resetForm();
+    setMontante(0);
+    setTotalJuros(0);
+    setTotalInvestido(0);
+    setLoading(false);
+  }
+
   return {
     formik,
     montante,
@@ -167,5 +175,6 @@ export function useCalculator() {
     handleCalculate,
     handleClear,
     input,
+    resetForm,
   };
 }
