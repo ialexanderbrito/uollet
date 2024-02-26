@@ -20,7 +20,7 @@ export function RecommendedStocks({
     return <Loading />;
   }
 
-  if (recommendedStocks.length === 0) {
+  if (recommendedStocks?.length === 0) {
     return (
       <div className="flex w-full flex-col justify-start gap-0 space-y-2 md:space-y-0 lg:flex-row">
         <div className="flex w-full flex-col text-title dark:text-text-dark">
