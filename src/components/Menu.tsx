@@ -27,10 +27,10 @@ import { verifyWebView } from 'utils/verifyWebView';
 
 import { useAuth } from 'contexts/Auth';
 
-import { Calculator } from './Calculator';
-import { CalculatorCompoundInterest } from './CalculatorCompoundInterest';
+import { Calculator } from './Calculators/Calculator';
+import { CompoundInterest } from './Calculators/CompoundInterest';
+import { EmergencyReserve } from './Calculators/EmergencyReserve';
 import { CurrencyConverter } from './CurrencyConverter';
-import { EmergencyReserve } from './EmergencyReserve';
 import { InvestorProfile } from './InvestorProfile';
 import { SwitchTheme } from './SwitchTheme';
 
@@ -370,7 +370,7 @@ export function Menu() {
         setOpenModalCalculator={setOpenModalCalculator}
       />
 
-      <CalculatorCompoundInterest
+      <CompoundInterest
         openModalCalculator={openModalCompoundInterest}
         setOpenModalCalculator={setOpenModalCompoundInterest}
       />
