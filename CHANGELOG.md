@@ -1,3 +1,20 @@
+# [3.8.0](https://github.com/ialexanderbrito/finance/compare/v3.7.2...v3.8.0) (2024-02-26)
+
+
+### Bug Fixes
+
+* imports calculators ([b3ebe73](https://github.com/ialexanderbrito/finance/commit/b3ebe73a27443fe4ca5610a4463e458b9bdd1f55))
+* length optional recommended stocks ([ce73e9c](https://github.com/ialexanderbrito/finance/commit/ce73e9c8a6abed67f7877a16803628ba8271e352))
+* remove calculator folder ([ee046d0](https://github.com/ialexanderbrito/finance/commit/ee046d098539c11e67541e5f9eea8c1178b82f02))
+
+
+### Features
+
+* add error stocks in api ([21bbbec](https://github.com/ialexanderbrito/finance/commit/21bbbec6c9ebc8e8b16bca8ae0dcf56e6c137ba9))
+* add hook use calculator ([5f02fa6](https://github.com/ialexanderbrito/finance/commit/5f02fa6675ef221d82d48017800a2b923db8feb0))
+* add page error in stocks ([4bd226b](https://github.com/ialexanderbrito/finance/commit/4bd226bc2e9cf231d2f33cf0c529a6ff8c69f807))
+* add props page error ([42ec45b](https://github.com/ialexanderbrito/finance/commit/42ec45bc2da1a3886b3493b0fc90453bab8de532))
+
 ## [3.7.2](https://github.com/ialexanderbrito/finance/compare/v3.7.1...v3.7.2) (2024-02-24)
 
 
