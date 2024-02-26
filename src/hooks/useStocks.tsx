@@ -127,6 +127,7 @@ export function useStocks() {
   const [loading, setLoading] = useState(true);
   const [loadingRecommendedStocks, setLoadingRecommendedStocks] =
     useState(true);
+  const [error, setError] = useState(false);
   const [favorites, setFavorites] = useState<string[]>([]);
   const [isFavorite, setIsFavorite] = useState(savedStocks.length > 0);
   const [searchStock, setSearchStock] = useState('');
@@ -271,8 +272,10 @@ export function useStocks() {
       setSavedStocks(stockData);
     } catch (error) {
       toast.error('Erro ao encontrar ações. Tente novamente.', { id: 'error' });
+      setError(true);
     } finally {
       setLoading(false);
+      setLoadingRecommendedStocks(false);
     }
   }
 
@@ -285,8 +288,10 @@ export function useStocks() {
       toast.error('Erro ao encontrar lista de ações. Tente novamente.', {
         id: 'error',
       });
+      setError(true);
     } finally {
       setLoading(false);
+      setLoadingRecommendedStocks(false);
     }
   }
 
@@ -327,8 +332,10 @@ export function useStocks() {
           id: 'error',
         },
       );
+      setError(true);
     } finally {
       setLoading(false);
+      setLoadingRecommendedStocks(false);
     }
   }
 
@@ -351,14 +358,14 @@ export function useStocks() {
           id: 'error',
         },
       );
+      setError(true);
     } finally {
+      setLoading(false);
       setLoadingRecommendedStocks(false);
     }
   }
 
   async function getRecommendedStocks(stockName = params.stock) {
-    setLoadingRecommendedStocks(true);
-
     const stock = await api.get(`stock/${stockName}`);
 
     const language = stock.data.results[0].currency === 'USD' ? 'USD' : 'BRL';
@@ -378,7 +385,9 @@ export function useStocks() {
           id: 'error',
         },
       );
+      setError(true);
     } finally {
+      setLoading(false);
       setLoadingRecommendedStocks(false);
     }
   }
@@ -605,5 +614,6 @@ export function useStocks() {
     fields,
     fieldsStock,
     fieldsFiis,
+    error,
   };
 }
