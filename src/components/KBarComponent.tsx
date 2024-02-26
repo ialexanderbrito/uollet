@@ -12,6 +12,13 @@ import {
   CurrencyCircleDollar,
   FileCsv,
   FileXls,
+  Percent,
+  FirstAid,
+  Confetti,
+  EyeClosed,
+  Eye,
+  ChartPie,
+  Wallet,
 } from '@phosphor-icons/react';
 import {
   KBarProvider,
@@ -26,10 +33,14 @@ import {
 
 import { cn } from 'utils';
 
+import { useAuth } from 'contexts/Auth';
 import { useTheme } from 'contexts/Theme';
 
-import { Calculator } from './Calculator';
+import { Calculator } from './Calculators/Calculator';
+import { CompoundInterest } from './Calculators/CompoundInterest';
+import { EmergencyReserve } from './Calculators/EmergencyReserve';
 import { CurrencyConverter } from './CurrencyConverter';
+import { InvestorProfile } from './InvestorProfile';
 
 function RenderResults() {
   const { results, rootActionId } = useMatches();
@@ -129,8 +140,15 @@ const ResultItem = forwardRef(
 );
 
 export function KBar({ children }: { children: React.ReactNode }) {
+  const { areValueVisible, toggleValueVisibility } = useAuth();
   const [openModalCurrency, setOpenModalCurrency] = useState(false);
   const [openModalCalculator, setOpenModalCalculator] = useState(false);
+  const [openModalCompoundInterest, setOpenModalCompoundInterest] =
+    useState(false);
+  const [openModalEmergencyReserve, setOpenModalEmergencyReserve] =
+    useState(false);
+  const [openModalInvestorProfile, setOpenModalInvestorProfile] =
+    useState(false);
 
   const navigate = useNavigate();
   const { toggleTheme, theme, removeDarkTheme } = useTheme();
@@ -155,6 +173,39 @@ export function KBar({ children }: { children: React.ReactNode }) {
       keywords: 'investimentos, invest, investimento',
       perform: () => {
         navigate('/investments');
+      },
+      section: 'Acesso Rápido',
+    },
+    {
+      id: 'wallet',
+      name: 'Carteira',
+      icon: <Wallet size={18} weight="regular" />,
+      shortcut: ['c'],
+      keywords: 'carteira, wallet',
+      perform: () => {
+        navigate('/wallet');
+      },
+      section: 'Acesso Rápido',
+    },
+    {
+      id: 'goals',
+      name: 'Metas',
+      icon: <Confetti size={18} weight="regular" />,
+      shortcut: ['m'],
+      keywords: 'metas, objetivos, goals',
+      perform: () => {
+        navigate('/goals');
+      },
+      section: 'Acesso Rápido',
+    },
+    {
+      id: 'resume',
+      name: 'Resumo',
+      icon: <ChartPie size={18} weight="regular" />,
+      shortcut: ['r'],
+      keywords: 'resumo, summary',
+      perform: () => {
+        navigate('/resume');
       },
       section: 'Acesso Rápido',
     },
@@ -192,6 +243,39 @@ export function KBar({ children }: { children: React.ReactNode }) {
       },
     },
     {
+      section: 'Planilhas',
+      id: 'import-csv',
+      name: 'Importar CSV',
+      icon: <FileCsv size={18} weight="regular" />,
+      shortcut: ['i', 'p'],
+      keywords: 'importar, planilha, importar planilha, csv, importar csv',
+      perform: () => {
+        navigate('/import');
+      },
+    },
+    {
+      section: 'Planilhas',
+      id: 'export-sheet',
+      name: 'Exportar Planilha',
+      icon: <FileXls size={18} weight="regular" />,
+      shortcut: ['e', 'p'],
+      keywords: 'exportar, planilha, exportar planilha',
+      perform: () => {
+        navigate('/export');
+      },
+    },
+    {
+      section: 'Planilhas',
+      id: 'import-csv',
+      name: 'Importar CSV',
+      icon: <FileCsv size={18} weight="regular" />,
+      shortcut: ['i', 'p'],
+      keywords: 'importar, planilha, importar planilha, csv, importar csv',
+      perform: () => {
+        navigate('/import');
+      },
+    },
+    {
       section: 'Ferramentas',
       id: 'conversor-currency',
       name: 'Conversor de Moedas',
@@ -215,24 +299,35 @@ export function KBar({ children }: { children: React.ReactNode }) {
     },
     {
       section: 'Ferramentas',
-      id: 'export-sheet',
-      name: 'Exportar Planilha',
-      icon: <FileXls size={18} weight="regular" />,
-      shortcut: ['e', 'p'],
-      keywords: 'exportar, planilha, exportar planilha',
+      id: 'calculator-compound-interest',
+      name: 'Calculadora de Juros Compostos',
+      icon: <Percent size={18} weight="regular" />,
+      shortcut: ['j', 'c'],
+      keywords: 'calculadora, juros compostos',
       perform: () => {
-        navigate('/export');
+        setOpenModalCompoundInterest(true);
       },
     },
     {
       section: 'Ferramentas',
-      id: 'import-csv',
-      name: 'Importar CSV',
-      icon: <FileCsv size={18} weight="regular" />,
-      shortcut: ['i', 'p'],
-      keywords: 'importar, planilha, importar planilha, csv, importar csv',
+      id: 'calculator-emergency-reserve',
+      name: 'Calculadora de Reserva de Emergência',
+      icon: <FirstAid size={18} weight="regular" />,
+      shortcut: ['j', 's'],
+      keywords: 'calculadora, reserva de emergência',
       perform: () => {
-        navigate('/import');
+        setOpenModalEmergencyReserve(true);
+      },
+    },
+    {
+      section: 'Ferramentas',
+      id: 'investor-profile',
+      name: 'Perfil do Investidor',
+      icon: <ChartLineUp size={18} weight="regular" />,
+      shortcut: ['p', 'i'],
+      keywords: 'perfil, investidor, perfil do investidor',
+      perform: () => {
+        setOpenModalInvestorProfile(true);
       },
     },
     {
@@ -248,7 +343,6 @@ export function KBar({ children }: { children: React.ReactNode }) {
         ),
       shortcut: ['t'],
     },
-
     {
       section: '',
       id: 'dark-theme',
@@ -270,6 +364,56 @@ export function KBar({ children }: { children: React.ReactNode }) {
         removeDarkTheme();
       },
       shortcut: ['l', 'm'],
+    },
+    {
+      section: 'Preferências',
+      id: 'set-theme',
+      name: 'Selecione o Tema',
+      keywords: 'tema, escuro, dark, ligth, mode, theme',
+      icon:
+        theme === 'dark' ? (
+          <Sun size={18} weight="regular" />
+        ) : (
+          <Moon size={18} weight="regular" />
+        ),
+      shortcut: ['t'],
+    },
+    {
+      section: '',
+      id: 'dark-theme',
+      name: 'Tema Escuro',
+      keywords: 'tema, escuro, dark, mode, theme',
+      parent: 'set-theme',
+      perform: () => {
+        toggleTheme();
+      },
+      shortcut: ['d', 'm'],
+    },
+    {
+      section: '',
+      id: 'light-theme',
+      name: 'Tema Claro',
+      keywords: 'tema, claro, light, mode, theme',
+      parent: 'set-theme',
+      perform: () => {
+        removeDarkTheme();
+      },
+      shortcut: ['l', 'm'],
+    },
+    {
+      section: 'Preferências',
+      id: 'show-balance',
+      name: 'Mostrar/Ocultar Saldo',
+      keywords: 'saldo, mostrar saldo, balance',
+      shortcut: ['m', 's'],
+      perform: () => {
+        toggleValueVisibility();
+      },
+      icon: areValueVisible ? (
+        <EyeClosed size={18} weight="regular" />
+      ) : (
+        <Eye size={18} weight="regular" />
+      ),
     },
   ];
 
@@ -299,6 +443,21 @@ export function KBar({ children }: { children: React.ReactNode }) {
       <Calculator
         openModalCalculator={openModalCalculator}
         setOpenModalCalculator={setOpenModalCalculator}
+      />
+
+      <CompoundInterest
+        openModalCalculator={openModalCompoundInterest}
+        setOpenModalCalculator={setOpenModalCompoundInterest}
+      />
+
+      <EmergencyReserve
+        openModalEmergencyReserve={openModalEmergencyReserve}
+        setOpenModalEmergencyReserve={setOpenModalEmergencyReserve}
+      />
+
+      <InvestorProfile
+        openModalInvestorProfile={openModalInvestorProfile}
+        setOpenModalInvestorProfile={setOpenModalInvestorProfile}
       />
     </>
   );
