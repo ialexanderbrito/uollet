@@ -1,3 +1,16 @@
+# [3.9.0](https://github.com/ialexanderbrito/finance/compare/v3.8.0...v3.9.0) (2024-02-26)
+
+
+### Bug Fixes
+
+* remove old components ([3e96b50](https://github.com/ialexanderbrito/finance/commit/3e96b504f5c6c5422ac5b9c5f8597aea0c20860f))
+
+
+### Features
+
+* add function reset form ([79660b6](https://github.com/ialexanderbrito/finance/commit/79660b64c3a8c170c475ae3f175a5f13f60257d2))
+* add new hook use investor profile ([0190987](https://github.com/ialexanderbrito/finance/commit/0190987bf0d42e7a6ac61df9db9d98daaf3b99ea))
+
 # [3.8.0](https://github.com/ialexanderbrito/finance/compare/v3.7.2...v3.8.0) (2024-02-26)
 
 
