@@ -16,6 +16,8 @@ import {
 } from 'chart.js';
 import { format } from 'date-fns';
 
+import { Error } from 'pages/Error';
+
 import { BottomNavigator } from 'components/BottomNavigator';
 import { FundamentalIndicators } from 'components/FundamentalIndicators';
 import { Header } from 'components/Header';
@@ -59,6 +61,7 @@ export function Stock() {
     fields,
     fieldsStock,
     fieldsFiis,
+    error,
   } = useStocks();
 
   const isStock = stock.fundamentalIndicators?.type === 'stock' && true;
@@ -68,11 +71,22 @@ export function Stock() {
     return <Loading color="#170e39" />;
   }
 
+  if (error) {
+    return (
+      <Error
+        title={`Infelizmente não foi possível carregar as informações sobre ${params.stock?.toUpperCase()}`}
+        description="Por favor, tente novamente mais tarde"
+        buttonText="Voltar para investimentos"
+        link="/investments"
+      />
+    );
+  }
+
   return (
     <div className="flex w-full flex-col items-center justify-center bg-background dark:bg-background-dark">
       <Header
         variant="secondary"
-        title={`Ação ${params.stock}`}
+        title={`Ação ${params.stock?.toUpperCase()}`}
         navigateLink="/investments"
         isInvestiment
       />
@@ -89,7 +103,7 @@ export function Stock() {
             />
             <div className="flex flex-col">
               <span className="flex flex-row items-center gap-4 text-2xl font-bold text-title dark:text-text-dark">
-                {stock.symbol || stock.longName}
+                {stock.symbol?.toUpperCase() || stock.longName?.toUpperCase()}
                 {verifyIsFavorite(stock.symbol) ? (
                   <Star
                     weight="fill"
@@ -205,7 +219,7 @@ export function Stock() {
         ) : (
           <div className="grid grid-cols-1 gap-8 text-title dark:text-text-dark md:grid-cols-3 lg:grid-cols-4">
             <div className="md:col-span-2 lg:col-span-3">
-              <div className="flex h-auto min-h-full w-full flex-col px-2 py-8">
+              <div className="flex h-auto min-h-full w-full flex-col p-2">
                 <div className="flex flex-row gap-2">
                   <img
                     src={stock.logourl}
@@ -324,7 +338,7 @@ export function Stock() {
                 </div>
                 <FundamentalIndicators
                   fields={fields}
-                  className={cn(!isStock && !isFiis && 'mb-10')}
+                  className={cn(!isStock && !isFiis && 'mb-14')}
                 />
 
                 {isStock && (
@@ -334,7 +348,7 @@ export function Stock() {
                     </span>
                     <FundamentalIndicators
                       fields={fieldsStock}
-                      className="mb-10"
+                      className="mb-2 sm:mb-14"
                     />
                   </>
                 )}
@@ -347,14 +361,14 @@ export function Stock() {
                     <FundamentalIndicators
                       fields={fieldsFiis}
                       fiis
-                      className="mb-10"
+                      className="mb-2 sm:mb-14"
                     />
                   </>
                 )}
               </div>
             </div>
 
-            <div className="mt-0 flex flex-col space-y-2 md:mt-24">
+            <div className="mb-14 mt-0 flex flex-col space-y-2 md:mt-20">
               <h2 className="text-xl font-bold text-title dark:text-text-dark">
                 Ações relacionadas
               </h2>
