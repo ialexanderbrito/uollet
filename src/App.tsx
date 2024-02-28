@@ -22,9 +22,6 @@ export function App() {
     <ConfigCatProvider
       sdkKey={import.meta.env.VITE_CONFIGCAT_SDK}
       pollingMode={PollingMode.AutoPoll}
-      options={{
-        pollIntervalSeconds: 5,
-      }}
     >
       <BrowserRouter>
         <ThemeProvider>
