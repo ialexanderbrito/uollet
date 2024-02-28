@@ -1,3 +1,10 @@
+## [3.9.1](https://github.com/ialexanderbrito/finance/compare/v3.9.0...v3.9.1) (2024-02-28)
+
+
+### Bug Fixes
+
+* remove poll interval seconds configcat ([f926acf](https://github.com/ialexanderbrito/finance/commit/f926acf6705326563d27af7a4e5bcb04b07691a8))
+
 # [3.9.0](https://github.com/ialexanderbrito/finance/compare/v3.8.0...v3.9.0) (2024-02-26)
 
 
