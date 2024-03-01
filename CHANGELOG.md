@@ -1,3 +1,10 @@
+# [3.11.0](https://github.com/ialexanderbrito/finance/compare/v3.10.0...v3.11.0) (2024-03-01)
+
+
+### Features
+
+* add clarity identify user ([84bf427](https://github.com/ialexanderbrito/finance/commit/84bf4278c5f6cd76d4e895f1117ec8fc3de2f95e))
+
 # [3.10.0](https://github.com/ialexanderbrito/finance/compare/v3.9.1...v3.10.0) (2024-03-01)
 
 
