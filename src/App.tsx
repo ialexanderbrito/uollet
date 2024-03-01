@@ -15,12 +15,10 @@ import 'react-tooltip/dist/react-tooltip.css';
 import 'swiper/css';
 
 export function App() {
-  const user = JSON.parse(localStorage.getItem('@uollet:user') || '{}');
   Crisp.setHideOnMobile(true);
   Crisp.configure(import.meta.env.VITE_CRISP_ID);
 
   clarity.init(import.meta.env.VITE_MICROSOFT_CLARITY_ID);
-  clarity.identify('USER_ID', { userProperty: user.email });
 
   return (
     <ConfigCatProvider
