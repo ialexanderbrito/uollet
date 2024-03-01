@@ -1,6 +1,6 @@
+import { clarity } from 'react-microsoft-clarity';
 import { BrowserRouter } from 'react-router-dom';
 
-import { MicrosoftClarity } from 'config/MicrosoftClarity';
 import { ConfigCatProvider, PollingMode } from 'configcat-react';
 import { Crisp } from 'crisp-sdk-web';
 import { MainRoutes } from 'routes';
@@ -17,6 +17,7 @@ import 'swiper/css';
 export function App() {
   Crisp.setHideOnMobile(true);
   Crisp.configure(import.meta.env.VITE_CRISP_ID);
+  clarity.init(import.meta.env.VITE_MICROSOFT_CLARITY_ID);
 
   return (
     <ConfigCatProvider
@@ -29,7 +30,6 @@ export function App() {
             <ToastProvider>
               <CheckConnection>
                 <MainRoutes />
-                <MicrosoftClarity />
               </CheckConnection>
             </ToastProvider>
           </AuthProvider>
