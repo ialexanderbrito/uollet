@@ -1,3 +1,11 @@
+# [3.10.0](https://github.com/ialexanderbrito/finance/compare/v3.9.1...v3.10.0) (2024-03-01)
+
+
+### Features
+
+* add clarity init in app ([adcdcb7](https://github.com/ialexanderbrito/finance/commit/adcdcb7eda54d2185d4d1f2f0a3826a326ef7f74))
+* add lib react microsoft clarity ([55d8b22](https://github.com/ialexanderbrito/finance/commit/55d8b22188c503fd38f069d00ca6b7d6de6ed9b6))
+
 ## [3.9.1](https://github.com/ialexanderbrito/finance/compare/v3.9.0...v3.9.1) (2024-02-28)
 
 
