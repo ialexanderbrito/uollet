@@ -1,3 +1,10 @@
+# [3.12.0](https://github.com/ialexanderbrito/finance/compare/v3.11.0...v3.12.0) (2024-03-04)
+
+
+### Features
+
+* update dependencies ([cb6869f](https://github.com/ialexanderbrito/finance/commit/cb6869fcc205f6dbd19a92edac37b19a1e710dd2))
+
 # [3.11.0](https://github.com/ialexanderbrito/finance/compare/v3.10.0...v3.11.0) (2024-03-01)
 
 
