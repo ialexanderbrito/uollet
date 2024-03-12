@@ -1,3 +1,10 @@
+## [3.12.1](https://github.com/ialexanderbrito/finance/compare/v3.12.0...v3.12.1) (2024-03-12)
+
+
+### Bug Fixes
+
+* add xp type bank ([2faf0c2](https://github.com/ialexanderbrito/finance/commit/2faf0c22119973f8283aea0667f62fc3307e2b83))
+
 # [3.12.0](https://github.com/ialexanderbrito/finance/compare/v3.11.0...v3.12.0) (2024-03-04)
 
 
