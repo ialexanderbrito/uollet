@@ -1,3 +1,11 @@
+# [3.13.0](https://github.com/ialexanderbrito/finance/compare/v3.12.1...v3.13.0) (2024-03-12)
+
+
+### Features
+
+* add announcement in page register and configcat show alert ([2828615](https://github.com/ialexanderbrito/finance/commit/28286155931ca3360b74f57c577f072bb846a474))
+* add new component announcement ([ce5bd4c](https://github.com/ialexanderbrito/finance/commit/ce5bd4c93667e7d5786ad7ac7db823c2acd37b84))
+
 ## [3.12.1](https://github.com/ialexanderbrito/finance/compare/v3.12.0...v3.12.1) (2024-03-12)
 
 
