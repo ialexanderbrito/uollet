@@ -96,6 +96,9 @@ export function getIconBanks(name: string) {
     'XP Investimentos': (
       <img src={xp} alt="XP Investimentos" className="h-12 w-12 rounded-md" />
     ),
+    XP: (
+      <img src={xp} alt="XP Investimentos" className="h-12 w-12 rounded-md" />
+    ),
     'Clear Investimentos': (
       <img src={clear} alt="Clear" className="h-12 w-12 rounded-md" />
     ),

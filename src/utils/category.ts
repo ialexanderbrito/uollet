@@ -119,6 +119,11 @@ export const category = [
     category: 'investments',
   },
   {
+    icon: xp,
+    name: 'XP',
+    category: 'bank',
+  },
+  {
     icon: clear,
     name: 'Clear Investimentos',
     category: 'investments',

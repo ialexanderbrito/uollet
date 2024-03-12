@@ -15,6 +15,7 @@ export function getColorsBanks(categories: string | string[]) {
     'C6 Investimentos': '#1f1f1f',
     'Inter Investimentos': '#f77601',
     'XP Investimentos': '#0d0e10',
+    XP: '#0d0e10',
     'Clear Investimentos': '#0100f2',
     'BTG Investimentos': '#051229',
     'Rico Investimentos': '#f74f00',
