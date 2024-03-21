@@ -13,6 +13,7 @@ import {
   Keyhole,
   LockKey,
   Power,
+  Scroll,
   SketchLogo,
   Sun,
 } from '@phosphor-icons/react';
@@ -128,10 +129,21 @@ export function Profile() {
           </div>
         </Link>
         <div className="flex h-16 flex-row items-center justify-start gap-4 rounded-lg bg-background-card dark:bg-background-card-dark">
+          <div
+            className="ml-4 flex cursor-pointer items-center gap-2 text-title dark:text-title-dark"
+            onClick={() => toggleValueVisibility()}
+          >
+            {areValueVisible ? (
+              <EyeClosed size={20} weight="light" />
+            ) : (
+              <Eye size={20} weight="light" />
+            )}
+          </div>
+
           <img
             src={allTotal + allTotalInvestiments < 0 ? outcome : income}
             alt={allTotal + allTotalInvestiments < 0 ? 'Saidas' : 'Entradas'}
-            className="ml-3 h-8 w-8 rounded-lg object-cover"
+            className="h-8 w-8 rounded-lg object-cover"
           />
 
           <div>
@@ -217,19 +229,6 @@ export function Profile() {
         </div>
         <div className="mt-4 flex flex-col items-start justify-center gap-4 text-title dark:text-title-dark">
           <Submenu
-            onClick={() => toggleValueVisibility()}
-            icon={
-              areValueVisible ? (
-                <EyeClosed size={20} weight="light" />
-              ) : (
-                <Eye size={20} weight="light" />
-              )
-            }
-            title={areValueVisible ? 'Mostrar saldo' : 'Ocultar saldo'}
-            divider
-          />
-
-          <Submenu
             icon={<CreditCard size={20} weight="light" />}
             title="Cartões de crédito"
             onClick={() => navigate('/cards')}
@@ -241,6 +240,14 @@ export function Profile() {
             icon={<Confetti size={20} weight="light" />}
             title="Metas"
             onClick={() => navigate('/goals')}
+            arrow
+            divider
+          />
+
+          <Submenu
+            icon={<Scroll size={20} weight="light" />}
+            title="Contas Fixas"
+            onClick={() => navigate('/recurrency')}
             arrow
             divider
           />
