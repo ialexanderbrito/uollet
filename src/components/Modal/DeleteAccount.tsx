@@ -33,18 +33,12 @@ export function DeleteAccount({
         seus dados.
         <br />
         <br />
-        Ao excluir a conta você perderá seu progresso nos cursos, registro de
-        ofensivas e demais informações.
+        Ao excluir a conta você perderá acesso a todos os seus dados, incluindo
+        informações de pagamento e histórico de movimentações.
         <br />
         <br />
         Essa ação não pausa o recebimento de emails da uollet, para cancelar sua
         inscrição em nossa lista entre em contato pelo oi@uollet.com.br.
-        <br />
-        <br />
-        Essa ação também não pausa a cobrança de compras não quitadas. Se o seu
-        parcelamento estiver ativo, a cobrança será realizada até a última
-        parcela. Só é feito reembolso para compras canceladas dentro do período
-        de garantia.
         <br />
         <br />
         Agora, se você deseja apenas dar uma pausa, não é necessário excluir sua
