@@ -73,15 +73,17 @@ export function CardList({
             />
           )}
 
-          <Pencil
-            size={18}
-            weight="light"
-            onClick={onEdit}
-            className={cn(
-              'cursor-pointer text-primary dark:text-white',
-              isInvestiment && 'text-primary-dark dark:text-primary',
-            )}
-          />
+          {onEdit && (
+            <Pencil
+              size={18}
+              weight="light"
+              onClick={onEdit}
+              className={cn(
+                'cursor-pointer text-primary dark:text-white',
+                isInvestiment && 'text-primary-dark dark:text-primary',
+              )}
+            />
+          )}
 
           <TrashSimple
             size={18}
