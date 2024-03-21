@@ -20,7 +20,8 @@ export function useRegister() {
   const { storageUser } = useAuth();
 
   const [isRecurring, setIsRecurring] = useState(false);
-  const [openBottomSheet, setOpenBottomSheet] = useState(false);
+  const [openModalRecurringRevenue, setOpenModalRecurringRevenue] =
+    useState(false);
   const [categories, setCategories] = useState(category);
   const [goalsList, setGoalsList] = useState(category);
   const [isGoal, setIsGoal] = useState(false);
@@ -54,12 +55,25 @@ export function useRegister() {
   function handleSwitch() {
     setIsRecurring(!isRecurring);
 
+    if (formik.values.recurrency) {
+      setOpenModalRecurringRevenue(false);
+      setIsRecurring(false);
+    }
+
     if (!isRecurring) {
-      setOpenBottomSheet(!openBottomSheet);
+      setOpenModalRecurringRevenue(!openModalRecurringRevenue);
     }
 
     if (isRecurring) {
       formik.setFieldValue('recurrency', '');
+    }
+  }
+
+  function closeBottomSheet() {
+    setOpenModalRecurringRevenue(false);
+
+    if (!formik.values.recurrency || !formik.values.parcel) {
+      setIsRecurring(false);
     }
   }
 
@@ -118,16 +132,14 @@ export function useRegister() {
     return arrayParcelas;
   }
 
-  function isCategoryCreditCard(category: string) {
-    const categoryExists = categories.find((item) => item.name === category);
+  function isCategoryCreditCard(category: string): boolean {
+    if (!category) return false;
+
+    const categoryExists = categories.some((item) => item.name === category);
 
     const isCreditCard = category.startsWith('Cartão');
 
-    if (categoryExists && !isCreditCard) {
-      return true;
-    }
-
-    return false;
+    return categoryExists && isCreditCard;
   }
 
   const formik = useFormik({
@@ -366,8 +378,6 @@ export function useRegister() {
       return 0;
     });
 
-    console.log(newCategories);
-
     const uniqueCategories = orderCategories.filter(
       (item, index) =>
         orderCategories.findIndex((item2) => item.name === item2.name) ===
@@ -445,12 +455,13 @@ export function useRegister() {
     isRecurring,
     setIsRecurring,
     handleSwitch,
-    openBottomSheet,
-    setOpenBottomSheet,
+    openModalRecurringRevenue,
+    setOpenModalRecurringRevenue,
     categories,
     isCategoryCreditCard,
     isGoal,
     setIsGoal,
     goalsList,
+    closeBottomSheet,
   };
 }
