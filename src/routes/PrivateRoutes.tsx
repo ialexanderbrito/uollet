@@ -13,6 +13,7 @@ import { Login } from 'pages/Login';
 import { MyProfile } from 'pages/MyProfile';
 import { Otp } from 'pages/Otp';
 import { Profile } from 'pages/Profile';
+import { Recurrency } from 'pages/Recurrency';
 import { Register } from 'pages/Register';
 import { RegisterGoals } from 'pages/RegisterGoals';
 import { ResetPassword } from 'pages/ResetPassword';
@@ -82,6 +83,7 @@ export function PrivateRoutes() {
       <Route path="/profile/:id/personal" element={<MyProfile />} />
       <Route path="/profile/:id/subscriptions" element={<MyProfile />} />
       <Route path="/investments" element={<Investments />} />
+      <Route path="/recurrency" element={<Recurrency />} />
       <Route path="/cards" element={<Cards />} />
       <Route path="/wallet" element={<Wallet />} />
       <Route path="/credit-card" element={<CreditCard />} />
