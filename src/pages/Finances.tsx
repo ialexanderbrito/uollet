@@ -3,8 +3,10 @@ import { useNavigate } from 'react-router-dom';
 
 import emptyImg from 'assets/empty.svg';
 import { income, outcome, total } from 'assets/icons';
+import { useFeatureFlag } from 'configcat-react';
 import { FinancesProps } from 'interfaces/FinancesProps';
 
+import { Alert } from 'components/Alert';
 import { BottomNavigator } from 'components/BottomNavigator';
 import { Button } from 'components/Button';
 import { Card } from 'components/Card';
@@ -30,6 +32,9 @@ export function Finances() {
 
   const { openModalName, handleCloseModalName, selectedYear, setSelectedYear } =
     useModal();
+
+  const { loading: loadindConfigCat, value: showAlertRecurrency } =
+    useFeatureFlag('alert_recurrency', false);
 
   const {
     finances,
@@ -72,7 +77,7 @@ export function Finances() {
     }
   }, [search]);
 
-  if (loading) {
+  if (loading || loadindConfigCat) {
     return <Loading />;
   }
 
@@ -131,6 +136,16 @@ export function Finances() {
           handleChangeFilterMonth={handleChangeFilterMonth}
           handleOpenModalFilter={handleOpenModalFilter}
         />
+
+        {showAlertRecurrency && (
+          <Alert
+            title="Novidades!"
+            description='Agora você consegue ver a lista de recorrências cadastradas. Basta acessar o menu e clicar em "Contas Fixas".'
+            variant="info"
+            alertName="home-recurrency"
+            disabledOnClick
+          />
+        )}
 
         <ul className="flex flex-col gap-4">
           {finances.length === 0 && (
