@@ -13,8 +13,7 @@ import { DatePickerInput } from 'components/DatePickerInput';
 import { Header } from 'components/Header';
 import { InputError } from 'components/InputError';
 import { Loading } from 'components/Loading';
-import { MyDialog } from 'components/Modal';
-import { Recurrency } from 'components/Recurrency';
+import { RecurringRevenue } from 'components/Modal/RecurringRevenue';
 
 import { cn } from 'utils/cn';
 
@@ -28,17 +27,19 @@ export function Register() {
     value: showAnnouncementRecurrency,
   } = useFeatureFlag('announcement_recurrency', false);
   const { id } = useParams();
+
   const {
     formik,
     isRecurring,
     handleSwitch,
-    openBottomSheet,
-    setOpenBottomSheet,
+    openModalRecurringRevenue,
+    setOpenModalRecurringRevenue,
     categories,
     isCategoryCreditCard,
     isGoal,
     setIsGoal,
     goalsList,
+    closeBottomSheet,
   } = useRegister();
 
   function handleIsGoalToggle() {
@@ -83,10 +84,9 @@ export function Register() {
       {showAnnouncementRecurrency && (
         <Announcement
           title="Atenção!"
-          description="Estamos cientes do problema com os cadastros recorrentes, onde só o primeiro aparece, e as recorrências automáticas não estão sendo exibidas corretamente. Estamos trabalhando para resolver. Agradecemos pela paciência."
-          variant="error"
+          description="As recorrências já cadastradas no sistemas voltarão a aparecer na tela principal. Em breve, você poderá adicionar novas recorrências."
+          variant="success"
           announcementName="recurrency"
-          disabledOnClick
         />
       )}
       <div className="flex w-full flex-col items-center bg-background dark:bg-background-dark">
@@ -278,9 +278,7 @@ export function Register() {
               <InputError error={true} message={formik.errors.date} />
             )}
 
-            {isGoal ? (
-              <></>
-            ) : (
+            {isGoal ? null : (
               <>
                 {showSwitchRecurrency && (
                   <div className="switch flex w-full flex-row items-center justify-end">
@@ -302,10 +300,10 @@ export function Register() {
                     <span
                       className="switch ml-2 cursor-pointer text-sm text-text"
                       onClick={() => {
-                        setOpenBottomSheet(true);
+                        handleSwitch();
                       }}
                     >
-                      {!isCategoryCreditCard(formik.values.category.name)
+                      {isCategoryCreditCard(formik.values.category.name)
                         ? 'Compra parcelada'
                         : 'Receita recorrente'}
                     </span>
@@ -314,32 +312,13 @@ export function Register() {
               </>
             )}
 
-            <MyDialog
-              isOpen={openBottomSheet}
-              closeModal={() => {
-                setOpenBottomSheet(false);
-              }}
-              title={
-                !isCategoryCreditCard(formik.values.category.name)
-                  ? 'Quantas parcelas?'
-                  : 'A receita se repete a cada:'
-              }
-              buttonPrimary
-            >
-              {!isCategoryCreditCard(formik.values.category.name) ? (
-                <Recurrency
-                  formik={formik}
-                  setOpenBottomSheet={setOpenBottomSheet}
-                  isParcel={true}
-                />
-              ) : (
-                <Recurrency
-                  formik={formik}
-                  setOpenBottomSheet={setOpenBottomSheet}
-                  isRecurring={true}
-                />
-              )}
-            </MyDialog>
+            <RecurringRevenue
+              openModalRecurringRevenue={openModalRecurringRevenue}
+              setOpenModalRecurringRevenue={setOpenModalRecurringRevenue}
+              isAccount={!isCategoryCreditCard(formik.values.category.name)}
+              formik={formik}
+              onClose={() => closeBottomSheet()}
+            />
 
             <div className="flex flex-col items-center justify-end gap-4">
               <Button type="submit">{id ? 'Editar' : 'Cadastrar'}</Button>
