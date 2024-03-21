@@ -261,21 +261,33 @@ export function useStocks() {
   async function getMultipleStocks(stocks: string[]) {
     const stocksString = stocks.join(',');
 
-    try {
-      const { data } = await api.get(`stock/${stocksString}`);
-
-      const stockData = data.results.map((stock: StockProps) => ({
-        ...stock,
-        logo: stock.logourl,
-      }));
-
-      setSavedStocks(stockData);
-    } catch (error) {
-      toast.error('Erro ao encontrar ações. Tente novamente.', { id: 'error' });
-      setError(true);
-    } finally {
+    if (stocks.length === 0) {
+      setIsFavorite(true);
       setLoading(false);
-      setLoadingRecommendedStocks(false);
+      return;
+    }
+
+    if (favorites.length > 0 && !params.stock) {
+      try {
+        const { data } = await api.get(`stock/${stocksString}`);
+
+        setIsFavorite(false);
+
+        const stockData = data.results.map((stock: StockProps) => ({
+          ...stock,
+          logo: stock.logourl,
+        }));
+
+        setSavedStocks(stockData);
+      } catch (error) {
+        toast.error('Erro ao encontrar ações. Tente novamente.', {
+          id: 'error',
+        });
+        setError(true);
+      } finally {
+        setLoading(false);
+        setLoadingRecommendedStocks(false);
+      }
     }
   }
 
@@ -576,9 +588,7 @@ export function useStocks() {
   }, []);
 
   useEffect(() => {
-    if (favorites.length > 0 && !params.stock) {
-      getMultipleStocks(favorites);
-    }
+    getMultipleStocks(favorites);
   }, [favorites]);
 
   useEffect(() => {
