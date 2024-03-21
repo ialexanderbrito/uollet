@@ -1,3 +1,23 @@
+# [3.14.0](https://github.com/ialexanderbrito/finance/compare/v3.13.0...v3.14.0) (2024-03-21)
+
+
+### Bug Fixes
+
+* add props on edit in pencil button ([c38b9b2](https://github.com/ialexanderbrito/finance/commit/c38b9b2ea00c4bda10a5aba6d89201d49d85ef06))
+* get stocks and set favorites not stocks ([05359fc](https://github.com/ialexanderbrito/finance/commit/05359fc04802a71ce036a39a2ae4e078b68eb65b))
+* remove console.log ([a4fb882](https://github.com/ialexanderbrito/finance/commit/a4fb882b2da918636927b0ceef363ac828046f14))
+* update description index.html and img x card ([3c3edac](https://github.com/ialexanderbrito/finance/commit/3c3edace55d1251c8f4afa2c5d89d091d2aaae93))
+
+
+### Features
+
+* add alert new recurrency list ([755eb84](https://github.com/ialexanderbrito/finance/commit/755eb84ed66cbf859f50a9c980567a001f1eeb83))
+* add new hook use recurrency ([29fa775](https://github.com/ialexanderbrito/finance/commit/29fa775c45ecb50fd6f2b5314018d554d337e936))
+* add new option and new position visible values ([6706ef4](https://github.com/ialexanderbrito/finance/commit/6706ef48076fd9698471c7983ae60d7a80698744))
+* add new option menu ([cc47d00](https://github.com/ialexanderbrito/finance/commit/cc47d004477befb1f682466606ecc9f1b108b98a))
+* add new page recurrency ([aec34fd](https://github.com/ialexanderbrito/finance/commit/aec34fd1738fb917446494b594cb521e9442ec10))
+* add new route recurrency ([408856f](https://github.com/ialexanderbrito/finance/commit/408856f607f615330fb36d998983dea6c8118166))
+
 # [3.13.0](https://github.com/ialexanderbrito/finance/compare/v3.12.1...v3.13.0) (2024-03-12)
 
 
