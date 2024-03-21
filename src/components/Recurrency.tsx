@@ -9,6 +9,8 @@ import {
 
 import { cn } from 'utils/cn';
 
+import { Button } from './Button';
+
 interface RecurrencyProps {
   formik: {
     setFieldValue: (
@@ -21,16 +23,18 @@ interface RecurrencyProps {
     touched: FormikTouched<any>;
     values: FormikValues;
   };
-  setOpenBottomSheet: (value: boolean) => void;
+  setOpenRecurrency: (value: boolean) => void;
   isParcel?: boolean;
   isRecurring?: boolean;
+  onClose?: () => void;
 }
 
 export function Recurrency({
   formik,
-  setOpenBottomSheet,
+  setOpenRecurrency,
   isParcel,
   isRecurring,
+  onClose,
 }: RecurrencyProps) {
   return (
     <>
@@ -41,7 +45,7 @@ export function Recurrency({
               <RadioGroup
                 onChange={(value) => {
                   formik.setFieldValue('recurrency', value);
-                  setOpenBottomSheet(false);
+                  setOpenRecurrency(false);
                 }}
                 className={`mb-1 mt-1 flex w-full flex-col items-center justify-center gap-4`}
                 value={'month'}
@@ -112,7 +116,7 @@ export function Recurrency({
               <RadioGroup
                 onChange={(value) => {
                   formik.setFieldValue('recurrency', value);
-                  setOpenBottomSheet(false);
+                  setOpenRecurrency(false);
                 }}
                 className="mb-1 mt-1 flex w-full flex-col items-center justify-center gap-4"
                 value={formik.values.recurrency}
@@ -244,6 +248,12 @@ export function Recurrency({
           </div>
         </div>
       )}
+
+      <div className="-mb-8 flex flex-col items-center justify-center gap-4">
+        <Button onClick={onClose} className="mt-4" variant="outline" inline>
+          Fechar
+        </Button>
+      </div>
     </>
   );
 }
