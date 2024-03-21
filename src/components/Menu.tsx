@@ -19,6 +19,7 @@ import {
   FirstAid,
   Percent,
   Power,
+  Scroll,
   User,
   UserFocus,
 } from '@phosphor-icons/react';
@@ -104,6 +105,22 @@ export function Menu() {
                       className="mr-2 h-5 w-5 text-primary dark:text-white"
                     />
                     Metas
+                  </button>
+                </MenuComponent.Item>
+
+                <MenuComponent.Item>
+                  <button
+                    className="group flex w-full items-center rounded-md px-2 py-2 text-sm"
+                    onClick={() => {
+                      navigate('/recurrency');
+                    }}
+                  >
+                    <Scroll
+                      size={20}
+                      weight="light"
+                      className="mr-2 h-5 w-5 text-primary dark:text-white"
+                    />
+                    Contas Fixas
                   </button>
                 </MenuComponent.Item>
 
