@@ -1,3 +1,10 @@
+## [3.14.1](https://github.com/ialexanderbrito/finance/compare/v3.14.0...v3.14.1) (2024-03-21)
+
+
+### Bug Fixes
+
+* message delete account ([f633ddb](https://github.com/ialexanderbrito/finance/commit/f633ddb0a1e35dfea3ee96e1f6a143c19b8272ef))
+
 # [3.14.0](https://github.com/ialexanderbrito/finance/compare/v3.13.0...v3.14.0) (2024-03-21)
 
 
