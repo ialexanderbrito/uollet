@@ -8,11 +8,11 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: Setup Node.js
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version-file: .nvmrc
       - name: Install dependencies
         run: yarn
       - name: Fix Lint
@@ -28,6 +28,6 @@ jobs:
     needs: publish
     if: success('publish')
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: Deploy to Netlify
         run: curl -X POST -d {} ${{ secrets.NETLIFY_BUILD_HOOK }}
