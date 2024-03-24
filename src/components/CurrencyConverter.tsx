@@ -134,6 +134,7 @@ export function CurrencyConverter({
           onChangeValue={(event, originalValue, maskedValue) => {
             setCurrencyValue(String(originalValue));
           }}
+          currency={currencyOrigin}
           InputElement={
             <input
               type="tel"
