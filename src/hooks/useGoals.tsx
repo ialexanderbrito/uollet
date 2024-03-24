@@ -29,7 +29,7 @@ interface DetailsGoalsProps {
 }
 
 export function useGoals() {
-  const { storageUser } = useAuth();
+  const { user } = useAuth();
   const { toast } = useToast();
 
   const [goals, setGoals] = useState<GoalsProps[]>([]);
@@ -50,7 +50,7 @@ export function useGoals() {
       const { data, error } = await supabase
         .from('goals_db')
         .select('*')
-        .eq('user_id', storageUser?.id);
+        .eq('user_id', user?.id);
 
       if (error) {
         toast.error('Erro ao buscar dados das metas');
@@ -74,7 +74,7 @@ export function useGoals() {
       const { data, error } = await supabase
         .from('finances_db')
         .select('*')
-        .eq('user_id', storageUser?.id)
+        .eq('user_id', user?.id)
         .ilike('category', '%Meta%')
         .order('date', { ascending: false });
 
@@ -100,13 +100,13 @@ export function useGoals() {
         .from('goals_db')
         .delete()
         .eq('id', id)
-        .eq('user_id', storageUser?.id);
+        .eq('user_id', user?.id);
 
       const { status: statusHistory, error: errorHistory } = await supabase
         .from('finances_db')
         .delete()
         .eq('category', `Meta ${category}`)
-        .eq('user_id', storageUser?.id);
+        .eq('user_id', user?.id);
 
       // apagar todas as transações da meta
       const { status: statusTransactions, error: errorTransactions } =
@@ -114,7 +114,7 @@ export function useGoals() {
           .from('finances_db')
           .delete()
           .eq('category', `Meta ${category}`)
-          .eq('user_id', storageUser?.id);
+          .eq('user_id', user?.id);
 
       if (error || errorHistory || errorTransactions) {
         toast.error('Erro ao deletar meta!', { id: 'error' });
@@ -147,7 +147,7 @@ export function useGoals() {
         .from('finances_db')
         .delete()
         .eq('id', id)
-        .eq('user_id', storageUser?.id);
+        .eq('user_id', user?.id);
 
       if (error) {
         toast.error('Erro ao deletar meta!', { id: 'error' });

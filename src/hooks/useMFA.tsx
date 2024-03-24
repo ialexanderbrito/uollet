@@ -163,7 +163,6 @@ export function useMFA() {
 
     if (!user) return;
 
-    localStorage.setItem('@uollet:user', JSON.stringify(user));
     sessionStorage.setItem('@uollet:hasMFA', 'false');
     setUser(user);
 
@@ -208,7 +207,6 @@ export function useMFA() {
 
     if (!user) return;
 
-    localStorage.setItem('@uollet:user', JSON.stringify(user));
     setUser(user);
   }
 

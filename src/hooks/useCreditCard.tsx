@@ -14,7 +14,7 @@ export function useCreditCard() {
   const navigate = useNavigate();
   const { cryptoNumberCreditCard } = useCrypto();
   const { toast } = useToast();
-  const { storageUser } = useAuth();
+  const { user } = useAuth();
 
   const days = [
     { id: 1, name: '1' },
@@ -129,7 +129,7 @@ export function useCreditCard() {
             card_name: values.cardName,
             card_number: cryptoNumberCreditCard(values.cardNumber),
             limit: values.limit,
-            user_id: storageUser?.id,
+            user_id: user?.id,
             background: values.backgroundColorCreditCard,
             color: values.textColorCreditCard,
             maturity: values.dayMaturity.name,

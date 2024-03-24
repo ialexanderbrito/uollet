@@ -23,7 +23,7 @@ interface FinanceData {
 }
 
 export function useWallet() {
-  const { storageUser } = useAuth();
+  const { user } = useAuth();
   const { toast } = useToast();
 
   const [wallets, setWallets] = useState<WalletProps[]>([]);
@@ -69,7 +69,7 @@ export function useWallet() {
       const { data, error } = await supabase
         .from('finances_db')
         .select('value, category, type')
-        .eq('user_id', storageUser?.id)
+        .eq('user_id', user?.id)
         .not('category', 'ilike', '%Meta%');
 
       if (error) {

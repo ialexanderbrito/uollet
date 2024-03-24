@@ -39,7 +39,6 @@ export function useInvestorProfile() {
 
       setData(value);
       setUser(data.user);
-      localStorage.setItem('@uollet:user', JSON.stringify(data.user));
     } catch (error) {
       toast.error('Erro ao salvar perfil de investidor', { id: 'error' });
     }

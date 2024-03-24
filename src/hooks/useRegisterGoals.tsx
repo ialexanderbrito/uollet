@@ -14,7 +14,7 @@ export function useRegisterGoals() {
   const { id } = useParams();
   const navigate = useNavigate();
   const { toast } = useToast();
-  const { storageUser } = useAuth();
+  const { user } = useAuth();
 
   const schema = Yup.object({
     emoji: Yup.string()
@@ -118,7 +118,7 @@ export function useRegisterGoals() {
               description: values.description,
               date_initial: format(new Date(values.date_initial), 'yyyy-MM-dd'),
               date_final: format(new Date(values.date_final), 'yyyy-MM-dd'),
-              user_id: storageUser?.id,
+              user_id: user?.id,
             },
           ]);
 
@@ -145,10 +145,10 @@ export function useRegisterGoals() {
               description: values.description,
               date_initial: values.date_initial,
               date_final: values.date_final,
-              user_id: storageUser?.id,
+              user_id: user?.id,
             })
             .eq('id', id)
-            .eq('user_id', storageUser?.id);
+            .eq('user_id', user?.id);
 
           if (error) {
             toast.error('Erro ao atualizar!', { id: 'error' });
@@ -172,7 +172,7 @@ export function useRegisterGoals() {
       .from('goals_db')
       .select('*')
       .eq('id', id)
-      .eq('user_id', storageUser?.id);
+      .eq('user_id', user?.id);
 
     if (!data) return;
 

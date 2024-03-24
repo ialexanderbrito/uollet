@@ -118,7 +118,7 @@ export interface StocksResultSearch {
 export function useStocks() {
   const params = useParams();
   const { toast } = useToast();
-  const { setUser } = useAuth();
+  const { setUser, user } = useAuth();
 
   const [stocks, setStocks] = useState<StocksProps[]>([]);
   const [stock, setStock] = useState<StockProps>({} as StockProps);
@@ -224,7 +224,6 @@ export function useStocks() {
       if (!data.user) return;
 
       setUser(data.user);
-      localStorage.setItem('@uollet:user', JSON.stringify(data.user));
 
       setFavorites(newFavorites);
     } catch (error) {
@@ -573,8 +572,6 @@ export function useStocks() {
   }, [params.stock]);
 
   useEffect(() => {
-    const user = JSON.parse(localStorage.getItem('@uollet:user') || '{}');
-
     if (user && user.user_metadata && user.user_metadata.stocks) {
       const favoritesFromLocalStorage = user.user_metadata.stocks;
       setFavorites(favoritesFromLocalStorage);

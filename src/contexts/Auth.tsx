@@ -22,7 +22,6 @@ interface AuthContextProps {
   setUser: (user: any) => void;
   loginWithGoogle: () => Promise<void>;
   logOut: () => Promise<void>;
-  storageUser: UserProps | null;
   signed: boolean;
   hasOtp: boolean;
   hasMFA: boolean;
@@ -52,7 +51,6 @@ export function AuthProvider({ children }: any) {
 
     return areValuesVisibleStorage !== 'false';
   });
-  const storageUser = JSON.parse(localStorage.getItem('@uollet:user') || '{}');
 
   const toggleValueVisibility = useCallback(() => {
     setAreValueVisible((prevState) => {
@@ -121,14 +119,7 @@ export function AuthProvider({ children }: any) {
 
     if (!user || !session) return;
 
-    if (!storageUser) {
-      localStorage.setItem('@uollet:user', JSON.stringify(user));
-      sessionStorage.setItem('@uollet:token', session.access_token);
-      sessionStorage.setItem('@uollet:refreshToken', session.refresh_token);
-    }
-
     setUser(user);
-    localStorage.setItem('@uollet:user', JSON.stringify(user));
     sessionStorage.setItem('@uollet:token', session.access_token);
     sessionStorage.setItem('@uollet:refreshToken', session.refresh_token);
   }
@@ -171,7 +162,6 @@ export function AuthProvider({ children }: any) {
         if (!data) return;
 
         setUser(data);
-        localStorage.setItem('@uollet:user', JSON.stringify(data));
       } catch (error) {
         toast.error('Erro ao buscar informações do usuário', {
           id: 'error',
@@ -231,7 +221,6 @@ export function AuthProvider({ children }: any) {
         logOut,
         user,
         setUser,
-        storageUser,
         signed: isSignedIn(),
         hasOtp: hasOtp(),
         hasMFA: hasMFA(),

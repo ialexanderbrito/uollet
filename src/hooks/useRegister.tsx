@@ -17,7 +17,7 @@ export function useRegister() {
   const { id } = useParams();
   const navigate = useNavigate();
   const { toast } = useToast();
-  const { storageUser } = useAuth();
+  const { user } = useAuth();
 
   const [isRecurring, setIsRecurring] = useState(false);
   const [openModalRecurringRevenue, setOpenModalRecurringRevenue] =
@@ -125,7 +125,7 @@ export function useRegister() {
         category: formik.values.category.name,
         date: format(new Date(novaData), 'yyyy-MM-dd'),
         type: formik.values.type,
-        user_id: storageUser?.id,
+        user_id: user?.id,
       });
     }
 
@@ -204,7 +204,7 @@ export function useRegister() {
               category: values.category.name,
               date: format(new Date(values.date), 'yyyy-MM-dd'),
               type: values.type,
-              user_id: storageUser?.id,
+              user_id: user?.id,
             },
           ]);
 
@@ -215,7 +215,7 @@ export function useRegister() {
                 {
                   title: values.title,
                   recurrency: values.recurrency,
-                  user_id: storageUser?.id,
+                  user_id: user?.id,
                   value: verifyIfIsNumber(values.value)
                     ? values.value
                     : convertVirgulaToPonto(values.value),
@@ -245,6 +245,7 @@ export function useRegister() {
 
           if (values.category.name.startsWith('Meta')) {
             navigate('/goals');
+            sessionStorage.removeItem('@uollet:goal');
             return;
           }
 
@@ -263,10 +264,10 @@ export function useRegister() {
               category: values.category.name,
               date: values.date,
               type: values.type,
-              user_id: storageUser?.id,
+              user_id: user?.id,
             })
             .eq('id', id)
-            .eq('user_id', storageUser?.id);
+            .eq('user_id', user?.id);
 
           if (values.recurrency) {
             const { error: errorRecurrency } = await supabase
@@ -276,7 +277,7 @@ export function useRegister() {
                   id,
                   recurrency: values.recurrency,
                   title: values.title,
-                  user_id: storageUser?.id,
+                  user_id: user?.id,
                   value: verifyIfIsNumber(values.value)
                     ? values.value
                     : convertVirgulaToPonto(values.value),
@@ -286,7 +287,7 @@ export function useRegister() {
                 },
               ])
               .eq('id', id)
-              .eq('user_id', storageUser?.id);
+              .eq('user_id', user?.id);
 
             if (errorRecurrency) {
               toast.error('Erro ao atualizar!', { id: 'error' });
@@ -323,7 +324,7 @@ export function useRegister() {
     const { data } = await supabase
       .from('credit_card_db')
       .select('*')
-      .eq('user_id', storageUser?.id);
+      .eq('user_id', user?.id);
 
     if (!data) return;
 
@@ -359,7 +360,7 @@ export function useRegister() {
     const { data } = await supabase
       .from('goals_db')
       .select('*')
-      .eq('user_id', storageUser?.id);
+      .eq('user_id', user?.id);
 
     if (!data) return;
 
@@ -393,7 +394,7 @@ export function useRegister() {
       .from('finances_db')
       .select('*')
       .eq('id', id)
-      .eq('user_id', storageUser?.id);
+      .eq('user_id', user?.id);
 
     if (!data) return;
 
@@ -401,7 +402,7 @@ export function useRegister() {
       .from('finances_recurrency_db')
       .select('*')
       .eq('title', data[0].title)
-      .eq('user_id', storageUser?.id);
+      .eq('user_id', user?.id);
 
     if (!recurrencyData) return;
 
