@@ -5,18 +5,13 @@ import { useFormik } from 'formik';
 import { OrdersProp } from 'interfaces/OrdersProps';
 import * as Yup from 'yup';
 
-import {
-  formatCellPhone,
-  removeMaskCEP,
-  removeMaskCPF,
-  stateNameToId,
-} from 'utils';
+import { removeMaskCEP } from 'utils';
 
 import { useAuth } from 'contexts/Auth';
 import { useToast } from 'contexts/Toast';
 
 import { api } from 'services/api';
-import { getOrdersList, updateCustomer } from 'services/payments';
+import { getOrdersList } from 'services/payments';
 import { supabase } from 'services/supabase';
 
 export function useProfile() {
@@ -51,7 +46,7 @@ export function useProfile() {
       password: '',
       confirmPassword: '',
     },
-    onSubmit: async () => {},
+    onSubmit: async () => { },
   });
 
   const formikAddress = useFormik({
@@ -65,84 +60,91 @@ export function useProfile() {
       zipCode: user?.user_metadata.address?.zipCode || '',
     },
     validationSchema: schemaUpdateUser,
-    onSubmit: async (values) => {
-      setLoading(true);
-
-      if (!user) return;
-      if (!user.user_metadata.customer_id) return;
-
-      if (
-        formikUpdateUser.values.password !==
-        formikUpdateUser.values.confirmPassword
-      ) {
-        toast.error('As senhas não coincidem', { id: 'updateUser' });
-        setLoading(false);
-        return;
-      }
-
-      const newValues = {
-        firstName: formikUpdateUser.values.name || '',
-        surname: user?.user_metadata.last_name || '',
-        identificationNumber:
-          removeMaskCPF(user.user_metadata.identification_number) || '',
-        birthdate: user?.user_metadata.birthdate || '',
-        email: formikUpdateUser.values.email || '',
-        phone: formatCellPhone(formikUpdateUser.values.phone) || '',
-        address: {
-          street: values.street,
-          number: values.number,
-          zipcode: removeMaskCEP(values.zipCode),
-          reference: values.reference,
-          district: values.district,
-          city: values.city,
-          state: stateNameToId(values.state),
-          country: 0,
-        },
-      };
-
-      const { data, error } = await supabase.auth.updateUser({
-        email: formikUpdateUser.values.email,
-        password: formikUpdateUser.values.password || undefined,
-        data: {
-          name: formikUpdateUser.values.name,
-          full_name: formikUpdateUser.values.name,
-          phone: formikUpdateUser.values.phone,
-          address: {
-            street: values.street,
-            number: values.number,
-            reference: values.reference,
-            district: values.district,
-            city: values.city,
-            state: values.state,
-            zipCode: values.zipCode,
-          },
-        },
-      });
-
-      const { data: updateUser } = await updateCustomer(
-        newValues,
-        user?.user_metadata.customer_id,
-      );
-
-      if (!data) return;
-      if (!updateUser) return;
-
-      if (error) {
-        toast.error('Erro ao atualizar dados, tente novamente', {
-          id: 'updateUser',
-        });
-        setLoading(false);
-        return;
-      }
-
-      setUser(data.user);
-
-      toast.success('Dados atualizados com sucesso', { id: 'updateUser' });
-      setLoading(false);
-
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    },
+    onSubmit: async () => { },
   });
+
+  async function updateUser() {
+    setLoading(true);
+
+    if (!user) return;
+
+    if (
+      formikUpdateUser.values.password !==
+      formikUpdateUser.values.confirmPassword
+    ) {
+      toast.error('As senhas não coincidem', { id: 'updateUser' });
+      setLoading(false);
+      return;
+    }
+
+    const { data, error } = await supabase.auth.updateUser({
+      email: formikUpdateUser.values.email,
+      password: formikUpdateUser.values.password || undefined,
+      data: {
+        name: formikUpdateUser.values.name,
+        full_name: formikUpdateUser.values.name,
+        phone: formikUpdateUser.values.phone,
+      },
+    });
+
+    if (error) {
+      toast.error('Erro ao atualizar dados, tente novamente', {
+        id: 'updateUser',
+      });
+      setLoading(false);
+      return;
+    }
+
+    if (!data) return;
+
+    setUser(data.user);
+
+    toast.success('Dados atualizados com sucesso', { id: 'updateUser' });
+    setLoading(false);
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  async function updateUserAddress() {
+    setLoading(true);
+
+    if (!user) return;
+    const { data, error } = await supabase.auth.updateUser({
+      email: formikUpdateUser.values.email,
+      password: formikUpdateUser.values.password || undefined,
+      data: {
+        name: formikUpdateUser.values.name,
+        full_name: formikUpdateUser.values.name,
+        phone: formikUpdateUser.values.phone,
+        address: {
+          street: formikAddress.values.street,
+          number: formikAddress.values.number,
+          reference: formikAddress.values.reference,
+          district: formikAddress.values.district,
+          city: formikAddress.values.city,
+          state: formikAddress.values.state,
+          zipCode: formikAddress.values.zipCode,
+        },
+      },
+    });
+
+    if (error) {
+      toast.error('Erro ao atualizar dados, tente novamente', {
+        id: 'updateUser',
+      });
+      setLoading(false);
+      return;
+    }
+
+    if (!data) return;
+
+    setUser(data.user);
+
+    toast.success('Dados atualizados com sucesso', { id: 'updateUser' });
+    setLoading(false);
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
 
   async function deleteUser(id: string) {
     try {
@@ -311,6 +313,66 @@ export function useProfile() {
     }
   }
 
+  async function linkProviderGoogle() {
+    if (!user) return;
+
+    try {
+      const { error } = await supabase.auth.linkIdentity({
+        provider: 'google',
+      });
+
+      if (error) {
+        toast.error('Não foi possível vincular sua conta do Google', {
+          id: 'linkProviderGoogle',
+        });
+      }
+    } catch (error) {
+      toast.error('Não foi possível vincular sua conta do Google', {
+        id: 'linkProviderGoogle',
+      });
+    }
+  }
+
+  async function unlinkProviderGoogle() {
+    if (!user) return;
+
+    try {
+      const { data: dataIdentities } = await supabase.auth.getUserIdentities();
+
+      const googleIdentity = dataIdentities?.identities.find(
+        (identity) => identity.provider === 'google',
+      );
+
+      if (!googleIdentity) return;
+
+      const { data, error } =
+        await supabase.auth.unlinkIdentity(googleIdentity);
+
+      if (error) {
+        toast.error('Não foi possível desvincular sua conta do Google', {
+          id: 'unlinkProviderGoogle',
+        });
+        return;
+      }
+
+      if (data) {
+        toast.success('Conta do Google desvinculada com sucesso', {
+          id: 'unlinkProviderGoogle',
+        });
+
+        supabase.auth.refreshSession();
+
+        setTimeout(() => {
+          navigate(0);
+        }, 1000);
+      }
+    } catch (error) {
+      toast.error('Não foi possível desvincular sua conta do Google', {
+        id: 'unlinkProviderGoogle',
+      });
+    }
+  }
+
   useEffect(() => {
     getOrdersListUser();
   }, []);
@@ -329,5 +391,9 @@ export function useProfile() {
     handleChangeCEP,
     disabledStreet,
     orders,
+    updateUserAddress,
+    updateUser,
+    linkProviderGoogle,
+    unlinkProviderGoogle,
   };
 }
