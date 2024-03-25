@@ -67,6 +67,7 @@ export function Goals() {
             {goals.map((item) => (
               <>
                 <MetaList
+                  key={item.id}
                   meta={item}
                   onDelete={() => {
                     handleOpenModal();
