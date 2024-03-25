@@ -163,8 +163,8 @@ export function GoalsDetails() {
             <Button
               type="submit"
               onClick={() => {
-                navigate('/register');
                 sessionStorage.setItem('@uollet:goal', `Meta ${id}`);
+                navigate('/register');
               }}
               disabled={dateFinalExpired()}
             >

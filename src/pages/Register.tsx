@@ -72,7 +72,6 @@ export function Register() {
       emoji: '🎯',
       id: '',
     });
-    sessionStorage.removeItem('@uollet:goal');
   }
 
   if (loadindConfigCat || loadindConfigCatnnouncement) {
