@@ -46,7 +46,7 @@ export function useProfile() {
       password: '',
       confirmPassword: '',
     },
-    onSubmit: async () => { },
+    onSubmit: async () => {},
   });
 
   const formikAddress = useFormik({
@@ -60,7 +60,7 @@ export function useProfile() {
       zipCode: user?.user_metadata.address?.zipCode || '',
     },
     validationSchema: schemaUpdateUser,
-    onSubmit: async () => { },
+    onSubmit: async () => {},
   });
 
   async function updateUser() {
