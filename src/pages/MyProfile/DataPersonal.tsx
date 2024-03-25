@@ -24,6 +24,7 @@ export function DataPersonal() {
     handleChangeCEP,
     disabledStreet,
     loading,
+    updateUserAddress,
   } = useProfile();
 
   if (loadindConfigCat) {
@@ -117,7 +118,7 @@ export function DataPersonal() {
         />
       </div>
       <div className="flex w-full flex-col items-center justify-end gap-4">
-        <Button type="submit">
+        <Button onClick={() => updateUserAddress()}>
           {loading ? <Jelly size={20} color="#fff" /> : 'Salvar alterações'}
         </Button>
       </div>
