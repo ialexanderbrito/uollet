@@ -1,5 +1,3 @@
-import { useNavigate } from 'react-router-dom';
-
 import { Crown, Eye, EyeClosed, GoogleLogo, Key } from '@phosphor-icons/react';
 import { Jelly } from '@uiball/loaders';
 
@@ -11,15 +9,10 @@ import { Input } from 'components/Input';
 import { formatCellPhone } from 'utils';
 
 import { useAuth } from 'contexts/Auth';
-import { useToast } from 'contexts/Toast';
 
 import { useProfile } from 'hooks/useProfile';
 
-import { supabase } from 'services/supabase';
-
 export function DataAccess() {
-  const { toast } = useToast();
-
   const { user, isPlanActive } = useAuth();
   const {
     formikUpdateUser,
@@ -30,68 +23,10 @@ export function DataAccess() {
     hasSuccessImage,
     setHasSuccessImage,
     loading,
+    updateUser,
+    linkProviderGoogle,
+    unlinkProviderGoogle,
   } = useProfile();
-  const navigate = useNavigate();
-
-  async function linkProviderGoogle() {
-    if (!user) return;
-
-    try {
-      const { error } = await supabase.auth.linkIdentity({
-        provider: 'google',
-      });
-
-      if (error) {
-        toast.error('Não foi possível vincular sua conta do Google', {
-          id: 'linkProviderGoogle',
-        });
-      }
-    } catch (error) {
-      toast.error('Não foi possível vincular sua conta do Google', {
-        id: 'linkProviderGoogle',
-      });
-    }
-  }
-
-  async function unlinkProviderGoogle() {
-    if (!user) return;
-
-    try {
-      const { data: dataIdentities } = await supabase.auth.getUserIdentities();
-
-      const googleIdentity = dataIdentities?.identities.find(
-        (identity) => identity.provider === 'google',
-      );
-
-      if (!googleIdentity) return;
-
-      const { data, error } =
-        await supabase.auth.unlinkIdentity(googleIdentity);
-
-      if (error) {
-        toast.error('Não foi possível desvincular sua conta do Google', {
-          id: 'unlinkProviderGoogle',
-        });
-        return;
-      }
-
-      if (data) {
-        toast.success('Conta do Google desvinculada com sucesso', {
-          id: 'unlinkProviderGoogle',
-        });
-
-        supabase.auth.refreshSession();
-
-        setTimeout(() => {
-          navigate(0);
-        }, 1000);
-      }
-    } catch (error) {
-      toast.error('Não foi possível desvincular sua conta do Google', {
-        id: 'unlinkProviderGoogle',
-      });
-    }
-  }
 
   return (
     <>
@@ -206,7 +141,7 @@ export function DataAccess() {
         </div>
       </div>
       <div className="flex w-full flex-col items-center justify-end gap-4">
-        <Button type="submit">
+        <Button onClick={() => updateUser()}>
           {loading ? <Jelly size={20} color="#fff" /> : 'Salvar alterações'}
         </Button>
       </div>
