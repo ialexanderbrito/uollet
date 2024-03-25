@@ -1,3 +1,17 @@
+## [3.14.2](https://github.com/ialexanderbrito/finance/compare/v3.14.1...v3.14.2) (2024-03-25)
+
+
+### Bug Fixes
+
+* add key in map ([3f899fc](https://github.com/ialexanderbrito/finance/commit/3f899fcd322662470c5a87beef0835e0202231da))
+* currency default input ([d5e9879](https://github.com/ialexanderbrito/finance/commit/d5e98799d634edc9bb67ad45d452bb5401691cc4))
+* function update address ([1345b7d](https://github.com/ialexanderbrito/finance/commit/1345b7dfeb32f96e82b0aca4266b5dc922dd29df))
+* goals ([be1aaef](https://github.com/ialexanderbrito/finance/commit/be1aaef5ce218b7cef57e7685c5f07a968f083db))
+* lint ([d6f9eb4](https://github.com/ialexanderbrito/finance/commit/d6f9eb4078c384bc69034f676f12787ecf35e079))
+* remove storeged user ([1e563fb](https://github.com/ialexanderbrito/finance/commit/1e563fbeb002ce0539431183eacef872fa8ddf74))
+* update profile hook ([7281941](https://github.com/ialexanderbrito/finance/commit/72819412c7f230568c9f2e4aeef5ab8bd2218e4a))
+* update user and remove function unlink google ([bc94a4c](https://github.com/ialexanderbrito/finance/commit/bc94a4c39eec08be3d4a0e1da32bd0f68826aeaa))
+
 ## [3.14.1](https://github.com/ialexanderbrito/finance/compare/v3.14.0...v3.14.1) (2024-03-21)
 
 
