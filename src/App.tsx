@@ -15,10 +15,12 @@ import 'react-tooltip/dist/react-tooltip.css';
 import 'swiper/css';
 
 export function App() {
-  Crisp.setHideOnMobile(true);
-  Crisp.configure(import.meta.env.VITE_CRISP_ID);
+  if (import.meta.env.MODE === 'production') {
+    Crisp.setHideOnMobile(true);
+    Crisp.configure(import.meta.env.VITE_CRISP_ID);
 
-  clarity.init(import.meta.env.VITE_MICROSOFT_CLARITY_ID);
+    clarity.init(import.meta.env.VITE_MICROSOFT_CLARITY_ID);
+  }
 
   return (
     <ConfigCatProvider
