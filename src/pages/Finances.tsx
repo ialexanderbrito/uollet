@@ -99,7 +99,6 @@ export function Finances() {
           visible={areValueVisible}
           className="bg-background-card text-title dark:bg-background-card-dark dark:text-title-dark"
         />
-
         <Card
           title="Saidas"
           icon={outcome}
@@ -108,7 +107,6 @@ export function Finances() {
           visible={areValueVisible}
           className="bg-background-card text-title dark:bg-background-card-dark dark:text-title-dark"
         />
-
         <Card
           title="Total"
           icon={total}

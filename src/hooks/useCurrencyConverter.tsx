@@ -13,8 +13,11 @@ export function useCurrencyConverter() {
   const [updateCurrencyDate, setUpdateCurrencyDate] = useState('');
   const [changeCurrency, setChangeCurrency] = useState(false);
   const [swapCurrency, setSwapCurrency] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   async function getCurrencyConverter() {
+    setLoading(true);
+
     if (changeCurrency) {
       const currencyOriginTemp = currencyOrigin;
       const currencyDestinationTemp = currencyDestination;
@@ -51,6 +54,8 @@ export function useCurrencyConverter() {
       toast.error('Erro ao converter moedas. Tente novamente.', {
         id: 'error',
       });
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -100,5 +105,6 @@ export function useCurrencyConverter() {
     swapCurrency,
     setSwapCurrency,
     handleSwapCurrency,
+    loading,
   };
 }
