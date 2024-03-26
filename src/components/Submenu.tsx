@@ -24,10 +24,10 @@ export function Submenu({
   return (
     <>
       <div
-        className="flex w-full cursor-pointer flex-row items-center justify-center gap-2"
+        className="flex h-24 w-full cursor-pointer flex-row items-center justify-center gap-2 rounded-lg border border-gray-200 bg-background-card transition hover:bg-background-card/95 dark:border-gray-700 dark:bg-background-card-dark"
         onClick={onClick}
       >
-        <div className="text-md flex w-full flex-row items-center justify-start gap-2">
+        <div className="text-md ml-4 flex w-full flex-row items-center justify-start gap-2">
           {icon}
           {title}
 
@@ -42,7 +42,7 @@ export function Submenu({
             <CaretRight
               size={20}
               weight="light"
-              className="text-primary dark:text-white"
+              className="mr-4 text-primary dark:text-white"
             />
           )}
         </div>
