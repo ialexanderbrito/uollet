@@ -1,6 +1,17 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import {
+  ChatText,
+  Confetti,
+  CreditCard,
+  Keyhole,
+  LockKey,
+  Scroll,
+  Sun,
+  Toolbox,
+} from '@phosphor-icons/react';
+import { Crisp } from 'crisp-sdk-web';
 import { useFormik } from 'formik';
 import { OrdersProp } from 'interfaces/OrdersProps';
 import * as Yup from 'yup';
@@ -14,10 +25,25 @@ import { api } from 'services/api';
 import { getOrdersList } from 'services/payments';
 import { supabase } from 'services/supabase';
 
+import { useInvestments } from './useInvestments';
+import { useTransactions } from './useTransactions';
+
 export function useProfile() {
   const navigate = useNavigate();
   const { toast } = useToast();
   const { user, setUser, logOut } = useAuth();
+
+  const { allTotal, getTransactionsValuesTotal } = useTransactions();
+  const {
+    allTotalInvestiments,
+    getTransactionsValuesTotal: getTransactionsValuesTotalInvestiments,
+  } = useInvestments();
+
+  const [openModalSuport, setOpenModalSuport] = useState(false);
+  const [openModalMFA, setOpenModalMFA] = useState(false);
+  const [openModalOtp, setOpenModalOtp] = useState(false);
+  const [openModalPayments, setOpenModalPayments] = useState(false);
+  const [openModalTools, setOpenModalTools] = useState(false);
 
   const [loadingImage, setLoadingImage] = useState(false);
   const [passwordType, setPasswordType] = useState('password');
@@ -31,6 +57,17 @@ export function useProfile() {
       setPasswordType('text');
     } else {
       setPasswordType('password');
+    }
+  }
+
+  function handleOpenModalSuport() {
+    setOpenModalSuport(true);
+  }
+
+  function handleOpenCrisp() {
+    if (import.meta.env.MODE === 'production') {
+      Crisp.setHideOnMobile(false);
+      Crisp.chat.open();
     }
   }
 
@@ -373,8 +410,87 @@ export function useProfile() {
     }
   }
 
+  const menus = [
+    {
+      id: 1,
+      icon: <CreditCard size={20} weight="light" />,
+      title: 'Cartões de crédito',
+      onClick: () => navigate('/cards'),
+      arrow: true,
+    },
+    {
+      id: 2,
+      icon: <Confetti size={20} weight="light" />,
+      title: 'Metas',
+      onClick: () => navigate('/goals'),
+      arrow: true,
+    },
+    {
+      id: 3,
+      icon: <Scroll size={20} weight="light" />,
+      title: 'Contas Fixas',
+      onClick: () => navigate('/recurrency'),
+      arrow: true,
+    },
+    {
+      id: 4,
+      icon: <Toolbox size={20} weight="light" />,
+      title: 'Ferramentas',
+      onClick: () => setOpenModalTools(true),
+      arrow: true,
+    },
+    {
+      id: 5,
+      icon: <Keyhole size={20} weight="light" />,
+      title: 'Autenticação de dois fatores',
+      onClick: () => {
+        setOpenModalMFA(true);
+      },
+      arrow: true,
+      beta: true,
+    },
+    {
+      id: 6,
+      icon: <LockKey size={20} weight="light" />,
+      title: 'PIN de acesso rápido',
+      onClick: () => setOpenModalOtp(true),
+      arrow: true,
+    },
+    {
+      id: 7,
+      icon: <ChatText size={20} weight="light" />,
+      title: 'Chat',
+      onClick: () => {
+        handleOpenCrisp();
+      },
+      arrow: true,
+      beta: true,
+    },
+    {
+      id: 8,
+      icon: <Sun size={20} weight="light" />,
+      title: 'Tema do app',
+      switchTheme: true,
+    },
+  ];
+
+  if (import.meta.env.MODE === 'production') {
+    Crisp.chat.onChatClosed(() => {
+      Crisp.setHideOnMobile(true);
+    });
+  }
+
   useEffect(() => {
+    if (window.location.pathname === '/profile') return;
+
     getOrdersListUser();
+  }, []);
+
+  useEffect(() => {
+    if (window.location.pathname === '/profile') {
+      getTransactionsValuesTotal();
+      getTransactionsValuesTotalInvestiments();
+    }
   }, []);
 
   return {
@@ -395,5 +511,19 @@ export function useProfile() {
     updateUser,
     linkProviderGoogle,
     unlinkProviderGoogle,
+    handleOpenModalSuport,
+    allTotal,
+    allTotalInvestiments,
+    openModalSuport,
+    openModalMFA,
+    openModalOtp,
+    openModalPayments,
+    setOpenModalPayments,
+    openModalTools,
+    menus,
+    setOpenModalSuport,
+    setOpenModalMFA,
+    setOpenModalOtp,
+    setOpenModalTools,
   };
 }
