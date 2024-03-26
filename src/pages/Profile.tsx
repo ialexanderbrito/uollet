@@ -1,21 +1,12 @@
-import { useEffect, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { RWebShare } from 'react-web-share';
 
 import {
-  ChatText,
-  Confetti,
-  CreditCard,
   Crown,
   Eye,
   EyeClosed,
-  Info,
-  Keyhole,
-  LockKey,
   Power,
-  Scroll,
   SketchLogo,
-  Sun,
 } from '@phosphor-icons/react';
 import defaultAvatar from 'assets/default_user_avatar.png';
 import { income, outcome } from 'assets/icons';
@@ -25,9 +16,9 @@ import {
   creditCardIllustration,
   savingsIllustration,
   welcomeIllustration,
+  supportIllustration,
 } from 'assets/illustrations';
 import { useFeatureFlag } from 'configcat-react';
-import { Crisp } from 'crisp-sdk-web';
 
 import { Banner } from 'components/Banner';
 import { BottomNavigator } from 'components/BottomNavigator';
@@ -37,62 +28,54 @@ import { Header } from 'components/Header';
 import { Loading } from 'components/Loading';
 import { MyDialog } from 'components/Modal';
 import { useModal } from 'components/Modal/useModal';
+import { StockScroll } from 'components/StockScroll';
 import { Submenu } from 'components/Submenu';
+import { Tools } from 'components/Tools';
 
 import { cn } from 'utils/cn';
 import { formatCurrency } from 'utils/formatCurrency';
 
 import { useAuth } from 'contexts/Auth';
 
-import { useInvestments } from 'hooks/useInvestments';
 import { useOtp } from 'hooks/useOtp';
-import { useTransactions } from 'hooks/useTransactions';
+import { useProfile } from 'hooks/useProfile';
 
 import { Payments } from './Payments';
 
 export function Profile() {
+  const navigate = useNavigate();
+
   const { loading: loadindConfigCat, value: showPaymentsFeature } =
     useFeatureFlag('page_payments', false);
-  const navigate = useNavigate();
+
+  const { copyToClipboard } = useModal();
+  const { deleteOtp } = useOtp();
+
+  const {
+    handleOpenModalSuport,
+    loading,
+    allTotal,
+    allTotalInvestiments,
+    openModalSuport,
+    openModalMFA,
+    openModalOtp,
+    openModalPayments,
+    setOpenModalPayments,
+    openModalTools,
+    menus,
+    setOpenModalSuport,
+    setOpenModalMFA,
+    setOpenModalOtp,
+    setOpenModalTools,
+  } = useProfile();
   const {
     user,
     logOut,
     areValueVisible,
     toggleValueVisibility,
-    hasOtp,
     isPlanActive,
+    hasOtp,
   } = useAuth();
-
-  const { deleteOtp } = useOtp();
-  const { copyToClipboard } = useModal();
-  const { loading, allTotal, getTransactionsValuesTotal } = useTransactions();
-  const {
-    allTotalInvestiments,
-    getTransactionsValuesTotal: getTransactionsValuesTotalInvestiments,
-  } = useInvestments();
-
-  const [openModalSuport, setOpenModalSuport] = useState(false);
-  const [openModalMFA, setOpenModalMFA] = useState(false);
-  const [openModalOtp, setOpenModalOtp] = useState(false);
-  const [openModalPayments, setOpenModalPayments] = useState(false);
-
-  function handleOpenModalSuport() {
-    setOpenModalSuport(true);
-  }
-
-  function handleOpenCrisp() {
-    Crisp.setHideOnMobile(false);
-    Crisp.chat.open();
-  }
-
-  Crisp.chat.onChatClosed(() => {
-    Crisp.setHideOnMobile(true);
-  });
-
-  useEffect(() => {
-    getTransactionsValuesTotal();
-    getTransactionsValuesTotalInvestiments();
-  }, []);
 
   if (loading || loadindConfigCat) {
     return <Loading />;
@@ -105,7 +88,7 @@ export function Profile() {
       <div className="flex min-h-[95vh] w-full flex-col gap-4 p-4">
         <Link
           to={`/profile/${user?.id}`}
-          className="flex h-16 cursor-pointer flex-row items-center justify-start gap-4 rounded-lg bg-background-card dark:bg-background-card-dark"
+          className="flex h-16 cursor-pointer flex-row items-center justify-start gap-4 rounded-lg border border-gray-200 bg-background-card dark:border-gray-700 dark:bg-background-card-dark"
         >
           <img
             src={user?.user_metadata.avatar_url || defaultAvatar}
@@ -128,7 +111,7 @@ export function Profile() {
             </p>
           </div>
         </Link>
-        <div className="flex h-16 flex-row items-center justify-start gap-4 rounded-lg bg-background-card dark:bg-background-card-dark">
+        <div className="flex h-16 flex-row items-center justify-start gap-4 rounded-lg border border-gray-200 bg-background-card dark:border-gray-700 dark:bg-background-card-dark">
           <div
             className="ml-4 flex cursor-pointer items-center gap-2 text-title dark:text-title-dark"
             onClick={() => toggleValueVisibility()}
@@ -185,128 +168,84 @@ export function Profile() {
           </div>
         )}
 
-        <div className="flex w-full min-w-full gap-4 overflow-y-hidden overflow-x-scroll p-1 scrollbar-hide md:overflow-x-auto">
-          <Banner
-            title="Seja bem vindo(a) ao uollet!"
-            img={welcomeIllustration}
-            className="bg-[#1da1f3]"
-          />
+        <div className="flex w-full min-w-full overflow-y-hidden overflow-x-scroll scrollbar-hide md:overflow-x-auto">
+          <StockScroll className="flex md:hidden">
+            <RWebShare
+              data={{
+                text: 'Conheça o uollet, um app para controle de finanças pessoais!',
+                url: import.meta.env.VITE_URL_LANDING_PAGE,
+                title: 'uollet',
+              }}
+            >
+              <Banner
+                title=" Convide seus amigos para usar o uollet!"
+                img={connectionIllustration}
+                className="bg-[#fbbb02]"
+              />
+            </RWebShare>
 
-          <Banner
-            title="Comece a controlar suas finanças agora mesmo!"
-            img={savingsIllustration}
-            onClick={() => navigate('/register')}
-            className="bg-[#01eefe]"
-          />
-
-          <Banner
-            title="Cadastre suas metas financeiras e alcance seus objetivos!"
-            img={goalsIllustration}
-            onClick={() => navigate('/register/goals')}
-            className="bg-[#c8a2c8]"
-          />
-
-          <RWebShare
-            data={{
-              text: 'Conheça o uollet, um app para controle de finanças pessoais!',
-              url: import.meta.env.VITE_URL_LANDING_PAGE,
-              title: 'uollet',
-            }}
-          >
             <Banner
-              title=" Convide seus amigos para usar o uollet!"
-              img={connectionIllustration}
-              className="bg-[#fbbb02]"
+              title="Veja sua carteira e sua evolução financeira!"
+              img={welcomeIllustration}
+              className="bg-[#1da1f3]"
+              onClick={() => navigate('/wallet')}
             />
-          </RWebShare>
 
-          <Banner
-            title="Gerencie suas compras feitas no cartão de crédito!"
-            img={creditCardIllustration}
-            onClick={() => navigate('/cards')}
-            className="bg-[#01e59a]"
-          />
+            <Banner
+              title="Comece a controlar suas finanças agora mesmo!"
+              img={savingsIllustration}
+              onClick={() => navigate('/register')}
+              className="bg-[#01eefe]"
+            />
+
+            <Banner
+              title="Cadastre suas metas financeiras e alcance seus objetivos!"
+              img={goalsIllustration}
+              onClick={() => navigate('/register/goals')}
+              className="bg-[#c8a2c8]"
+            />
+
+            <Banner
+              title="Gerencie suas compras feitas no cartão de crédito!"
+              img={creditCardIllustration}
+              onClick={() => navigate('/cards')}
+              className="bg-[#01e59a]"
+            />
+
+            <Banner
+              title="Precisa de ajuda? Fale com a gente! Mande um email para suporte!"
+              img={supportIllustration}
+              onClick={() => handleOpenModalSuport()}
+              className="bg-[#ff725e]"
+            />
+          </StockScroll>
         </div>
-        <div className="mt-4 flex flex-col items-start justify-center gap-4 text-title dark:text-title-dark">
-          <Submenu
-            icon={<CreditCard size={20} weight="light" />}
-            title="Cartões de crédito"
-            onClick={() => navigate('/cards')}
-            arrow
-            divider
-          />
-
-          <Submenu
-            icon={<Confetti size={20} weight="light" />}
-            title="Metas"
-            onClick={() => navigate('/goals')}
-            arrow
-            divider
-          />
-
-          <Submenu
-            icon={<Scroll size={20} weight="light" />}
-            title="Contas Fixas"
-            onClick={() => navigate('/recurrency')}
-            arrow
-            divider
-          />
-
-          <Submenu
-            icon={<Keyhole size={20} weight="light" />}
-            title="Autenticação de dois fatores"
-            onClick={() => {
-              setOpenModalMFA(true);
-            }}
-            arrow
-            divider
-            beta
-          />
-
-          <Submenu
-            icon={<LockKey size={20} weight="light" />}
-            title="PIN de acesso rápido"
-            onClick={() => setOpenModalOtp(true)}
-            arrow
-            divider
-          />
-
-          <Submenu
-            icon={<ChatText size={20} weight="light" />}
-            title="Chat"
-            onClick={() => {
-              handleOpenCrisp();
-            }}
-            arrow
-            divider
-            beta
-          />
-
-          <Submenu
-            icon={<Info size={20} weight="light" />}
-            title="Suporte"
-            onClick={() => {
-              handleOpenModalSuport();
-            }}
-            arrow
-            divider
-          />
-
-          <Submenu
-            icon={<Sun size={20} weight="light" />}
-            title="Tema do app"
-            divider
-            switchTheme
-          />
-
+        <div className="grid w-full grid-cols-1 gap-2 text-title dark:text-title-dark sm:grid-cols-2 md:grid-cols-3">
+          {menus.map((menu) => (
+            <Submenu
+              key={menu.id}
+              icon={menu.icon}
+              title={menu.title}
+              onClick={menu.onClick}
+              arrow={menu.arrow}
+              switchTheme={menu.switchTheme}
+              beta={menu.beta}
+            />
+          ))}
+        </div>
+        <div className="text-title dark:text-title-dark">
           <Submenu
             icon={<Power size={20} weight="light" className="text-danger" />}
             title="Sair"
             onClick={() => logOut()}
           />
-
-          <div className="mb-14 flex h-6" />
         </div>
+        <div className="mb-10 flex h-6" />
+
+        <Tools
+          openModalTools={openModalTools}
+          setOpenModalTools={setOpenModalTools}
+        />
 
         <MyDialog
           isOpen={openModalSuport}
