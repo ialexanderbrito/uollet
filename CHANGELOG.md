@@ -1,3 +1,20 @@
+# [3.15.0](https://github.com/ialexanderbrito/finance/compare/v3.14.2...v3.15.0) (2024-03-26)
+
+
+### Bug Fixes
+
+* add button and loading ([345d958](https://github.com/ialexanderbrito/finance/commit/345d9585794f58b2d2310ddbf5d0c66d39a2919e))
+* loading currency converter ([ef5a250](https://github.com/ialexanderbrito/finance/commit/ef5a2509edef615386b209fa22471e04b88b974e))
+
+
+### Features
+
+* add component tools ([c8745a2](https://github.com/ialexanderbrito/finance/commit/c8745a2916e6f92c89fc16f4c7525b8d434d4d83))
+* add crisp and clarity just production ([ceba69c](https://github.com/ialexanderbrito/finance/commit/ceba69c94135e8b7a48fc37c48bde1bdb500e20f))
+* add new close button in modal ([d638b40](https://github.com/ialexanderbrito/finance/commit/d638b40dbcd762d7706d58034c55f0c7dd718425))
+* add new illustration ([94f6ff2](https://github.com/ialexanderbrito/finance/commit/94f6ff231fe2449da60f81630ee69780f9a6a483))
+* add props classname in component ([8648906](https://github.com/ialexanderbrito/finance/commit/8648906d17173cacffe6d81c0d0ee6d86130ad5f))
+
 ## [3.14.2](https://github.com/ialexanderbrito/finance/compare/v3.14.1...v3.14.2) (2024-03-25)
 
 
