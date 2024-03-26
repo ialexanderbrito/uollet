@@ -1,6 +1,7 @@
 import { Fragment } from 'react';
 
 import { Dialog, Transition } from '@headlessui/react';
+import { X } from '@phosphor-icons/react';
 
 import { Button } from 'components/Button';
 import { InputError } from 'components/InputError';
@@ -40,6 +41,7 @@ interface MyDialogProps {
     | '5xl'
     | '6xl';
   className?: string;
+  closeButton?: boolean;
 }
 
 export function MyDialog({
@@ -61,6 +63,7 @@ export function MyDialog({
   isInvestiment,
   size,
   className,
+  closeButton,
 }: MyDialogProps) {
   const { toast } = useToast();
   const {
@@ -102,7 +105,6 @@ export function MyDialog({
           >
             <div className="fixed inset-0 bg-black opacity-5" />
           </Transition.Child>
-
           <div className="fixed inset-0 overflow-y-auto">
             <div className="flex min-h-full items-center justify-center p-4 text-center">
               <Transition.Child
@@ -130,13 +132,21 @@ export function MyDialog({
                     size === '6xl' && 'max-w-6xl',
                   )}
                 >
-                  <h3
-                    className={`text-lg font-medium leading-6 text-title dark:text-title-dark ${
-                      about && 'text-center'
-                    }`}
-                  >
-                    {title}
-                  </h3>
+                  <div className="flex justify-between">
+                    <h3
+                      className={`text-lg font-medium leading-6 text-title dark:text-title-dark ${
+                        about && 'text-center'
+                      }`}
+                    >
+                      {title}
+                    </h3>
+                    {closeButton && (
+                      <X
+                        className="h-6 w-6 cursor-pointer text-primary hover:text-primary-dark dark:text-white dark:hover:text-white"
+                        onClick={closeModal}
+                      />
+                    )}
+                  </div>
                   <div className="mt-2">
                     <p className="text-sm text-text dark:text-text-dark">
                       {description}
@@ -149,9 +159,7 @@ export function MyDialog({
                       )}
                     </p>
                   </div>
-
                   {children}
-
                   {name && (
                     <div className="mt-2 flex flex-col items-center gap-2">
                       <input
@@ -173,7 +181,6 @@ export function MyDialog({
                       />
                     </div>
                   )}
-
                   {terms && (
                     <div className="mt-4 flex flex-col gap-2">
                       <div className="flex items-center gap-2">
@@ -209,7 +216,6 @@ export function MyDialog({
                       </div>
                     </div>
                   )}
-
                   <div className="mt-4 flex justify-end">
                     {name && (
                       <Button
@@ -225,7 +231,6 @@ export function MyDialog({
                       </Button>
                     )}
                   </div>
-
                   <div className="mt-4 flex justify-around">
                     {buttonPrimary && (
                       <Button
