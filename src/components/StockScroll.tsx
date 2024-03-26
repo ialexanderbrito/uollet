@@ -2,11 +2,14 @@ import { ReactNode, useEffect, useRef } from 'react';
 
 import { CaretLeft, CaretRight } from '@phosphor-icons/react';
 
+import { cn } from 'utils';
+
 interface StockScrollProps {
   children: ReactNode;
+  className?: string;
 }
 
-export function StockScroll({ children }: StockScrollProps) {
+export function StockScroll({ children, className }: StockScrollProps) {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -64,7 +67,10 @@ export function StockScroll({ children }: StockScrollProps) {
         <div className="relative">
           <button
             type="button"
-            className="absolute left-0 z-10 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-gradient-to-l from-background-card to-transparent dark:from-background-card-dark dark:to-transparent"
+            className={cn(
+              'absolute left-0 z-10 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-gradient-to-l from-background-card to-transparent dark:from-background-card-dark dark:to-transparent',
+              className,
+            )}
             onClick={() => {
               if (scrollContainerRef.current) {
                 scrollContainerRef.current.scrollLeft -= 308;
@@ -93,7 +99,10 @@ export function StockScroll({ children }: StockScrollProps) {
         <div className="relative">
           <button
             type="button"
-            className="absolute right-0 z-10 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-gradient-to-l from-background-card to-transparent dark:from-background-card-dark dark:to-transparent"
+            className={cn(
+              'absolute right-0 z-10 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-gradient-to-l from-background-card to-transparent dark:from-background-card-dark dark:to-transparent',
+              className,
+            )}
             onClick={() => {
               if (scrollContainerRef.current) {
                 scrollContainerRef.current.scrollLeft += 318;
