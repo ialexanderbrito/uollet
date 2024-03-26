@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { CurrencyInput as CurrencyInputMask } from 'react-currency-mask';
 
 import { Swap } from '@phosphor-icons/react';
+import { Jelly } from '@uiball/loaders';
 import { format } from 'date-fns';
 
 import { cn } from 'utils/cn';
@@ -9,6 +10,7 @@ import { nameCoins } from 'utils/nameCoins';
 
 import { useCurrencyConverter } from 'hooks/useCurrencyConverter';
 
+import { Button } from './Button';
 import { MyDialog } from './Modal';
 
 interface CurrencyConverterProps {
@@ -32,6 +34,7 @@ export function CurrencyConverter({
     setCurrencyTotal,
     swapCurrency,
     handleSwapCurrency,
+    loading,
   } = useCurrencyConverter();
 
   useEffect(() => {
@@ -44,11 +47,6 @@ export function CurrencyConverter({
       isOpen={openModalCurrency}
       title="Conversor de moedas"
       description="Corverta moedas e veja o valor atualizado em tempo real. Para isso, basta preencher os campos abaixo."
-      buttonSecondary
-      textButtonSecondary="Converter"
-      handleChangeButtonSecondary={() => {
-        getCurrencyConverter();
-      }}
       size="lg"
     >
       <div className="mt-8 flex flex-col gap-2">
@@ -156,19 +154,20 @@ export function CurrencyConverter({
             </p>
             <span className="text-xs text-text dark:text-text-dark">
               Cotação atualizada em{' '}
-              {format(new Date(updateCurrencyDate), 'dd/MM/yyyy HH:mm')} | Fonte
-              <a
-                href="https://docs.awesomeapi.com.br/api-de-moedas"
-                target="_blank"
-                rel="noreferrer"
-                className="text-primary dark:text-primary-dark"
-              >
-                {' '}
-                AwesomeAPI
-              </a>
+              {format(new Date(updateCurrencyDate), `dd/MM/yyyy 'às' HH:mm`)}
             </span>
           </div>
         )}
+
+        <div className="-mb-10 flex items-center justify-center gap-2">
+          <Button
+            inline
+            onClick={() => getCurrencyConverter()}
+            className="mt-4"
+          >
+            {loading ? <Jelly size={20} color="#fff" /> : 'Converter'}
+          </Button>
+        </div>
       </div>
     </MyDialog>
   );
