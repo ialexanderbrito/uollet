@@ -4,6 +4,7 @@ import errorIllustration from './error.svg';
 import goalsIllustration from './goals.svg';
 import quizIllustration from './quiz.svg';
 import savingsIllustration from './savings.svg';
+import supportIllustration from './support.svg';
 import welcomeIllustration from './welcome.svg';
 
 export {
@@ -14,4 +15,5 @@ export {
   savingsIllustration,
   welcomeIllustration,
   errorIllustration,
+  supportIllustration,
 };
