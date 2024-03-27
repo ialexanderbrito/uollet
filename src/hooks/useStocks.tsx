@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-import { ChartData, ChartDataset } from 'chart.js';
+import { ChartData } from 'chart.js';
 
 import {
   createGradientColor,
@@ -135,7 +135,6 @@ export function useStocks() {
     StocksResultSearch[]
   >([]);
   const [isSearch, setIsSearch] = useState(false);
-  const [filter, setFilter] = useState<'close' | 'high' | 'low'>('close');
 
   const optionsChart = {
     responsive: true,
@@ -588,8 +587,6 @@ export function useStocks() {
     setIsSearch,
     searchStock,
     setStocksResultSearch,
-    filter,
-    setFilter,
     optionsChart,
     chartData,
     fields,
