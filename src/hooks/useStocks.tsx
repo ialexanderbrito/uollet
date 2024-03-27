@@ -163,10 +163,10 @@ export function useStocks() {
     },
     elements: {
       line: {
-        tension: 0.1,
+        tension: 0.3,
       },
       point: {
-        radius: 0,
+        radius: 2,
       },
     },
   };
@@ -176,8 +176,8 @@ export function useStocks() {
       new Date(data?.date * 1000).toLocaleDateString('pt-BR'),
     ),
     datasets: [
-      filter === 'close' && {
-        label: 'Preço atual',
+      {
+        label: 'R$',
         data: stock.historicalDataPrice?.map((data) => data?.close) || [],
         fill: true,
         backgroundColor: createGradientColor(
@@ -188,31 +188,7 @@ export function useStocks() {
         borderColor: '#5636d3',
         borderWidth: 1,
       },
-      filter === 'high' && {
-        label: 'Máxima',
-        data: stock.historicalDataPrice?.map((data) => data?.high) || [],
-        fill: true,
-        backgroundColor: createGradientColor(
-          '#3d24a2',
-          'rgb(61, 36, 162, 0.6)',
-          'rgb(61, 36, 162, 0.2)',
-        ),
-        borderColor: '#3d24a2',
-        borderWidth: 1,
-      },
-      filter === 'low' && {
-        label: 'Mínima',
-        data: stock.historicalDataPrice?.map((data) => data?.low) || [],
-        fill: true,
-        backgroundColor: createGradientColor(
-          '#9146ff',
-          'rgb(145, 70, 255, 0.6)',
-          'rgb(145, 70, 255, 0.2)',
-        ),
-        borderColor: '#9146ff',
-        borderWidth: 1,
-      },
-    ].filter(Boolean) as ChartDataset<'line'>[],
+    ],
   };
 
   async function updateFavorites(newFavorites: string[]) {
@@ -377,9 +353,7 @@ export function useStocks() {
   }
 
   async function getRecommendedStocks(stockName = params.stock) {
-    const stock = await api.get(`stock/${stockName}`);
-
-    const language = stock.data.results[0].currency === 'USD' ? 'USD' : 'BRL';
+    const language = stock.currency === 'USD' ? 'USD' : 'BRL';
 
     try {
       const { data } = await api.get(

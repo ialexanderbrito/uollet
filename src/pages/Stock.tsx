@@ -148,26 +148,32 @@ export function Stock() {
             </span>
           </div>
 
-          <div className="flex w-full flex-col text-title dark:text-text-dark">
-            <span className="text-sm">Abertura (dia)</span>
-            <span className="text-xl font-bold">
-              {formatCurrency(stock.regularMarketOpen, stock.currency)}
-            </span>
-          </div>
+          {stock.regularMarketOpen !== 0 && (
+            <div className="flex w-full flex-col text-title dark:text-text-dark">
+              <span className="text-sm">Abertura (dia)</span>
+              <span className="text-xl font-bold">
+                {formatCurrency(stock.regularMarketOpen, stock.currency)}
+              </span>
+            </div>
+          )}
 
-          <div className="flex w-full flex-col text-title dark:text-text-dark">
-            <span className="text-sm">Alta (dia)</span>
-            <span className="text-xl font-bold">
-              {formatCurrency(stock.regularMarketDayHigh, stock.currency)}
-            </span>
-          </div>
+          {stock.regularMarketVolume !== 0 && (
+            <div className="flex w-full flex-col text-title dark:text-text-dark">
+              <span className="text-sm">Alta (dia)</span>
+              <span className="text-xl font-bold">
+                {formatCurrency(stock.regularMarketDayHigh, stock.currency)}
+              </span>
+            </div>
+          )}
 
-          <div className="flex w-full flex-col text-title dark:text-text-dark">
-            <span className="text-sm">Baixa (dia)</span>
-            <span className="text-xl font-bold">
-              {formatCurrency(stock.regularMarketDayLow, stock.currency)}
-            </span>
-          </div>
+          {stock.regularMarketVolume !== 0 && (
+            <div className="flex w-full flex-col text-title dark:text-text-dark">
+              <span className="text-sm">Baixa (dia)</span>
+              <span className="text-xl font-bold">
+                {formatCurrency(stock.regularMarketDayLow, stock.currency)}
+              </span>
+            </div>
+          )}
 
           <div className="flex w-full flex-col">
             <span className="text-sm text-title dark:text-text-dark">
@@ -190,7 +196,9 @@ export function Stock() {
           <div className="flex w-full flex-col text-title dark:text-text-dark">
             <span className="text-sm">Min. 52 Semanas</span>
             <span className="text-xl font-bold">
-              {formatCurrency(stock.fiftyTwoWeekLow, stock.currency)}
+              {stock.fiftyTwoWeekLow !== 0
+                ? formatCurrency(stock.fiftyTwoWeekLow, stock.currency)
+                : '--'}
             </span>
           </div>
 
@@ -256,9 +264,10 @@ export function Stock() {
                       <span className=" text-xs">
                         {stock?.regularMarketTime && (
                           <>
+                            Última atualização{' '}
                             {format(
                               new Date(stock?.regularMarketTime),
-                              'dd/MM/yyyy HH:mm:ss',
+                              `dd/MM/yyyy 'às' HH:mm:ss`,
                             )}
                           </>
                         )}
@@ -314,19 +323,6 @@ export function Stock() {
                   </div>
 
                   <div className="h-[380px] w-full">
-                    <div className="flex flex-row items-center justify-end">
-                      <select
-                        className="rounded-md bg-background-card text-sm dark:bg-background-card-dark"
-                        onChange={(e) =>
-                          setFilter(e.target.value as 'close' | 'high' | 'low')
-                        }
-                        value={filter}
-                      >
-                        <option value="close">Preço atual</option>
-                        <option value="high">Máxima</option>
-                        <option value="low">Mínima</option>
-                      </select>
-                    </div>
                     <h1 className="text-xl font-bold text-title dark:text-text-dark">
                       <Line
                         className="h-[350px] w-full"
