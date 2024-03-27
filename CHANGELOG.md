@@ -1,3 +1,11 @@
+## [3.15.1](https://github.com/ialexanderbrito/finance/compare/v3.15.0...v3.15.1) (2024-03-27)
+
+
+### Bug Fixes
+
+* page stocks grapichs ([7635fad](https://github.com/ialexanderbrito/finance/commit/7635fad1d91e065bca3a614c3df47e154d929d88))
+* remove variable filter ([6fd8007](https://github.com/ialexanderbrito/finance/commit/6fd8007e1fe9be276a2b05b19bef6fc7ef61f05b))
+
 # [3.15.0](https://github.com/ialexanderbrito/finance/compare/v3.14.2...v3.15.0) (2024-03-26)
 
 
